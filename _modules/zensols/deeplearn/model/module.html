@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.model.module &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.model.module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.model.module</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Base class PyTorch module and utilities.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span><span class="p">,</span> <span class="n">ABCMeta</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">zensols.persist</span> <span class="kn">import</span> <span class="n">PersistableContainer</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ModelError</span><span class="p">,</span>
+    <span class="n">NetworkSettings</span><span class="p">,</span>
+    <span class="n">ActivationNetworkSettings</span><span class="p">,</span>
+    <span class="n">DropoutNetworkSettings</span><span class="p">,</span>
+    <span class="n">BatchNormNetworkSettings</span><span class="p">,</span>
+    <span class="n">EarlyBailError</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn.batch</span> <span class="kn">import</span> <span class="n">Batch</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="DebugModule"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.module.DebugModule">[docs]</a><span class="k">class</span> <span class="nc">DebugModule</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A utility base class that makes logging more understandable.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">DEBUG_DEVICE</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="sd">&quot;&quot;&quot;If ``True``, add tensor devices to log messages.&quot;&quot;&quot;</span>
+
+    <span class="n">DEBUG_TYPE</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="sd">&quot;&quot;&quot;If ``True``, add tensor shapes to log messages.&quot;&quot;&quot;</span>
+
+    <span class="n">MODULE_NAME</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;The module name used in the logging message.  This is set in each inherited</span>
+<span class="sd">    class.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DebugModule.__init__"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.module.DebugModule.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub_logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize.</span>
+
+<span class="sd">        :param sub_logger: used to log activity in this module so they logged</span>
+<span class="sd">                           module comes from some parent model</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">sub_logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">sub_logger</span></div>
+
+    <span class="k">def</span> <span class="nf">_debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Debug a message using the module name in the description.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">mname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MODULE_NAME</span>
+            <span class="k">if</span> <span class="n">mname</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">mname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[</span><span class="si">{</span><span class="n">mname</span><span class="si">}</span><span class="s1">] </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_shape_debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Debug a message using the module name in the description and include the</span>
+<span class="sd">        shape.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">shape</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">shape</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s1"> shape: </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEBUG_DEVICE</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;, device: </span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEBUG_TYPE</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;, type: </span><span class="si">{</span><span class="n">dtype</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_bail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A convenience method to assist in debugging.  This is useful when the output</span>
+<span class="sd">        isn&#39;t in the correct form for the :class:`.ModelExecutor`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">EarlyBailError</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="BaseNetworkModule"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule">[docs]</a><span class="k">class</span> <span class="nc">BaseNetworkModule</span><span class="p">(</span><span class="n">DebugModule</span><span class="p">,</span> <span class="n">PersistableContainer</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A utility base network module that contains ubiquitous, but optional layers,</span>
+<span class="sd">    such as dropout and batch layeres, activation, etc.</span>
+
+<span class="sd">    .. document private functions</span>
+<span class="sd">    .. automethod:: _forward</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="BaseNetworkModule.__init__"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net_settings</span><span class="p">:</span> <span class="n">NetworkSettings</span><span class="p">,</span>
+                 <span class="n">sub_logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize.</span>
+
+<span class="sd">        :param net_settings: contains common layers such as droput and batch</span>
+<span class="sd">                             normalization</span>
+
+<span class="sd">        :param sub_logger: used to log activity in this module so they logged</span>
+<span class="sd">                           module comes from some parent model</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">sub_logger</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net_settings</span> <span class="o">=</span> <span class="n">ns</span> <span class="o">=</span> <span class="n">net_settings</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ns</span><span class="p">,</span> <span class="n">DropoutNetworkSettings</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">dropout_layer</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ns</span><span class="p">,</span> <span class="n">BatchNormNetworkSettings</span><span class="p">)</span> <span class="ow">and</span> \
+           <span class="n">ns</span><span class="o">.</span><span class="n">batch_norm_d</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> \
+           <span class="n">ns</span><span class="o">.</span><span class="n">batch_norm_features</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">batch_norm</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">batch_norm_layer</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">batch_norm</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ns</span><span class="p">,</span> <span class="n">ActivationNetworkSettings</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">activation_function</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">_deallocate_children_modules</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_try_deallocate</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Layers should not be pickeled: </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BaseNetworkModule._forward"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule._forward">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Batch</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The model&#39;s forward implementation.  Normal backward semantics are no</span>
+<span class="sd">        different.</span>
+
+<span class="sd">        :param x: the batch or tensor to train, validate or test on; the type</span>
+<span class="sd">                  depends on the needs of the model</span>
+
+<span class="sd">        :param args: additional model specific arguments needed by classes that</span>
+<span class="sd">                     need more context</span>
+
+<span class="sd">        :param kwargs: additional model specific arguments needed by classes</span>
+<span class="sd">                       that need more context</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BaseNetworkModule.device_from_module"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule.device_from_module">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">device_from_module</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the device on which the model is configured.</span>
+
+<span class="sd">        :param module: the module containing the parameters used to get the</span>
+<span class="sd">                       device</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span><span class="o">.</span><span class="n">device</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the device on which the model is configured.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_from_module</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_forward_dropout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Forward the dropout if there is one configured.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dropout: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+    <span class="k">def</span> <span class="nf">_forward_batch_norm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Forward the batch normalization if there is one configured.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_norm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;batch norm: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_norm</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_norm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+    <span class="k">def</span> <span class="nf">_forward_activation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Transform using the activation function if there is one configured.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;activation: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+    <span class="k">def</span> <span class="nf">_forward_drop_batch_act</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Forward dropout, batch norm, and activation, in this order for those layers</span>
+<span class="sd">        that are configured.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_dropout</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_batch_norm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_activation</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+<div class="viewcode-block" id="BaseNetworkModule.forward"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Batch</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Main forward takes a batch for top level modules, or a tensor for framework</span>
+<span class="sd">        based layers.  Return the transformed tensor.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Batch</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;input batch: </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

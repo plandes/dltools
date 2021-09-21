@@ -1,0 +1,43 @@
+zensols.dataset package
+=======================
+
+Submodules
+----------
+
+zensols.dataset.interface
+-------------------------
+.. inheritance-diagram:: zensols.dataset.interface
+   :parts: 1
+
+.. automodule:: zensols.dataset.interface
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.dataset.split
+---------------------
+.. inheritance-diagram:: zensols.dataset.split
+   :parts: 1
+
+.. automodule:: zensols.dataset.split
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.dataset.stash
+---------------------
+.. inheritance-diagram:: zensols.dataset.stash
+   :parts: 1
+
+.. automodule:: zensols.dataset.stash
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: zensols.dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:

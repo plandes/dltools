@@ -1,0 +1,609 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.dataset package &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="zensols.deeplearn package" href="zensols.deeplearn.html" />
+    <link rel="prev" title="zensols.dataframe package" href="zensols.dataframe.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataframe.html">zensols.dataframe package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">zensols.dataset package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-dataset-interface">zensols.dataset.interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-dataset-split">zensols.dataset.split</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-dataset-stash">zensols.dataset.stash</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zensols.dataset">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.html">zensols.deeplearn package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.cli.html">zensols.deeplearn.cli package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+      <li>zensols.dataset package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/zensols.dataset.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="zensols-dataset-package">
+<h1>zensols.dataset package<a class="headerlink" href="#zensols-dataset-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="zensols-dataset-interface">
+<h2>zensols.dataset.interface<a class="headerlink" href="#zensols-dataset-interface" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-87c96cd5fbc24492d22108452a35e0bd8e6b4861.png" alt="Inheritance diagram of zensols.dataset.interface" usemap="#inheritancef2a778f9ae" class="inheritance graphviz" /></div>
+<map id="inheritancef2a778f9ae" name="inheritancef2a778f9ae">
+<area shape="rect" id="node5" href="#zensols.dataset.interface.SplitKeyContainer" target="_top" title="An interface defining a container that partitions data sets (i.e. ``train``" alt="" coords="155,152,282,177"/>
+<area shape="rect" id="node6" href="#zensols.dataset.interface.SplitStashContainer" target="_top" title="An interface like ``SplitKeyContainer``, but whose implementations are of" alt="" coords="76,225,215,251"/>
+</map><span class="target" id="module-zensols.dataset.interface"></span><p>Interfaces used for dealing with dataset splits.</p>
+<dl class="py class">
+<dt id="zensols.dataset.interface.SplitKeyContainer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.dataset.interface.</code><code class="sig-name descname">SplitKeyContainer</code><a class="reference internal" href="../_modules/zensols/dataset/interface.html#SplitKeyContainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.interface.SplitKeyContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<p>An interface defining a container that partitions data sets (i.e. <code class="docutils literal notranslate"><span class="pre">train</span></code>
+vs <code class="docutils literal notranslate"><span class="pre">test</span></code>).  For instances of this class, that data are the unique keys
+that point at the data.</p>
+<dl class="py method">
+<dt id="zensols.dataset.interface.SplitKeyContainer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zensols.dataset.interface.SplitKeyContainer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.interface.SplitKeyContainer.counts_by_key">
+<em class="property">property </em><code class="sig-name descname">counts_by_key</code><a class="headerlink" href="#zensols.dataset.interface.SplitKeyContainer.counts_by_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return data set splits name to count for that respective split.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.interface.SplitKeyContainer.keys_by_split">
+<em class="property">property </em><code class="sig-name descname">keys_by_split</code><a class="headerlink" href="#zensols.dataset.interface.SplitKeyContainer.keys_by_split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a dictionary of split name to keys for that split.  It is expected
+this method will be very expensive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.interface.SplitKeyContainer.split_names">
+<em class="property">property </em><code class="sig-name descname">split_names</code><a class="headerlink" href="#zensols.dataset.interface.SplitKeyContainer.split_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the names of each split in the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.dataset.interface.SplitStashContainer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.dataset.interface.</code><code class="sig-name descname">SplitStashContainer</code><a class="reference internal" href="../_modules/zensols/dataset/interface.html#SplitStashContainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.interface.SplitStashContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.domain.PrimeableStash" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.domain.PrimeableStash</span></code></a>, <a class="reference internal" href="#zensols.dataset.interface.SplitKeyContainer" title="zensols.dataset.interface.SplitKeyContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.dataset.interface.SplitKeyContainer</span></code></a></p>
+<p>An interface like <code class="docutils literal notranslate"><span class="pre">SplitKeyContainer</span></code>, but whose implementations are of
+<code class="docutils literal notranslate"><span class="pre">Stash</span></code> containing the instance data.</p>
+<p>For a default implemetnation, see <a class="reference internal" href="#zensols.dataset.stash.DatasetSplitStash" title="zensols.dataset.stash.DatasetSplitStash"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatasetSplitStash</span></code></a>.</p>
+<dl class="py method">
+<dt id="zensols.dataset.interface.SplitStashContainer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zensols.dataset.interface.SplitStashContainer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.interface.SplitStashContainer.split_name">
+<em class="property">property </em><code class="sig-name descname">split_name</code><a class="headerlink" href="#zensols.dataset.interface.SplitStashContainer.split_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the split this stash contains.  Thus, all data/items
+returned by this stash are in the data set given by this name
+(i.e. <code class="docutils literal notranslate"><span class="pre">train</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.interface.SplitStashContainer.splits">
+<em class="property">property </em><code class="sig-name descname">splits</code><a class="headerlink" href="#zensols.dataset.interface.SplitStashContainer.splits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary with keys as split names and values as the stashes
+represented by that split.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.dataset.interface.SplitStashContainer.split_name" title="zensols.dataset.interface.SplitStashContainer.split_name"><code class="xref py py-meth docutils literal notranslate"><span class="pre">split_name()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.domain.Stash" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Stash</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-dataset-split">
+<h2>zensols.dataset.split<a class="headerlink" href="#zensols-dataset-split" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-f77fe56fb0e45e5af5f290c5a3ac901723ad8df1.png" alt="Inheritance diagram of zensols.dataset.split" usemap="#inheritance78ea692169" class="inheritance graphviz" /></div>
+<map id="inheritance78ea692169" name="inheritance78ea692169">
+<area shape="rect" id="node4" href="#zensols.dataset.interface.SplitKeyContainer" target="_top" title="An interface defining a container that partitions data sets (i.e. ``train``" alt="" coords="5,152,132,177"/>
+<area shape="rect" id="node2" href="#zensols.dataset.split.AbstractSplitKeyContainer" target="_top" title="A default implementation of a :class:`.SplitKeyContainer`. &#160;This" alt="" coords="118,225,294,251"/>
+<area shape="rect" id="node8" href="#zensols.dataset.split.StashSplitKeyContainer" target="_top" title="A default implementation of :class:`.AbstractSplitKeyContainer` that uses a" alt="" coords="125,299,287,324"/>
+</map><span class="target" id="module-zensols.dataset.split"></span><p>Implementations (some abstract) of split key containers.</p>
+<dl class="py class">
+<dt id="zensols.dataset.split.AbstractSplitKeyContainer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.dataset.split.</code><code class="sig-name descname">AbstractSplitKeyContainer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key_path</span></em>, <em class="sig-param"><span class="n">pattern</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/split.html#AbstractSplitKeyContainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.split.AbstractSplitKeyContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.annotation.PersistableContainer" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.annotation.PersistableContainer</span></code></a>, <a class="reference internal" href="#zensols.dataset.interface.SplitKeyContainer" title="zensols.dataset.interface.SplitKeyContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.dataset.interface.SplitKeyContainer</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.domain.Primeable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.domain.Primeable</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.writable.Writable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.writable.Writable</span></code></a></p>
+<p>A default implementation of a <a class="reference internal" href="#zensols.dataset.interface.SplitKeyContainer" title="zensols.dataset.interface.SplitKeyContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SplitKeyContainer</span></code></a>.  This
+implementation keeps the order of the keys consistent as well, which is
+stored at the path given in <a class="reference internal" href="#zensols.dataset.split.AbstractSplitKeyContainer.key_path" title="zensols.dataset.split.AbstractSplitKeyContainer.key_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">key_path</span></code></a>.  Once the keys are generated
+for the first time, they will persist on the file system.</p>
+<p>This abstract class requires an implementation of <a class="reference internal" href="#zensols.dataset.split.AbstractSplitKeyContainer._create_splits" title="zensols.dataset.split.AbstractSplitKeyContainer._create_splits"><code class="xref py py-meth docutils literal notranslate"><span class="pre">_create_splits()</span></code></a>.</p>
+<dl class="py method">
+<dt id="zensols.dataset.split.AbstractSplitKeyContainer._create_splits">
+<em class="property">abstract </em><code class="sig-name descname">_create_splits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/split.html#AbstractSplitKeyContainer._create_splits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.split.AbstractSplitKeyContainer._create_splits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the key splits using keys as the split name (i.e. <code class="docutils literal notranslate"><span class="pre">train</span></code>) and the
+values as a list of the keys for the corresponding split.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.split.AbstractSplitKeyContainer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key_path</span></em>, <em class="sig-param"><span class="n">pattern</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.dataset.split.AbstractSplitKeyContainer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.split.AbstractSplitKeyContainer.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/split.html#AbstractSplitKeyContainer.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.split.AbstractSplitKeyContainer.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.dataset.split.AbstractSplitKeyContainer.key_path">
+<code class="sig-name descname">key_path</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)">pathlib.Path</a></em><a class="headerlink" href="#zensols.dataset.split.AbstractSplitKeyContainer.key_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The directory to store the split keys.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.dataset.split.AbstractSplitKeyContainer.pattern">
+<code class="sig-name descname">pattern</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.dataset.split.AbstractSplitKeyContainer.pattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>The file name pattern to use for the keys file <a class="reference internal" href="#zensols.dataset.split.AbstractSplitKeyContainer.key_path" title="zensols.dataset.split.AbstractSplitKeyContainer.key_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">key_path</span></code></a> on the file
+system, each file is named after the key split.  For example, if
+<code class="docutils literal notranslate"><span class="pre">{name}.dat</span></code> is used, <code class="docutils literal notranslate"><span class="pre">train.dat</span></code> will be a file with the ordered keys.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.split.AbstractSplitKeyContainer.prime">
+<code class="sig-name descname">prime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/split.html#AbstractSplitKeyContainer.prime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.split.AbstractSplitKeyContainer.prime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.split.AbstractSplitKeyContainer.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/split.html#AbstractSplitKeyContainer.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.split.AbstractSplitKeyContainer.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the contents of this instance to <code class="docutils literal notranslate"><span class="pre">writer</span></code> using indention <code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the starting indentation depth</p></li>
+<li><p><strong>writer</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOBase" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a>) – the writer to dump the content of this writable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.dataset.split.StashSplitKeyContainer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.dataset.split.</code><code class="sig-name descname">StashSplitKeyContainer</code><span class="sig-paren">(</span><em class="sig-param">key_path</em>, <em class="sig-param">pattern</em>, <em class="sig-param">stash</em>, <em class="sig-param">distribution=&lt;factory&gt;</em>, <em class="sig-param">shuffle=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/split.html#StashSplitKeyContainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.split.StashSplitKeyContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.dataset.split.AbstractSplitKeyContainer" title="zensols.dataset.split.AbstractSplitKeyContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.dataset.split.AbstractSplitKeyContainer</span></code></a></p>
+<p>A default implementation of <a class="reference internal" href="#zensols.dataset.split.AbstractSplitKeyContainer" title="zensols.dataset.split.AbstractSplitKeyContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractSplitKeyContainer</span></code></a> that uses a
+delegate stash for source of the keys.</p>
+<dl class="py method">
+<dt id="zensols.dataset.split.StashSplitKeyContainer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">key_path</em>, <em class="sig-param">pattern</em>, <em class="sig-param">stash</em>, <em class="sig-param">distribution=&lt;factory&gt;</em>, <em class="sig-param">shuffle=True</em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.dataset.split.StashSplitKeyContainer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.dataset.split.StashSplitKeyContainer.distribution">
+<code class="sig-name descname">distribution</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span></em><a class="headerlink" href="#zensols.dataset.split.StashSplitKeyContainer.distribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>The distribution as a percent across all key splits.  The distribution
+values must add to 1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.dataset.split.StashSplitKeyContainer.shuffle">
+<code class="sig-name descname">shuffle</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><em class="property"> = True</em><a class="headerlink" href="#zensols.dataset.split.StashSplitKeyContainer.shuffle" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, shuffle the keys when creating the key splits.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.dataset.split.StashSplitKeyContainer.stash">
+<code class="sig-name descname">stash</code><em class="property">: <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.domain.Stash" title="(in Zensols Utilities v1.6.2)">zensols.persist.domain.Stash</a></em><a class="headerlink" href="#zensols.dataset.split.StashSplitKeyContainer.stash" title="Permalink to this definition">¶</a></dt>
+<dd><p>The delegate stash from whence to get the keys to store.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-dataset-stash">
+<h2>zensols.dataset.stash<a class="headerlink" href="#zensols-dataset-stash" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-27db87d8f464bfdfcca13160ec38fdc44e914e70.png" alt="Inheritance diagram of zensols.dataset.stash" usemap="#inheritancefeca1564de" class="inheritance graphviz" /></div>
+<map id="inheritancefeca1564de" name="inheritancefeca1564de">
+<area shape="rect" id="node13" href="#zensols.dataset.interface.SplitKeyContainer" target="_top" title="An interface defining a container that partitions data sets (i.e. ``train``" alt="" coords="357,152,483,177"/>
+<area shape="rect" id="node4" href="#zensols.dataset.stash.DatasetSplitStash" target="_top" title="A default implementation of :class:`.SplitStashContainer`. &#160;However, it" alt="" coords="165,299,293,324"/>
+<area shape="rect" id="node12" href="#zensols.dataset.stash.SortedDatasetSplitStash" target="_top" title="A sorted version of a :class:`DatasetSplitStash`, where keys, values, items" alt="" coords="146,372,313,397"/>
+<area shape="rect" id="node6" href="#zensols.dataset.interface.SplitStashContainer" target="_top" title="An interface like ``SplitKeyContainer``, but whose implementations are of" alt="" coords="235,225,373,251"/>
+</map><span class="target" id="module-zensols.dataset.stash"></span><p>Utility stashes useful to common machine learning tasks.</p>
+<dl class="py class">
+<dt id="zensols.dataset.stash.DatasetSplitStash">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.dataset.stash.</code><code class="sig-name descname">DatasetSplitStash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delegate</span></em>, <em class="sig-param"><span class="n">split_container</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/stash.html#DatasetSplitStash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.stash.DatasetSplitStash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.domain.DelegateStash" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.domain.DelegateStash</span></code></a>, <a class="reference internal" href="#zensols.dataset.interface.SplitStashContainer" title="zensols.dataset.interface.SplitStashContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.dataset.interface.SplitStashContainer</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.annotation.PersistableContainer" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.annotation.PersistableContainer</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.writable.Writable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.writable.Writable</span></code></a></p>
+<p>A default implementation of <a class="reference internal" href="#zensols.dataset.interface.SplitStashContainer" title="zensols.dataset.interface.SplitStashContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SplitStashContainer</span></code></a>.  However, it
+needs an instance of a <a class="reference internal" href="#zensols.dataset.interface.SplitKeyContainer" title="zensols.dataset.interface.SplitKeyContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SplitKeyContainer</span></code></a>.  This implementation
+generates a separate stash instance for each data set split (i.e. <code class="docutils literal notranslate"><span class="pre">train</span></code>
+vs <code class="docutils literal notranslate"><span class="pre">test</span></code>).  Each split instance holds the data (keys and values) for
+each split.</p>
+<p>Stash instances by split are obtained with <code class="docutils literal notranslate"><span class="pre">splits</span></code>, and will have
+a <code class="docutils literal notranslate"><span class="pre">split</span></code> attribute that give the name of the split.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.dataset.interface.SplitStashContainer.splits" title="zensols.dataset.interface.SplitStashContainer.splits"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SplitStashContainer.splits()</span></code></a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.dataset.stash.DatasetSplitStash.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delegate</span></em>, <em class="sig-param"><span class="n">split_container</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.dataset.stash.DatasetSplitStash.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.stash.DatasetSplitStash.check_key_consistent">
+<code class="sig-name descname">check_key_consistent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/stash.html#DatasetSplitStash.check_key_consistent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.stash.DatasetSplitStash.check_key_consistent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.stash.DatasetSplitStash.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/stash.html#DatasetSplitStash.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.stash.DatasetSplitStash.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear and destory key and delegate data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.stash.DatasetSplitStash.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/stash.html#DatasetSplitStash.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.stash.DatasetSplitStash.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources for this instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.stash.DatasetSplitStash.keys">
+<code class="sig-name descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/stash.html#DatasetSplitStash.keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.stash.DatasetSplitStash.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterable of keys in the collection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.stash.DatasetSplitStash.prime">
+<code class="sig-name descname">prime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/stash.html#DatasetSplitStash.prime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.stash.DatasetSplitStash.prime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.dataset.stash.DatasetSplitStash.split_container">
+<code class="sig-name descname">split_container</code><em class="property">: <a class="reference internal" href="#zensols.dataset.interface.SplitKeyContainer" title="zensols.dataset.interface.SplitKeyContainer">zensols.dataset.interface.SplitKeyContainer</a></em><a class="headerlink" href="#zensols.dataset.stash.DatasetSplitStash.split_container" title="Permalink to this definition">¶</a></dt>
+<dd><p>The instance that provides the splits in the dataset.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.stash.DatasetSplitStash.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/stash.html#DatasetSplitStash.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.stash.DatasetSplitStash.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the contents of this instance to <code class="docutils literal notranslate"><span class="pre">writer</span></code> using indention <code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the starting indentation depth</p></li>
+<li><p><strong>writer</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOBase" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a>) – the writer to dump the content of this writable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.dataset.stash.SortedDatasetSplitStash">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.dataset.stash.</code><code class="sig-name descname">SortedDatasetSplitStash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delegate</span></em>, <em class="sig-param"><span class="n">split_container</span></em>, <em class="sig-param"><span class="n">sort_function</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/stash.html#SortedDatasetSplitStash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.stash.SortedDatasetSplitStash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.dataset.stash.DatasetSplitStash" title="zensols.dataset.stash.DatasetSplitStash"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.dataset.stash.DatasetSplitStash</span></code></a></p>
+<p>A sorted version of a <a class="reference internal" href="#zensols.dataset.stash.DatasetSplitStash" title="zensols.dataset.stash.DatasetSplitStash"><code class="xref py py-class docutils literal notranslate"><span class="pre">DatasetSplitStash</span></code></a>, where keys, values, items
+and iterations are sorted by key.  This is important for reproducibility of
+results.</p>
+<p>Any shuffling of the dataset, for the sake of training on non-uniform data,
+needs to come before this step.</p>
+<p><em>Implementation note:</em> trying to reuse <code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.SortedStash</span></code>
+would over complicate, so this (minor) functionality overlap is redundant
+in this class.</p>
+<dl class="py attribute">
+<dt id="zensols.dataset.stash.SortedDatasetSplitStash.ATTR_EXP_META">
+<code class="sig-name descname">ATTR_EXP_META</code><em class="property"> = ('sort_function',)</em><a class="headerlink" href="#zensols.dataset.stash.SortedDatasetSplitStash.ATTR_EXP_META" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.stash.SortedDatasetSplitStash.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delegate</span></em>, <em class="sig-param"><span class="n">split_container</span></em>, <em class="sig-param"><span class="n">sort_function</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.dataset.stash.SortedDatasetSplitStash.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.stash.SortedDatasetSplitStash.items">
+<code class="sig-name descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/stash.html#SortedDatasetSplitStash.items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.stash.SortedDatasetSplitStash.items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterable of all stash items.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.stash.SortedDatasetSplitStash.keys">
+<code class="sig-name descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/stash.html#SortedDatasetSplitStash.keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.stash.SortedDatasetSplitStash.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterable of keys in the collection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.dataset.stash.SortedDatasetSplitStash.sort_function">
+<code class="sig-name descname">sort_function</code><em class="property">: Callable</em><em class="property"> = None</em><a class="headerlink" href="#zensols.dataset.stash.SortedDatasetSplitStash.sort_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function, such as <code class="docutils literal notranslate"><span class="pre">int</span></code>, used to sort keys per data set split.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataset.stash.SortedDatasetSplitStash.values">
+<code class="sig-name descname">values</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataset/stash.html#SortedDatasetSplitStash.values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataset.stash.SortedDatasetSplitStash.values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the values in the hash.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-zensols.dataset">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zensols.dataset" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="zensols.deeplearn.html" class="btn btn-neutral float-right" title="zensols.deeplearn package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="zensols.dataframe.html" class="btn btn-neutral float-left" title="zensols.dataframe package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

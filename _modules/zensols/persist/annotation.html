@@ -1,0 +1,709 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.persist.annotation &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.persist.annotation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.persist.annotation</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Contains general purpose persistence library classes.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">time</span> <span class="k">as</span> <span class="nn">tm</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">zensols.util</span> <span class="kn">import</span> <span class="n">APIError</span>
+<span class="kn">import</span> <span class="nn">zensols.util.time</span> <span class="k">as</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">Deallocatable</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">PersistableError</span><span class="p">(</span><span class="n">APIError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Thrown for any persistable API error&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+
+<span class="c1"># class level persistance</span>
+<span class="k">class</span> <span class="nc">PersistedWork</span><span class="p">(</span><span class="n">Deallocatable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This class caches data in the instance of the contained class and/or global</span>
+<span class="sd">    level.  In addition, the data is also pickled to disk to avoid any</span>
+<span class="sd">    expensive recomputation of the data.</span>
+
+<span class="sd">    In order, it first looks for the data in ``owner``, then in globals (if</span>
+<span class="sd">    ``cache_global`` is True), then it looks for the data on the file system.</span>
+<span class="sd">    If it can&#39;t find it after all of this it invokes function ``worker`` to</span>
+<span class="sd">    create the data and then pickles it to the disk.</span>
+
+<span class="sd">    This class is a callable itself, which is invoked to get or create the</span>
+<span class="sd">    work.</span>
+
+<span class="sd">    There are two ways to implement the data/work creation: pass a ``worker``</span>
+<span class="sd">    to the ``__init__`` method or extend this class and override</span>
+<span class="sd">    ``__do_work__``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="n">owner</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+                 <span class="n">cache_global</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">transient</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="n">initial_value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mkdir</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="n">deallocate_recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create an instance of the class.</span>
+
+<span class="sd">        :param path: if type of ``pathlib.Path`` then use disk storage to cache</span>
+<span class="sd">                     of the pickeled data, otherwise a string used to store in</span>
+<span class="sd">                     the owner</span>
+
+<span class="sd">        :param owner: an owning class to get and retrieve as an attribute</span>
+
+<span class="sd">        :param cache_global: cache the data globals; this shares data across</span>
+<span class="sd">                             instances but not classes</span>
+
+<span class="sd">        :param transient: the data not persisted to disk after invoking the</span>
+<span class="sd">                          method</span>
+
+<span class="sd">        :param initial_value: if provided, the method is never called and this</span>
+<span class="sd">                              value returned for all invocations</span>
+
+<span class="sd">        :param mkdir: if ``path`` is a :class`.Path` object, then recursively</span>
+<span class="sd">                      create all directories needed to be able to persist the</span>
+<span class="sd">                      file without missing directory IO errors</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;pw inst: path=</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">, global=</span><span class="si">{</span><span class="n">cache_global</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">owner</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache_global</span> <span class="o">=</span> <span class="n">cache_global</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transient</span> <span class="o">=</span> <span class="n">transient</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">worker</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_disk</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">fname</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[ /</span><span class="se">\\</span><span class="s1">.]&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">absolute</span><span class="p">()))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_disk</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">fname</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">cstr</span> <span class="o">=</span> <span class="n">owner</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">owner</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varname</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;_</span><span class="si">{</span><span class="n">cstr</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s1">_pwvinst&#39;</span>
+        <span class="k">if</span> <span class="n">initial_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">initial_value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mkdir</span> <span class="o">=</span> <span class="n">mkdir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deallocate_recursive</span> <span class="o">=</span> <span class="n">deallocate_recursive</span>
+
+    <span class="k">def</span> <span class="nf">_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varname</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="n">msg</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">clear_global</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clear only any cached global data.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">vname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">varname</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;global clearing </span><span class="si">{</span><span class="n">vname</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">vname</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;removing global instance var: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vname</span><span class="p">))</span>
+            <span class="k">del</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">vname</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clear the data, and thus, force it to be created on the next fetch.  This is</span>
+<span class="sd">        done by removing the attribute from ``owner``, deleting it from globals</span>
+<span class="sd">        and removing the file from the disk.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">vname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">varname</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;deleting cached work: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;owner exists: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="si">}</span><span class="s1"> &#39;</span> <span class="o">+</span>
+                         <span class="sa">f</span><span class="s1">&#39;has </span><span class="si">{</span><span class="n">vname</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">vname</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">owner</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">vname</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;removing instance var: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vname</span><span class="p">))</span>
+            <span class="nb">delattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">vname</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_global</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">deallocate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="n">vname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">varname</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">owner</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">vname</span><span class="p">):</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">vname</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_try_deallocate</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">deallocate_recursive</span><span class="p">)</span>
+            <span class="nb">delattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">vname</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_global</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">owner</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_do_work</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__do_work__</span><span class="p">(</span><span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">(</span><span class="s1">&#39;created work in </span><span class="si">{:2f}</span><span class="s1">s, saving to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">tm</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="nf">_load_or_create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Invoke the file system operations to get the data, or create work.</span>
+
+<span class="sd">        If the file does not exist, calling ``__do_work__`` and save it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">(</span><span class="s1">&#39;loading work from </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">obj</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">(</span><span class="s1">&#39;saving work to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mkdir</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">PersistableError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;Parent directory does not exist: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">parent</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_work</span><span class="p">(</span><span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the contents of the object on the owner as if it were persisted from the</span>
+<span class="sd">        source.  If this is a global cached instance, then add it to global</span>
+<span class="sd">        memory.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;saving in memory value </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">vname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">varname</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">owner</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PersistableError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;Owner is not set for persistable: </span><span class="si">{</span><span class="n">vname</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">vname</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_global</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">vname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">():</span>
+                <span class="nb">globals</span><span class="p">()[</span><span class="n">vname</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="nf">is_set</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return whether or not the persisted work has been engaged and has data.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">vname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">varname</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_global</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">vname</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">owner</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">vname</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;We must null out the owner and worker as they are not pickelable.</span>
+
+<span class="sd">        :seealso: PersistableContainer</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+        <span class="n">d</span><span class="p">[</span><span class="s1">&#39;owner&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">d</span><span class="p">[</span><span class="s1">&#39;worker&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">d</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return the cached data if it doesn&#39;t yet exist.  If it doesn&#39;t exist, create</span>
+<span class="sd">        it and cache it on the file system, optionally ``owner`` and optionally</span>
+<span class="sd">        the globals.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">vname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">varname</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;call with vname: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vname</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">owner</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">vname</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;found in instance&#39;</span><span class="p">)</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">vname</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_global</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">vname</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;found in globals&#39;</span><span class="p">)</span>
+                <span class="n">obj</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">vname</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_disk</span><span class="p">:</span>
+                <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_or_create</span><span class="p">(</span><span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">(</span><span class="s1">&#39;invoking worker&#39;</span><span class="p">)</span>
+                <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_work</span><span class="p">(</span><span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="nf">__do_work__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;You can extend this class and overriding this method.  This method will</span>
+<span class="sd">        invoke the worker to do the work.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">worker</span><span class="p">(</span><span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">include_content</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="n">indent</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp</span><span class="si">}{</span><span class="bp">self</span><span class="si">}</span><span class="s1">:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp</span><span class="si">}</span><span class="s1">global: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_global</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp</span><span class="si">}</span><span class="s1">transient: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">transient</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp</span><span class="si">}</span><span class="s1">type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">())</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">include_content</span><span class="p">:</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp</span><span class="si">}</span><span class="s1">content: </span><span class="si">{</span><span class="bp">self</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_deallocate_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">varname</span><span class="si">}</span><span class="s1"> =&gt; </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">owner</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">varname</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">PersistableContainerMetadata</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Provides metadata about :class:`.PersistedWork` definitions in the class.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">container</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="n">container</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">persisted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return all ``PersistedWork`` instances on this object as a ``dict``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pws</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">PersistedWork</span><span class="p">):</span>
+                <span class="n">pws</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">return</span> <span class="n">pws</span>
+
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">include_content</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="n">indent</span>
+        <span class="n">spe</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">PersistedWork</span><span class="p">):</span>
+                <span class="n">v</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">indent</span><span class="p">,</span> <span class="n">include_content</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="n">writer</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp</span><span class="si">}{</span><span class="n">k</span><span class="si">}</span><span class="s1">:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">spe</span><span class="si">}</span><span class="s1">type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">include_content</span><span class="p">:</span>
+                    <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">spe</span><span class="si">}</span><span class="s1">content: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">recursive</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">PersistableContainer</span><span class="p">):</span>
+                <span class="n">cmeta</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">_get_persistable_metadata</span><span class="p">()</span>
+                <span class="n">cmeta</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">include_content</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clear all ``PersistedWork`` instances on this object.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">pw</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">persisted</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">pw</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">PersistableContainer</span><span class="p">(</span><span class="n">Deallocatable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Classes can extend this that want to persist :class:`.PersistableWork`</span>
+<span class="sd">    instances, which otherwise are not persistable.</span>
+
+<span class="sd">    This class also manages the deallocation of all :class:`.PersistableWork`</span>
+<span class="sd">    attributes of the class, which might be another reason to use it even if</span>
+<span class="sd">    there isn&#39;t a persistence use case.</span>
+
+<span class="sd">    If the class level attribute ``_PERSITABLE_TRANSIENT_ATTRIBUTES`` is set,</span>
+<span class="sd">    all attributes name given in this set will be set to ``None`` when pickled.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+        <span class="n">removes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">tran_attribute_name</span> <span class="o">=</span> <span class="s1">&#39;_PERSITABLE_TRANSIENT_ATTRIBUTES&#39;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tran_attribute_name</span><span class="p">):</span>
+            <span class="n">tran_attribs</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tran_attribute_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;transient attributes: </span><span class="si">{</span><span class="n">tran_attribs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">removes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">tran_attribs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;container get state: </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1"> =&gt; </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">PersistedWork</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">transient</span><span class="p">:</span>
+                    <span class="n">removes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">varname</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">removes</span><span class="p">:</span>
+            <span class="n">state</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">state</span>
+
+    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the owner to containing instance and the worker function to the owner&#39;s</span>
+<span class="sd">        function by name.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;container set state: </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1"> =&gt; </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">PersistedWork</span><span class="p">):</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s1">&#39;owner&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_persistable_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PersistableContainerMetadata</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the metadata for this container.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">PersistableContainerMetadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">deallocate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">pw</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_persistable_metadata</span><span class="p">()</span><span class="o">.</span><span class="n">persisted</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">pw</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">persisted</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Class level annotation to further simplify usage with</span>
+<span class="sd">    :class:`.PersistedWork`.</span>
+
+<span class="sd">    :see: :class:`.PersistedWork`</span>
+
+<span class="sd">    For example::</span>
+
+<span class="sd">        class SomeClass(object):</span>
+<span class="sd">            @property</span>
+<span class="sd">            @persisted(&#39;_counter&#39;, &#39;tmp.dat&#39;)</span>
+<span class="sd">            def counter(self):</span>
+<span class="sd">                return tuple(range(5))</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">cache_global</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">transient</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="n">allocation_track</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                 <span class="n">deallocate_recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize.</span>
+
+<span class="sd">        :param name: the name of the attribute on the instance to set with the</span>
+<span class="sd">                     cached result of the method</span>
+
+<span class="sd">        :param: path: if set, the path where to store the cached result on the</span>
+<span class="sd">                      file system</span>
+
+<span class="sd">        :param cache_global: if ``True``, globally cache the value at the class</span>
+<span class="sd">                             definition level</span>
+
+<span class="sd">        :param transient: if ``True`` do not persist only in memory, and not on</span>
+<span class="sd">                          the file system, which is needed when used with</span>
+<span class="sd">                          :class:`.PersistableContainer`</span>
+
+<span class="sd">        :param allocation_track: if ``False``, immediately mark the backing</span>
+<span class="sd">                                 :class:`PersistedWork` as deallocated</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;persisted decorator on attr: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">, &#39;</span> <span class="o">+</span>
+                         <span class="sa">f</span><span class="s1">&#39;global=</span><span class="si">{</span><span class="n">cache_global</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attr_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache_global</span> <span class="o">=</span> <span class="n">cache_global</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transient</span> <span class="o">=</span> <span class="n">transient</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allocation_track</span> <span class="o">=</span> <span class="n">allocation_track</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deallocate_recursive</span> <span class="o">=</span> <span class="n">deallocate_recursive</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;call: </span><span class="si">{</span><span class="n">fn</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_name</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1">:&#39;</span> <span class="o">+</span>
+                         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_global</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">inst</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;wrap: </span><span class="si">{</span><span class="n">fn</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_name</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1">:&#39;</span> <span class="o">+</span>
+                             <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_global</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">pwork</span><span class="p">:</span> <span class="n">PersistedWork</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_name</span><span class="p">):</span>
+                <span class="n">pwork</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_name</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+                <span class="n">pwork</span> <span class="o">=</span> <span class="n">PersistedWork</span><span class="p">(</span>
+                    <span class="n">path</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="n">inst</span><span class="p">,</span> <span class="n">cache_global</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_global</span><span class="p">,</span>
+                    <span class="n">transient</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">transient</span><span class="p">,</span>
+                    <span class="n">deallocate_recursive</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">deallocate_recursive</span><span class="p">)</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">pwork</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocation_track</span><span class="p">:</span>
+                    <span class="n">pwork</span><span class="o">.</span><span class="n">_mark_deallocated</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">pwork</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">PersistableError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;PersistedWork not found: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">attr_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">pwork</span><span class="o">.</span><span class="n">worker</span> <span class="o">=</span> <span class="n">fn</span>
+            <span class="k">return</span> <span class="n">pwork</span><span class="p">(</span><span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># copy documentation over for Sphinx docs</span>
+        <span class="n">wrapped</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__doc__</span>
+        <span class="c1"># copy annotations (i.e. type hints) over for Sphinx docs</span>
+        <span class="n">wrapped</span><span class="o">.</span><span class="vm">__annotations__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__annotations__</span>
+
+        <span class="k">return</span> <span class="n">wrapped</span>
+
+
+<span class="c1"># resource/sql</span>
+<span class="k">class</span> <span class="nc">resource</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This annotation uses a template pattern to (de)allocate resources.  For</span>
+<span class="sd">    example, you can declare class methods to create database connections and</span>
+<span class="sd">    then close them.  This example looks like this:</span>
+
+<span class="sd">    For example::</span>
+
+<span class="sd">        class CrudManager(object):</span>
+<span class="sd">            def _create_connection(self):</span>
+<span class="sd">                return sqlite3.connect(&#39;:memory:&#39;)</span>
+
+<span class="sd">            def _dispose_connection(self, conn):</span>
+<span class="sd">                conn.close()</span>
+
+<span class="sd">            @resource(&#39;_create_connection&#39;, &#39;_dispose_connection&#39;)</span>
+<span class="sd">            def commit_work(self, conn, obj):</span>
+<span class="sd">                conn.execute(...)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">create_method_name</span><span class="p">,</span> <span class="n">destroy_method_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create the instance based annotation.</span>
+
+<span class="sd">        :param create_method_name: the name of the method that allocates</span>
+<span class="sd">        :param destroy_method_name: the name of the method that deallocates</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;connection decorator </span><span class="si">{</span><span class="n">create_method_name</span><span class="si">}</span><span class="s1"> &#39;</span> <span class="o">+</span>
+                         <span class="sa">f</span><span class="s1">&#39;destructor method name: </span><span class="si">{</span><span class="n">destroy_method_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_method_name</span> <span class="o">=</span> <span class="n">create_method_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">destroy_method_name</span> <span class="o">=</span> <span class="n">destroy_method_name</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;connection call with fn: </span><span class="si">{</span><span class="n">fn</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;in wrapped </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">create_method_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">inst</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">resource</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_method_name</span><span class="p">)()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">resource</span><span class="p">,</span> <span class="o">*</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">destroy_method_name</span><span class="p">)(</span><span class="n">resource</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="n">wrapped</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__doc__</span>
+
+        <span class="k">return</span> <span class="n">wrapped</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

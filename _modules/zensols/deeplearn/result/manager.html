@@ -1,0 +1,367 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.result.manager &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.result.manager</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.result.manager</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;A class that persists results in various formats.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">TclError</span>
+<span class="kn">from</span> <span class="nn">zensols.persist</span> <span class="kn">import</span> <span class="n">IncrementKeyDirectoryStash</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">ModelError</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">ModelResult</span><span class="p">,</span> <span class="n">ModelResultGrapher</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ModelResultManager"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.result.html#zensols.deeplearn.result.manager.ModelResultManager">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">ModelResultManager</span><span class="p">(</span><span class="n">IncrementKeyDirectoryStash</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Saves and loads results from runs (:class:`.ModelResult`) of the</span>
+<span class="sd">    :class:`zensols.deeplearn.model.executor.ModelExecutor`.  Keys incrementing</span>
+<span class="sd">    integers, one for each save, which usually corresponds to the run of the</span>
+<span class="sd">    model executor.</span>
+
+<span class="sd">    :param model_path: if not ``None`` the model persisted by</span>
+<span class="sd">                       :class:`zensols.deeplearn.model.manager.ModelManager` is</span>
+<span class="sd">                       saved to disk</span>
+
+<span class="sd">    :param save_text: if ``True`` save the verbose result output (from</span>
+<span class="sd">                      :meth:`.ModelResult.write`) of the results run</span>
+
+<span class="sd">    :param save_plot: if ``True`` save the plot using :meth:`save_plot`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;The name of the manager in the configuration.&quot;&quot;&quot;</span>
+
+    <span class="n">model_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;The path to where the results are stored.&quot;&quot;&quot;</span>
+
+    <span class="n">save_text</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;If ``True`` save the results as a text file.&quot;&quot;&quot;</span>
+
+    <span class="n">save_plot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;If ``True`` save the plot to the file system.&quot;&quot;&quot;</span>
+
+    <span class="n">save_json</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;If ``True`` save the results as a JSON file.&quot;&quot;&quot;</span>
+
+    <span class="n">file_pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{prefix}</span><span class="s1">-</span><span class="si">{key}</span><span class="s1">.</span><span class="si">{ext}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;The pattern used to store the model and results files.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_file_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ModelResultManager.to_file_name"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.result.html#zensols.deeplearn.result.manager.ModelResultManager.to_file_name">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">to_file_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;[:()\[\]_ \t-]+&#39;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">((</span><span class="n">regex</span> <span class="o">+</span> <span class="s1">&#39;$&#39;</span><span class="p">),</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">name</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_next_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ext</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_last_key</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;prefix&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span> <span class="s1">&#39;key&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span> <span class="s1">&#39;ext&#39;</span><span class="p">:</span> <span class="n">ext</span><span class="p">}</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_pattern</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">/</span> <span class="n">fname</span>
+        <span class="k">return</span> <span class="n">path</span>
+
+<div class="viewcode-block" id="ModelResultManager.get_next_text_path"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.result.html#zensols.deeplearn.result.manager.ModelResultManager.get_next_text_path">[docs]</a>    <span class="k">def</span> <span class="nf">get_next_text_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_next_path</span><span class="p">(</span><span class="s1">&#39;txt&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelResultManager.get_next_model_path"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.result.html#zensols.deeplearn.result.manager.ModelResultManager.get_next_model_path">[docs]</a>    <span class="k">def</span> <span class="nf">get_next_model_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_next_path</span><span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelResultManager.get_next_graph_path"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.result.html#zensols.deeplearn.result.manager.ModelResultManager.get_next_graph_path">[docs]</a>    <span class="k">def</span> <span class="nf">get_next_graph_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_next_path</span><span class="p">(</span><span class="s1">&#39;png&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelResultManager.get_next_json_path"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.result.html#zensols.deeplearn.result.manager.ModelResultManager.get_next_json_path">[docs]</a>    <span class="k">def</span> <span class="nf">get_next_json_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_next_path</span><span class="p">(</span><span class="s1">&#39;json&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelResultManager.dump"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.result.html#zensols.deeplearn.result.manager.ModelResultManager.dump">[docs]</a>    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">ModelResult</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span>
+            <span class="n">dst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_next_model_path</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;copying model </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s1"> -&gt; </span><span class="si">{</span><span class="n">dst</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dst</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;already exists--deleting: </span><span class="si">{</span><span class="n">dst</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">dst</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">src</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;No such directory: </span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s1">--&#39;</span> <span class="o">+</span>
+                    <span class="s1">&#39;possibly because the model never learned&#39;</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_text</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_text_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_json</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_json_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_plot</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_plot_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelResultManager.get_grapher"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.result.html#zensols.deeplearn.result.manager.ModelResultManager.get_grapher">[docs]</a>    <span class="k">def</span> <span class="nf">get_grapher</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+                    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelResultGrapher</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return an instance of a model grapher.  This class can plot results of</span>
+<span class="sd">        ``res`` using ``matplotlib``.</span>
+
+<span class="sd">        :see: :class:`.ModelResultGrapher`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">title</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_next_graph_path</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">ModelResultGrapher</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">figsize</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelResultManager.save_plot_result"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.result.html#zensols.deeplearn.result.manager.ModelResultManager.save_plot_result">[docs]</a>    <span class="k">def</span> <span class="nf">save_plot_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">ModelResult</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Plot and save results of the validation and training loss.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">grapher</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_grapher</span><span class="p">()</span>
+            <span class="n">grapher</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">result</span><span class="p">])</span>
+            <span class="n">grapher</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">TclError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># _tkinter.TclError: couldn&#39;t connect to display &lt;IP&gt;</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;could not render plot, probably because &#39;</span> <span class="o">+</span>
+                           <span class="sa">f</span><span class="s1">&#39;disconnected from display: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelResultManager.save_text_result"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.result.html#zensols.deeplearn.result.manager.ModelResultManager.save_text_result">[docs]</a>    <span class="k">def</span> <span class="nf">save_text_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">ModelResult</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the text results of the model.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_next_text_path</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;saving text results to </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">writer</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">include_settings</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                         <span class="n">include_config</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_converged</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelResultManager.save_json_result"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.result.html#zensols.deeplearn.result.manager.ModelResultManager.save_json_result">[docs]</a>    <span class="k">def</span> <span class="nf">save_json_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">ModelResult</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the results of the model in JSON format.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_next_json_path</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;saving json results to </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">asjson</span><span class="p">(</span><span class="n">writer</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

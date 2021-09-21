@@ -1,0 +1,6 @@
+<map id="inheritanced20d2151ae" name="inheritanced20d2151ae">
+<area shape="rect" id="node1" title="Helper class that provides a standard way to create an ABC using" alt="" coords="37,5,109,31"/>
+<area shape="rect" id="node4" title="An interface for classes that have multi&#45;line debuging capability." alt="" coords="37,79,109,104"/>
+<area shape="rect" id="node2" href="#zensols.deeplearn.dataframe.util.DataFrameDictable" target="_top" title="A container with utility methods that JSON and write Pandas dataframes." alt="" coords="5,225,140,251"/>
+<area shape="rect" id="node3" title="A class that that generates a dictionary recursively from data classes and" alt="" coords="37,152,109,177"/>
+</map>

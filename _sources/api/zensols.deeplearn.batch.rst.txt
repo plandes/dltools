@@ -1,0 +1,73 @@
+zensols.deeplearn.batch package
+===============================
+
+Submodules
+----------
+
+zensols.deeplearn.batch.domain
+------------------------------
+.. inheritance-diagram:: zensols.deeplearn.batch.domain
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.batch.domain
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.batch.interface
+---------------------------------
+.. inheritance-diagram:: zensols.deeplearn.batch.interface
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.batch.interface
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.batch.mapping
+-------------------------------
+.. inheritance-diagram:: zensols.deeplearn.batch.mapping
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.batch.mapping
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.batch.meta
+----------------------------
+.. inheritance-diagram:: zensols.deeplearn.batch.meta
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.batch.meta
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.batch.multi
+-----------------------------
+.. inheritance-diagram:: zensols.deeplearn.batch.multi
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.batch.multi
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.batch.stash
+-----------------------------
+.. inheritance-diagram:: zensols.deeplearn.batch.stash
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.batch.stash
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: zensols.deeplearn.batch
+   :members:
+   :undoc-members:
+   :show-inheritance:

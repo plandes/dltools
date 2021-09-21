@@ -1,0 +1,396 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.model.sequence &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.model.sequence</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.model.sequence</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="sd">&quot;&quot;&quot;Sequence modules for sequence models.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">Optimizer</span>
+<span class="kn">from</span> <span class="nn">zensols.persist</span> <span class="kn">import</span> <span class="n">Deallocatable</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn</span> <span class="kn">import</span> <span class="n">DatasetSplitType</span><span class="p">,</span> <span class="n">ModelError</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn.batch</span> <span class="kn">import</span> <span class="n">Batch</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">BaseNetworkModule</span><span class="p">,</span> <span class="n">BatchIterator</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SequenceNetworkContext"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.sequence.SequenceNetworkContext">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">SequenceNetworkContext</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The forward context for the :class:`.SequenceNetworkModule`.  This is used</span>
+<span class="sd">    in :meth:`.SequenceNetworkModule._forward` to provide the module additional</span>
+<span class="sd">    information needed to score the model and produce the loss.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">split_type</span><span class="p">:</span> <span class="n">DatasetSplitType</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The split type, which informs the module when decoding to produce outputs or</span>
+<span class="sd">    using the forward pass to prod.</span>
+
+<span class="sd">    :see: :meth:`.SequenceNetworkModule._forward`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">criterion</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The criterion used to create the loss.  This is provided for modules that</span>
+<span class="sd">    produce the loss in the forward phase with the</span>
+<span class="sd">    `:meth:`torch.nn.module.forward`` method.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="SequenceNetworkOutput"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.sequence.SequenceNetworkOutput">[docs]</a><span class="k">class</span> <span class="nc">SequenceNetworkOutput</span><span class="p">(</span><span class="n">Deallocatable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The output from :clas:`.SequenceNetworkModule` modules.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SequenceNetworkOutput.__init__"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.sequence.SequenceNetworkOutput.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">predictions</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">Tensor</span><span class="p">],</span>
+                 <span class="n">loss</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">score</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">labels</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">outputs</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">predictions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_tensor</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">predictions</span> <span class="o">=</span> <span class="n">predictions</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_tensor</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="n">score</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="n">outputs</span></div>
+
+    <span class="k">def</span> <span class="nf">_to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lists</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="n">outs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">lst</span> <span class="ow">in</span> <span class="n">lists</span><span class="p">:</span>
+            <span class="n">outs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">))</span>
+        <span class="n">arr</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">outs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;output shape: </span><span class="si">{</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">arr</span>
+
+<div class="viewcode-block" id="SequenceNetworkOutput.righsize_labels"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.sequence.SequenceNetworkOutput.righsize_labels">[docs]</a>    <span class="k">def</span> <span class="nf">righsize_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preds</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]):</span>
+        <span class="n">labs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
+        <span class="k">for</span> <span class="n">rix</span><span class="p">,</span> <span class="n">bout</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">preds</span><span class="p">):</span>
+            <span class="n">blen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bout</span><span class="p">)</span>
+            <span class="n">labs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">rix</span><span class="p">,</span> <span class="p">:</span><span class="n">blen</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;row: </span><span class="si">{</span><span class="n">rix</span><span class="si">}</span><span class="s1">, len: </span><span class="si">{</span><span class="n">blen</span><span class="si">}</span><span class="s1">, out/lab&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">labs</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SequenceNetworkOutput.deallocate"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.sequence.SequenceNetworkOutput.deallocate">[docs]</a>    <span class="k">def</span> <span class="nf">deallocate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="s1">&#39;predictions loss score&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+                <span class="nb">delattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="SequenceNetworkModule"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.sequence.SequenceNetworkModule">[docs]</a><span class="k">class</span> <span class="nc">SequenceNetworkModule</span><span class="p">(</span><span class="n">BaseNetworkModule</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A module that has a forward training pass and a separate *scoring* phase.</span>
+<span class="sd">    Examples include layers with an ending linear CRF layer, such as a BiLSTM</span>
+<span class="sd">    CRF.  This module has a ``decode`` method that returns a 2D list of integer</span>
+<span class="sd">    label indexes of a nominal class.</span>
+
+<span class="sd">    The context provides additional information needed to train, test and use</span>
+<span class="sd">    the module.</span>
+
+<span class="sd">    :see: :class:`zensols.deeplearn.layer.RecurrentCRFNetwork`</span>
+
+<span class="sd">    .. document private functions</span>
+<span class="sd">    .. automethod:: _forward</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="SequenceNetworkModule._forward"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.sequence.SequenceNetworkModule._forward">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Batch</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">SequenceNetworkContext</span><span class="p">)</span> <span class="o">-&gt;</span> \
+            <span class="n">SequenceNetworkOutput</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The forward pass, which either trains the model and creates the loss and/or</span>
+<span class="sd">        decodes the output for testing and evaluation.</span>
+
+<span class="sd">        :param batch: the batch to train, validate or test on</span>
+
+<span class="sd">        :param context: contains the additional information needed for scoring</span>
+<span class="sd">                        and decoding the sequence</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="SequenceBatchIterator"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.sequence.SequenceBatchIterator">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">SequenceBatchIterator</span><span class="p">(</span><span class="n">BatchIterator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Expects outputs as a list of lists of labels of indexes.  Examples of</span>
+<span class="sd">    use cases include CRFs (e.g. BiLSTM/CRFs).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">BaseNetworkModule</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">:</span> <span class="n">Optimizer</span><span class="p">,</span>
+                 <span class="n">criterion</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Batch</span><span class="p">,</span> <span class="n">split_type</span><span class="p">:</span> <span class="n">DatasetSplitType</span><span class="p">)</span> <span class="o">-&gt;</span> \
+            <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]:</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span>
+        <span class="n">cctx</span> <span class="o">=</span> <span class="n">SequenceNetworkContext</span><span class="p">(</span><span class="n">split_type</span><span class="p">,</span> <span class="n">criterion</span><span class="p">)</span>
+        <span class="n">seq_out</span><span class="p">:</span> <span class="n">SequenceNetworkOutput</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">cctx</span><span class="p">)</span>
+        <span class="n">outcomes</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="n">seq_out</span><span class="o">.</span><span class="n">predictions</span>
+        <span class="n">loss</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="n">seq_out</span><span class="o">.</span><span class="n">loss</span>
+
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">batch</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s1">: output: </span><span class="si">{</span><span class="n">seq_out</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">seq_out</span><span class="o">.</span><span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="n">seq_out</span><span class="o">.</span><span class="n">labels</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">labels</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_labels</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;label shape: </span><span class="si">{</span><span class="n">labels</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_debug_output</span><span class="p">(</span><span class="s1">&#39;after forward&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">split_type</span> <span class="o">==</span> <span class="n">DatasetSplitType</span><span class="o">.</span><span class="n">train</span><span class="p">:</span>
+            <span class="c1"># invoke back propogation on the network</span>
+            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            <span class="c1"># take an update step and update the new weights</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;split: </span><span class="si">{</span><span class="n">split_type</span><span class="si">}</span><span class="s1">, loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># transform the labels in the same manner as the predictions so tensor</span>
+        <span class="c1"># shapes match</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">nominal_labels</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decode_outcomes</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;label nom decoded: </span><span class="si">{</span><span class="n">labels</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">outcomes</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">split_type</span> <span class="o">!=</span> <span class="n">DatasetSplitType</span><span class="o">.</span><span class="n">train</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span><span class="s1">&#39;Expecting predictions for all splits except &#39;</span> <span class="o">+</span>
+                             <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">DatasetSplitType</span><span class="o">.</span><span class="n">train</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="n">split_type</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">outcomes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;outcomes: </span><span class="si">{</span><span class="n">outcomes</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;labels: </span><span class="si">{</span><span class="n">labels</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">loss</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">torch_config</span><span class="o">.</span><span class="n">to_cpu_deallocate</span><span class="p">(</span>
+            <span class="n">loss</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">,</span> <span class="n">seq_out</span><span class="o">.</span><span class="n">outputs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">,</span> <span class="n">outputs</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

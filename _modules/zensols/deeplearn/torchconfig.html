@@ -1,0 +1,812 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.torchconfig &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.torchconfig</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.torchconfig</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;CUDA access and utility module.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">gc</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">TextIOBase</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">torch.multiprocessing</span> <span class="kn">import</span> <span class="n">set_start_method</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">zensols.config</span> <span class="kn">import</span> <span class="n">Writable</span>
+<span class="kn">from</span> <span class="nn">zensols.persist</span> <span class="kn">import</span> <span class="n">persisted</span><span class="p">,</span> <span class="n">PersistableContainer</span><span class="p">,</span> <span class="n">PersistedWork</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">TorchTypes</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="CudaInfo"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.CudaInfo">[docs]</a><span class="k">class</span> <span class="nc">CudaInfo</span><span class="p">(</span><span class="n">Writable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A utility class that provides information about the CUDA configuration for</span>
+<span class="sd">    the current (hardware) environment.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">num_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return number of devices connected.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">pycuda.driver</span> <span class="k">as</span> <span class="nn">cuda</span>
+        <span class="k">return</span> <span class="n">cuda</span><span class="o">.</span><span class="n">Device</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get attributes of device with device Id = device_id</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">pycuda.driver</span> <span class="k">as</span> <span class="nn">cuda</span>
+        <span class="k">return</span> <span class="n">cuda</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="n">device_id</span><span class="p">)</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">()</span>
+
+<div class="viewcode-block" id="CudaInfo.write_attributes"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.CudaInfo.write_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">write_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Write the GPU attributes.</span>
+
+<span class="sd">        :see: attributes</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1"> -&gt; </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CudaInfo.write"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.CudaInfo.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">writer</span><span class="p">:</span> <span class="n">TextIOBase</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Class representation as number of devices connected and about them.</span>
+
+<span class="sd">        :see: cuda</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">pycuda.driver</span> <span class="k">as</span> <span class="nn">cuda</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_devices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_line</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s1"> device(s) found:&#39;</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">) </span><span class="si">{</span><span class="n">cuda</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="si">}</span><span class="s1"> (Id: </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">)&#39;</span>
+            <span class="n">mem</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;memory: </span><span class="si">{</span><span class="n">cuda</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">total_memory</span><span class="p">()</span><span class="o">/</span><span class="mf">1e9</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> GB&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_line</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_line</span><span class="p">(</span><span class="n">mem</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;CUDA devices: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">num_devices</span><span class="si">}</span><span class="s1">&#39;</span></div>
+
+
+<div class="viewcode-block" id="TorchConfig"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig">[docs]</a><span class="k">class</span> <span class="nc">TorchConfig</span><span class="p">(</span><span class="n">PersistableContainer</span><span class="p">,</span> <span class="n">Writable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A utility class that provides access to CUDA APIs.  It provides information</span>
+<span class="sd">    on the current CUDA configuration and convenience methods to create, copy</span>
+<span class="sd">    and modify tensors.  These are handy for any given CUDA configuration and</span>
+<span class="sd">    can back off to the CPU when CUDA isn&#39;t available.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CPU_DEVICE</span> <span class="o">=</span> <span class="s1">&#39;cpu&#39;</span>
+    <span class="n">RANDOM_SEED</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="TorchConfig.__init__"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">use_gpu</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">data_type</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+                 <span class="n">cuda_device_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize this configuration.</span>
+
+<span class="sd">        :param use_gpu: whether or not to use CUDA/GPU</span>
+
+<span class="sd">        :param data_type: the default data type to use when creating new</span>
+<span class="sd">                          tensors in this configuration</span>
+
+<span class="sd">        :param cuda_device_index: the CUDA device to use, which defaults to 0</span>
+<span class="sd">                                  if CUDA if ``use_gpu`` is ``True``</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;use_gpu: </span><span class="si">{</span><span class="n">use_gpu</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_gpu</span> <span class="o">=</span> <span class="n">use_gpu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">=</span> <span class="n">data_type</span>
+        <span class="c1"># we can&#39;t globally cache this in case there are multiple instances of</span>
+        <span class="c1"># this class for which have different values of `use_gpu`</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_device_pw</span> <span class="o">=</span> <span class="n">PersistedWork</span><span class="p">(</span><span class="s1">&#39;_init_device_pw&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cpu_device_pw</span> <span class="o">=</span> <span class="n">PersistedWork</span><span class="p">(</span><span class="s1">&#39;_cpu_device_pw&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">cache_global</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cpu_device_pw</span><span class="o">.</span><span class="n">_mark_deallocated</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cuda_device_index</span> <span class="o">=</span> <span class="n">cuda_device_index</span></div>
+
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_init_device_pw&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_init_device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Attempt to initialize CUDA, and if successful, return the CUDA device.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">is_avail</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+        <span class="n">use_gpu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_gpu</span> <span class="ow">and</span> <span class="n">is_avail</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;use cuda: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">use_gpu</span><span class="si">}</span><span class="s1">, is avail: </span><span class="si">{</span><span class="n">is_avail</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">use_gpu</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">pycuda.driver</span> <span class="k">as</span> <span class="nn">cuda</span>
+            <span class="kn">import</span> <span class="nn">pycuda.autoinit</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;trying to initialize CUDA&#39;</span><span class="p">)</span>
+            <span class="n">cuda</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;successfully initialized CUDA&#39;</span><span class="p">)</span>
+            <span class="n">cuda_dev</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">current_device</span><span class="p">()</span>
+            <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">,</span> <span class="n">cuda_dev</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cuda_device_index</span> <span class="o">=</span> <span class="n">cuda_dev</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CPU_DEVICE</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">device</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_cpu_device_pw&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">cpu_device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the CPU CUDA device, which is the device type configured to utilize</span>
+<span class="sd">        the CPU (rather than the GPU).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CPU_DEVICE</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the torch device configured.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_device&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_gpu</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cuda_device_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_device</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span>
+                        <span class="s1">&#39;cuda&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cuda_device_index</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_device</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span>
+
+    <span class="nd">@device</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set (force) the device to be used in this configuration.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">set_device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;using device: </span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">using_cpu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return ``True`` if this configuration is using the CPU device.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">CPU_DEVICE</span>
+
+<div class="viewcode-block" id="TorchConfig.is_on_cpu"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.is_on_cpu">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">is_on_cpu</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return ``True`` if the passed tensor is on the CPU.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">arr</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="n">CPU_DEVICE</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">gpu_available</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return whether or not CUDA GPU access is available.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_device</span><span class="p">()</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CPU_DEVICE</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cuda_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return all cuda devices.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+                         <span class="nb">range</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">())))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cuda_device_index</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the CUDA device index if CUDA is being used for this configuration.</span>
+<span class="sd">        Otherwise return ``None``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+        <span class="k">if</span> <span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;cuda&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">device</span><span class="o">.</span><span class="n">index</span>
+
+    <span class="nd">@cuda_device_index</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">cuda_device_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the CUDA device index for this configuration.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TorchConfig.same_device"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.same_device">[docs]</a>    <span class="k">def</span> <span class="nf">same_device</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor_or_model</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return whether or not a tensor or model is in the same memory space as this</span>
+<span class="sd">        configuration instance.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+        <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">tensor_or_model</span><span class="p">,</span> <span class="s1">&#39;device&#39;</span><span class="p">)</span> <span class="ow">and</span> \
+            <span class="n">tensor_or_model</span><span class="o">.</span><span class="n">device</span> <span class="o">==</span> <span class="n">device</span></div>
+
+<div class="viewcode-block" id="TorchConfig.in_memory_tensors"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.in_memory_tensors">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">in_memory_tensors</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Returns all in-memory tensors and parameters.</span>
+
+<span class="sd">        :see: :meth:`~zensols.deeplearn.cli.app.show_leaks`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">arrs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">gc</span><span class="o">.</span><span class="n">get_objects</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_tensor</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">or</span> \
+                   <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">torch</span><span class="o">.</span><span class="n">is_tensor</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
+                    <span class="n">arrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">arrs</span></div>
+
+<div class="viewcode-block" id="TorchConfig.write_in_memory_tensors"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.write_in_memory_tensors">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">write_in_memory_tensors</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">,</span> <span class="n">writer</span><span class="p">:</span> <span class="n">TextIOBase</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Prints in-memory tensors and parameters.</span>
+
+<span class="sd">        :see: :class:`~zensols.deeplearn.torchconfig.TorchConfig`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">objs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">in_memory_tensors</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">objs</span><span class="p">:</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="nb">tuple</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TorchConfig.empty_cache"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.empty_cache">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">empty_cache</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;Empty the CUDA torch cache.  This releases memory in the GPU and should not</span>
+<span class="sd">        be necessary to call for normal use cases.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">empty_cache</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CudaInfo</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the CUDA information, which include specs of the device.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_device</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">CudaInfo</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tensor_class</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the class type based on the current configuration of this instance.</span>
+<span class="sd">        For example, if using ``torch.float32`` on the GPU,</span>
+<span class="sd">        ``torch.cuda.FloatTensor`` is returned.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">TorchTypes</span><span class="o">.</span><span class="n">get_tensor_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">using_cpu</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">numpy_data_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the numpy type that corresponds to this instance&#39;s configured</span>
+<span class="sd">        ``data_type``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">TorchTypes</span><span class="o">.</span><span class="n">get_numpy_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_type</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TorchConfig.to"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.to">[docs]</a>    <span class="k">def</span> <span class="nf">to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor_or_model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> \
+            <span class="n">Union</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Copy the tensor or model to the device this to that of this configuration.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">same_device</span><span class="p">(</span><span class="n">tensor_or_model</span><span class="p">):</span>
+            <span class="n">tensor_or_model</span> <span class="o">=</span> <span class="n">tensor_or_model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tensor_or_model</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">)</span> <span class="ow">and</span> \
+           <span class="n">tensor_or_model</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span><span class="p">:</span>
+            <span class="n">tensor_or_model</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tensor_or_model</span></div>
+
+<div class="viewcode-block" id="TorchConfig.to_cpu_deallocate"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.to_cpu_deallocate">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">to_cpu_deallocate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">arrs</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> \
+            <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">Tensor</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Safely copy detached memory to the CPU and delete local instance (possibly</span>
+<span class="sd">        GPU) memory to speed up resource deallocation.  If the tensor is</span>
+<span class="sd">        already on the CPU, it&#39;s simply passed back.  Otherwise the tensor is</span>
+<span class="sd">        deleted.</span>
+
+<span class="sd">        This method is robust with ``None``, which are skipped and substituted</span>
+<span class="sd">        as ``None`` in the output.</span>
+
+<span class="sd">        :param arrs: the tensors the copy to the CPU (if not already)</span>
+
+<span class="sd">        :return: the singleton tensor if only one ``arrs`` is passed;</span>
+<span class="sd">                 otherwise, the CPU copied tensors from the input</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cpus</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="n">arrs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">arr</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">is_on_cpu</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">arr</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">):</span>
+                <span class="n">cpu_arr</span> <span class="o">=</span> <span class="n">arr</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cpu_arr</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+                <span class="c1"># suggest to interpreter to mark for garbage collection</span>
+                <span class="c1"># immediately</span>
+                <span class="k">del</span> <span class="n">arr</span>
+            <span class="n">cpus</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cpu_arr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cpus</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cpus</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">cpus</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TorchConfig.clone"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">requires_grad</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Clone a tensor.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">tensor</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="n">requires_grad</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_populate_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add keyword arguments to typical torch tensor creation functions.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;dtype&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;dtype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+
+<div class="viewcode-block" id="TorchConfig.from_iterable"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.from_iterable">[docs]</a>    <span class="k">def</span> <span class="nf">from_iterable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a one dimenstional tensor created from ``array`` using the type and</span>
+<span class="sd">        device in the current instance configuration.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tensor_class</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">array</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">array</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TorchConfig.singleton"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.singleton">[docs]</a>    <span class="k">def</span> <span class="nf">singleton</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a new tensor using ``torch.tensor``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_populate_defaults</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TorchConfig.float"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.float">[docs]</a>    <span class="k">def</span> <span class="nf">float</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a new tensor using ``torch.tensor`` as a float type.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;dtype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">float_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_populate_defaults</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TorchConfig.int"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.int">[docs]</a>    <span class="k">def</span> <span class="nf">int</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a new tensor using ``torch.tensor`` as a int type.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;dtype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">int_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_populate_defaults</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TorchConfig.sparse"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.sparse">[docs]</a>    <span class="k">def</span> <span class="nf">sparse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indicies</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">values</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+               <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Create a sparce tensor from indexes and values.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">(</span><span class="n">indicies</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="n">TorchTypes</span><span class="o">.</span><span class="n">get_sparse_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TorchConfig.is_sparse"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.is_sparse">[docs]</a>    <span class="k">def</span> <span class="nf">is_sparse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return whether or not a tensor a sparse.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">arr</span><span class="o">.</span><span class="n">layout</span> <span class="o">==</span> <span class="n">torch</span><span class="o">.</span><span class="n">sparse_coo</span></div>
+
+<div class="viewcode-block" id="TorchConfig.empty"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.empty">[docs]</a>    <span class="k">def</span> <span class="nf">empty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a new tesor using ``torch.empty``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_populate_defaults</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TorchConfig.zeros"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.zeros">[docs]</a>    <span class="k">def</span> <span class="nf">zeros</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a new tensor of zeros using ``torch.zeros``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_populate_defaults</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TorchConfig.ones"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.ones">[docs]</a>    <span class="k">def</span> <span class="nf">ones</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a new tensor of zeros using ``torch.zeros``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_populate_defaults</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TorchConfig.from_numpy"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.from_numpy">[docs]</a>    <span class="k">def</span> <span class="nf">from_numpy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a new tensor generated from a numpy aray using ``torch.from_numpy``.</span>
+<span class="sd">        The array type is converted if necessary.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tarr</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">numpy_data_type</span><span class="p">:</span>
+            <span class="n">tarr</span> <span class="o">=</span> <span class="n">tarr</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">tarr</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TorchConfig.cat"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.cat">[docs]</a>    <span class="k">def</span> <span class="nf">cat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Concatenate tensors in to one tensor using ``torch.cat``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TorchConfig.to_type"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.to_type">[docs]</a>    <span class="k">def</span> <span class="nf">to_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Convert the type of the given array to the type of this instance.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span> <span class="o">!=</span> <span class="n">arr</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">arr</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">float_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the float type that represents this configuration, converting to the</span>
+<span class="sd">        corresponding precision from integer if necessary.</span>
+
+<span class="sd">        :return: the float that represents this data, or ``None`` if neither</span>
+<span class="sd">                 float nor int</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span>
+        <span class="k">if</span> <span class="n">TorchTypes</span><span class="o">.</span><span class="n">is_int</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">TorchTypes</span><span class="o">.</span><span class="n">int_to_float</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">TorchTypes</span><span class="o">.</span><span class="n">is_float</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">dtype</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">int_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the int type that represents this configuration, converting to the</span>
+<span class="sd">        corresponding precision from integer if necessary.</span>
+
+<span class="sd">        :return: the int that represents this data, or ``None`` if neither</span>
+<span class="sd">                 int nor float</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type</span>
+        <span class="k">if</span> <span class="n">TorchTypes</span><span class="o">.</span><span class="n">is_float</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">TorchTypes</span><span class="o">.</span><span class="n">float_to_int</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">TorchTypes</span><span class="o">.</span><span class="n">is_int</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">dtype</span>
+
+<div class="viewcode-block" id="TorchConfig.equal"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.equal">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">equal</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return whether or not two tensors are equal.  This does an exact cell</span>
+<span class="sd">        comparison.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">b</span><span class="p">))</span><span class="o">.</span><span class="n">item</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TorchConfig.close"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.close">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return whether or not two tensors are equal.  This does an exact cell</span>
+<span class="sd">        comparison.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TorchConfig.get_random_seed"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.get_random_seed">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_random_seed</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the cross system random seed, meaning the seed applied to CUDA and the</span>
+<span class="sd">        Python *random* library.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">RANDOM_SEED</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">RANDOM_SEED</span><span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TorchConfig.get_random_seed_context"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.get_random_seed_context">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_random_seed_context</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the random seed context given to :py:meth:`set_random_seed` to</span>
+<span class="sd">        restore across models for consistent results.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">RANDOM_SEED</span></div>
+
+<div class="viewcode-block" id="TorchConfig.set_random_seed"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.set_random_seed">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">set_random_seed</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">disable_cudnn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                        <span class="n">rng_state</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the random number generator for PyTorch.</span>
+
+
+<span class="sd">        :param seed: the random seed to be set</span>
+
+<span class="sd">        :param disable_cudnn: if ``True`` disable NVidia&#39;s backend cuDNN</span>
+<span class="sd">                              hardware acceleration, which might have</span>
+<span class="sd">                              non-deterministic features</span>
+
+<span class="sd">        :param rng_state: set the CUDA random state array to zeros</span>
+
+<span class="sd">        :see: `Torch Random Seed &lt;https://discuss.pytorch.org/t/random-seed-initialization/7854&gt;`_</span>
+
+<span class="sd">        :see: `Reproducibility &lt;https://discuss.pytorch.org/t/non-reproducible-result-with-gpu/1831&gt;`_</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">RANDOM_SEED</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;seed&#39;</span><span class="p">:</span> <span class="n">seed</span><span class="p">,</span>
+                           <span class="s1">&#39;disable_cudnn&#39;</span><span class="p">:</span> <span class="n">disable_cudnn</span><span class="p">,</span>
+                           <span class="s1">&#39;rng_state&#39;</span><span class="p">:</span> <span class="n">rng_state</span><span class="p">}</span>
+
+        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">rng_state</span><span class="p">:</span>
+                <span class="n">new_states</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_rng_state_all</span><span class="p">():</span>
+                    <span class="n">zeros</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">state</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                    <span class="n">new_states</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">zeros</span><span class="p">)</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">set_rng_state_all</span><span class="p">(</span><span class="n">new_states</span><span class="p">)</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed_all</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">disable_cudnn</span><span class="p">:</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">benchmark</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">deterministic</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="TorchConfig.init"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.init">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">,</span> <span class="n">spawn_multiproc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;spawn&#39;</span><span class="p">,</span>
+             <span class="n">seed_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the PyTorch framework.  This includes:</span>
+
+<span class="sd">          * Configuration of PyTorch multiprocessing so subprocesses can access</span>
+<span class="sd">            the GPU, and</span>
+
+<span class="sd">          * Setting the random seed state.</span>
+
+<span class="sd">        The needs to be initialized at the very beginning of your program.</span>
+
+<span class="sd">        Example::</span>
+<span class="sd">            def main():</span>
+<span class="sd">                from zensols.deeplearn.init import TorchInitializer</span>
+<span class="sd">                TorchInitializer.init()</span>
+
+<span class="sd">        **Note**: this method is separate from :meth:`set_random_seed` because</span>
+<span class="sd">        that method is called by the framework to reset the seed after a model</span>
+<span class="sd">        is unpickled.</span>
+
+<span class="sd">        :see: :mod:`torch.multiprocessing`</span>
+
+<span class="sd">        :see: :meth:`set_random_seed`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">RANDOM_SEED</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">set_random_seed</span><span class="p">(</span><span class="o">**</span><span class="n">seed_kwargs</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;invoking pool with torch spawn method&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">spawn_multiproc</span><span class="p">:</span>
+                    <span class="n">set_start_method</span><span class="p">(</span><span class="s1">&#39;spawn&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">set_start_method</span><span class="p">(</span><span class="s1">&#39;forkserver&#39;</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;could not invoke spawn on pool: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TorchConfig.write"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">writer</span><span class="p">:</span> <span class="n">TextIOBase</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gpu_available</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_line</span><span class="p">(</span><span class="s1">&#39;CUDA is not available&#39;</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_line</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;selected device: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;use cuda: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">use_gpu</span><span class="si">}</span><span class="s1">, device: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="printopts"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.printopts">[docs]</a><span class="k">class</span> <span class="nc">printopts</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Object used with a ``with`` scope that sets options, then sets them back.</span>
+
+<span class="sd">    Example::</span>
+
+<span class="sd">        with printopts(profile=&#39;full&#39;, linewidth=120):</span>
+<span class="sd">            print(tensor)</span>
+
+<span class="sd">    :see: `PyTorch Documentation &lt;https://pytorch.org/docs/master/generated/torch.set_printoptions.html&gt;`_</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">DEFAULTS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;precision&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+                <span class="s1">&#39;threshold&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+                <span class="s1">&#39;edgeitems&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="s1">&#39;linewidth&#39;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+                <span class="s1">&#39;profile&#39;</span><span class="p">:</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;sci_mode&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+<div class="viewcode-block" id="printopts.__init__"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.printopts.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULTS</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

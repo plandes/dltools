@@ -1,0 +1,25 @@
+<map id="inheritance436ea9f473" name="inheritance436ea9f473">
+<area shape="rect" id="node1" title="Helper class that provides a standard way to create an ABC using" alt="" coords="669,5,741,31"/>
+<area shape="rect" id="node4" title="All subclasses have the ability to deallocate any resources. &#160;This is useful" alt="" coords="60,79,161,104"/>
+<area shape="rect" id="node5" title="An interface for classes that have multi&#45;line debuging capability." alt="" coords="365,79,437,104"/>
+<area shape="rect" id="node8" href="zensols.dataset.html#zensols.dataset.interface.SplitKeyContainer" target="_top" title="An interface defining a container that partitions data sets (i.e. ``train``" alt="" coords="886,372,1013,397"/>
+<area shape="rect" id="node11" title="This is a pure virtual class that represents CRUDing data that uses ``dict``" alt="" coords="709,79,781,104"/>
+<area shape="rect" id="node18" title="An interface that recieves notifications that the factory has created this" alt="" coords="513,152,663,177"/>
+<area shape="rect" id="node23" title="Any subclass that has the ability (and need) to do preprocessing. &#160;For" alt="" coords="825,79,905,104"/>
+<area shape="rect" id="node2" href="zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.Batch" target="_top" title="Contains a batch of data used in the first layer of a net. &#160;This class holds" alt="" coords="129,225,201,251"/>
+<area shape="rect" id="node13" href="#zensols.deeplearn.dataframe.batch.DataframeBatch" target="_top" title="A batch of data that contains instances of :class:`.DataframeDataPoint`," alt="" coords="107,299,224,324"/>
+<area shape="rect" id="node3" title="Classes can extend this that want to persist :class:`.PersistableWork`" alt="" coords="94,152,237,177"/>
+<area shape="rect" id="node6" href="zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash" target="_top" title="A stash that vectorizes features in to easily consumable tensors for" alt="" coords="607,592,697,617"/>
+<area shape="rect" id="node12" href="zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.DataPoint" target="_top" title="Abstract class that makes up a container class for features created from" alt="" coords="312,152,392,177"/>
+<area shape="rect" id="node17" title="A class that that generates a dictionary recursively from data classes and" alt="" coords="416,152,488,177"/>
+<area shape="rect" id="node14" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash" target="_top" title="A stash used for batches of data using :class:`.DataframeBatch` instances." alt="" coords="577,665,727,691"/>
+<area shape="rect" id="node7" href="zensols.deeplearn.batch.html#zensols.deeplearn.batch.multi.TorchMultiProcessStash" target="_top" title="A multiprocessing stash that interacts with PyTorch in a way that it can" alt="" coords="645,519,809,544"/>
+<area shape="rect" id="node9" title="Subclass for classes that want to write attribute changes back to a" alt="" coords="548,225,628,251"/>
+<area shape="rect" id="node10" title="Any stash that has a resource that needs to be closed." alt="" coords="688,152,803,177"/>
+<area shape="rect" id="node16" title="Delegate pattern. &#160;It can also be used as a no&#45;op if no delegate is given." alt="" coords="691,225,799,251"/>
+<area shape="rect" id="node22" title="Any subclass that has the ability to do processing before any CRUD method is" alt="" coords="827,152,941,177"/>
+<area shape="rect" id="node15" href="#zensols.deeplearn.dataframe.batch.DataframeDataPoint" target="_top" title="A data point used in a batch, which contains a single row of data in the" alt="" coords="281,225,423,251"/>
+<area shape="rect" id="node21" title="Provide support for preemptively creating data in a stash. &#160;It provides this" alt="" coords="684,299,807,324"/>
+<area shape="rect" id="node19" title="A stash that forks processes to process data in a distributed fashion. &#160;The" alt="" coords="675,445,807,471"/>
+<area shape="rect" id="node20" title="A stash that&#39;s primable and preemptive." alt="" coords="659,372,832,397"/>
+</map>

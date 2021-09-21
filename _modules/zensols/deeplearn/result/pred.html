@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.result.pred &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.result.pred</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.result.pred</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This creates Pandas dataframes containing predictions.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="nn">it</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">zensols.persist</span> <span class="kn">import</span> <span class="n">persisted</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn.vectorize</span> <span class="kn">import</span> <span class="n">CategoryEncodableFeatureVectorizer</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn.batch</span> <span class="kn">import</span> <span class="n">Batch</span><span class="p">,</span> <span class="n">BatchStash</span><span class="p">,</span> <span class="n">DataPoint</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">ModelResultError</span><span class="p">,</span> <span class="n">ModelResult</span><span class="p">,</span> <span class="n">EpochResult</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="PredictionsDataFrameFactory"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.result.html#zensols.deeplearn.result.pred.PredictionsDataFrameFactory">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">PredictionsDataFrameFactory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a Pandas data frame containing results from a result as output from a</span>
+<span class="sd">    ``ModelExecutor``.  The data frame contains the feature IDs, labels,</span>
+<span class="sd">    predictions mapped back to their original value from the feature data item.</span>
+
+<span class="sd">    Currently only classification models are supported.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The source file from where the results were unpickled.&quot;&quot;&quot;</span>
+
+    <span class="n">result</span><span class="p">:</span> <span class="n">ModelResult</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The epoch containing the results.&quot;&quot;&quot;</span>
+
+    <span class="n">stash</span><span class="p">:</span> <span class="n">BatchStash</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The batch stash used to generate the results from the</span>
+<span class="sd">    :class:`~zensols.deeplearn.model.ModelExecutor`.  This is used to get the</span>
+<span class="sd">    vectorizer to reverse map the labels.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">column_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;The list of string column names for each data item the list returned from</span>
+<span class="sd">    ``data_point_transform`` to be added to the results for each</span>
+<span class="sd">    label/prediction</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">data_point_transform</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">DataPoint</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;A function that returns a tuple, each with an element respective of</span>
+<span class="sd">    ``column_names`` to be added to the results for each label/prediction; if</span>
+<span class="sd">    ``None`` (the default), ``str`` used (see the `Iris Jupyter Notebook</span>
+<span class="sd">    &lt;https://github.com/plandes/deeplearn/blob/master/notebook/iris.ipynb&gt;`_</span>
+<span class="sd">    example)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">batch_limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span>
+    <span class="sd">&quot;&quot;&quot;The max number of batche of results to output.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">column_names</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_point_transform</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_point_transform</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">dp</span><span class="p">:</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dp</span><span class="p">),)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The name of the results taken from :class:`.ModelResult`.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">epoch_result</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EpochResult</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The epoch containing the results.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_batch_data_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return a data from for each batch.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">transform</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_point_transform</span>
+        <span class="n">batches</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epoch_result</span><span class="o">.</span><span class="n">batch_ids</span><span class="p">,</span>
+                      <span class="bp">self</span><span class="o">.</span><span class="n">epoch_result</span><span class="o">.</span><span class="n">batch_predictions</span><span class="p">,</span>
+                      <span class="bp">self</span><span class="o">.</span><span class="n">epoch_result</span><span class="o">.</span><span class="n">batch_labels</span><span class="p">)</span>
+        <span class="n">i</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">preds</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
+        <span class="n">labs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">labs</span> <span class="ow">in</span> <span class="n">it</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">batches</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_limit</span><span class="p">):</span>
+            <span class="n">batch</span><span class="p">:</span> <span class="n">Batch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stash</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">vec</span><span class="p">:</span> <span class="n">CategoryEncodableFeatureVectorizer</span> <span class="o">=</span> \
+                <span class="n">batch</span><span class="o">.</span><span class="n">get_label_feature_vectorizer</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">CategoryEncodableFeatureVectorizer</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">ModelResultError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;expecting a category feature vectorizer but got: </span><span class="si">{</span><span class="n">vec</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">inv_trans</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">label_encoder</span><span class="o">.</span><span class="n">inverse_transform</span>
+            <span class="n">preds</span> <span class="o">=</span> <span class="n">inv_trans</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
+            <span class="n">labs</span> <span class="o">=</span> <span class="n">inv_trans</span><span class="p">(</span><span class="n">labs</span><span class="p">)</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">dp</span><span class="p">,</span> <span class="n">lab</span><span class="p">,</span> <span class="n">pred</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">get_data_points</span><span class="p">(),</span> <span class="n">labs</span><span class="p">,</span> <span class="n">preds</span><span class="p">):</span>
+                <span class="k">assert</span> <span class="n">dp</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="n">lab</span>
+                <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">dp</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">lab</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">lab</span> <span class="o">==</span> <span class="n">pred</span><span class="p">]</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">transform</span><span class="p">(</span><span class="n">dp</span><span class="p">))</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+            <span class="n">cols</span> <span class="o">=</span> <span class="s1">&#39;id label pred correct&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column_names</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_dataframe&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the dataframe of results.  The first columns are generated from</span>
+<span class="sd">        ``data_point_tranform``, and the remaining columns are:</span>
+
+<span class="sd">        - id: the ID of the feature (not batch) data item</span>
+<span class="sd">        - label: the label given by the feature data item</span>
+<span class="sd">        - pred: the prediction</span>
+<span class="sd">        - correct: whether or not the prediction was correct</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_batch_data_frame</span><span class="p">(),</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

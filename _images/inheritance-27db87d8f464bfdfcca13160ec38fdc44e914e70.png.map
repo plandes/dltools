@@ -1,0 +1,15 @@
+<map id="inheritancefeca1564de" name="inheritancefeca1564de">
+<area shape="rect" id="node1" title="Helper class that provides a standard way to create an ABC using" alt="" coords="251,5,323,31"/>
+<area shape="rect" id="node3" title="This is a pure virtual class that represents CRUDing data that uses ``dict``" alt="" coords="151,79,223,104"/>
+<area shape="rect" id="node8" title="An interface for classes that have multi&#45;line debuging capability." alt="" coords="5,225,77,251"/>
+<area shape="rect" id="node9" title="All subclasses have the ability to deallocate any resources. &#160;This is useful" alt="" coords="459,79,560,104"/>
+<area shape="rect" id="node10" title="Any subclass that has the ability (and need) to do preprocessing. &#160;For" alt="" coords="247,79,327,104"/>
+<area shape="rect" id="node13" href="#zensols.dataset.interface.SplitKeyContainer" target="_top" title="An interface defining a container that partitions data sets (i.e. ``train``" alt="" coords="357,152,483,177"/>
+<area shape="rect" id="node2" title="Any stash that has a resource that needs to be closed." alt="" coords="79,152,193,177"/>
+<area shape="rect" id="node5" title="Delegate pattern. &#160;It can also be used as a no&#45;op if no delegate is given." alt="" coords="102,225,210,251"/>
+<area shape="rect" id="node11" title="Any subclass that has the ability to do processing before any CRUD method is" alt="" coords="217,152,332,177"/>
+<area shape="rect" id="node4" href="#zensols.dataset.stash.DatasetSplitStash" target="_top" title="A default implementation of :class:`.SplitStashContainer`. &#160;However, it" alt="" coords="165,299,293,324"/>
+<area shape="rect" id="node12" href="#zensols.dataset.stash.SortedDatasetSplitStash" target="_top" title="A sorted version of a :class:`DatasetSplitStash`, where keys, values, items" alt="" coords="146,372,313,397"/>
+<area shape="rect" id="node6" href="#zensols.dataset.interface.SplitStashContainer" target="_top" title="An interface like ``SplitKeyContainer``, but whose implementations are of" alt="" coords="235,225,373,251"/>
+<area shape="rect" id="node7" title="Classes can extend this that want to persist :class:`.PersistableWork`" alt="" coords="423,225,566,251"/>
+</map>

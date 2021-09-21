@@ -1,0 +1,16 @@
+<map id="inheritance58f98266e6" name="inheritance58f98266e6">
+<area shape="rect" id="node1" title="Helper class that provides a standard way to create an ABC using" alt="" coords="141,5,213,31"/>
+<area shape="rect" id="node5" title="All subclasses have the ability to deallocate any resources. &#160;This is useful" alt="" coords="256,79,357,104"/>
+<area shape="rect" id="node8" title="An interface for classes that have multi&#45;line debuging capability." alt="" coords="37,79,109,104"/>
+<area shape="rect" id="node11" title="An interface that recieves notifications that the factory has created this" alt="" coords="102,152,253,177"/>
+<area shape="rect" id="node2" href="zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule" target="_top" title="A utility base network module that contains ubiquitous, but optional layers," alt="" coords="370,225,513,251"/>
+<area shape="rect" id="node13" href="#zensols.deeplearn.layer.recur.RecurrentAggregation" target="_top" title="A recurrent neural network model with an output aggregation. &#160;This includes" alt="" coords="367,299,515,324"/>
+<area shape="rect" id="node3" href="zensols.deeplearn.model.html#zensols.deeplearn.model.module.DebugModule" target="_top" title="A utility base class that makes logging more understandable." alt="" coords="443,152,546,177"/>
+<area shape="rect" id="node4" title="Classes can extend this that want to persist :class:`.PersistableWork`" alt="" coords="277,152,419,177"/>
+<area shape="rect" id="node10" href="zensols.deeplearn.html#zensols.deeplearn.domain.NetworkSettings" target="_top" title="A container settings class for network models. &#160;This abstract class must" alt="" coords="210,299,329,324"/>
+<area shape="rect" id="node6" title="Base class for all neural network modules." alt="" coords="459,79,531,104"/>
+<area shape="rect" id="node7" title="A class that that generates a dictionary recursively from data classes and" alt="" coords="5,152,77,177"/>
+<area shape="rect" id="node12" title="Subclass for classes that want to write attribute changes back to a" alt="" coords="137,225,217,251"/>
+<area shape="rect" id="node9" href="zensols.deeplearn.html#zensols.deeplearn.domain.DropoutNetworkSettings" target="_top" title="A network settings that contains a dropout setting and creates a dropout" alt="" coords="187,372,352,397"/>
+<area shape="rect" id="node14" href="#zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings" target="_top" title="Settings for a recurrent neural network. &#160;This configures a" alt="" coords="147,445,392,471"/>
+</map>

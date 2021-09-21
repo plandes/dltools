@@ -1,0 +1,516 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.batch.stash &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.batch.stash</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.batch.stash</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="sd">&quot;&quot;&quot;This file contains a stash used to load an embedding layer.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">InitVar</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="nn">it</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">zensols.util</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">zensols.config</span> <span class="kn">import</span> <span class="n">Writeback</span>
+<span class="kn">from</span> <span class="nn">zensols.persist</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">chunks</span><span class="p">,</span>
+    <span class="n">Deallocatable</span><span class="p">,</span>
+    <span class="n">persisted</span><span class="p">,</span>
+    <span class="n">PersistedWork</span><span class="p">,</span>
+    <span class="n">Primeable</span><span class="p">,</span>
+    <span class="n">Stash</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">zensols.dataset</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">SplitKeyContainer</span><span class="p">,</span>
+    <span class="n">SplitStashContainer</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn</span> <span class="kn">import</span> <span class="n">TorchConfig</span><span class="p">,</span> <span class="n">DeepLearnError</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn.vectorize</span> <span class="kn">import</span> <span class="n">FeatureVectorizerManagerSet</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BatchDirectoryCompositeStash</span><span class="p">,</span> <span class="n">DataPointIDSet</span><span class="p">,</span>
+    <span class="n">DataPoint</span><span class="p">,</span> <span class="n">Batch</span><span class="p">,</span> <span class="n">TorchMultiProcessStash</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="BatchStash"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">BatchStash</span><span class="p">(</span><span class="n">TorchMultiProcessStash</span><span class="p">,</span> <span class="n">SplitKeyContainer</span><span class="p">,</span> <span class="n">Writeback</span><span class="p">,</span>
+                 <span class="n">Deallocatable</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A stash that vectorizes features in to easily consumable tensors for</span>
+<span class="sd">    training and testing.  This stash produces instances of :class:`.Batch`,</span>
+<span class="sd">    which is a batch in the machine learning sense, and the first dimension of</span>
+<span class="sd">    what will become the tensor used in PyTorch.  Each of these batches has a</span>
+<span class="sd">    logical one to many relationship to that batche&#39;s respective set of data</span>
+<span class="sd">    points, which is encapsulated in the :class:`.DataPoint` class.</span>
+
+<span class="sd">    The stash creates subprocesses to vectorize features in to tensors in</span>
+<span class="sd">    chunks of IDs (data point IDs) from the subordinate stash using</span>
+<span class="sd">    ``DataPointIDSet`` instances.</span>
+
+<span class="sd">    To speed up experiements, all available features configured in</span>
+<span class="sd">    ``vectorizer_manager_set`` are encoded on disk.  However, only the</span>
+<span class="sd">    ``decoded_attributes`` (see attribute below) are avilable to the model</span>
+<span class="sd">    regardless of what was created during encoding time.</span>
+
+<span class="sd">    The lifecycle of the data follows:</span>
+
+<span class="sd">    1. Feature data created by the client, which could be language features,</span>
+<span class="sd">       row data etc.</span>
+
+<span class="sd">    2. Vectorize the feature data using the vectorizers in</span>
+<span class="sd">       ``vectorizer_manager_set``.  This creates the feature contexts</span>
+<span class="sd">       (``FeatureContext``) specifically meant to be pickeled.</span>
+
+<span class="sd">    3. Pickle the feature contexts when dumping to disk, which is invoked in</span>
+<span class="sd">       the child processes of this class.</span>
+
+<span class="sd">    4. At train time, load the feature contexts from disk.</span>
+
+<span class="sd">    5. Decode the feature contexts in to PyTorch tensors.</span>
+
+<span class="sd">    6. The model manager uses the ``to`` method to copy the CPU tensors to the</span>
+<span class="sd">       GPU (where GPUs are available).</span>
+
+<span class="sd">    :see _process: for details on the pickling of the batch instances</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data_point_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">DataPoint</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;A subclass type of :class:`.DataPoint` implemented for the specific</span>
+<span class="sd">    feature.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">batch_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Batch</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The batch class to be instantiated when created batchs.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">split_stash_container</span><span class="p">:</span> <span class="n">SplitStashContainer</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The source data stash that has both the data and data set keys for each</span>
+<span class="sd">    split (i.e. ``train`` vs ``test``).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">vectorizer_manager_set</span><span class="p">:</span> <span class="n">FeatureVectorizerManagerSet</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;Used to vectorize features in to tensors.&quot;&quot;&quot;</span>
+
+    <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The number of data points in each batch, except the last (unless the</span>
+<span class="sd">    data point cardinality divides the batch size).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">model_torch_config</span><span class="p">:</span> <span class="n">TorchConfig</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The PyTorch configuration used to (optionally) copy CPU to GPU memory.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">data_point_id_sets_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The path of where to store key data for the splits; note that the</span>
+<span class="sd">    container might store it&#39;s key splits in some other location.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">decoded_attributes</span><span class="p">:</span> <span class="n">InitVar</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The attributes to decode; only these are avilable to the model</span>
+<span class="sd">    regardless of what was created during encoding time; if None, all are</span>
+<span class="sd">    available.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">batch_limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;The max number of batches to process, which is useful for debugging.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">decoded_attributes</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span>
+        <span class="n">Deallocatable</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># TODO: this class conflates key split and delegate stash functionality</span>
+        <span class="c1"># in the `split_stash_container`.  An instance of this type serves the</span>
+        <span class="c1"># purpose, but it need not be.  Instead it just needs to be both a</span>
+        <span class="c1"># SplitKeyContainer and a Stash.  This probably should be split out in</span>
+        <span class="c1"># to two different fields.</span>
+        <span class="n">cont</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_stash_container</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cont</span><span class="p">,</span> <span class="n">SplitStashContainer</span><span class="p">)</span> \
+           <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cont</span><span class="p">,</span> <span class="n">SplitKeyContainer</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cont</span><span class="p">,</span> <span class="n">Stash</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="n">DeepLearnError</span><span class="p">(</span><span class="s1">&#39;Expecting SplitStashContainer but got &#39;</span> <span class="o">+</span>
+                                 <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">split_stash_container</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_point_id_sets_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_batch_data_point_sets</span> <span class="o">=</span> <span class="n">PersistedWork</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_point_id_sets_path</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoded_attributes</span> <span class="o">=</span> <span class="n">decoded_attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">priming</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">decoded_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;The attributes to decode.  Only these are avilable to the model regardless</span>
+<span class="sd">        of what was created during encoding time; if None, all are available</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decoded_attributes</span>
+
+    <span class="nd">@decoded_attributes</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">decoded_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The attributes to decode.  Only these are avilable to the model regardless</span>
+<span class="sd">        of what was created during encoding time; if None, all are available</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;setting decoded attributes: </span><span class="si">{</span><span class="n">attribs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_decoded_attributes</span> <span class="o">=</span> <span class="n">attribs</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delegate</span><span class="p">,</span> <span class="n">BatchDirectoryCompositeStash</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delegate</span><span class="o">.</span><span class="n">load_keys</span> <span class="o">=</span> <span class="n">attribs</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_batch_data_point_sets&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">batch_data_point_sets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DataPointIDSet</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Create the data point ID sets.  Each instance returned will correlate to a</span>
+<span class="sd">        batch and each set of keys point to a feature :class:`.DataPoint`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">psets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">batch_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">cont</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_stash_container</span>
+        <span class="n">tc_seed</span> <span class="o">=</span> <span class="n">TorchConfig</span><span class="o">.</span><span class="n">get_random_seed_context</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">: creating keys with (</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span><span class="si">}</span><span class="s1">) &#39;</span> <span class="o">+</span>
+                        <span class="sa">f</span><span class="s1">&#39;using batch size of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">split</span><span class="p">,</span> <span class="n">keys</span> <span class="ow">in</span> <span class="n">cont</span><span class="o">.</span><span class="n">keys_by_split</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;keys for split </span><span class="si">{</span><span class="n">split</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="c1"># keys are ordered and needed to be as such for consistency</span>
+            <span class="c1"># keys = sorted(keys, key=int)</span>
+            <span class="n">cslice</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">chunks</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_limit</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">cslice</span><span class="p">:</span>
+                <span class="n">chunk</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;chunked size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">dp_set</span> <span class="o">=</span> <span class="n">DataPointIDSet</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">batch_id</span><span class="p">),</span> <span class="n">chunk</span><span class="p">,</span> <span class="n">split</span><span class="p">,</span> <span class="n">tc_seed</span><span class="p">)</span>
+                <span class="n">psets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dp_set</span><span class="p">)</span>
+                <span class="n">batch_id</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;created </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">psets</span><span class="p">)</span><span class="si">}</span><span class="s1"> each set limited with &#39;</span> <span class="o">+</span>
+                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_limit</span><span class="si">}</span><span class="s1"> with batch_limit=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_limit</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">psets</span>
+
+    <span class="k">def</span> <span class="nf">_get_keys_by_split</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+        <span class="n">by_batch</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[])</span>
+        <span class="k">for</span> <span class="n">dps</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_data_point_sets</span><span class="p">:</span>
+            <span class="n">by_batch</span><span class="p">[</span><span class="n">dps</span><span class="o">.</span><span class="n">split_name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dps</span><span class="o">.</span><span class="n">batch_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">by_batch</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">by_batch</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+
+    <span class="k">def</span> <span class="nf">_create_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DataPointIDSet</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Data created for the sub proceesses are the first N data point ID sets.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_data_point_sets</span>
+
+    <span class="k">def</span> <span class="nf">_process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunk</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DataPointIDSet</span><span class="p">])</span> <span class="o">-&gt;</span> \
+            <span class="n">Iterable</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;Create the batches by creating the set of data points for each</span>
+<span class="sd">        :class:`.DataPointIDSet` instance.  When the subordinate stash dumps</span>
+<span class="sd">        the batch (specifically a subclass of :class:`.Batch`), the overrided</span>
+<span class="sd">        pickle logic is used to *detatch* the batch by encoded all data in to</span>
+<span class="sd">        :class:`.FeatureContext` instances.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">: processing: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span><span class="si">}</span><span class="s1"> data points&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;chunk data points: </span><span class="si">{</span><span class="n">chunk</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">tseed</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">torch_seed_context</span>
+        <span class="n">dpcls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">DataPoint</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_point_type</span>
+        <span class="n">bcls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Batch</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_type</span>
+        <span class="n">cont</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_stash_container</span>
+        <span class="n">points</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DataPoint</span><span class="p">]</span>
+        <span class="n">batch</span><span class="p">:</span> <span class="n">Batch</span>
+        <span class="k">if</span> <span class="n">tseed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">TorchConfig</span><span class="o">.</span><span class="n">set_random_seed</span><span class="p">(</span>
+                <span class="n">tseed</span><span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">],</span> <span class="n">tseed</span><span class="p">[</span><span class="s1">&#39;disable_cudnn&#39;</span><span class="p">],</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">dset</span><span class="p">:</span> <span class="n">DataPointIDSet</span>
+        <span class="k">for</span> <span class="n">dset</span> <span class="ow">in</span> <span class="n">chunk</span><span class="p">:</span>
+            <span class="n">batch_id</span> <span class="o">=</span> <span class="n">dset</span><span class="o">.</span><span class="n">batch_id</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">dpid</span><span class="p">:</span> <span class="n">dpcls</span><span class="p">(</span><span class="n">dpid</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">cont</span><span class="p">[</span><span class="n">dpid</span><span class="p">]),</span>
+                               <span class="n">dset</span><span class="o">.</span><span class="n">data_point_ids</span><span class="p">))</span>
+            <span class="n">batch</span> <span class="o">=</span> <span class="n">bcls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_id</span><span class="p">,</span> <span class="n">dset</span><span class="o">.</span><span class="n">split_name</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;created batch: </span><span class="si">{</span><span class="n">batch</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="p">(</span><span class="n">batch_id</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_data_points_for_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the data points that were used to create ``batch``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dpcls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_point_type</span>
+        <span class="n">cont</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_stash_container</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">dpid</span><span class="p">:</span> <span class="n">dpcls</span><span class="p">(</span><span class="n">dpid</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">cont</span><span class="p">[</span><span class="n">dpid</span><span class="p">]),</span>
+                         <span class="n">batch</span><span class="o">.</span><span class="n">data_point_ids</span><span class="p">))</span>
+
+<div class="viewcode-block" id="BatchStash.load"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">time</span><span class="p">(</span><span class="s1">&#39;loaded batch </span><span class="si">{name}</span><span class="s1"> (</span><span class="si">{obj.split_name}</span><span class="s1">)&#39;</span><span class="p">):</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="c1"># add back the container of the batch to reconstitute the original</span>
+        <span class="c1"># features and use the CUDA for tensor device transforms</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39;batch_stash&#39;</span><span class="p">):</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">batch_stash</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
+    <span class="k">def</span> <span class="nf">_prime_vectorizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">vec_mng_set</span><span class="p">:</span> <span class="n">FeatureVectorizerManagerSet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vectorizer_manager_set</span>
+        <span class="n">vecs</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">vec_mng_set</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">vec</span> <span class="ow">in</span> <span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">vecs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">Primeable</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;priming </span><span class="si">{</span><span class="n">vec</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">vec</span><span class="o">.</span><span class="n">prime</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BatchStash.prime"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash.prime">[docs]</a>    <span class="k">def</span> <span class="nf">prime</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;priming </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s1">, is child: &#39;</span> <span class="o">+</span>
+                         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">is_child</span><span class="si">}</span><span class="s1">, currently priming: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">priming</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">priming</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DeepLearnError</span><span class="p">(</span><span class="s1">&#39;Already priming&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">priming</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">batch_data_point_sets</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_prime_vectorizers</span><span class="p">()</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">prime</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">priming</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="BatchStash.deallocate"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash.deallocate">[docs]</a>    <span class="k">def</span> <span class="nf">deallocate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_batch_data_point_sets</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delegate</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">split_stash_container</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_try_deallocate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delegate</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_try_deallocate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">split_stash_container</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vectorizer_manager_set</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="BatchStash.clear"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clear the batch, batch data point sets.&quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;clearing&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_batch_data_point_sets</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="BatchStash.clear_all"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash.clear_all">[docs]</a>    <span class="k">def</span> <span class="nf">clear_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clear the batch, batch data point sets, and the source data</span>
+<span class="sd">        (:obj:`split_stash_container`).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">split_stash_container</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

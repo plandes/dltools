@@ -1,0 +1,463 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Model &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Pre-Processing Data" href="preprocess.html" />
+    <link rel="prev" title="Layers" href="layers.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layers.html">Layers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class-name-parlance">Class Name Parlance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network-settings">Network Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-the-network-settings">Configuring the Network Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#network-model">Network Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#debugging">Debugging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extending-the-base-module">Extending the Base Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-the-network-model">Configuring the Network Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#executor">Executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#training">Training</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#memory-management">Memory Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Model</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/doc/model.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="model">
+<h1>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h1>
+<p>Please first read the <a class="reference internal" href="preprocess.html"><span class="doc">data pre-processing</span></a> documentation before proceeding.
+In this document, the model for the <a class="reference external" href="https://github.com/plandes/deeplearn/blob/master/test/python/iris/model.py">Iris example</a> is defined and we train and
+test the model.</p>
+<p>The model contains of two kinds of configuration and set up:</p>
+<ul class="simple">
+<li><p>network settings: configuration of the neural network itself, such as types
+and numbers of layers</p></li>
+<li><p>model settings: configuration of the model, such as the criterion, optimizer,
+and learning rate</p></li>
+</ul>
+<div class="section" id="class-name-parlance">
+<h2>Class Name Parlance<a class="headerlink" href="#class-name-parlance" title="Permalink to this headline">¶</a></h2>
+<p>Network models usually implement layers of a deep learning network.  To follow
+the convention set by <a class="reference external" href="https://pytorch.org">PyTorch</a>, the Python classes that implement the layers
+are referred to as <em>modules</em> and don’t carry the term <em>layer</em> in the class
+name.</p>
+<p>Given that the modules that implement layers in this framework typically
+require a lot of configuration, a separate <em>settings</em> class is given to each
+corresponding module implementation.  For example, a
+<a class="reference external" href="../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings">DeepLinearNetworkSettings</a> configures a <a class="reference external" href="../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinear">DeepLinear</a> layer.</p>
+</div>
+<div class="section" id="network-settings">
+<h2>Network Settings<a class="headerlink" href="#network-settings" title="Permalink to this headline">¶</a></h2>
+<p>The network settings declares which network modules to use in the model.  The
+network settings is a class that contains the configuration that tells the
+module how to build itself, and what that module is.  In the <a class="reference external" href="https://github.com/plandes/deeplearn/blob/master/test/python/iris/model.py">Iris example</a>, we
+first need to create the class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">IrisNetworkSettings</span><span class="p">(</span><span class="n">DeepLinearNetworkSettings</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_module_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;.IrisNetwork&#39;</span>
+</pre></div>
+</div>
+<p>We only need to extend from <a class="reference external" href="../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings">DeepLinearNetworkSettings</a>, which already has all
+the configuration we need since our model is a simple linear set of layers.
+We’ll define that configuration soon.  However, we must override the abstract
+method <code class="docutils literal notranslate"><span class="pre">get_module_class_name</span></code>, which tells us what model to create at
+train/test time.</p>
+<div class="section" id="configuring-the-network-settings">
+<h3>Configuring the Network Settings<a class="headerlink" href="#configuring-the-network-settings" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">IrisNetworkSettings</span></code> instance will be populated by the <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.factory.ConfigFactory">ConfigFactory</a>
+with fields inherited from <a class="reference external" href="../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings">DeepLinearNetworkSettings</a>:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[net_settings]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">iris.model.IrisNetworkSettings</span>
+<span class="na">dropout</span> <span class="o">=</span> <span class="s">0.1</span>
+<span class="na">activation</span> <span class="o">=</span> <span class="s">None</span>
+<span class="na">middle_features</span> <span class="o">=</span> <span class="s">eval: [5, 1]</span>
+<span class="na">in_features</span> <span class="o">=</span> <span class="s">4</span>
+<span class="na">out_features</span> <span class="o">=</span> <span class="s">3</span>
+<span class="na">proportions</span> <span class="o">=</span> <span class="s">False</span>
+<span class="na">repeats</span> <span class="o">=</span> <span class="s">1</span>
+<span class="na">batch_norm_d</span> <span class="o">=</span> <span class="s">None</span>
+<span class="na">batch_norm_features</span> <span class="o">=</span> <span class="s">None</span>
+</pre></div>
+</div>
+<p>which will create a deep linear network expecting 4 input features (one for
+each row feature of the flower size data), with 5 times the number of features
+in the second layer, same number of feature for the third layer, and finally an
+output of three features–one for each flower type.  See
+<a class="reference external" href="../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings">DeepLinearNetworkSettings</a> for more details.</p>
+</div>
+</div>
+<div class="section" id="network-model">
+<h2>Network Model<a class="headerlink" href="#network-model" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="../api/zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule">BaseNetworkModule</a> class provides additional debugging and logging
+convenience methods.</p>
+<div class="section" id="debugging">
+<h3>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h3>
+<p>The method <code class="docutils literal notranslate"><span class="pre">_debug</span></code> in the base class logs as debug to
+the passed logger but also provides additional formatting indicating the name
+of the model, which is taken from <code class="docutils literal notranslate"><span class="pre">MODULE_NAME</span></code>.  For a simple module like
+this, it might seem unnecessary.  However, this additional information is
+crucial in debugging large models.  The <code class="docutils literal notranslate"><span class="pre">_shape_debug</span></code> method logs the shape of
+a tensor.</p>
+</div>
+<div class="section" id="extending-the-base-module">
+<h3>Extending the Base Module<a class="headerlink" href="#extending-the-base-module" title="Permalink to this headline">¶</a></h3>
+<p>Finally, we provide an implementation of <a class="reference external" href="../api/zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule">BaseNetworkModule</a>, which extends
+from <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IrisNetwork</span><span class="p">(</span><span class="n">BaseNetworkModule</span><span class="p">):</span>
+    <span class="n">MODULE_NAME</span> <span class="o">=</span> <span class="s1">&#39;iris&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net_settings</span><span class="p">:</span> <span class="n">IrisNetworkSettings</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">net_settings</span><span class="p">,</span> <span class="n">logger</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">DeepLinear</span><span class="p">(</span><span class="n">net_settings</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">deallocate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_deallocate_children_modules</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Batch</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;label shape: </span><span class="si">{</span><span class="n">batch</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, &#39;</span> <span class="o">+</span>
+                        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">batch</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">get_flower_dimensions</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shape_debug</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shape_debug</span><span class="p">(</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+</div>
+<p>Note that we pass our own logger to the base class, which is needed for the
+aforementioned logging convenience methods and is set attribute <code class="docutils literal notranslate"><span class="pre">logger</span></code> in the
+base class.  Another important difference is we provide a <code class="docutils literal notranslate"><span class="pre">deallocate</span></code> method
+(see the <a class="reference external" href="#memory-management">memory management section</a> for more information)
+and a <code class="docutils literal notranslate"><span class="pre">_forward</span></code> method.  This private forward method now takes a batch object
+instance that’s been decoded by a <a class="reference external" href="preprocess.html#vectorizers">vectorizer</a>.  The <a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.Batch">Batch</a> object has the
+vectorized tensors ready to be used, the labels, and <a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.meta.BatchMetadata">BatchMetadata</a>.  The
+<a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.Batch">Batch</a> object get load the original <a class="reference external" href="preprocess.html#processing-data-points">data point</a> objects with the
+<a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.Batch.get_data_points">get_data_points</a> method.</p>
+</div>
+<div class="section" id="configuring-the-network-model">
+<h3>Configuring the Network Model<a class="headerlink" href="#configuring-the-network-model" title="Permalink to this headline">¶</a></h3>
+<p>In the initializer, all we need to do is create a <a class="reference external" href="../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinear">DeepLinear</a> module with the
+configuration give from the <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.factory.ConfigFactory">ConfigFactory</a> that was used to create the network
+settings instance.</p>
+<p>The model is configured as follows:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[model_settings]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">zensols.deeplearn.ModelSettings</span>
+<span class="na">path</span> <span class="o">=</span> <span class="s">path: ${default:temporary_dir}/model</span>
+<span class="na">nominal_labels</span> <span class="o">=</span> <span class="s">False</span>
+<span class="na">learning_rate</span> <span class="o">=</span> <span class="s">0.1</span>
+<span class="na">batch_iteration</span> <span class="o">=</span> <span class="s">gpu</span>
+<span class="na">epochs</span> <span class="o">=</span> <span class="s">15</span>
+</pre></div>
+</div>
+<p>which creates a <code class="docutils literal notranslate"><span class="pre">ModelSettings</span></code> class used to create the model that stores the
+model in the temporary directory under <code class="docutils literal notranslate"><span class="pre">model</span></code>.  The <code class="docutils literal notranslate"><span class="pre">nominal_labels</span></code> tell the
+framework that the class is not an integer nominal index for each class.  this
+is because the model outputs a three neuron output for each flower type (see
+the <a class="reference external" href="#network-model">network model</a> section).  The model will train for 15
+epochs using a learning rate of 0.1 using the (default) <code class="docutils literal notranslate"><span class="pre">torch.nn.Adam</span></code>
+optimizer with the (default) loss function <code class="docutils literal notranslate"><span class="pre">torch.nn.CrossEntropyLoss</span></code>.  See
+<a class="reference external" href="../api/zensols.deeplearn.html#zensols.deeplearn.domain.ModelSettings">ModelSettings</a> documentation for more information.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">batch_iteration</span> <span class="pre">=</span> <span class="pre">gpu</span></code> means the entire batch data set will be decoded in
+to GPU memory (see the <a class="reference external" href="#training">training</a> section).  See the <a class="reference external" href="../api/zensols.deeplearn.html#zensols.deeplearn.domain.ModelSettings">ModelSettings</a>
+class for full documentation on each option.</p>
+</div>
+</div>
+<div class="section" id="executor">
+<h2>Executor<a class="headerlink" href="#executor" title="Permalink to this headline">¶</a></h2>
+<p>Finally we define the <a class="reference external" href="../api/zensols.deeplearn.model.html#zensols.deeplearn.model.executor.ModelExecutor">ModelExecutor</a>, which is the class that trains,
+validates and tests the model:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[executor]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">zensols.deeplearn.model.ModelExecutor</span>
+<span class="na">model_name</span> <span class="o">=</span> <span class="s">Iris</span>
+<span class="na">model_settings</span> <span class="o">=</span> <span class="s">instance: model_settings</span>
+<span class="na">net_settings</span> <span class="o">=</span> <span class="s">instance: net_settings</span>
+<span class="na">dataset_stash</span> <span class="o">=</span> <span class="s">instance: iris_dataset_stash</span>
+<span class="na">dataset_split_names</span> <span class="o">=</span> <span class="s">eval: &#39;train dev test&#39;.split()</span>
+<span class="na">result_path</span> <span class="o">=</span> <span class="s">path: ${default:results_dir}</span>
+</pre></div>
+</div>
+<p>This creates an executor that uses the string <code class="docutils literal notranslate"><span class="pre">Iris</span></code> in all generated graphs
+and result output.  It refers to the model and network settings we have already
+defined.  It uses the <code class="docutils literal notranslate"><span class="pre">iris_dataset_stash</span></code> we defined in the
+<a class="reference internal" href="preprocess.html"><span class="doc">preprocess</span></a> documentation.</p>
+<p>You can use the executor directly as demonstrated in the <a class="reference external" href="https://github.com/plandes/deeplearn/blob/master/notebook/iris.ipynb">Iris notebook</a> or
+with a facade as shown in the <a class="reference internal" href="facade.html"><span class="doc">facade</span></a> documentation.</p>
+<p>During the training of the model, if the <code class="docutils literal notranslate"><span class="pre">update_path</span></code> path is configured on
+the executor, the training and validation loss is <a class="reference external" href="results.html#plotting-loss">plotted</a>.  This file also
+informs the <a class="reference external" href="../api/zensols.deeplearn.model.html#zensols.deeplearn.model.executor.ModelExecutor">ModelExecutor</a> of any changes while training by providing
+configuration as a JSON file.  For example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;epoch&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>resets the current epoch to <code class="docutils literal notranslate"><span class="pre">20</span></code> by the <a class="reference external" href="../api/zensols.deeplearn.model.html#zensols.deeplearn.model.trainmng.TrainManager">TrainManager</a>.  By doing this, you can
+shorten or lengthen training time.  If the file exists, but is empty, or
+otherwise cannot be parsed, the training is early stopped.</p>
+</div>
+<div class="section" id="training">
+<h2>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="#exectuor">executor</a> is used to train, validation and test the model.
+During the training phase, this includes:</p>
+<ol class="simple">
+<li><p>Loading the batch(es) in memory.</p></li>
+<li><p>Training the model with the training data set with auto gradients on for
+each epoch.</p></li>
+<li><p>Using the validation data set to calculate the validation loss for each
+epoch.</p></li>
+<li><p>Across each epoch, if and only if the validation loss is lower, the model is
+saved.</p></li>
+<li><p>Add the validation loss and outcome of each data point to a <a class="reference external" href="../api/zensols.deeplearn.result.html#zensols.deeplearn.result.domain.ModelResult">ModelResult</a>.</p></li>
+<li><p>If the validation loss has not decreased within the window set by the
+<a class="reference external" href="../api/zensols.deeplearn.html#zensols.deeplearn.domain.ModelSettings">ModelSettings</a> <code class="docutils literal notranslate"><span class="pre">max_consecutive_increased_count</span></code> parameter, then early stop
+training the model.</p></li>
+<li><p>If the model has been trained on the number of <code class="docutils literal notranslate"><span class="pre">epochs</span></code> set in the
+<a class="reference external" href="../api/zensols.deeplearn.html#zensols.deeplearn.domain.ModelSettings">ModelSettings</a>, then stop.</p></li>
+<li><p>Otherwise, the learning rate is adjusted with a schedule based on the
+<code class="docutils literal notranslate"><span class="pre">scheduler_class_name</span></code> <a class="reference external" href="../api/zensols.deeplearn.html#zensols.deeplearn.domain.ModelSettings">ModelSettings</a> parameter and we iterate over another
+epoch.</p></li>
+</ol>
+<div class="section" id="memory-management">
+<h3>Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this headline">¶</a></h3>
+<p>When the training process starts, batches are loaded in one of three ways:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gpu</span></code>, buffers all data in the GPU,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu</span></code>, which means keep all batches in CPU memory (the default), or</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">buffered</span></code> which means to buffer only one batch at a time (only
+for <em>very</em> large data).</p></li>
+</ul>
+<p>When using the <code class="docutils literal notranslate"><span class="pre">gpu</span></code> setting, all batches (and thus all data) is loaded in to
+GPU memory all at once.  This means the output of the decoding process detailed
+in the <a class="reference external" href="preprocess.html#vectorizers">vectorizer</a> documentation.  If this parameter is set to <code class="docutils literal notranslate"><span class="pre">cpu</span></code>, all
+batches would be decoded to CPU memory, then moved to the GPU for each epoch.
+For the <code class="docutils literal notranslate"><span class="pre">buffered</span></code> setting, all batches are decoded for each epoch.</p>
+<p>In order to keep a low memory profile, the Python garbage collector is called
+at different intervals depending on the <code class="docutils literal notranslate"><span class="pre">gc_level</span></code> parameter in the
+<a class="reference external" href="../api/zensols.deeplearn.html#zensols.deeplearn.domain.ModelSettings">ModelSettings</a>.</p>
+<p>See the <a class="reference external" href="#network-model">model section</a> for more details on the model settings.</p>
+</div>
+</div>
+<div class="section" id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<p>The testing data set is loaded in the same way as the <a class="reference external" href="#training">training</a>
+data set.  In the same way, the outcome of each testing data point is stored in
+<a class="reference external" href="../api/zensols.deeplearn.result.html#zensols.deeplearn.result.domain.ModelResult">ModelResult</a> after being loaded from the file system saved from the training
+phase.</p>
+<!-- links --></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="preprocess.html" class="btn btn-neutral float-right" title="Pre-Processing Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="layers.html" class="btn btn-neutral float-left" title="Layers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

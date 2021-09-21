@@ -1,0 +1,1635 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn package &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="zensols.deeplearn.batch package" href="zensols.deeplearn.batch.html" />
+    <link rel="prev" title="zensols.dataset package" href="zensols.dataset.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataframe.html">zensols.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataset.html">zensols.dataset package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">zensols.deeplearn package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.cli.html">zensols.deeplearn.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-domain">zensols.deeplearn.domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-plot">zensols.deeplearn.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-torchconfig">zensols.deeplearn.torchconfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-torchtype">zensols.deeplearn.torchtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zensols.deeplearn">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.cli.html">zensols.deeplearn.cli package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+      <li>zensols.deeplearn package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/zensols.deeplearn.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="zensols-deeplearn-package">
+<h1>zensols.deeplearn package<a class="headerlink" href="#zensols-deeplearn-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html#zensols-deeplearn-batch-domain">zensols.deeplearn.batch.domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html#zensols-deeplearn-batch-interface">zensols.deeplearn.batch.interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html#zensols-deeplearn-batch-mapping">zensols.deeplearn.batch.mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html#zensols-deeplearn-batch-meta">zensols.deeplearn.batch.meta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html#zensols-deeplearn-batch-multi">zensols.deeplearn.batch.multi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html#zensols-deeplearn-batch-stash">zensols.deeplearn.batch.stash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html#module-zensols.deeplearn.batch">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="zensols.deeplearn.cli.html">zensols.deeplearn.cli package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.cli.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.cli.html#zensols-deeplearn-cli-app">zensols.deeplearn.cli.app</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.cli.html#module-zensols.deeplearn.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.dataframe.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.dataframe.html#zensols-deeplearn-dataframe-batch">zensols.deeplearn.dataframe.batch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.dataframe.html#zensols-deeplearn-dataframe-util">zensols.deeplearn.dataframe.util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.dataframe.html#zensols-deeplearn-dataframe-vectorize">zensols.deeplearn.dataframe.vectorize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.dataframe.html#module-zensols.deeplearn.dataframe">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html#zensols-deeplearn-layer-conv">zensols.deeplearn.layer.conv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html#zensols-deeplearn-layer-crf">zensols.deeplearn.layer.crf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html#zensols-deeplearn-layer-linear">zensols.deeplearn.layer.linear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html#zensols-deeplearn-layer-recur">zensols.deeplearn.layer.recur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html#zensols-deeplearn-layer-recurcrf">zensols.deeplearn.layer.recurcrf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html#module-zensols.deeplearn.layer">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#zensols-deeplearn-model-analyze">zensols.deeplearn.model.analyze</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#zensols-deeplearn-model-batchiter">zensols.deeplearn.model.batchiter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#zensols-deeplearn-model-executor">zensols.deeplearn.model.executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#zensols-deeplearn-model-facade">zensols.deeplearn.model.facade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#zensols-deeplearn-model-manager">zensols.deeplearn.model.manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#zensols-deeplearn-model-meta">zensols.deeplearn.model.meta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#zensols-deeplearn-model-module">zensols.deeplearn.model.module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#zensols-deeplearn-model-optimizer">zensols.deeplearn.model.optimizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#zensols-deeplearn-model-pred">zensols.deeplearn.model.pred</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#zensols-deeplearn-model-sequence">zensols.deeplearn.model.sequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#zensols-deeplearn-model-trainmng">zensols.deeplearn.model.trainmng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#zensols-deeplearn-model-wgtexecutor">zensols.deeplearn.model.wgtexecutor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html#module-zensols.deeplearn.model">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html#zensols-deeplearn-result-domain">zensols.deeplearn.result.domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html#zensols-deeplearn-result-manager">zensols.deeplearn.result.manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html#zensols-deeplearn-result-plot">zensols.deeplearn.result.plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html#zensols-deeplearn-result-pred">zensols.deeplearn.result.pred</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html#zensols-deeplearn-result-report">zensols.deeplearn.result.report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html#module-zensols.deeplearn.result">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.vectorize.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.vectorize.html#zensols-deeplearn-vectorize-domain">zensols.deeplearn.vectorize.domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.vectorize.html#zensols-deeplearn-vectorize-manager">zensols.deeplearn.vectorize.manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.vectorize.html#zensols-deeplearn-vectorize-vectorizers">zensols.deeplearn.vectorize.vectorizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.vectorize.html#module-zensols.deeplearn.vectorize">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="zensols-deeplearn-domain">
+<h2>zensols.deeplearn.domain<a class="headerlink" href="#zensols-deeplearn-domain" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-1acadd91045542116ca8dfd024919d41ea9b7d46.png" alt="Inheritance diagram of zensols.deeplearn.domain" usemap="#inheritance4bd38ff333" class="inheritance graphviz" /></div>
+<map id="inheritance4bd38ff333" name="inheritance4bd38ff333">
+<area shape="rect" id="node9" href="#zensols.deeplearn.domain.DeepLearnError" target="_top" title="Raised for any frame originated error." alt="" coords="549,79,663,104"/>
+<area shape="rect" id="node3" href="#zensols.deeplearn.domain.ActivationNetworkSettings" target="_top" title="A network settings that contains a activation setting and creates a" alt="" coords="5,372,183,397"/>
+<area shape="rect" id="node4" href="#zensols.deeplearn.domain.NetworkSettings" target="_top" title="A container settings class for network models. &#160;This abstract class must" alt="" coords="240,299,359,324"/>
+<area shape="rect" id="node5" href="#zensols.deeplearn.domain.BatchNormNetworkSettings" target="_top" title="A network settings that contains a batchnorm setting and creates a batchnorm" alt="" coords="207,372,392,397"/>
+<area shape="rect" id="node12" href="#zensols.deeplearn.domain.DropoutNetworkSettings" target="_top" title="A network settings that contains a dropout setting and creates a dropout" alt="" coords="417,372,582,397"/>
+<area shape="rect" id="node6" href="#zensols.deeplearn.domain.DatasetSplitType" target="_top" title="Indicates an action on the model, which is first trained, validated, then" alt="" coords="687,79,810,104"/>
+<area shape="rect" id="node13" href="#zensols.deeplearn.domain.EarlyBailError" target="_top" title="Convenience used for helping debug the network." alt="" coords="473,152,576,177"/>
+<area shape="rect" id="node15" href="#zensols.deeplearn.domain.ModelError" target="_top" title="Raised for any model related error." alt="" coords="601,152,686,177"/>
+<area shape="rect" id="node16" href="#zensols.deeplearn.domain.ModelSettings" target="_top" title="This configures and instance of :class:`.ModelExecutor`. &#160;This differes from" alt="" coords="383,299,488,324"/>
+</map><span class="target" id="module-zensols.deeplearn.domain"></span><p>This file contains classes that configure the network and classifier runs.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.domain.ActivationNetworkSettings">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.domain.</code><code class="sig-name descname">ActivationNetworkSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">activation</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#ActivationNetworkSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.ActivationNetworkSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.domain.NetworkSettings" title="zensols.deeplearn.domain.NetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.NetworkSettings</span></code></a></p>
+<p>A network settings that contains a activation setting and creates a
+activation layer.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.domain.ActivationNetworkSettings.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">activation</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.domain.ActivationNetworkSettings.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ActivationNetworkSettings.activation">
+<code class="sig-name descname">activation</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></em><a class="headerlink" href="#zensols.deeplearn.domain.ActivationNetworkSettings.activation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function between all layers, or <code class="docutils literal notranslate"><span class="pre">None</span></code> for no activation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.domain.ActivationNetworkSettings.activation_function">
+<em class="property">property </em><code class="sig-name descname">activation_function</code><a class="headerlink" href="#zensols.deeplearn.domain.ActivationNetworkSettings.activation_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.domain.ActivationNetworkSettings.get_activation_function">
+<em class="property">static </em><code class="sig-name descname">get_activation_function</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">activation</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#ActivationNetworkSettings.get_activation_function"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.ActivationNetworkSettings.get_activation_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.domain.BatchNormNetworkSettings">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.domain.</code><code class="sig-name descname">BatchNormNetworkSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">batch_norm_d</span></em>, <em class="sig-param"><span class="n">batch_norm_features</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#BatchNormNetworkSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.BatchNormNetworkSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.domain.NetworkSettings" title="zensols.deeplearn.domain.NetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.NetworkSettings</span></code></a></p>
+<p>A network settings that contains a batchnorm setting and creates a batchnorm
+layer.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.domain.BatchNormNetworkSettings.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">batch_norm_d</span></em>, <em class="sig-param"><span class="n">batch_norm_features</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.domain.BatchNormNetworkSettings.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.BatchNormNetworkSettings.batch_norm_d">
+<code class="sig-name descname">batch_norm_d</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.domain.BatchNormNetworkSettings.batch_norm_d" title="Permalink to this definition">¶</a></dt>
+<dd><p>The dimension of the batch norm or <code class="docutils literal notranslate"><span class="pre">None</span></code> to disable.  Based on this one
+of the following is used as a layer:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.BatchNorm1d.html#torch.nn.BatchNorm1d" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.BatchNorm1d</span></code></a></p></li>
+<li><p><a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.BatchNorm2d.html#torch.nn.BatchNorm2d" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.BatchNorm2d</span></code></a></p></li>
+<li><p><a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.BatchNorm3d.html#torch.nn.BatchNorm3d" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.BatchNorm3d</span></code></a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.BatchNormNetworkSettings.batch_norm_features">
+<code class="sig-name descname">batch_norm_features</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.domain.BatchNormNetworkSettings.batch_norm_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of features to use in the batch norm layer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.domain.BatchNormNetworkSettings.batch_norm_layer">
+<em class="property">property </em><code class="sig-name descname">batch_norm_layer</code><a class="headerlink" href="#zensols.deeplearn.domain.BatchNormNetworkSettings.batch_norm_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.domain.BatchNormNetworkSettings.create_batch_norm_layer">
+<em class="property">static </em><code class="sig-name descname">create_batch_norm_layer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_norm_d</span></em>, <em class="sig-param"><span class="n">batch_norm_features</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#BatchNormNetworkSettings.create_batch_norm_layer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.BatchNormNetworkSettings.create_batch_norm_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.domain.BatchNormNetworkSettings.create_new_batch_norm_layer">
+<code class="sig-name descname">create_new_batch_norm_layer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_norm_d</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_norm_features</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#BatchNormNetworkSettings.create_new_batch_norm_layer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.BatchNormNetworkSettings.create_new_batch_norm_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.domain.DatasetSplitType">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.domain.</code><code class="sig-name descname">DatasetSplitType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#DatasetSplitType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.DatasetSplitType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>Indicates an action on the model, which is first trained, validated, then
+tested.</p>
+<p><em>Implementation note:</em> for now <a class="reference internal" href="#zensols.deeplearn.domain.DatasetSplitType.test" title="zensols.deeplearn.domain.DatasetSplitType.test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test</span></code></a> is used for both testing the
+model and ad-hoc prediction</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.DatasetSplitType.test">
+<code class="sig-name descname">test</code><em class="property"> = 3</em><a class="headerlink" href="#zensols.deeplearn.domain.DatasetSplitType.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.DatasetSplitType.train">
+<code class="sig-name descname">train</code><em class="property"> = 1</em><a class="headerlink" href="#zensols.deeplearn.domain.DatasetSplitType.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.DatasetSplitType.validation">
+<code class="sig-name descname">validation</code><em class="property"> = 2</em><a class="headerlink" href="#zensols.deeplearn.domain.DatasetSplitType.validation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="zensols.deeplearn.domain.DeepLearnError">
+<em class="property">exception </em><code class="sig-prename descclassname">zensols.deeplearn.domain.</code><code class="sig-name descname">DeepLearnError</code><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#DeepLearnError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.DeepLearnError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.util.html#zensols.util.APIError" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.util.APIError</span></code></a></p>
+<p>Raised for any frame originated error.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.DeepLearnError.__module__">
+<code class="sig-name descname">__module__</code><em class="property"> = 'zensols.deeplearn.domain'</em><a class="headerlink" href="#zensols.deeplearn.domain.DeepLearnError.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.domain.DropoutNetworkSettings">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.domain.</code><code class="sig-name descname">DropoutNetworkSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">dropout</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#DropoutNetworkSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.DropoutNetworkSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.domain.NetworkSettings" title="zensols.deeplearn.domain.NetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.NetworkSettings</span></code></a></p>
+<p>A network settings that contains a dropout setting and creates a dropout
+layer.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.domain.DropoutNetworkSettings.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">dropout</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.domain.DropoutNetworkSettings.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.DropoutNetworkSettings.dropout">
+<code class="sig-name descname">dropout</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></em><a class="headerlink" href="#zensols.deeplearn.domain.DropoutNetworkSettings.dropout" title="Permalink to this definition">¶</a></dt>
+<dd><p>The droput used in all layers or <code class="docutils literal notranslate"><span class="pre">None</span></code> to disable.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.domain.DropoutNetworkSettings.dropout_layer">
+<em class="property">property </em><code class="sig-name descname">dropout_layer</code><a class="headerlink" href="#zensols.deeplearn.domain.DropoutNetworkSettings.dropout_layer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="zensols.deeplearn.domain.EarlyBailError">
+<em class="property">exception </em><code class="sig-prename descclassname">zensols.deeplearn.domain.</code><code class="sig-name descname">EarlyBailError</code><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#EarlyBailError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.EarlyBailError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.domain.DeepLearnError" title="zensols.deeplearn.domain.DeepLearnError"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.DeepLearnError</span></code></a></p>
+<p>Convenience used for helping debug the network.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.domain.EarlyBailError.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#EarlyBailError.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.EarlyBailError.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.EarlyBailError.__module__">
+<code class="sig-name descname">__module__</code><em class="property"> = 'zensols.deeplearn.domain'</em><a class="headerlink" href="#zensols.deeplearn.domain.EarlyBailError.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="zensols.deeplearn.domain.ModelError">
+<em class="property">exception </em><code class="sig-prename descclassname">zensols.deeplearn.domain.</code><code class="sig-name descname">ModelError</code><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#ModelError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.ModelError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.domain.DeepLearnError" title="zensols.deeplearn.domain.DeepLearnError"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.DeepLearnError</span></code></a></p>
+<p>Raised for any model related error.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelError.__module__">
+<code class="sig-name descname">__module__</code><em class="property"> = 'zensols.deeplearn.domain'</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelError.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.domain.ModelSettings">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.domain.</code><code class="sig-name descname">ModelSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">learning_rate</span></em>, <em class="sig-param"><span class="n">epochs</span></em>, <em class="sig-param"><span class="n">max_consecutive_increased_count</span><span class="o">=</span><span class="default_value">9223372036854775807</span></em>, <em class="sig-param"><span class="n">nominal_labels</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">batch_iteration_class_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">criterion_class_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">optimizer_class_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">optimizer_params</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">scheduler_class_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">scheduler_params</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reduce_outcomes</span><span class="o">=</span><span class="default_value">'argmax'</span></em>, <em class="sig-param"><span class="n">shuffle_training</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">batch_limit</span><span class="o">=</span><span class="default_value">9223372036854775807</span></em>, <em class="sig-param"><span class="n">batch_iteration</span><span class="o">=</span><span class="default_value">'cpu'</span></em>, <em class="sig-param"><span class="n">prediction_mapper_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cache_batches</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">gc_level</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#ModelSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.writeback.Writeback" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.writeback.Writeback</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.annotation.PersistableContainer" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.annotation.PersistableContainer</span></code></a></p>
+<p>This configures and instance of <a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.executor.ModelExecutor" title="zensols.deeplearn.model.executor.ModelExecutor"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelExecutor</span></code></a>.  This differes from
+<a class="reference internal" href="#zensols.deeplearn.domain.NetworkSettings" title="zensols.deeplearn.domain.NetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkSettings</span></code></a> in that it configures the model parameters, and
+not the neural network parameters.</p>
+<p>Another reason for these two separate classes is data in this class is not
+needed to rehydrate an instance of <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a>.</p>
+<p>The loss function strategy across parameters <code class="docutils literal notranslate"><span class="pre">nominal_labels</span></code>,
+<code class="docutils literal notranslate"><span class="pre">criterion_class</span></code> and <code class="docutils literal notranslate"><span class="pre">optimizer_class</span></code>, must be consistent.  The
+defaults uses nominal labels, which means a single integer, rather than one
+hot encoding, is used for the labels.  Most loss function, including the
+default <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.CrossEntropyLoss`</span></code> uses nominal labels.  The
+optimizer defaults to <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.optim.Adam.html#torch.optim.Adam" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.Adam</span></code></a>.</p>
+<p>However, if <code class="docutils literal notranslate"><span class="pre">nominal_labels</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, it is expected that the
+label output is a <code class="docutils literal notranslate"><span class="pre">Long</span></code> one hot encoding of the class label that must be
+decoded with <a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.batchiter.BatchIterator._decode_outcomes" title="zensols.deeplearn.model.batchiter.BatchIterator._decode_outcomes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">BatchIterator._decode_outcomes()</span></code></a> and uses a loss
+function such as <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.BCEWithLogitsLoss.html#torch.nn.BCEWithLogitsLoss" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.BCEWithLogitsLoss</span></code></a>, which applies a
+softmax over the output to narow to a nominal.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">criterion_class</span></code> is left as the default, the class the
+corresponding class across these two is selected based on
+<code class="docutils literal notranslate"><span class="pre">nominal_labels</span></code>.</p>
+<p><strong>Note</strong>: Instances of this class are pickled as parts of the results in
+<a class="reference internal" href="zensols.deeplearn.result.html#zensols.deeplearn.result.domain.ModelResult" title="zensols.deeplearn.result.domain.ModelResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.result.domain.ModelResult</span></code></a>, so they must be able
+to serialize.  However, they are not used to restore the executor or model,
+which are instead, recreated from the configuration for each (re)load (see
+the package documentation for more information).</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.domain.NetworkSettings" title="zensols.deeplearn.domain.NetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">NetworkSettings</span></code></a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.deeplearn.domain.ModelSettings.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">learning_rate</span></em>, <em class="sig-param"><span class="n">epochs</span></em>, <em class="sig-param"><span class="n">max_consecutive_increased_count</span><span class="o">=</span><span class="default_value">9223372036854775807</span></em>, <em class="sig-param"><span class="n">nominal_labels</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">batch_iteration_class_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">criterion_class_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">optimizer_class_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">optimizer_params</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">scheduler_class_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">scheduler_params</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reduce_outcomes</span><span class="o">=</span><span class="default_value">'argmax'</span></em>, <em class="sig-param"><span class="n">shuffle_training</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">batch_limit</span><span class="o">=</span><span class="default_value">9223372036854775807</span></em>, <em class="sig-param"><span class="n">batch_iteration</span><span class="o">=</span><span class="default_value">'cpu'</span></em>, <em class="sig-param"><span class="n">prediction_mapper_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cache_batches</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">gc_level</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.batch_iteration">
+<code class="sig-name descname">batch_iteration</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = 'cpu'</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.batch_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>How the batches are buffered, which is one of:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gpu</span></code>, buffers all data in the GPU</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu</span></code>, which means keep all batches in CPU memory (the default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">buffered</span></code> which means to buffer only one batch at a time (only
+for <em>very</em> large data).</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.batch_iteration_class_name">
+<code class="sig-name descname">batch_iteration_class_name</code><em class="property">: dataclasses.InitVar<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.batch_iteration_class_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string fully qualified class name of type <a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.batchiter.BatchIterator" title="zensols.deeplearn.model.batchiter.BatchIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchIterator</span></code></a>.  This
+must be set to a class such as <code class="xref py py-class docutils literal notranslate"><span class="pre">ScoredBatchIterator</span></code> to handle
+descrete states in the output layer such as terminating CRF states.  The
+default is <a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.batchiter.BatchIterator" title="zensols.deeplearn.model.batchiter.BatchIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchIterator</span></code></a>, which expects continuous output layers.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.batch_limit">
+<code class="sig-name descname">batch_limit</code><em class="property">: Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span></em><em class="property"> = 9223372036854775807</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.batch_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>The max number of batches to train, validate and test on, which is useful
+for limiting while debuging; defaults to <cite>sys.maxsize</cite>.  If this value is a
+float, it is assumed to be a number between [0, 1] and the number of
+batches is multiplied by the value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.cache_batches">
+<code class="sig-name descname">cache_batches</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><em class="property"> = True</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.cache_batches" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code> cache unthawed/processed batches when possible.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.criterion_class_name">
+<code class="sig-name descname">criterion_class_name</code><em class="property">: dataclasses.InitVar<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.criterion_class_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The loss function class name (see class doc).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.epochs">
+<code class="sig-name descname">epochs</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of epochs to train the network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.gc_level">
+<code class="sig-name descname">gc_level</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = 0</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.gc_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>The frequency by with the garbage collector is invoked.  The <em>higher</em> the
+value, the more often it will be run during training, testing and
+validation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.learning_rate">
+<code class="sig-name descname">learning_rate</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.learning_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Learning_rate used for the gradient descent step (done in the optimzer).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.max_consecutive_increased_count">
+<code class="sig-name descname">max_consecutive_increased_count</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = 9223372036854775807</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.max_consecutive_increased_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum number of times the validation loss can increase per epoch
+before the executor “gives up” and early stops training.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.nominal_labels">
+<code class="sig-name descname">nominal_labels</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><em class="property"> = True</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.nominal_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if using numbers to identify the class as an enumeration rather
+than a one hot encoded array.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.optimizer_class_name">
+<code class="sig-name descname">optimizer_class_name</code><em class="property">: dataclasses.InitVar<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.optimizer_class_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The optimization algorithm class name (see class doc).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.optimizer_params">
+<code class="sig-name descname">optimizer_params</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Any<span class="p">]</span></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.optimizer_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>The parameters given as <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> when creating the optimizer.  Do
+<strong>not</strong> add the learning rate, instead see <a class="reference internal" href="#zensols.deeplearn.domain.ModelSettings.learning_rate" title="zensols.deeplearn.domain.ModelSettings.learning_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">learning_rate</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.path">
+<code class="sig-name descname">path</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)">pathlib.Path</a></em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path to save and load the model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.prediction_mapper_name">
+<code class="sig-name descname">prediction_mapper_name</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.prediction_mapper_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates data points from a client for the purposes of prediction.  This
+value is the string class name of an instance of <a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.pred.PredictionMapper" title="zensols.deeplearn.model.pred.PredictionMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">PredictionMapper</span></code></a>
+used to create predictions.  While optional, if not set, ad-hoc predictions
+(i.e. from the command line) can not be created.</p>
+<p>Instances of <a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.pred.PredictionMapper" title="zensols.deeplearn.model.pred.PredictionMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">PredictionMapper</span></code></a> are created and managed in the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">ModelFacade</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.reduce_outcomes">
+<code class="sig-name descname">reduce_outcomes</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = 'argmax'</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.reduce_outcomes" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method by which the labels and output is reduced.  The output is
+optionally reduced, which is one of the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">argmax</span></code>: uses the index of the largest value,
+which is used for classification models and the
+default</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">softmax</span></code>: just like <code class="docutils literal notranslate"><span class="pre">argmax</span></code> but applies a
+softmax</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">none</span></code>: return the identity.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.scheduler_class_name">
+<code class="sig-name descname">scheduler_class_name</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.scheduler_class_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The fully qualified class name of the learning rate scheduler used for the
+optimizer (if not <code class="docutils literal notranslate"><span class="pre">None</span></code>) such as:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://pytorch.org/docs/master/generated/torch.optim.lr_scheduler.StepLR.html#torch.optim.lr_scheduler.StepLR" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.lr_scheduler.StepLR</span></code></a> or,</p></li>
+<li><p><a class="reference external" href="https://pytorch.org/docs/master/generated/torch.optim.lr_scheduler.ReduceLROnPlateau.html#torch.optim.lr_scheduler.ReduceLROnPlateau" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.lr_scheduler.ReduceLROnPlateau</span></code></a>.</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.domain.ModelSettings.scheduler_params" title="zensols.deeplearn.domain.ModelSettings.scheduler_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scheduler_params</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.scheduler_params">
+<code class="sig-name descname">scheduler_params</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Any<span class="p">]</span></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.scheduler_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>The parameters given as <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> when creating the scheduler (if any).</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.domain.ModelSettings.scheduler_class_name" title="zensols.deeplearn.domain.ModelSettings.scheduler_class_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scheduler_class_name</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.ModelSettings.shuffle_training">
+<code class="sig-name descname">shuffle_training</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><em class="property"> = False</em><a class="headerlink" href="#zensols.deeplearn.domain.ModelSettings.shuffle_training" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code> shuffle the training data set split before the training process
+starts.  The shuffling only happens once for all epocs.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.domain.NetworkSettings">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.domain.</code><code class="sig-name descname">NetworkSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#NetworkSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.NetworkSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.writeback.Writeback" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.writeback.Writeback</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.annotation.PersistableContainer" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.annotation.PersistableContainer</span></code></a></p>
+<p>A container settings class for network models.  This abstract class must
+return the fully qualified (with module name) PyTorch <cite>model
+(`torch.nn.Module`</cite>) that goes along with these settings.  An instance of
+this class is saved in the model file and given back to it when later
+restored.</p>
+<p><strong>Note</strong>: Instances of this class are pickled as parts of the results in
+<a class="reference internal" href="zensols.deeplearn.result.html#zensols.deeplearn.result.domain.ModelResult" title="zensols.deeplearn.result.domain.ModelResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.result.domain.ModelResult</span></code></a>, so they must be able
+to serialize.  However, they are not used to restore the executor or model,
+which are instead, recreated from the configuration for each (re)load (see
+the package documentation for more information).</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.domain.ModelSettings" title="zensols.deeplearn.domain.ModelSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSettings</span></code></a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.deeplearn.domain.NetworkSettings.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.domain.NetworkSettings.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.NetworkSettings.config_factory">
+<code class="sig-name descname">config_factory</code><em class="property">: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.factory.ConfigFactory" title="(in Zensols Utilities v1.6.2)">zensols.config.factory.ConfigFactory</a></em><a class="headerlink" href="#zensols.deeplearn.domain.NetworkSettings.config_factory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.domain.NetworkSettings.get_module_class_name">
+<em class="property">abstract </em><code class="sig-name descname">get_module_class_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/domain.html#NetworkSettings.get_module_class_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.domain.NetworkSettings.get_module_class_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.domain.NetworkSettings.name">
+<code class="sig-name descname">name</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.domain.NetworkSettings.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-plot">
+<h2>zensols.deeplearn.plot<a class="headerlink" href="#zensols-deeplearn-plot" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-c85bc24876c80b5e75e58f8070b25e7710fc74cd.png" alt="Inheritance diagram of zensols.deeplearn.plot" usemap="#inheritance9d439dae43" class="inheritance graphviz" /></div>
+<map id="inheritance9d439dae43" name="inheritance9d439dae43">
+<area shape="rect" id="node1" href="#zensols.deeplearn.plot.DensityPlotManager" target="_top" title="Create density plots." alt="" coords="5,79,145,104"/>
+<area shape="rect" id="node2" href="#zensols.deeplearn.plot.PlotManager" target="_top" title="A Convenience class to give window geomtry placement and blocking." alt="" coords="108,5,203,31"/>
+<area shape="rect" id="node3" href="#zensols.deeplearn.plot.GraphPlotManager" target="_top" title="Convenience class for plotting ``networkx`` graphs." alt="" coords="170,79,301,104"/>
+</map><span class="target" id="module-zensols.deeplearn.plot"></span><p>Graphcal plotting convenience utilities.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.plot.DensityPlotManager">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.plot.</code><code class="sig-name descname">DensityPlotManager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">covariance_factor</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">interval</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">margin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#DensityPlotManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.DensityPlotManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.plot.PlotManager" title="zensols.deeplearn.plot.PlotManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.plot.PlotManager</span></code></a></p>
+<p>Create density plots.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.DensityPlotManager.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">covariance_factor</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">interval</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">margin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#DensityPlotManager.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.DensityPlotManager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initailize.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>covariance_factor</strong> – smooth factor for visualization only</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.DensityPlotManager.plot">
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#DensityPlotManager.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.DensityPlotManager.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.plot.GraphPlotManager">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.plot.</code><code class="sig-name descname">GraphPlotManager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="n">style</span><span class="o">=</span><span class="default_value">'spring'</span></em>, <em class="sig-param"><span class="n">pos</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#GraphPlotManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.GraphPlotManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.plot.PlotManager" title="zensols.deeplearn.plot.PlotManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.plot.PlotManager</span></code></a></p>
+<p>Convenience class for plotting <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graphs.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.GraphPlotManager.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="n">style</span><span class="o">=</span><span class="default_value">'spring'</span></em>, <em class="sig-param"><span class="n">pos</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#GraphPlotManager.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.GraphPlotManager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.GraphPlotManager.set_draw_arguments">
+<code class="sig-name descname">set_draw_arguments</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#GraphPlotManager.set_draw_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.GraphPlotManager.set_draw_arguments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.GraphPlotManager.show">
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#GraphPlotManager.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.GraphPlotManager.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.plot.PlotManager">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.plot.</code><code class="sig-name descname">PlotManager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">geometry</span><span class="o">=</span><span class="default_value">(50, 0)</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">(5, 5)</span></em>, <em class="sig-param"><span class="n">block</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#PlotManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.PlotManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A Convenience class to give window geomtry placement and blocking.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.PlotManager.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">geometry</span><span class="o">=</span><span class="default_value">(50, 0)</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">(5, 5)</span></em>, <em class="sig-param"><span class="n">block</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#PlotManager.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.PlotManager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.PlotManager.ax">
+<em class="property">property </em><code class="sig-name descname">ax</code><a class="headerlink" href="#zensols.deeplearn.plot.PlotManager.ax" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.PlotManager.clear">
+<em class="property">static </em><code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#PlotManager.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.PlotManager.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.PlotManager.fig">
+<em class="property">property </em><code class="sig-name descname">fig</code><a class="headerlink" href="#zensols.deeplearn.plot.PlotManager.fig" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.PlotManager.get_fig">
+<code class="sig-name descname">get_fig</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#PlotManager.get_fig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.PlotManager.get_fig" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.PlotManager.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fig_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#PlotManager.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.PlotManager.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.PlotManager.show">
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#PlotManager.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.PlotManager.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.PlotManager.subplot">
+<code class="sig-name descname">subplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#PlotManager.subplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.PlotManager.subplot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.plot.PlotManager.subplots">
+<code class="sig-name descname">subplots</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/plot.html#PlotManager.subplots"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.plot.PlotManager.subplots" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-torchconfig">
+<h2>zensols.deeplearn.torchconfig<a class="headerlink" href="#zensols-deeplearn-torchconfig" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-3df314ff37cff8aaf948379d17ac03a1bcec0baa.png" alt="Inheritance diagram of zensols.deeplearn.torchconfig" usemap="#inheritance6daac6f51f" class="inheritance graphviz" /></div>
+<map id="inheritance6daac6f51f" name="inheritance6daac6f51f">
+<area shape="rect" id="node2" href="#zensols.deeplearn.torchconfig.CudaInfo" target="_top" title="A utility class that provides information about the CUDA configuration for" alt="" coords="5,152,80,177"/>
+<area shape="rect" id="node6" href="#zensols.deeplearn.torchconfig.TorchConfig" target="_top" title="A utility class that provides access to CUDA APIs. &#160;It provides information" alt="" coords="126,225,218,251"/>
+<area shape="rect" id="node7" href="#zensols.deeplearn.torchconfig.printopts" target="_top" title="Object used with a ``with`` scope that sets options, then sets them back." alt="" coords="231,5,303,31"/>
+</map><span class="target" id="module-zensols.deeplearn.torchconfig"></span><p>CUDA access and utility module.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.torchconfig.CudaInfo">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.torchconfig.</code><code class="sig-name descname">CudaInfo</code><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#CudaInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.CudaInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.writable.Writable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.writable.Writable</span></code></a></p>
+<p>A utility class that provides information about the CUDA configuration for
+the current (hardware) environment.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.CudaInfo.attributes">
+<em class="property">property </em><code class="sig-name descname">attributes</code><a class="headerlink" href="#zensols.deeplearn.torchconfig.CudaInfo.attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get attributes of device with device Id = device_id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.CudaInfo.num_devices">
+<em class="property">property </em><code class="sig-name descname">num_devices</code><a class="headerlink" href="#zensols.deeplearn.torchconfig.CudaInfo.num_devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return number of devices connected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.CudaInfo.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#CudaInfo.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.CudaInfo.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class representation as number of devices connected and about them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>cuda</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.CudaInfo.write_attributes">
+<code class="sig-name descname">write_attributes</code><span class="sig-paren">(</span><em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#CudaInfo.write_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.CudaInfo.write_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the GPU attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>attributes</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.torchconfig.</code><code class="sig-name descname">TorchConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">use_gpu</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">torch.float32</span></em>, <em class="sig-param"><span class="n">cuda_device_index</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.annotation.PersistableContainer" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.annotation.PersistableContainer</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.writable.Writable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.writable.Writable</span></code></a></p>
+<p>A utility class that provides access to CUDA APIs.  It provides information
+on the current CUDA configuration and convenience methods to create, copy
+and modify tensors.  These are handy for any given CUDA configuration and
+can back off to the CPU when CUDA isn’t available.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.CPU_DEVICE">
+<code class="sig-name descname">CPU_DEVICE</code><em class="property"> = 'cpu'</em><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.CPU_DEVICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.RANDOM_SEED">
+<code class="sig-name descname">RANDOM_SEED</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.RANDOM_SEED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">use_gpu</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">torch.float32</span></em>, <em class="sig-param"><span class="n">cuda_device_index</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize this configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>use_gpu</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – whether or not to use CUDA/GPU</p></li>
+<li><p><strong>data_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></a>) – the default data type to use when creating new
+tensors in this configuration</p></li>
+<li><p><strong>cuda_device_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="#zensols.deeplearn.torchconfig.TorchConfig.int" title="zensols.deeplearn.torchconfig.TorchConfig.int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – the CUDA device to use, which defaults to 0
+if CUDA if <code class="docutils literal notranslate"><span class="pre">use_gpu</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.cat">
+<code class="sig-name descname">cat</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.cat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.cat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenate tensors in to one tensor using <code class="docutils literal notranslate"><span class="pre">torch.cat</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.clone">
+<code class="sig-name descname">clone</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor</span></em>, <em class="sig-param"><span class="n">requires_grad</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clone a tensor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.close">
+<em class="property">static </em><code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether or not two tensors are equal.  This does an exact cell
+comparison.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.cpu_device">
+<em class="property">property </em><code class="sig-name descname">cpu_device</code><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.cpu_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the CPU CUDA device, which is the device type configured to utilize
+the CPU (rather than the GPU).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">device</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.cuda_device_index">
+<em class="property">property </em><code class="sig-name descname">cuda_device_index</code><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.cuda_device_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the CUDA device index if CUDA is being used for this configuration.
+Otherwise return <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="#zensols.deeplearn.torchconfig.TorchConfig.int" title="zensols.deeplearn.torchconfig.TorchConfig.int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.cuda_devices">
+<em class="property">property </em><code class="sig-name descname">cuda_devices</code><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.cuda_devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all cuda devices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">device</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.device">
+<em class="property">property </em><code class="sig-name descname">device</code><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the torch device configured.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">device</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.empty">
+<code class="sig-name descname">empty</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new tesor using <code class="docutils literal notranslate"><span class="pre">torch.empty</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.empty_cache">
+<em class="property">static </em><code class="sig-name descname">empty_cache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.empty_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.empty_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Empty the CUDA torch cache.  This releases memory in the GPU and should not
+be necessary to call for normal use cases.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.equal">
+<em class="property">static </em><code class="sig-name descname">equal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.equal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.equal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether or not two tensors are equal.  This does an exact cell
+comparison.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.float">
+<code class="sig-name descname">float</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.float"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new tensor using <code class="docutils literal notranslate"><span class="pre">torch.tensor</span></code> as a float type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.float_type">
+<em class="property">property </em><code class="sig-name descname">float_type</code><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.float_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the float type that represents this configuration, converting to the
+corresponding precision from integer if necessary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the float that represents this data, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if neither
+float nor int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.from_iterable">
+<code class="sig-name descname">from_iterable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.from_iterable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.from_iterable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a one dimenstional tensor created from <code class="docutils literal notranslate"><span class="pre">array</span></code> using the type and
+device in the current instance configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.from_numpy">
+<code class="sig-name descname">from_numpy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arr</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.from_numpy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.from_numpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new tensor generated from a numpy aray using <code class="docutils literal notranslate"><span class="pre">torch.from_numpy</span></code>.
+The array type is converted if necessary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.get_random_seed">
+<em class="property">classmethod </em><code class="sig-name descname">get_random_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.get_random_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.get_random_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the cross system random seed, meaning the seed applied to CUDA and the
+Python <em>random</em> library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.torchconfig.TorchConfig.int" title="zensols.deeplearn.torchconfig.TorchConfig.int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.get_random_seed_context">
+<em class="property">classmethod </em><code class="sig-name descname">get_random_seed_context</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.get_random_seed_context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.get_random_seed_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the random seed context given to <a class="reference internal" href="#zensols.deeplearn.torchconfig.TorchConfig.set_random_seed" title="zensols.deeplearn.torchconfig.TorchConfig.set_random_seed"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_random_seed()</span></code></a> to
+restore across models for consistent results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.gpu_available">
+<em class="property">property </em><code class="sig-name descname">gpu_available</code><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.gpu_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether or not CUDA GPU access is available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.in_memory_tensors">
+<em class="property">static </em><code class="sig-name descname">in_memory_tensors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.in_memory_tensors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.in_memory_tensors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all in-memory tensors and parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">show_leaks()</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.info">
+<em class="property">property </em><code class="sig-name descname">info</code><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the CUDA information, which include specs of the device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.torchconfig.CudaInfo" title="zensols.deeplearn.torchconfig.CudaInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">CudaInfo</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.init">
+<em class="property">classmethod </em><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spawn_multiproc</span><span class="o">=</span><span class="default_value">'spawn'</span></em>, <em class="sig-param"><span class="n">seed_kwargs</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the PyTorch framework.  This includes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Configuration of PyTorch multiprocessing so subprocesses can access
+the GPU, and</p></li>
+<li><p>Setting the random seed state.</p></li>
+</ul>
+</div></blockquote>
+<p>The needs to be initialized at the very beginning of your program.</p>
+<dl class="simple">
+<dt>Example::</dt><dd><dl class="simple">
+<dt>def main():</dt><dd><p>from zensols.deeplearn.init import TorchInitializer
+TorchInitializer.init()</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>Note</strong>: this method is separate from <a class="reference internal" href="#zensols.deeplearn.torchconfig.TorchConfig.set_random_seed" title="zensols.deeplearn.torchconfig.TorchConfig.set_random_seed"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_random_seed()</span></code></a> because
+that method is called by the framework to reset the seed after a model
+is unpickled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/multiprocessing.html#module-torch.multiprocessing" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.multiprocessing</span></code></a></p>
+</dd>
+<dt class="field-even">See</dt>
+<dd class="field-even"><p><a class="reference internal" href="#zensols.deeplearn.torchconfig.TorchConfig.set_random_seed" title="zensols.deeplearn.torchconfig.TorchConfig.set_random_seed"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_random_seed()</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.int">
+<code class="sig-name descname">int</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.int"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new tensor using <code class="docutils literal notranslate"><span class="pre">torch.tensor</span></code> as a int type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.int_type">
+<em class="property">property </em><code class="sig-name descname">int_type</code><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.int_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the int type that represents this configuration, converting to the
+corresponding precision from integer if necessary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the int that represents this data, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if neither
+int nor float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.is_on_cpu">
+<em class="property">classmethod </em><code class="sig-name descname">is_on_cpu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arr</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.is_on_cpu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.is_on_cpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the passed tensor is on the CPU.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.is_sparse">
+<code class="sig-name descname">is_sparse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arr</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.is_sparse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.is_sparse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether or not a tensor a sparse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.numpy_data_type">
+<em class="property">property </em><code class="sig-name descname">numpy_data_type</code><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.numpy_data_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the numpy type that corresponds to this instance’s configured
+<code class="docutils literal notranslate"><span class="pre">data_type</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.ones">
+<code class="sig-name descname">ones</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.ones"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.ones" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new tensor of zeros using <code class="docutils literal notranslate"><span class="pre">torch.zeros</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.same_device">
+<code class="sig-name descname">same_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor_or_model</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.same_device"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.same_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether or not a tensor or model is in the same memory space as this
+configuration instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.set_random_seed">
+<em class="property">classmethod </em><code class="sig-name descname">set_random_seed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">disable_cudnn</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">rng_state</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.set_random_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.set_random_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the random number generator for PyTorch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<a class="reference internal" href="#zensols.deeplearn.torchconfig.TorchConfig.int" title="zensols.deeplearn.torchconfig.TorchConfig.int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the random seed to be set</p></li>
+<li><p><strong>disable_cudnn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code> disable NVidia’s backend cuDNN
+hardware acceleration, which might have
+non-deterministic features</p></li>
+<li><p><strong>rng_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – set the CUDA random state array to zeros</p></li>
+</ul>
+</dd>
+<dt class="field-even">See</dt>
+<dd class="field-even"><p><a class="reference external" href="https://discuss.pytorch.org/t/random-seed-initialization/7854">Torch Random Seed</a></p>
+</dd>
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://discuss.pytorch.org/t/non-reproducible-result-with-gpu/1831">Reproducibility</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.singleton">
+<code class="sig-name descname">singleton</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.singleton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.singleton" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new tensor using <code class="docutils literal notranslate"><span class="pre">torch.tensor</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.sparse">
+<code class="sig-name descname">sparse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indicies</span></em>, <em class="sig-param"><span class="n">values</span></em>, <em class="sig-param"><span class="n">shape</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.sparse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.sparse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a sparce tensor from indexes and values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.tensor_class">
+<em class="property">property </em><code class="sig-name descname">tensor_class</code><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.tensor_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the class type based on the current configuration of this instance.
+For example, if using <code class="docutils literal notranslate"><span class="pre">torch.float32</span></code> on the GPU,
+<code class="docutils literal notranslate"><span class="pre">torch.cuda.FloatTensor</span></code> is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.to">
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor_or_model</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the tensor or model to the device this to that of this configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code>, <a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.to_cpu_deallocate">
+<em class="property">classmethod </em><code class="sig-name descname">to_cpu_deallocate</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">arrs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.to_cpu_deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.to_cpu_deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Safely copy detached memory to the CPU and delete local instance (possibly
+GPU) memory to speed up resource deallocation.  If the tensor is
+already on the CPU, it’s simply passed back.  Otherwise the tensor is
+deleted.</p>
+<p>This method is robust with <code class="docutils literal notranslate"><span class="pre">None</span></code>, which are skipped and substituted
+as <code class="docutils literal notranslate"><span class="pre">None</span></code> in the output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>]) – the tensors the copy to the CPU (if not already)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>], <a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the singleton tensor if only one <code class="docutils literal notranslate"><span class="pre">arrs</span></code> is passed;
+otherwise, the CPU copied tensors from the input</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.to_type">
+<code class="sig-name descname">to_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arr</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.to_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.to_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the type of the given array to the type of this instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.using_cpu">
+<em class="property">property </em><code class="sig-name descname">using_cpu</code><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.using_cpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if this configuration is using the CPU device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the contents of this instance to <code class="docutils literal notranslate"><span class="pre">writer</span></code> using indention <code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<a class="reference internal" href="#zensols.deeplearn.torchconfig.TorchConfig.int" title="zensols.deeplearn.torchconfig.TorchConfig.int"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the starting indentation depth</p></li>
+<li><p><strong>writer</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOBase" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a>) – the writer to dump the content of this writable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.write_in_memory_tensors">
+<em class="property">classmethod </em><code class="sig-name descname">write_in_memory_tensors</code><span class="sig-paren">(</span><em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.write_in_memory_tensors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.write_in_memory_tensors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints in-memory tensors and parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.torchconfig.TorchConfig" title="zensols.deeplearn.torchconfig.TorchConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">TorchConfig</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.TorchConfig.zeros">
+<code class="sig-name descname">zeros</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#TorchConfig.zeros"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.TorchConfig.zeros" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new tensor of zeros using <code class="docutils literal notranslate"><span class="pre">torch.zeros</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.torchconfig.printopts">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.torchconfig.</code><code class="sig-name descname">printopts</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#printopts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.printopts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Object used with a <code class="docutils literal notranslate"><span class="pre">with</span></code> scope that sets options, then sets them back.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">printopts</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">120</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/generated/torch.set_printoptions.html">PyTorch Documentation</a></p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.torchconfig.printopts.DEFAULTS">
+<code class="sig-name descname">DEFAULTS</code><em class="property"> = {'edgeitems': 3, 'linewidth': 80, 'precision': 4, 'profile': 'default', 'sci_mode': None, 'threshold': 1000}</em><a class="headerlink" href="#zensols.deeplearn.torchconfig.printopts.DEFAULTS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchconfig.printopts.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchconfig.html#printopts.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchconfig.printopts.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-torchtype">
+<h2>zensols.deeplearn.torchtype<a class="headerlink" href="#zensols-deeplearn-torchtype" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-8b111812f463a451767f2b822e1e271e9649f4e6.png" alt="Inheritance diagram of zensols.deeplearn.torchtype" usemap="#inheritance3634ecc844" class="inheritance graphviz" /></div>
+<map id="inheritance3634ecc844" name="inheritance3634ecc844">
+<area shape="rect" id="node1" href="#zensols.deeplearn.torchtype.TorchTypes" target="_top" title="A utility class to convert betwen numpy and torch classes. &#160;It also provides" alt="" coords="5,5,95,31"/>
+</map><span class="target" id="module-zensols.deeplearn.torchtype"></span><p>CUDA access and utility module.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.torchtype.TorchTypes">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.torchtype.</code><code class="sig-name descname">TorchTypes</code><a class="reference internal" href="../_modules/zensols/deeplearn/torchtype.html#TorchTypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A utility class to convert betwen numpy and torch classes.  It also provides
+metadata for types that make other conversions, such as same precision
+cross types (i.e. int64 -&gt; float64).</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.FLOAT_TO_INT">
+<code class="sig-name descname">FLOAT_TO_INT</code><em class="property"> = {torch.float16: torch.int16, torch.float32: torch.int32, torch.float64: torch.int64}</em><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.FLOAT_TO_INT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.FLOAT_TYPES">
+<code class="sig-name descname">FLOAT_TYPES</code><em class="property"> = frozenset({torch.float32, torch.float16, torch.float64})</em><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.FLOAT_TYPES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.INT_TO_FLOAT">
+<code class="sig-name descname">INT_TO_FLOAT</code><em class="property"> = {torch.int16: torch.float16, torch.int32: torch.float32, torch.int64: torch.float64}</em><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.INT_TO_FLOAT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.INT_TYPES">
+<code class="sig-name descname">INT_TYPES</code><em class="property"> = frozenset({torch.int16, torch.int64, torch.int32})</em><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.INT_TYPES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.NAME_TO_TYPE">
+<code class="sig-name descname">NAME_TO_TYPE</code><em class="property"> = {'bool': {'cpu': &lt;class 'torch.BoolTensor'&gt;, 'desc': 'Boolean', 'gpu': &lt;class 'torch.cuda.BoolTensor'&gt;, 'name': 'bool', 'numpy': &lt;class 'bool'&gt;, 'types': {torch.bool}}, 'float16': {'cpu': &lt;class 'torch.HalfTensor'&gt;, 'desc': '16-bit floating point', 'gpu': &lt;class 'torch.cuda.HalfTensor'&gt;, 'name': 'float16', 'numpy': &lt;class 'numpy.float16'&gt;, 'sparse': &lt;class 'torch.sparse.HalfTensor'&gt;, 'types': {torch.float16}}, 'float32': {'cpu': &lt;class 'torch.FloatTensor'&gt;, 'desc': '32-bit floating point', 'gpu': &lt;class 'torch.cuda.FloatTensor'&gt;, 'name': 'float32', 'numpy': &lt;class 'numpy.float32'&gt;, 'sparse': &lt;class 'torch.sparse.FloatTensor'&gt;, 'types': {torch.float32}}, 'float64': {'cpu': &lt;class 'torch.DoubleTensor'&gt;, 'desc': '64-bit floating point', 'gpu': &lt;class 'torch.cuda.DoubleTensor'&gt;, 'name': 'float64', 'numpy': &lt;class 'numpy.float64'&gt;, 'sparse': &lt;class 'torch.sparse.DoubleTensor'&gt;, 'types': {torch.float64}}, 'int16': {'cpu': &lt;class 'torch.ShortTensor'&gt;, 'desc': '16-bit integer (signed)', 'gpu': &lt;class 'torch.cuda.ShortTensor'&gt;, 'name': 'int16', 'numpy': &lt;class 'numpy.int16'&gt;, 'sparse': &lt;class 'torch.sparse.ShortTensor'&gt;, 'types': {torch.int16}}, 'int32': {'cpu': &lt;class 'torch.IntTensor'&gt;, 'desc': '32-bit integer (signed)', 'gpu': &lt;class 'torch.cuda.IntTensor'&gt;, 'name': 'int32', 'numpy': &lt;class 'numpy.int32'&gt;, 'sparse': &lt;class 'torch.sparse.IntTensor'&gt;, 'types': {torch.int32}}, 'int64': {'cpu': &lt;class 'torch.LongTensor'&gt;, 'desc': '64-bit integer (signed)', 'gpu': &lt;class 'torch.cuda.LongTensor'&gt;, 'name': 'int64', 'numpy': &lt;class 'numpy.int64'&gt;, 'sparse': &lt;class 'torch.sparse.LongTensor'&gt;, 'types': {torch.int64}}, 'int8': {'cpu': &lt;class 'torch.CharTensor'&gt;, 'desc': '8-bit integer (signed)', 'gpu': &lt;class 'torch.cuda.CharTensor'&gt;, 'name': 'int8', 'numpy': &lt;class 'numpy.int8'&gt;, 'sparse': &lt;class 'torch.sparse.CharTensor'&gt;, 'types': {torch.int8}}, 'uint8': {'cpu': &lt;class 'torch.ByteTensor'&gt;, 'desc': '8-bit integer (unsigned)', 'gpu': &lt;class 'torch.cuda.ByteTensor'&gt;, 'name': 'uint8', 'numpy': &lt;class 'numpy.uint8'&gt;, 'sparse': &lt;class 'torch.sparse.ByteTensor'&gt;, 'types': {torch.uint8}}}</em><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.NAME_TO_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd><p>A map of type to metadata.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.TYPES">
+<code class="sig-name descname">TYPES</code><em class="property"> = [{'desc': '32-bit floating point', 'name': 'float32', 'types': {torch.float32}, 'numpy': &lt;class 'numpy.float32'&gt;, 'sparse': &lt;class 'torch.sparse.FloatTensor'&gt;, 'cpu': &lt;class 'torch.FloatTensor'&gt;, 'gpu': &lt;class 'torch.cuda.FloatTensor'&gt;}, {'desc': '64-bit floating point', 'name': 'float64', 'types': {torch.float64}, 'numpy': &lt;class 'numpy.float64'&gt;, 'sparse': &lt;class 'torch.sparse.DoubleTensor'&gt;, 'cpu': &lt;class 'torch.DoubleTensor'&gt;, 'gpu': &lt;class 'torch.cuda.DoubleTensor'&gt;}, {'desc': '16-bit floating point', 'name': 'float16', 'types': {torch.float16}, 'numpy': &lt;class 'numpy.float16'&gt;, 'sparse': &lt;class 'torch.sparse.HalfTensor'&gt;, 'cpu': &lt;class 'torch.HalfTensor'&gt;, 'gpu': &lt;class 'torch.cuda.HalfTensor'&gt;}, {'desc': '8-bit integer (unsigned)', 'name': 'uint8', 'types': {torch.uint8}, 'numpy': &lt;class 'numpy.uint8'&gt;, 'sparse': &lt;class 'torch.sparse.ByteTensor'&gt;, 'cpu': &lt;class 'torch.ByteTensor'&gt;, 'gpu': &lt;class 'torch.cuda.ByteTensor'&gt;}, {'desc': '8-bit integer (signed)', 'name': 'int8', 'types': {torch.int8}, 'numpy': &lt;class 'numpy.int8'&gt;, 'sparse': &lt;class 'torch.sparse.CharTensor'&gt;, 'cpu': &lt;class 'torch.CharTensor'&gt;, 'gpu': &lt;class 'torch.cuda.CharTensor'&gt;}, {'desc': '16-bit integer (signed)', 'name': 'int16', 'types': {torch.int16}, 'numpy': &lt;class 'numpy.int16'&gt;, 'sparse': &lt;class 'torch.sparse.ShortTensor'&gt;, 'cpu': &lt;class 'torch.ShortTensor'&gt;, 'gpu': &lt;class 'torch.cuda.ShortTensor'&gt;}, {'desc': '32-bit integer (signed)', 'name': 'int32', 'types': {torch.int32}, 'numpy': &lt;class 'numpy.int32'&gt;, 'sparse': &lt;class 'torch.sparse.IntTensor'&gt;, 'cpu': &lt;class 'torch.IntTensor'&gt;, 'gpu': &lt;class 'torch.cuda.IntTensor'&gt;}, {'desc': '64-bit integer (signed)', 'name': 'int64', 'types': {torch.int64}, 'numpy': &lt;class 'numpy.int64'&gt;, 'sparse': &lt;class 'torch.sparse.LongTensor'&gt;, 'cpu': &lt;class 'torch.LongTensor'&gt;, 'gpu': &lt;class 'torch.cuda.LongTensor'&gt;}, {'desc': 'Boolean', 'name': 'bool', 'types': {torch.bool}, 'numpy': &lt;class 'bool'&gt;, 'cpu': &lt;class 'torch.BoolTensor'&gt;, 'gpu': &lt;class 'torch.cuda.BoolTensor'&gt;}]</em><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.TYPES" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of dicts containig conversions between types.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.all_types">
+<em class="property">classmethod </em><code class="sig-name descname">all_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchtype.html#TorchTypes.all_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.all_types" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.float_to_int">
+<em class="property">classmethod </em><code class="sig-name descname">float_to_int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">torch_type</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchtype.html#TorchTypes.float_to_int"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.float_to_int" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.get_numpy_type">
+<em class="property">classmethod </em><code class="sig-name descname">get_numpy_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">torch_type</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchtype.html#TorchTypes.get_numpy_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.get_numpy_type" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.get_sparse_class">
+<em class="property">classmethod </em><code class="sig-name descname">get_sparse_class</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">torch_type</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchtype.html#TorchTypes.get_sparse_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.get_sparse_class" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.get_tensor_class">
+<em class="property">classmethod </em><code class="sig-name descname">get_tensor_class</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">torch_type</span></em>, <em class="sig-param"><span class="n">cpu_type</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchtype.html#TorchTypes.get_tensor_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.get_tensor_class" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.int_to_float">
+<em class="property">classmethod </em><code class="sig-name descname">int_to_float</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">torch_type</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchtype.html#TorchTypes.int_to_float"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.int_to_float" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.is_float">
+<em class="property">classmethod </em><code class="sig-name descname">is_float</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">torch_type</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchtype.html#TorchTypes.is_float"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.is_float" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.is_int">
+<em class="property">classmethod </em><code class="sig-name descname">is_int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">torch_type</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchtype.html#TorchTypes.is_int"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.is_int" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.type_from_string">
+<em class="property">classmethod </em><code class="sig-name descname">type_from_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">type_name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchtype.html#TorchTypes.type_from_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.type_from_string" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.torchtype.TorchTypes.types">
+<em class="property">classmethod </em><code class="sig-name descname">types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/torchtype.html#TorchTypes.types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.torchtype.TorchTypes.types" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-zensols.deeplearn">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zensols.deeplearn" title="Permalink to this headline">¶</a></h2>
+<p>A deep learning framework to make training, validating and testing models
+with PyTorch easier.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="zensols.deeplearn.batch.html" class="btn btn-neutral float-right" title="zensols.deeplearn.batch package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="zensols.dataset.html" class="btn btn-neutral float-left" title="zensols.dataset package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

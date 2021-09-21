@@ -1,0 +1,483 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.dataframe.vectorize &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.dataframe.vectorize</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.dataframe.vectorize</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Contains classes used to vectorize dataframe data.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Set</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">TextIOBase</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">zensols.persist</span> <span class="kn">import</span> <span class="n">persisted</span>
+<span class="kn">from</span> <span class="nn">zensols.config</span> <span class="kn">import</span> <span class="n">Writable</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn.vectorize</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">VectorizerError</span><span class="p">,</span>
+    <span class="n">OneHotEncodedEncodableFeatureVectorizer</span><span class="p">,</span>
+    <span class="n">AttributeEncodableFeatureVectorizer</span><span class="p">,</span>
+    <span class="n">FeatureVectorizer</span><span class="p">,</span>
+    <span class="n">FeatureVectorizerManager</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn.batch</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BatchFeatureMapping</span><span class="p">,</span>
+    <span class="n">ManagerFeatureMapping</span><span class="p">,</span>
+    <span class="n">FieldFeatureMapping</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">zensols.dataframe</span> <span class="kn">import</span> <span class="n">DataframeStash</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="DataframeMetadata"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.dataframe.html#zensols.deeplearn.dataframe.vectorize.DataframeMetadata">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">DataframeMetadata</span><span class="p">(</span><span class="n">Writable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Metadata for a Pandas dataframe.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The prefix to use for all vectorizers in the dataframe (i.e. ``adl_``</span>
+<span class="sd">    for the Adult dataset test case example).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">label_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The column that contains the label/class.&quot;&quot;&quot;</span>
+
+    <span class="n">label_values</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;All classes (unique across ``label_col``).&quot;&quot;&quot;</span>
+
+    <span class="n">continuous</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The list of data columns that are continuous.&quot;&quot;&quot;</span>
+
+    <span class="n">descrete</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;A mapping of label to nominals the column takes for descrete mappings.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DataframeMetadata.write"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.dataframe.html#zensols.deeplearn.dataframe.vectorize.DataframeMetadata.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">writer</span><span class="p">:</span> <span class="n">TextIOBase</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sp</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+        <span class="n">sp2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sp</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">sp3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sp</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp</span><span class="si">}</span><span class="s1">label: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">label_col</span><span class="si">}</span><span class="s1"> =&gt; &#39;</span> <span class="o">+</span>
+                     <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_values</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp</span><span class="si">}</span><span class="s1">continuous:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">continuous</span><span class="p">:</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp2</span><span class="si">}{</span><span class="n">c</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp</span><span class="si">}</span><span class="s1">discrete:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">descrete</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp2</span><span class="si">}{</span><span class="n">name</span><span class="si">}</span><span class="s1">:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+                <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp3</span><span class="si">}{</span><span class="n">label</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DataframeFeatureVectorizerManager"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.dataframe.html#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">DataframeFeatureVectorizerManager</span><span class="p">(</span><span class="n">FeatureVectorizerManager</span><span class="p">,</span> <span class="n">Writable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A pure instance based feature vectorizer manager for a Pandas dataframe.</span>
+<span class="sd">    All vectorizers used in this vectorizer manager are dynamically allocated</span>
+<span class="sd">    and attached.</span>
+
+<span class="sd">    This class not only acts as the feature manager itself to be used in a</span>
+<span class="sd">    :class:`~zensols.deeplearn.vectorize.FeatureVectorizerManager`, but also</span>
+<span class="sd">    provides a batch mapping to be used in a</span>
+<span class="sd">    :class:`~zensols.deeplearn.batch.BatchStash`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The prefix to use for all vectorizers in the dataframe (i.e. ``adl_``</span>
+<span class="sd">    for the Adult dataset test case example).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">label_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The column that contains the label/class.&quot;&quot;&quot;</span>
+
+    <span class="n">stash</span><span class="p">:</span> <span class="n">DataframeStash</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The stash that contains the dataframe.&quot;&quot;&quot;</span>
+
+    <span class="n">include_columns</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;The columns to be included, or if ``None`` (the default), all columns</span>
+<span class="sd">    are used as features.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">exclude_columns</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;The columns to be excluded, or if ``None`` (the default), no columns are</span>
+<span class="sd">    excluded as features.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_dataset_metadata&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">dataset_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataframeMetadata</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Create a metadata from the data in the dataframe.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;constructing metadata&#39;</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stash</span><span class="o">.</span><span class="n">dataframe</span>
+        <span class="n">skip</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">stash</span><span class="o">.</span><span class="n">split_col</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_col</span><span class="p">])</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">label_col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">cont</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">skip</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">object</span><span class="p">:</span>
+                <span class="n">desc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cont</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">DataframeMetadata</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_col</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">cont</span><span class="p">,</span> <span class="n">desc</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">label_attribute_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the label attribute.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="si">}</span><span class="s1">label&#39;</span>
+
+<div class="viewcode-block" id="DataframeFeatureVectorizerManager.column_to_feature_id"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.dataframe.html#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.column_to_feature_id">[docs]</a>    <span class="k">def</span> <span class="nf">column_to_feature_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Generate a feature id from the column name.  This just attaches the prefix</span>
+<span class="sd">        to the column name.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="si">}{</span><span class="n">col</span><span class="si">}</span><span class="s1">&#39;</span></div>
+
+    <span class="k">def</span> <span class="nf">_filter_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return an interable of the columns to use as features based on</span>
+<span class="sd">        ``include_columns`` and ``exclude_columns``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">inc_vec</span><span class="p">(</span><span class="n">col</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">inc</span> <span class="o">=</span> <span class="n">incs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">incs</span>
+            <span class="n">exc</span> <span class="o">=</span> <span class="n">excs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">excs</span>
+            <span class="k">return</span> <span class="n">inc</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">exc</span>
+
+        <span class="n">incs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">include_columns</span>
+        <span class="n">excs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exclude_columns</span>
+        <span class="k">return</span> <span class="nb">filter</span><span class="p">(</span><span class="n">inc_vec</span><span class="p">,</span> <span class="n">cols</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_label_vectorizer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FeatureVectorizer</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Create a vectorizer for the label/class of the dataframe.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">label_col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_attribute_name</span>
+        <span class="n">label_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset_metadata</span><span class="o">.</span><span class="n">label_values</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;creating label </span><span class="si">{</span><span class="n">label_col</span><span class="si">}</span><span class="s1"> =&gt; </span><span class="si">{</span><span class="n">label_values</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">OneHotEncodedEncodableFeatureVectorizer</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">),</span>
+            <span class="n">config_factory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="p">,</span>
+            <span class="n">manager</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">feature_id</span><span class="o">=</span><span class="n">label_col</span><span class="p">,</span>
+            <span class="n">categories</span><span class="o">=</span><span class="n">label_values</span><span class="p">,</span>
+            <span class="n">optimize_bools</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_feature_vectorizers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">FeatureVectorizer</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Create a vectorizer, one for each column/feature, included as a feature</span>
+<span class="sd">        type based on :meth:`_filter_columns`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">vecs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">meta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset_metadata</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">continuous</span><span class="p">:</span>
+            <span class="n">vec</span> <span class="o">=</span> <span class="n">AttributeEncodableFeatureVectorizer</span><span class="p">(</span>
+                <span class="n">manager</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">),</span>
+                <span class="n">config_factory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="p">,</span>
+                <span class="n">feature_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">column_to_feature_id</span><span class="p">(</span><span class="n">col</span><span class="p">))</span>
+            <span class="n">vecs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">descrete</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">vec</span> <span class="o">=</span> <span class="n">OneHotEncodedEncodableFeatureVectorizer</span><span class="p">(</span>
+                <span class="n">manager</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">),</span>
+                <span class="n">config_factory</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="p">,</span>
+                <span class="n">feature_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">column_to_feature_id</span><span class="p">(</span><span class="n">col</span><span class="p">),</span>
+                <span class="n">categories</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">descrete</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+            <span class="n">vecs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vecs</span>
+
+    <span class="k">def</span> <span class="nf">_create_vectorizers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FeatureVectorizer</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Create a mapping of feature id to vectorizer used across all dataframe</span>
+<span class="sd">        columsn.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;create vectorizers&#39;</span><span class="p">)</span>
+        <span class="n">vectorizers</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_create_vectorizers</span><span class="p">()</span>
+        <span class="n">vecs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_create_label_vectorizer</span><span class="p">()]</span>
+        <span class="n">vecs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_create_feature_vectorizers</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">vec</span> <span class="ow">in</span> <span class="n">vecs</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;adding vectorizer: </span><span class="si">{</span><span class="n">vec</span><span class="o">.</span><span class="n">feature_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">vectorizers</span><span class="p">[</span><span class="n">vec</span><span class="o">.</span><span class="n">feature_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">vec</span>
+        <span class="k">return</span> <span class="n">vectorizers</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_batch_feature_mapping&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">batch_feature_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchFeatureMapping</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the mapping for :class:`zensols.deeplearn.batch.Batch` instances.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">create_fileld_mapping</span><span class="p">(</span><span class="n">col</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FieldFeatureMapping</span><span class="p">:</span>
+            <span class="n">feature_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column_to_feature_id</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">FieldFeatureMapping</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">feature_id</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">meta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset_metadata</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">continuous</span><span class="p">,</span> <span class="n">meta</span><span class="o">.</span><span class="n">descrete</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">create_fileld_mapping</span><span class="p">,</span>
+                          <span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
+                              <span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filter_columns</span><span class="p">,</span> <span class="n">cols</span><span class="p">))))</span>
+        <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FieldFeatureMapping</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_col</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_attribute_name</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">BatchFeatureMapping</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_col</span><span class="p">,</span>
+            <span class="p">[</span><span class="n">ManagerFeatureMapping</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">fields</span><span class="p">)])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">label_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the shape if all vectorizers were used.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">label_attr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_feature_mapping</span><span class="o">.</span><span class="n">label_feature_id</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">label_attr</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">shape</span><span class="p">)),)</span>
+
+<div class="viewcode-block" id="DataframeFeatureVectorizerManager.get_flattened_features_shape"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.dataframe.html#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.get_flattened_features_shape">[docs]</a>    <span class="k">def</span> <span class="nf">get_flattened_features_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribs</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the shape if all vectorizers were used.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">bmapping</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_feature_mapping</span>
+        <span class="n">label_feature_id</span> <span class="o">=</span> <span class="n">bmapping</span><span class="o">.</span><span class="n">label_feature_id</span>
+        <span class="n">n_flat_neurons</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">feature_id</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">field_map</span> <span class="o">=</span> <span class="n">bmapping</span><span class="o">.</span><span class="n">get_field_map_by_feature_id</span><span class="p">(</span><span class="n">feature_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">field_map</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;no feature: </span><span class="si">{</span><span class="n">feature_id</span><span class="si">}</span><span class="s1"> in vectorizer </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="k">raise</span> <span class="n">VectorizerError</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="n">attr</span> <span class="o">=</span> <span class="n">field_map</span><span class="o">.</span><span class="n">attr</span>
+            <span class="k">if</span> <span class="n">feature_id</span> <span class="o">!=</span> <span class="n">label_feature_id</span> <span class="ow">and</span> \
+               <span class="p">(</span><span class="n">attribs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">attribs</span><span class="p">):</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">mul</span><span class="p">,</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+                <span class="n">n_flat_neurons</span> <span class="o">+=</span> <span class="n">n</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">n_flat_neurons</span><span class="p">,)</span></div>
+
+<div class="viewcode-block" id="DataframeFeatureVectorizerManager.write"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.dataframe.html#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">writer</span><span class="p">:</span> <span class="n">TextIOBase</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sp</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+        <span class="n">sp2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sp</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp2</span><span class="si">}</span><span class="s1">included: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">include_columns</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp2</span><span class="si">}</span><span class="s1">excluded: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">exclude_columns</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sp2</span><span class="si">}</span><span class="s1">batch feature metadata:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_feature_mapping</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

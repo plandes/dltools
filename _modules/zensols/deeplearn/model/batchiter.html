@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.model.batchiter &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.model.batchiter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.model.batchiter</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Contains a class to assist in the batch loop during training, validation and</span>
+<span class="sd">testing.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">InitVar</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">Logger</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">Optimizer</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn</span> <span class="kn">import</span> <span class="n">ModelError</span><span class="p">,</span> <span class="n">EarlyBailError</span><span class="p">,</span> <span class="n">DatasetSplitType</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn.result</span> <span class="kn">import</span> <span class="n">EpochResult</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn.batch</span> <span class="kn">import</span> <span class="n">Batch</span><span class="p">,</span> <span class="n">MetadataNetworkSettings</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">BaseNetworkModule</span>
+
+
+<div class="viewcode-block" id="BatchIterator"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.batchiter.BatchIterator">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">BatchIterator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This class assists in the batch loop during training, validation and</span>
+<span class="sd">    testing.  Any special handling of a model related to its loss function can</span>
+<span class="sd">    be overridden in this class.</span>
+
+<span class="sd">    .. document private functions</span>
+<span class="sd">    .. automethod:: _decode_outcomes</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">executor</span><span class="p">:</span> <span class="n">InitVar</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The owning executor.&quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The status logger from the executor.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">executor</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">model_settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net_settings</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">net_settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">torch_config</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">torch_config</span>
+
+<div class="viewcode-block" id="BatchIterator._decode_outcomes"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.batchiter.BatchIterator._decode_outcomes">[docs]</a>    <span class="k">def</span> <span class="nf">_decode_outcomes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Transform the model output (and optionally the labels) that will be added to</span>
+<span class="sd">        the ``EpochResult``, which composes a ``ModelResult``.</span>
+
+<span class="sd">        This implementation returns :py:meth:~`Tensor.argmax`, which are</span>
+<span class="sd">        the indexes of the max value across columns.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span>
+        <span class="n">reduce_outcomes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">reduce_outcomes</span>
+        <span class="c1"># get the indexes of the max value across labels and outcomes (for the</span>
+        <span class="c1"># descrete classification case)</span>
+        <span class="k">if</span> <span class="n">reduce_outcomes</span> <span class="o">==</span> <span class="s1">&#39;argmax&#39;</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">outcomes</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># softmax over each outcome</span>
+        <span class="k">elif</span> <span class="n">reduce_outcomes</span> <span class="o">==</span> <span class="s1">&#39;softmax&#39;</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">outcomes</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">reduce_outcomes</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">:</span>
+            <span class="c1"># leave when nothing, prediction/regression measure is used</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">outcomes</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;argmax outcomes: </span><span class="si">{</span><span class="n">outcomes</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1"> -&gt; </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+    <span class="k">def</span> <span class="nf">_encode_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Encode labels to be in the same form and on the same CUDA device as the</span>
+<span class="sd">        batch data.  This base class implementation only copies to the GPU.</span>
+
+<span class="sd">        :param labels: labels paired with the training and validation datasets</span>
+
+<span class="sd">        :return: labels to be used in the loss function</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">nominal_labels</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;labels type: </span><span class="si">{</span><span class="n">labels</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">torch_config</span><span class="o">.</span><span class="n">to_type</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">labels</span>
+
+    <span class="k">def</span> <span class="nf">_debug_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> \
+           <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s1">:&#39;</span><span class="p">)</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">labels</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">labels</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;labels: </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">dtype</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;label values:</span><span class="se">\n</span><span class="si">{</span><span class="n">labels</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;output: &lt;none&gt;&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;output: </span><span class="si">{</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">output</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BatchIterator.iterate"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.batchiter.BatchIterator.iterate">[docs]</a>    <span class="k">def</span> <span class="nf">iterate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">BaseNetworkModule</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">:</span> <span class="n">Optimizer</span><span class="p">,</span>
+                <span class="n">criterion</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Batch</span><span class="p">,</span> <span class="n">epoch_result</span><span class="p">:</span> <span class="n">EpochResult</span><span class="p">,</span>
+                <span class="n">split_type</span><span class="p">:</span> <span class="n">DatasetSplitType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Train, validate or test on a batch.  This uses the back propogation</span>
+<span class="sd">        algorithm on training and does a simple feed forward on validation and</span>
+<span class="sd">        testing.</span>
+
+<span class="sd">        One call of this method represents a single batch iteration</span>
+
+<span class="sd">        :param model: the model to excercise</span>
+
+<span class="sd">        :param optimizer: the optimization algorithm (i.e. adam) to iterate</span>
+
+<span class="sd">        :param criterion: the loss function (i.e. cross entropy loss) used for</span>
+<span class="sd">                          the backward propogation step</span>
+
+<span class="sd">        :param batch: contains the data to test, predict, and optionally the</span>
+<span class="sd">                      labels for training and validation</span>
+
+<span class="sd">        :param epoch_result: to be populated with the results of this epoch&#39;s</span>
+<span class="sd">                             run</span>
+
+<span class="sd">        :param split_type: indicates if we&#39;re training, validating or testing</span>
+
+<span class="sd">        :return: the singleton tensor containing the loss</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;train/validate on </span><span class="si">{</span><span class="n">split_type</span><span class="si">}</span><span class="s1">: &#39;</span> <span class="o">+</span>
+                         <span class="sa">f</span><span class="s1">&#39;batch=</span><span class="si">{</span><span class="n">batch</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;model on device: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># copy batch to GPU if configured to do so</span>
+        <span class="n">batch</span><span class="p">:</span> <span class="n">Batch</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">to</span><span class="p">()</span>
+        <span class="n">outcomes</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">output</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+                <span class="c1"># write a batch sample when debugging; maybe make this a hook</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">net_settings</span><span class="p">,</span> <span class="n">MetadataNetworkSettings</span><span class="p">):</span>
+                    <span class="n">meta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">net_settings</span><span class="o">.</span><span class="n">batch_metadata_factory</span><span class="p">()</span>
+                    <span class="n">meta</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+                <span class="n">batch</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+
+            <span class="c1"># when training, reset gradients for the next epoch</span>
+            <span class="k">if</span> <span class="n">split_type</span> <span class="o">==</span> <span class="n">DatasetSplitType</span><span class="o">.</span><span class="n">train</span><span class="p">:</span>
+                <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+            <span class="c1"># execute an the epoch</span>
+            <span class="n">loss</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span>
+                <span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">split_type</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_debug_output</span><span class="p">(</span><span class="s1">&#39;decode&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">)</span>
+
+            <span class="c1"># if debugging the model, raise the exception to interrupt the</span>
+            <span class="c1"># flow, which is caught in ModelExecutor._execute</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">EarlyBailError</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;outcomes shape: </span><span class="si">{outcomes.shape}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="c1"># add results for performance metrics, predictions output, etc</span>
+            <span class="n">epoch_result</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">loss</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="c1"># clean up and GPU memeory deallocation</span>
+            <span class="n">biter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">batch_iteration</span>
+            <span class="n">cb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">cache_batches</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">biter</span> <span class="o">==</span> <span class="s1">&#39;cpu&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">cb</span><span class="p">)</span> <span class="ow">or</span> <span class="n">biter</span> <span class="o">==</span> <span class="s1">&#39;buffered&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;deallocating batch: </span><span class="si">{</span><span class="n">batch</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">batch</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">BaseNetworkModule</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">:</span> <span class="n">Optimizer</span><span class="p">,</span>
+                 <span class="n">criterion</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Batch</span><span class="p">,</span> <span class="n">split_type</span><span class="p">:</span> <span class="n">DatasetSplitType</span><span class="p">)</span> <span class="o">-&gt;</span> \
+            <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Execute one epoch of training, testing, validation or prediction.</span>
+
+<span class="sd">        :param model: the model to excercise</span>
+
+<span class="sd">        :param optimizer: the optimization algorithm (i.e. adam) to iterate</span>
+
+<span class="sd">        :param criterion: the loss function (i.e. cross entropy loss) used for</span>
+<span class="sd">                          the backward propogation step</span>
+
+<span class="sd">        :param batch: contains the data to test, predict, and optionally the</span>
+<span class="sd">                      labels for training and validation</span>
+
+<span class="sd">        :param split_type: indicates if we&#39;re training, validating or testing</span>
+
+<span class="sd">        :return: a tuple of the loss, labels, outcomes, and the output</span>
+<span class="sd">                 (i.e. logits); the outcomes are the decoded</span>
+<span class="sd">                 (:meth:`_decode_outcomes`) output and represent some ready to</span>
+<span class="sd">                 use data, like argmax&#39;d classification nominal label integers</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span>
+        <span class="n">labels</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
+        <span class="c1"># forward pass, get our output, which are usually the logits</span>
+        <span class="n">output</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+
+        <span class="c1"># sanity check</span>
+        <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span><span class="s1">&#39;Null model output&#39;</span><span class="p">)</span>
+
+        <span class="c1"># check for sane state with labels, and munge if necessary</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># sanity check</span>
+            <span class="k">if</span> <span class="n">split_type</span> <span class="o">!=</span> <span class="n">DatasetSplitType</span><span class="o">.</span><span class="n">test</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span><span class="s1">&#39;Expecting no split type on prediction, &#39;</span> <span class="o">+</span>
+                                 <span class="sa">f</span><span class="s1">&#39;but got: </span><span class="si">{</span><span class="n">split_type</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;skipping loss calculation on prediction execute&#39;</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># put labels in a form to be used by the loss function</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_labels</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_debug_output</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+
+            <span class="c1"># calculate the loss with the logps and the labels</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;split: </span><span class="si">{</span><span class="n">split_type</span><span class="si">}</span><span class="s1">, loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># when training, backpropogate and step</span>
+        <span class="k">if</span> <span class="n">split_type</span> <span class="o">==</span> <span class="n">DatasetSplitType</span><span class="o">.</span><span class="n">train</span><span class="p">:</span>
+            <span class="c1"># invoke back propogation on the network</span>
+            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            <span class="c1"># take an update step and update the new weights</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_debug_output</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+
+        <span class="c1"># apply the same decoding on the labels as the output if necessary</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">nominal_labels</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decode_outcomes</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;label nom decoded: </span><span class="si">{</span><span class="n">labels</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">outcomes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decode_outcomes</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+        <span class="n">loss</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">torch_config</span><span class="o">.</span><span class="n">to_cpu_deallocate</span><span class="p">(</span>
+            <span class="n">loss</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">outcomes</span><span class="p">,</span> <span class="n">output</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

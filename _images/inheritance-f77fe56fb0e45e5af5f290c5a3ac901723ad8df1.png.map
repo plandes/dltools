@@ -1,0 +1,10 @@
+<map id="inheritance78ea692169" name="inheritance78ea692169">
+<area shape="rect" id="node1" title="Helper class that provides a standard way to create an ABC using" alt="" coords="170,5,242,31"/>
+<area shape="rect" id="node4" href="#zensols.dataset.interface.SplitKeyContainer" target="_top" title="An interface defining a container that partitions data sets (i.e. ``train``" alt="" coords="5,152,132,177"/>
+<area shape="rect" id="node5" title="Any subclass that has the ability (and need) to do preprocessing. &#160;For" alt="" coords="127,79,207,104"/>
+<area shape="rect" id="node6" title="An interface for classes that have multi&#45;line debuging capability." alt="" coords="207,152,279,177"/>
+<area shape="rect" id="node7" title="All subclasses have the ability to deallocate any resources. &#160;This is useful" alt="" coords="303,79,405,104"/>
+<area shape="rect" id="node2" href="#zensols.dataset.split.AbstractSplitKeyContainer" target="_top" title="A default implementation of a :class:`.SplitKeyContainer`. &#160;This" alt="" coords="118,225,294,251"/>
+<area shape="rect" id="node8" href="#zensols.dataset.split.StashSplitKeyContainer" target="_top" title="A default implementation of :class:`.AbstractSplitKeyContainer` that uses a" alt="" coords="125,299,287,324"/>
+<area shape="rect" id="node3" title="Classes can extend this that want to persist :class:`.PersistableWork`" alt="" coords="304,152,447,177"/>
+</map>

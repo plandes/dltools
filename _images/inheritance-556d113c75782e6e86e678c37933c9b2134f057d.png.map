@@ -1,0 +1,6 @@
+<map id="inheritancee3bf7102ad" name="inheritancee3bf7102ad">
+<area shape="rect" id="node1" title="Generic enumeration." alt="" coords="20,5,92,31"/>
+<area shape="rect" id="node4" href="#zensols.deeplearn.model.trainmng.UpdateAction" target="_top" title="An action type to invoke on the :class:`.ModelExecutor` during training." alt="" coords="5,79,107,104"/>
+<area shape="rect" id="node2" href="#zensols.deeplearn.model.trainmng.TrainManager" target="_top" title="The class is used to assist in the training of the :class:`.ModelExecutor`." alt="" coords="116,5,217,31"/>
+<area shape="rect" id="node3" href="#zensols.deeplearn.model.trainmng.TrainStatus" target="_top" title="Indicates what to do in the next epoch of the training cycle." alt="" coords="242,5,331,31"/>
+</map>

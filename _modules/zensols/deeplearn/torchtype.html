@@ -1,0 +1,360 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.torchtype &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.torchtype</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.torchtype</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;CUDA access and utility module.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Type</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="TorchTypes"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchtype.TorchTypes">[docs]</a><span class="k">class</span> <span class="nc">TorchTypes</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A utility class to convert betwen numpy and torch classes.  It also provides</span>
+<span class="sd">    metadata for types that make other conversions, such as same precision</span>
+<span class="sd">    cross types (i.e. int64 -&gt; float64).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">TYPES</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="s1">&#39;32-bit floating point&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;float32&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;types&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">]),</span>
+              <span class="s1">&#39;numpy&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+              <span class="s1">&#39;sparse&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">,</span>
+              <span class="s1">&#39;cpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">,</span>
+              <span class="s1">&#39;gpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="s1">&#39;64-bit floating point&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;float64&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;types&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">double</span><span class="p">]),</span>
+              <span class="s1">&#39;numpy&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
+              <span class="s1">&#39;sparse&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">DoubleTensor</span><span class="p">,</span>
+              <span class="s1">&#39;cpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">DoubleTensor</span><span class="p">,</span>
+              <span class="s1">&#39;gpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">DoubleTensor</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="s1">&#39;16-bit floating point&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;float16&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;types&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">half</span><span class="p">]),</span>
+              <span class="s1">&#39;numpy&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span>
+              <span class="s1">&#39;sparse&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">HalfTensor</span><span class="p">,</span>
+              <span class="s1">&#39;cpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">HalfTensor</span><span class="p">,</span>
+              <span class="s1">&#39;gpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">HalfTensor</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="s1">&#39;8-bit integer (unsigned)&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;uint8&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;types&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">uint8</span><span class="p">]),</span>
+              <span class="s1">&#39;numpy&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span>
+              <span class="s1">&#39;sparse&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">ByteTensor</span><span class="p">,</span>
+              <span class="s1">&#39;cpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">ByteTensor</span><span class="p">,</span>
+              <span class="s1">&#39;gpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">ByteTensor</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="s1">&#39;8-bit integer (signed)&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;int8&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;types&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">int8</span><span class="p">]),</span>
+              <span class="s1">&#39;numpy&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">,</span>
+              <span class="s1">&#39;sparse&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">CharTensor</span><span class="p">,</span>
+              <span class="s1">&#39;cpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">CharTensor</span><span class="p">,</span>
+              <span class="s1">&#39;gpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">CharTensor</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="s1">&#39;16-bit integer (signed)&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;int16&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;types&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">short</span><span class="p">]),</span>
+              <span class="s1">&#39;numpy&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span>
+              <span class="s1">&#39;sparse&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">ShortTensor</span><span class="p">,</span>
+              <span class="s1">&#39;cpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">ShortTensor</span><span class="p">,</span>
+              <span class="s1">&#39;gpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">ShortTensor</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="s1">&#39;32-bit integer (signed)&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;int32&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;types&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">]),</span>
+              <span class="s1">&#39;numpy&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
+              <span class="s1">&#39;sparse&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">IntTensor</span><span class="p">,</span>
+              <span class="s1">&#39;cpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">IntTensor</span><span class="p">,</span>
+              <span class="s1">&#39;gpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">IntTensor</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="s1">&#39;64-bit integer (signed)&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;int64&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;types&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">]),</span>
+              <span class="s1">&#39;numpy&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span>
+              <span class="s1">&#39;sparse&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">,</span>
+              <span class="s1">&#39;cpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">,</span>
+              <span class="s1">&#39;gpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;desc&#39;</span><span class="p">:</span> <span class="s1">&#39;Boolean&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;types&#39;</span><span class="p">:</span> <span class="nb">set</span><span class="p">([</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">]),</span>
+              <span class="s1">&#39;numpy&#39;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+              <span class="s1">&#39;cpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">BoolTensor</span><span class="p">,</span>
+              <span class="s1">&#39;gpu&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">BoolTensor</span><span class="p">}]</span>
+    <span class="sd">&quot;&quot;&quot;A list of dicts containig conversions between types.&quot;&quot;&quot;</span>
+
+    <span class="n">NAME_TO_TYPE</span> <span class="o">=</span> <span class="p">{</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]:</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">TYPES</span><span class="p">}</span>
+    <span class="sd">&quot;&quot;&quot;A map of type to metadata.&quot;&quot;&quot;</span>
+
+    <span class="n">FLOAT_TO_INT</span> <span class="o">=</span> <span class="p">{</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">}</span>
+
+    <span class="n">INT_TO_FLOAT</span> <span class="o">=</span> <span class="p">{</span><span class="n">torch</span><span class="o">.</span><span class="n">int16</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">int32</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+                    <span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">}</span>
+
+    <span class="n">FLOAT_TYPES</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">FLOAT_TO_INT</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="n">INT_TYPES</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">INT_TO_FLOAT</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+<div class="viewcode-block" id="TorchTypes.all_types"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchtype.TorchTypes.all_types">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">all_types</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">TYPES</span></div>
+
+<div class="viewcode-block" id="TorchTypes.types"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchtype.TorchTypes.types">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">types</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_types&#39;</span><span class="p">):</span>
+            <span class="n">types</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_types</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;types&#39;</span><span class="p">]:</span>
+                    <span class="n">types</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_types</span> <span class="o">=</span> <span class="n">types</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_types</span></div>
+
+<div class="viewcode-block" id="TorchTypes.type_from_string"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchtype.TorchTypes.type_from_string">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">type_from_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+        <span class="n">types</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">NAME_TO_TYPE</span><span class="p">[</span><span class="n">type_name</span><span class="p">][</span><span class="s1">&#39;types&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">types</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TorchTypes.get_tensor_class"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchtype.TorchTypes.get_tensor_class">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_tensor_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">torch_type</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">cpu_type</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">:</span>
+        <span class="n">types</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">()</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="n">torch_type</span><span class="p">]</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;cpu&#39;</span> <span class="k">if</span> <span class="n">cpu_type</span> <span class="k">else</span> <span class="s1">&#39;gpu&#39;</span>
+        <span class="k">return</span> <span class="n">entry</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TorchTypes.get_sparse_class"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchtype.TorchTypes.get_sparse_class">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_sparse_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">torch_type</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">:</span>
+        <span class="n">types</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">()</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="n">torch_type</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;sparse&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TorchTypes.get_numpy_type"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchtype.TorchTypes.get_numpy_type">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_numpy_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">torch_type</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">:</span>
+        <span class="n">types</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">()</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">types</span><span class="p">[</span><span class="n">torch_type</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;numpy&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TorchTypes.float_to_int"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchtype.TorchTypes.float_to_int">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">float_to_int</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">torch_type</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLOAT_TO_INT</span><span class="p">[</span><span class="n">torch_type</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TorchTypes.int_to_float"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchtype.TorchTypes.int_to_float">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">int_to_float</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">torch_type</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">INT_TO_FLOAT</span><span class="p">[</span><span class="n">torch_type</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TorchTypes.is_float"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchtype.TorchTypes.is_float">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">is_float</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">torch_type</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">torch_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLOAT_TYPES</span></div>
+
+<div class="viewcode-block" id="TorchTypes.is_int"><a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.torchtype.TorchTypes.is_int">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">is_int</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">torch_type</span><span class="p">:</span> <span class="n">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">torch_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">INT_TYPES</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+<map id="inheritance5ce0d5be11" name="inheritance5ce0d5be11">
+<area shape="rect" id="node1" title="Helper class that provides a standard way to create an ABC using" alt="" coords="119,5,191,31"/>
+<area shape="rect" id="node4" title="An interface for classes that have multi&#45;line debuging capability." alt="" coords="186,152,258,177"/>
+<area shape="rect" id="node8" title="All subclasses have the ability to deallocate any resources. &#160;This is useful" alt="" coords="61,79,162,104"/>
+<area shape="rect" id="node2" href="zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.domain.ConfigurableVectorization" target="_top" title="ConfigurableVectorization(name: str, config_factory: zensols.config.factory.ConfigFactory)" alt="" coords="7,225,178,251"/>
+<area shape="rect" id="node6" href="zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" target="_top" title="Creates and manages instances of :class:`.EncodableFeatureVectorizer` and" alt="" coords="5,299,180,324"/>
+<area shape="rect" id="node3" title="Classes can extend this that want to persist :class:`.PersistableWork`" alt="" coords="19,152,161,177"/>
+<area shape="rect" id="node5" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager" target="_top" title="A pure instance based feature vectorizer manager for a Pandas dataframe." alt="" coords="37,372,273,397"/>
+<area shape="rect" id="node7" href="#zensols.deeplearn.dataframe.vectorize.DataframeMetadata" target="_top" title="Metadata for a Pandas dataframe." alt="" coords="256,225,393,251"/>
+</map>

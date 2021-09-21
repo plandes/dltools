@@ -1,0 +1,674 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.dataframe package &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="zensols.deeplearn.layer package" href="zensols.deeplearn.layer.html" />
+    <link rel="prev" title="zensols.deeplearn.cli package" href="zensols.deeplearn.cli.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataframe.html">zensols.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataset.html">zensols.dataset package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="zensols.deeplearn.html">zensols.deeplearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="zensols.deeplearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.cli.html">zensols.deeplearn.cli package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-domain">zensols.deeplearn.domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-plot">zensols.deeplearn.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-torchconfig">zensols.deeplearn.torchconfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-torchtype">zensols.deeplearn.torchtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#module-zensols.deeplearn">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.cli.html">zensols.deeplearn.cli package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">zensols.deeplearn.dataframe package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-dataframe-batch">zensols.deeplearn.dataframe.batch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-dataframe-util">zensols.deeplearn.dataframe.util</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-dataframe-vectorize">zensols.deeplearn.dataframe.vectorize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zensols.deeplearn.dataframe">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="zensols.deeplearn.html">zensols.deeplearn package</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.dataframe package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/zensols.deeplearn.dataframe.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="zensols-deeplearn-dataframe-package">
+<h1>zensols.deeplearn.dataframe package<a class="headerlink" href="#zensols-deeplearn-dataframe-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="zensols-deeplearn-dataframe-batch">
+<h2>zensols.deeplearn.dataframe.batch<a class="headerlink" href="#zensols-deeplearn-dataframe-batch" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-3b04469b45da7bcc49f59f527728d3e3725beca7.png" alt="Inheritance diagram of zensols.deeplearn.dataframe.batch" usemap="#inheritance436ea9f473" class="inheritance graphviz" /></div>
+<map id="inheritance436ea9f473" name="inheritance436ea9f473">
+<area shape="rect" id="node8" href="zensols.dataset.html#zensols.dataset.interface.SplitKeyContainer" target="_top" title="An interface defining a container that partitions data sets (i.e. ``train``" alt="" coords="886,372,1013,397"/>
+<area shape="rect" id="node2" href="zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.Batch" target="_top" title="Contains a batch of data used in the first layer of a net. &#160;This class holds" alt="" coords="129,225,201,251"/>
+<area shape="rect" id="node13" href="#zensols.deeplearn.dataframe.batch.DataframeBatch" target="_top" title="A batch of data that contains instances of :class:`.DataframeDataPoint`," alt="" coords="107,299,224,324"/>
+<area shape="rect" id="node6" href="zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash" target="_top" title="A stash that vectorizes features in to easily consumable tensors for" alt="" coords="607,592,697,617"/>
+<area shape="rect" id="node12" href="zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.DataPoint" target="_top" title="Abstract class that makes up a container class for features created from" alt="" coords="312,152,392,177"/>
+<area shape="rect" id="node14" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash" target="_top" title="A stash used for batches of data using :class:`.DataframeBatch` instances." alt="" coords="577,665,727,691"/>
+<area shape="rect" id="node7" href="zensols.deeplearn.batch.html#zensols.deeplearn.batch.multi.TorchMultiProcessStash" target="_top" title="A multiprocessing stash that interacts with PyTorch in a way that it can" alt="" coords="645,519,809,544"/>
+<area shape="rect" id="node15" href="#zensols.deeplearn.dataframe.batch.DataframeDataPoint" target="_top" title="A data point used in a batch, which contains a single row of data in the" alt="" coords="281,225,423,251"/>
+</map><span class="target" id="module-zensols.deeplearn.dataframe.batch"></span><p>An implementation of batch level API for Pandas dataframe based data.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatch">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.dataframe.batch.</code><code class="sig-name descname">DataframeBatch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_stash</span></em>, <em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">split_name</span></em>, <em class="sig-param"><span class="n">data_points</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/dataframe/batch.html#DataframeBatch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.Batch" title="zensols.deeplearn.batch.domain.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.batch.domain.Batch</span></code></a></p>
+<p>A batch of data that contains instances of <a class="reference internal" href="#zensols.deeplearn.dataframe.batch.DataframeDataPoint" title="zensols.deeplearn.dataframe.batch.DataframeDataPoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataframeDataPoint</span></code></a>,
+each of which has the row data from the dataframe.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatch.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_stash</span></em>, <em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">split_name</span></em>, <em class="sig-param"><span class="n">data_points</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatch.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatch.batch_stash">
+<code class="sig-name descname">batch_stash</code><em class="property">: BatchStash</em><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatch.batch_stash" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatch.data_points">
+<code class="sig-name descname">data_points</code><em class="property">: Tuple<span class="p">[</span>DataPoint<span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatch.data_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatch.get_features">
+<code class="sig-name descname">get_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/dataframe/batch.html#DataframeBatch.get_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatch.get_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>A utility method to a tensor of all features of all columns in the
+datapoints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a tensor of shape (batch size, feature size), where the
+<em>feaure size</em> is the number of all features vectorized; that
+is, a data instance for each row in the batch, is a flattened
+set of features that represent the respective row from the
+dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatch.id">
+<code class="sig-name descname">id</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatch.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatch.split_name">
+<code class="sig-name descname">split_name</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatch.split_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatchStash">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.dataframe.batch.</code><code class="sig-name descname">DataframeBatchStash</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">config_factory</em>, <em class="sig-param">delegate</em>, <em class="sig-param">config</em>, <em class="sig-param">chunk_size</em>, <em class="sig-param">workers</em>, <em class="sig-param">data_point_type</em>, <em class="sig-param">batch_type</em>, <em class="sig-param">split_stash_container</em>, <em class="sig-param">vectorizer_manager_set</em>, <em class="sig-param">batch_size</em>, <em class="sig-param">model_torch_config</em>, <em class="sig-param">data_point_id_sets_path</em>, <em class="sig-param">decoded_attributes=&lt;property object&gt;</em>, <em class="sig-param">batch_limit=9223372036854775807</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/dataframe/batch.html#DataframeBatchStash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash" title="zensols.deeplearn.batch.stash.BatchStash"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.batch.stash.BatchStash</span></code></a></p>
+<p>A stash used for batches of data using <a class="reference internal" href="#zensols.deeplearn.dataframe.batch.DataframeBatch" title="zensols.deeplearn.dataframe.batch.DataframeBatch"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataframeBatch</span></code></a> instances.
+This stash uses an instance of <a class="reference internal" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager" title="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataframeFeatureVectorizerManager</span></code></a>
+to vectorize the data in the batches.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatchStash.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">config_factory</em>, <em class="sig-param">delegate</em>, <em class="sig-param">config</em>, <em class="sig-param">chunk_size</em>, <em class="sig-param">workers</em>, <em class="sig-param">data_point_type</em>, <em class="sig-param">batch_type</em>, <em class="sig-param">split_stash_container</em>, <em class="sig-param">vectorizer_manager_set</em>, <em class="sig-param">batch_size</em>, <em class="sig-param">model_torch_config</em>, <em class="sig-param">data_point_id_sets_path</em>, <em class="sig-param">decoded_attributes=&lt;property object&gt;</em>, <em class="sig-param">batch_limit=9223372036854775807</em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatchStash.batch_size">
+<code class="sig-name descname">batch_size</code><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatchStash.batch_type">
+<code class="sig-name descname">batch_type</code><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash.batch_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatchStash.data_point_id_sets_path">
+<code class="sig-name descname">data_point_id_sets_path</code><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash.data_point_id_sets_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatchStash.data_point_type">
+<code class="sig-name descname">data_point_type</code><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash.data_point_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatchStash.feature_vectorizer_manager">
+<em class="property">property </em><code class="sig-name descname">feature_vectorizer_manager</code><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash.feature_vectorizer_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager" title="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataframeFeatureVectorizerManager</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>rtype</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatchStash.flattened_features_shape">
+<em class="property">property </em><code class="sig-name descname">flattened_features_shape</code><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash.flattened_features_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>rtype</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatchStash.label_shape">
+<em class="property">property </em><code class="sig-name descname">label_shape</code><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash.label_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>rtype</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatchStash.model_torch_config">
+<code class="sig-name descname">model_torch_config</code><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash.model_torch_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatchStash.split_stash_container">
+<code class="sig-name descname">split_stash_container</code><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash.split_stash_container" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeBatchStash.vectorizer_manager_set">
+<code class="sig-name descname">vectorizer_manager_set</code><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeBatchStash.vectorizer_manager_set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeDataPoint">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.dataframe.batch.</code><code class="sig-name descname">DataframeDataPoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">batch_stash</span></em>, <em class="sig-param"><span class="n">row</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/dataframe/batch.html#DataframeDataPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeDataPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.DataPoint" title="zensols.deeplearn.batch.domain.DataPoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.batch.domain.DataPoint</span></code></a></p>
+<p>A data point used in a batch, which contains a single row of data in the
+Pandas dataframe.  When created, column is saved as an attribute in the
+instance.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeDataPoint.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">batch_stash</span></em>, <em class="sig-param"><span class="n">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeDataPoint.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.batch.DataframeDataPoint.row">
+<code class="sig-name descname">row</code><em class="property">: dataclasses.InitVar<span class="p">[</span>Series<span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.dataframe.batch.DataframeDataPoint.row" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-dataframe-util">
+<h2>zensols.deeplearn.dataframe.util<a class="headerlink" href="#zensols-deeplearn-dataframe-util" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-dc3c5e42b5ee49bbba905edafcc88a0b233710a0.png" alt="Inheritance diagram of zensols.deeplearn.dataframe.util" usemap="#inheritanced20d2151ae" class="inheritance graphviz" /></div>
+<map id="inheritanced20d2151ae" name="inheritanced20d2151ae">
+<area shape="rect" id="node2" href="#zensols.deeplearn.dataframe.util.DataFrameDictable" target="_top" title="A container with utility methods that JSON and write Pandas dataframes." alt="" coords="5,225,140,251"/>
+</map><span class="target" id="module-zensols.deeplearn.dataframe.util"></span><p>Utility functionality for dataframe related containers.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.dataframe.util.DataFrameDictable">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.dataframe.util.</code><code class="sig-name descname">DataFrameDictable</code><a class="reference internal" href="../_modules/zensols/deeplearn/dataframe/util.html#DataFrameDictable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.dataframe.util.DataFrameDictable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.dictable.Dictable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.dictable.Dictable</span></code></a></p>
+<p>A container with utility methods that JSON and write Pandas dataframes.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.util.DataFrameDictable.DEFAULT_COLS">
+<code class="sig-name descname">DEFAULT_COLS</code><em class="property"> = 40</em><a class="headerlink" href="#zensols.deeplearn.dataframe.util.DataFrameDictable.DEFAULT_COLS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default width when writing the dataframe.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.util.DataFrameDictable.NONE_REPR">
+<code class="sig-name descname">NONE_REPR</code><em class="property"> = ''</em><a class="headerlink" href="#zensols.deeplearn.dataframe.util.DataFrameDictable.NONE_REPR" title="Permalink to this definition">¶</a></dt>
+<dd><p>String used for NaNs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.util.DataFrameDictable.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.dataframe.util.DataFrameDictable.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-dataframe-vectorize">
+<h2>zensols.deeplearn.dataframe.vectorize<a class="headerlink" href="#zensols-deeplearn-dataframe-vectorize" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-544c78a49164d99b7a4e256e4866c3787b34ddbc.png" alt="Inheritance diagram of zensols.deeplearn.dataframe.vectorize" usemap="#inheritance5ce0d5be11" class="inheritance graphviz" /></div>
+<map id="inheritance5ce0d5be11" name="inheritance5ce0d5be11">
+<area shape="rect" id="node2" href="zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.domain.ConfigurableVectorization" target="_top" title="ConfigurableVectorization(name: str, config_factory: zensols.config.factory.ConfigFactory)" alt="" coords="7,225,178,251"/>
+<area shape="rect" id="node6" href="zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" target="_top" title="Creates and manages instances of :class:`.EncodableFeatureVectorizer` and" alt="" coords="5,299,180,324"/>
+<area shape="rect" id="node5" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager" target="_top" title="A pure instance based feature vectorizer manager for a Pandas dataframe." alt="" coords="37,372,273,397"/>
+<area shape="rect" id="node7" href="#zensols.deeplearn.dataframe.vectorize.DataframeMetadata" target="_top" title="Metadata for a Pandas dataframe." alt="" coords="256,225,393,251"/>
+</map><span class="target" id="module-zensols.deeplearn.dataframe.vectorize"></span><p>Contains classes used to vectorize dataframe data.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.dataframe.vectorize.</code><code class="sig-name descname">DataframeFeatureVectorizerManager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">torch_config</span></em>, <em class="sig-param"><span class="n">configured_vectorizers</span></em>, <em class="sig-param"><span class="n">prefix</span></em>, <em class="sig-param"><span class="n">label_col</span></em>, <em class="sig-param"><span class="n">stash</span></em>, <em class="sig-param"><span class="n">include_columns</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">exclude_columns</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/dataframe/vectorize.html#DataframeFeatureVectorizerManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" title="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.manager.FeatureVectorizerManager</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.writable.Writable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.writable.Writable</span></code></a></p>
+<p>A pure instance based feature vectorizer manager for a Pandas dataframe.
+All vectorizers used in this vectorizer manager are dynamically allocated
+and attached.</p>
+<p>This class not only acts as the feature manager itself to be used in a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizerManager</span></code>, but also
+provides a batch mapping to be used in a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">BatchStash</span></code>.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">torch_config</span></em>, <em class="sig-param"><span class="n">configured_vectorizers</span></em>, <em class="sig-param"><span class="n">prefix</span></em>, <em class="sig-param"><span class="n">label_col</span></em>, <em class="sig-param"><span class="n">stash</span></em>, <em class="sig-param"><span class="n">include_columns</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">exclude_columns</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.batch_feature_mapping">
+<em class="property">property </em><code class="sig-name descname">batch_feature_mapping</code><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.batch_feature_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the mapping for <code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.batch.Batch</span></code> instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="zensols.deeplearn.batch.html#zensols.deeplearn.batch.mapping.BatchFeatureMapping" title="zensols.deeplearn.batch.mapping.BatchFeatureMapping"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchFeatureMapping</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.column_to_feature_id">
+<code class="sig-name descname">column_to_feature_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">col</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/dataframe/vectorize.html#DataframeFeatureVectorizerManager.column_to_feature_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.column_to_feature_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a feature id from the column name.  This just attaches the prefix
+to the column name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.dataset_metadata">
+<em class="property">property </em><code class="sig-name descname">dataset_metadata</code><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.dataset_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a metadata from the data in the dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.dataframe.vectorize.DataframeMetadata" title="zensols.deeplearn.dataframe.vectorize.DataframeMetadata"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataframeMetadata</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.exclude_columns">
+<code class="sig-name descname">exclude_columns</code><em class="property">: Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.exclude_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>The columns to be excluded, or if <code class="docutils literal notranslate"><span class="pre">None</span></code> (the default), no columns are
+excluded as features.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.get_flattened_features_shape">
+<code class="sig-name descname">get_flattened_features_shape</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attribs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/dataframe/vectorize.html#DataframeFeatureVectorizerManager.get_flattened_features_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.get_flattened_features_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the shape if all vectorizers were used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.include_columns">
+<code class="sig-name descname">include_columns</code><em class="property">: Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.include_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>The columns to be included, or if <code class="docutils literal notranslate"><span class="pre">None</span></code> (the default), all columns
+are used as features.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.label_attribute_name">
+<em class="property">property </em><code class="sig-name descname">label_attribute_name</code><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.label_attribute_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the label attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.label_col">
+<code class="sig-name descname">label_col</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.label_col" title="Permalink to this definition">¶</a></dt>
+<dd><p>The column that contains the label/class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.label_shape">
+<em class="property">property </em><code class="sig-name descname">label_shape</code><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.label_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the shape if all vectorizers were used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.prefix">
+<code class="sig-name descname">prefix</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>The prefix to use for all vectorizers in the dataframe (i.e. <code class="docutils literal notranslate"><span class="pre">adl_</span></code>
+for the Adult dataset test case example).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.stash">
+<code class="sig-name descname">stash</code><em class="property">: <a class="reference internal" href="zensols.dataframe.html#zensols.dataframe.stash.DataframeStash" title="zensols.dataframe.stash.DataframeStash">zensols.dataframe.stash.DataframeStash</a></em><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.stash" title="Permalink to this definition">¶</a></dt>
+<dd><p>The stash that contains the dataframe.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/dataframe/vectorize.html#DataframeFeatureVectorizerManager.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeFeatureVectorizerManager.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the contents of this instance to <code class="docutils literal notranslate"><span class="pre">writer</span></code> using indention <code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the starting indentation depth</p></li>
+<li><p><strong>writer</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOBase" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a>) – the writer to dump the content of this writable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeMetadata">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.dataframe.vectorize.</code><code class="sig-name descname">DataframeMetadata</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prefix</span></em>, <em class="sig-param"><span class="n">label_col</span></em>, <em class="sig-param"><span class="n">label_values</span></em>, <em class="sig-param"><span class="n">continuous</span></em>, <em class="sig-param"><span class="n">descrete</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/dataframe/vectorize.html#DataframeMetadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeMetadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.writable.Writable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.writable.Writable</span></code></a></p>
+<p>Metadata for a Pandas dataframe.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeMetadata.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prefix</span></em>, <em class="sig-param"><span class="n">label_col</span></em>, <em class="sig-param"><span class="n">label_values</span></em>, <em class="sig-param"><span class="n">continuous</span></em>, <em class="sig-param"><span class="n">descrete</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeMetadata.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeMetadata.continuous">
+<code class="sig-name descname">continuous</code><em class="property">: Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeMetadata.continuous" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of data columns that are continuous.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeMetadata.descrete">
+<code class="sig-name descname">descrete</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeMetadata.descrete" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mapping of label to nominals the column takes for descrete mappings.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeMetadata.label_col">
+<code class="sig-name descname">label_col</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeMetadata.label_col" title="Permalink to this definition">¶</a></dt>
+<dd><p>The column that contains the label/class.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeMetadata.label_values">
+<code class="sig-name descname">label_values</code><em class="property">: Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeMetadata.label_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>All classes (unique across <code class="docutils literal notranslate"><span class="pre">label_col</span></code>).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeMetadata.prefix">
+<code class="sig-name descname">prefix</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeMetadata.prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>The prefix to use for all vectorizers in the dataframe (i.e. <code class="docutils literal notranslate"><span class="pre">adl_</span></code>
+for the Adult dataset test case example).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.dataframe.vectorize.DataframeMetadata.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/dataframe/vectorize.html#DataframeMetadata.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.dataframe.vectorize.DataframeMetadata.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the contents of this instance to <code class="docutils literal notranslate"><span class="pre">writer</span></code> using indention <code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the starting indentation depth</p></li>
+<li><p><strong>writer</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOBase" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a>) – the writer to dump the content of this writable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-zensols.deeplearn.dataframe">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zensols.deeplearn.dataframe" title="Permalink to this headline">¶</a></h2>
+<p>Contains API framework code for vectorizing and batching dataframe data
+without the necessity of a domain specific model implementation.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="zensols.deeplearn.layer.html" class="btn btn-neutral float-right" title="zensols.deeplearn.layer package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="zensols.deeplearn.cli.html" class="btn btn-neutral float-left" title="zensols.deeplearn.cli package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

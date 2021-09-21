@@ -1,0 +1,1252 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.batch package &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="zensols.deeplearn.cli package" href="zensols.deeplearn.cli.html" />
+    <link rel="prev" title="zensols.deeplearn package" href="zensols.deeplearn.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataframe.html">zensols.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataset.html">zensols.dataset package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="zensols.deeplearn.html">zensols.deeplearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="zensols.deeplearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.cli.html">zensols.deeplearn.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-domain">zensols.deeplearn.domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-plot">zensols.deeplearn.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-torchconfig">zensols.deeplearn.torchconfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-torchtype">zensols.deeplearn.torchtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#module-zensols.deeplearn">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">zensols.deeplearn.batch package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-batch-domain">zensols.deeplearn.batch.domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-batch-interface">zensols.deeplearn.batch.interface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-batch-mapping">zensols.deeplearn.batch.mapping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-batch-meta">zensols.deeplearn.batch.meta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-batch-multi">zensols.deeplearn.batch.multi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-batch-stash">zensols.deeplearn.batch.stash</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zensols.deeplearn.batch">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.cli.html">zensols.deeplearn.cli package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="zensols.deeplearn.html">zensols.deeplearn package</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.batch package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/zensols.deeplearn.batch.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="zensols-deeplearn-batch-package">
+<h1>zensols.deeplearn.batch package<a class="headerlink" href="#zensols-deeplearn-batch-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="zensols-deeplearn-batch-domain">
+<h2>zensols.deeplearn.batch.domain<a class="headerlink" href="#zensols-deeplearn-batch-domain" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-3b1b5d210675088708c45a8f17de0ecad7ce63b0.png" alt="Inheritance diagram of zensols.deeplearn.batch.domain" usemap="#inheritance3fa8774e6d" class="inheritance graphviz" /></div>
+<map id="inheritance3fa8774e6d" name="inheritance3fa8774e6d">
+<area shape="rect" id="node2" href="#zensols.deeplearn.batch.domain.Batch" target="_top" title="Contains a batch of data used in the first layer of a net. &#160;This class holds" alt="" coords="57,225,129,251"/>
+<area shape="rect" id="node6" href="#zensols.deeplearn.batch.domain.DataPoint" target="_top" title="Abstract class that makes up a container class for features created from" alt="" coords="240,152,320,177"/>
+</map><span class="target" id="module-zensols.deeplearn.batch.domain"></span><dl class="py class">
+<dt id="zensols.deeplearn.batch.domain.Batch">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.batch.domain.</code><code class="sig-name descname">Batch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_stash</span></em>, <em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">split_name</span></em>, <em class="sig-param"><span class="n">data_points</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/domain.html#Batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.annotation.PersistableContainer" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.annotation.PersistableContainer</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.dealloc.Deallocatable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.dealloc.Deallocatable</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.writable.Writable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.writable.Writable</span></code></a></p>
+<p>Contains a batch of data used in the first layer of a net.  This class holds
+the labels, but is otherwise useless without at least one embedding layer
+matrix defined.</p>
+<p>The user must subclass, add mapping meta data, and optionally (suggested)
+add getters and/or properties for the specific data so the model can by
+more <em>Pythonic</em> in the PyTorch <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a>.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.domain.Batch.STATES">
+<code class="sig-name descname">STATES</code><em class="property"> = {'d': 'decoded', 'e': 'encoded', 'k': 'deallocated', 'n': 'nascent', 't': 'memory copied'}</em><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.STATES" title="Permalink to this definition">¶</a></dt>
+<dd><p>A human friendly mapping of the encoded states.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_stash</span></em>, <em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">split_name</span></em>, <em class="sig-param"><span class="n">data_points</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.attributes">
+<em class="property">property </em><code class="sig-name descname">attributes</code><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute batched tensors as a dictionary using the attribute
+names as the keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.domain.Batch.batch_stash">
+<code class="sig-name descname">batch_stash</code><em class="property">: BatchStash</em><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.batch_stash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ephemeral instance of the stash used during encoding and decoding.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.domain.Batch.data_points">
+<code class="sig-name descname">data_points</code><em class="property">: Tuple<span class="p">[</span><a class="reference internal" href="#zensols.deeplearn.batch.domain.DataPoint" title="zensols.deeplearn.batch.domain.DataPoint">DataPoint</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.data_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of the data points given on creation for encoding, and
+<code class="docutils literal notranslate"><span class="pre">None</span></code>’d out after encoding/pickinglin.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/domain.html#Batch.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources for this instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.get_data_points">
+<code class="sig-name descname">get_data_points</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/domain.html#Batch.get_data_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.get_data_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the data points used to create this batch.  If the batch does not
+contain the data points (it has been decoded), then they are retrieved
+from the <a class="reference internal" href="#zensols.deeplearn.batch.domain.Batch.batch_stash" title="zensols.deeplearn.batch.domain.Batch.batch_stash"><code class="xref py py-obj docutils literal notranslate"><span class="pre">batch_stash</span></code></a> instance’s feature stash.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference internal" href="#zensols.deeplearn.batch.domain.DataPoint" title="zensols.deeplearn.batch.domain.DataPoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataPoint</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.get_label_classes">
+<code class="sig-name descname">get_label_classes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/domain.html#Batch.get_label_classes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.get_label_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the labels in this batch in their string form.  This assumes the
+label vectorizer is instance of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">CategoryEncodableFeatureVectorizer</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the reverse mapped, from nominal values, labels</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.get_label_feature_vectorizer">
+<code class="sig-name descname">get_label_feature_vectorizer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/domain.html#Batch.get_label_feature_vectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.get_label_feature_vectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the label vectorizer used in the batch.  This assumes there’s only
+one vectorizer found in the vectorizer manager.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>batch</strong> – used to access the vectorizer set via the batch stash</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.domain.FeatureVectorizer" title="zensols.deeplearn.vectorize.domain.FeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizer</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.get_labels">
+<code class="sig-name descname">get_labels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/domain.html#Batch.get_labels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.get_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the label tensor for this batch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.has_labels">
+<em class="property">property </em><code class="sig-name descname">has_labels</code><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.has_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether or not this batch has labels.  If it doesn’t, it is a
+batch used for prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.domain.Batch.id">
+<code class="sig-name descname">id</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ID of this batch instance, which is the sequence number of the batch
+given during child processing of the chunked data point ID setes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.keys">
+<code class="sig-name descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/domain.html#Batch.keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.keys" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.size">
+<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/domain.html#Batch.size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the size of this batch, which is the number of data points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.domain.Batch.split_name">
+<code class="sig-name descname">split_name</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.split_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the split for this batch (i.e. <code class="docutils literal notranslate"><span class="pre">train</span></code> vs <code class="docutils literal notranslate"><span class="pre">test</span></code>).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.state_name">
+<em class="property">property </em><code class="sig-name descname">state_name</code><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.state_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.to">
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/domain.html#Batch.to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clone this instance and copy data to the CUDA device configured in the batch
+stash.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a clone of this instance with all attribute tensors copied
+to the given torch configuration device</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.torch_config">
+<em class="property">property </em><code class="sig-name descname">torch_config</code><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.torch_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>The torch config used to copy from CPU to GPU memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig" title="zensols.deeplearn.torchconfig.TorchConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">TorchConfig</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.Batch.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em>, <em class="sig-param">include_data_points=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/domain.html#Batch.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.domain.Batch.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the contents of this instance to <code class="docutils literal notranslate"><span class="pre">writer</span></code> using indention <code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the starting indentation depth</p></li>
+<li><p><strong>writer</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOBase" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a>) – the writer to dump the content of this writable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.batch.domain.DataPoint">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.batch.domain.</code><code class="sig-name descname">DataPoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">batch_stash</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/domain.html#DataPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.domain.DataPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.writable.Writable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.writable.Writable</span></code></a></p>
+<p>Abstract class that makes up a container class for features created from
+sentences.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.DataPoint.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">batch_stash</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.batch.domain.DataPoint.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.domain.DataPoint.batch_stash">
+<code class="sig-name descname">batch_stash</code><em class="property">: BatchStash</em><a class="headerlink" href="#zensols.deeplearn.batch.domain.DataPoint.batch_stash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ephemeral instance of the stash used during encoding only.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.domain.DataPoint.id">
+<code class="sig-name descname">id</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.batch.domain.DataPoint.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ID of this data point, which maps back to the <code class="docutils literal notranslate"><span class="pre">BatchStash</span></code> instance’s
+subordinate stash.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.domain.DataPoint.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/domain.html#DataPoint.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.domain.DataPoint.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the contents of this instance to <code class="docutils literal notranslate"><span class="pre">writer</span></code> using indention <code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the starting indentation depth</p></li>
+<li><p><strong>writer</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOBase" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a>) – the writer to dump the content of this writable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-batch-interface">
+<h2>zensols.deeplearn.batch.interface<a class="headerlink" href="#zensols-deeplearn-batch-interface" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-b286c98057607f5c43360898b0197bcc9073ea58.png" alt="Inheritance diagram of zensols.deeplearn.batch.interface" usemap="#inheritancefebf32fa79" class="inheritance graphviz" /></div>
+<map id="inheritancefebf32fa79" name="inheritancefebf32fa79">
+<area shape="rect" id="node6" href="zensols.deeplearn.html#zensols.deeplearn.domain.DeepLearnError" target="_top" title="Raised for any frame originated error." alt="" coords="173,79,287,104"/>
+<area shape="rect" id="node3" href="#zensols.deeplearn.batch.interface.BatchDirectoryCompositeStash" target="_top" title="A composite stash used for instances of :class:`BatchStash`." alt="" coords="5,299,212,324"/>
+<area shape="rect" id="node5" href="#zensols.deeplearn.batch.interface.BatchError" target="_top" title="Thrown for any batch related error." alt="" coords="188,152,272,177"/>
+<area shape="rect" id="node7" href="#zensols.deeplearn.batch.interface.DataPointIDSet" target="_top" title="Set of subordinate stash IDs with feature values to be vectorized with" alt="" coords="290,5,405,31"/>
+</map><span class="target" id="module-zensols.deeplearn.batch.interface"></span><p>Interface and simple domain classes.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.batch.interface.BatchDirectoryCompositeStash">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.batch.interface.</code><code class="sig-name descname">BatchDirectoryCompositeStash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">groups</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/interface.html#BatchDirectoryCompositeStash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.interface.BatchDirectoryCompositeStash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.composite.DirectoryCompositeStash" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.composite.DirectoryCompositeStash</span></code></a></p>
+<p>A composite stash used for instances of <code class="xref py py-class docutils literal notranslate"><span class="pre">BatchStash</span></code>.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.interface.BatchDirectoryCompositeStash.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">groups</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/interface.html#BatchDirectoryCompositeStash.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.interface.BatchDirectoryCompositeStash.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize using the parent class’s default pattern.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a>) – the directory that will have to subdirectories with the
+files, they are named <code class="xref py py-obj docutils literal notranslate"><span class="pre">INSTANCE_DIRECTORY_NAME</span></code> and
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">COMPOSITE_DIRECTORY_NAME</span></code></p></li>
+<li><p><strong>groups</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – the groups of the <code class="docutils literal notranslate"><span class="pre">dict</span></code> composite attribute, which
+are sets of keys, each of which are persisted to their
+respective directory</p></li>
+<li><p><strong>attribute_name</strong> – the name of the attribute in each item to split
+across groups/directories; the instance data to
+persist has the composite attribute of type
+<code class="docutils literal notranslate"><span class="pre">dict</span></code></p></li>
+<li><p><strong>load_keys</strong> – the keys used to load the data from the composite
+stashs in to the attribute <code class="docutils literal notranslate"><span class="pre">dict</span></code> instance; only
+these keys will exist in the loaded data, or <code class="docutils literal notranslate"><span class="pre">None</span></code>
+for all keys; this can be set after the creation of
+the instance as well</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.interface.BatchDirectoryCompositeStash.path">
+<code class="sig-name descname">path</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)">pathlib.Path</a></em><a class="headerlink" href="#zensols.deeplearn.batch.interface.BatchDirectoryCompositeStash.path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="zensols.deeplearn.batch.interface.BatchError">
+<em class="property">exception </em><code class="sig-prename descclassname">zensols.deeplearn.batch.interface.</code><code class="sig-name descname">BatchError</code><a class="reference internal" href="../_modules/zensols/deeplearn/batch/interface.html#BatchError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.interface.BatchError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.domain.DeepLearnError" title="zensols.deeplearn.domain.DeepLearnError"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.DeepLearnError</span></code></a></p>
+<p>Thrown for any batch related error.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.interface.BatchError.__module__">
+<code class="sig-name descname">__module__</code><em class="property"> = 'zensols.deeplearn.batch.interface'</em><a class="headerlink" href="#zensols.deeplearn.batch.interface.BatchError.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.batch.interface.DataPointIDSet">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.batch.interface.</code><code class="sig-name descname">DataPointIDSet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_id</span></em>, <em class="sig-param"><span class="n">data_point_ids</span></em>, <em class="sig-param"><span class="n">split_name</span></em>, <em class="sig-param"><span class="n">torch_seed_context</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/interface.html#DataPointIDSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.interface.DataPointIDSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Set of subordinate stash IDs with feature values to be vectorized with
+<a class="reference internal" href="#zensols.deeplearn.batch.stash.BatchStash" title="zensols.deeplearn.batch.stash.BatchStash"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchStash</span></code></a>.  Groups of these are sent to subprocesses for
+processing in to <a class="reference internal" href="#zensols.deeplearn.batch.domain.Batch" title="zensols.deeplearn.batch.domain.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> instances.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.interface.DataPointIDSet.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_id</span></em>, <em class="sig-param"><span class="n">data_point_ids</span></em>, <em class="sig-param"><span class="n">split_name</span></em>, <em class="sig-param"><span class="n">torch_seed_context</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.batch.interface.DataPointIDSet.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.interface.DataPointIDSet.batch_id">
+<code class="sig-name descname">batch_id</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.batch.interface.DataPointIDSet.batch_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ID of the batch.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.interface.DataPointIDSet.data_point_ids">
+<code class="sig-name descname">data_point_ids</code><em class="property">: Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.batch.interface.DataPointIDSet.data_point_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>The IDs each data point in the setLevel.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.interface.DataPointIDSet.split_name">
+<code class="sig-name descname">split_name</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.batch.interface.DataPointIDSet.split_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The split (i.e. <code class="docutils literal notranslate"><span class="pre">train</span></code>, <code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">validation</span></code>).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.interface.DataPointIDSet.torch_seed_context">
+<code class="sig-name descname">torch_seed_context</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Any<span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.batch.interface.DataPointIDSet.torch_seed_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>The seed context given by <a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig" title="zensols.deeplearn.torchconfig.TorchConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">TorchConfig</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-batch-mapping">
+<h2>zensols.deeplearn.batch.mapping<a class="headerlink" href="#zensols-deeplearn-batch-mapping" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-1d8534d1dd2f7d3fb2d8ae5808d531dcbc692b96.png" alt="Inheritance diagram of zensols.deeplearn.batch.mapping" usemap="#inheritancea27bd48174" class="inheritance graphviz" /></div>
+<map id="inheritancea27bd48174" name="inheritancea27bd48174">
+<area shape="rect" id="node2" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping" target="_top" title="The meta data used to encode and decode each feature in to tensors. &#160;It is" alt="" coords="5,225,155,251"/>
+<area shape="rect" id="node5" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping" target="_top" title="Meta data describing an attribute of the data point." alt="" coords="179,225,322,251"/>
+<area shape="rect" id="node6" href="#zensols.deeplearn.batch.mapping.ManagerFeatureMapping" target="_top" title="Meta data for a vectorizer manager with fields describing attributes to be" alt="" coords="347,225,512,251"/>
+</map><span class="target" id="module-zensols.deeplearn.batch.mapping"></span><p>Mapping metadata for batch domain specific instances.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.batch.mapping.BatchFeatureMapping">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.batch.mapping.</code><code class="sig-name descname">BatchFeatureMapping</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">label_attribute_name</span></em>, <em class="sig-param"><span class="n">manager_mappings</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/mapping.html#BatchFeatureMapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.dictable.Dictable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.dictable.Dictable</span></code></a></p>
+<p>The meta data used to encode and decode each feature in to tensors.  It is
+best to define a class level instance of this in the <code class="docutils literal notranslate"><span class="pre">Batch</span></code> class and
+return it with <code class="docutils literal notranslate"><span class="pre">_get_batch_feature_mappings</span></code>.</p>
+<p>An example from the iris data set test:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MAPPINGS</span> <span class="o">=</span> <span class="n">BatchFeatureMapping</span><span class="p">(</span>
+    <span class="s1">&#39;label&#39;</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">ManagerFeatureMapping</span><span class="p">(</span>
+        <span class="s1">&#39;iris_vectorizer_manager&#39;</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">FieldFeatureMapping</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;ilabel&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+         <span class="n">FieldFeatureMapping</span><span class="p">(</span><span class="s1">&#39;flower_dims&#39;</span><span class="p">,</span> <span class="s1">&#39;iseries&#39;</span><span class="p">)))])</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.mapping.BatchFeatureMapping.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">label_attribute_name</span></em>, <em class="sig-param"><span class="n">manager_mappings</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.mapping.BatchFeatureMapping.get_attributes">
+<code class="sig-name descname">get_attributes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/mapping.html#BatchFeatureMapping.get_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference internal" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping" title="zensols.deeplearn.batch.mapping.FieldFeatureMapping"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldFeatureMapping</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.mapping.BatchFeatureMapping.get_field_map_by_attribute">
+<code class="sig-name descname">get_field_map_by_attribute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attribute_name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/mapping.html#BatchFeatureMapping.get_field_map_by_attribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping.get_field_map_by_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference internal" href="#zensols.deeplearn.batch.mapping.ManagerFeatureMapping" title="zensols.deeplearn.batch.mapping.ManagerFeatureMapping"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManagerFeatureMapping</span></code></a>, <a class="reference internal" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping" title="zensols.deeplearn.batch.mapping.FieldFeatureMapping"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldFeatureMapping</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.mapping.BatchFeatureMapping.get_field_map_by_feature_id">
+<code class="sig-name descname">get_field_map_by_feature_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/mapping.html#BatchFeatureMapping.get_field_map_by_feature_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping.get_field_map_by_feature_id" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference internal" href="#zensols.deeplearn.batch.mapping.ManagerFeatureMapping" title="zensols.deeplearn.batch.mapping.ManagerFeatureMapping"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManagerFeatureMapping</span></code></a>, <a class="reference internal" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping" title="zensols.deeplearn.batch.mapping.FieldFeatureMapping"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldFeatureMapping</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.mapping.BatchFeatureMapping.label_attribute_name">
+<code class="sig-name descname">label_attribute_name</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping.label_attribute_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the attribute used for labels.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.mapping.BatchFeatureMapping.label_feature_id">
+<em class="property">property </em><code class="sig-name descname">label_feature_id</code><a class="headerlink" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping.label_feature_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the feature id of the label.  This is the vectorizer used to
+transform the label data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.mapping.BatchFeatureMapping.label_vectorizer_manager">
+<em class="property">property </em><code class="sig-name descname">label_vectorizer_manager</code><a class="headerlink" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping.label_vectorizer_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the feature id of the label.  This is the vectorizer used to
+transform the label data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" title="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizerManager</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.mapping.BatchFeatureMapping.manager_mappings">
+<code class="sig-name descname">manager_mappings</code><em class="property">: List<span class="p">[</span><a class="reference internal" href="#zensols.deeplearn.batch.mapping.ManagerFeatureMapping" title="zensols.deeplearn.batch.mapping.ManagerFeatureMapping">zensols.deeplearn.batch.mapping.ManagerFeatureMapping</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping.manager_mappings" title="Permalink to this definition">¶</a></dt>
+<dd><p>The manager level attribute mapping meta data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.mapping.BatchFeatureMapping.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/mapping.html#BatchFeatureMapping.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write this instance as either a <code class="xref py py-class docutils literal notranslate"><span class="pre">Writable</span></code> or as a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dictable</span></code>.
+If class attribute <code class="docutils literal notranslate"><span class="pre">_DICTABLE_WRITABLE_DESCENDANTS</span></code> is set as
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, then use the <a class="reference internal" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping.write" title="zensols.deeplearn.batch.mapping.BatchFeatureMapping.write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write()</span></code></a> method on children instead of
+writing the generated dictionary.  Otherwise, write this instance by
+first creating a <code class="docutils literal notranslate"><span class="pre">dict</span></code> recursively using <code class="xref py py-meth docutils literal notranslate"><span class="pre">asdict()</span></code>, then
+formatting the output.</p>
+<p>If the attribute <code class="docutils literal notranslate"><span class="pre">_DICTABLE_WRITE_EXCLUDES</span></code> is set, those attributes
+are removed from what is written in the <a class="reference internal" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping.write" title="zensols.deeplearn.batch.mapping.BatchFeatureMapping.write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write()</span></code></a> method.</p>
+<p>Note that this attribute will need to be set in all descendants in the
+instance hierarchy since writing the object instance graph is done
+recursively.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.batch.mapping.FieldFeatureMapping">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.batch.mapping.</code><code class="sig-name descname">FieldFeatureMapping</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attr</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">is_agg</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">attr_access</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_label</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/mapping.html#FieldFeatureMapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.dictable.Dictable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.dictable.Dictable</span></code></a></p>
+<p>Meta data describing an attribute of the data point.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.mapping.FieldFeatureMapping.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attr</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">is_agg</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">attr_access</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_label</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.mapping.FieldFeatureMapping.attr">
+<code class="sig-name descname">attr</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping.attr" title="Permalink to this definition">¶</a></dt>
+<dd><p>The (human readable/used) name for the mapping.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.mapping.FieldFeatureMapping.attr_access">
+<code class="sig-name descname">attr_access</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping.attr_access" title="Permalink to this definition">¶</a></dt>
+<dd><p>The attribute on the source <code class="xref py py-class docutils literal notranslate"><span class="pre">DataPoint</span></code> instance (see
+<a class="reference internal" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping.attribute_accessor" title="zensols.deeplearn.batch.mapping.FieldFeatureMapping.attribute_accessor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attribute_accessor</span></code></a>).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.mapping.FieldFeatureMapping.attribute_accessor">
+<em class="property">property </em><code class="sig-name descname">attribute_accessor</code><a class="headerlink" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping.attribute_accessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute name on the <code class="xref py py-class docutils literal notranslate"><span class="pre">DataPoint</span></code> instance.  This uses
+<a class="reference internal" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping.attr_access" title="zensols.deeplearn.batch.mapping.FieldFeatureMapping.attr_access"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attr_access</span></code></a> if it is not <code class="docutils literal notranslate"><span class="pre">None</span></code>, otherwise, use
+<a class="reference internal" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping.attr" title="zensols.deeplearn.batch.mapping.FieldFeatureMapping.attr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attr</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.mapping.FieldFeatureMapping.feature_id">
+<code class="sig-name descname">feature_id</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping.feature_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates which vectorizer to use.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.mapping.FieldFeatureMapping.is_agg">
+<code class="sig-name descname">is_agg</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><em class="property"> = False</em><a class="headerlink" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping.is_agg" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, tuplize across all data points and encode as one tuple of
+data to create the batched tensor on decode; otherwise, each data point
+feature is encoded and concatenated on decode.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.mapping.FieldFeatureMapping.is_label">
+<code class="sig-name descname">is_label</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><em class="property"> = False</em><a class="headerlink" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping.is_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether or not this field is a label.  The is <code class="docutils literal notranslate"><span class="pre">True</span></code> in cases where there
+is more than one label.  In these cases, usually which label to use changes
+based on the model (i.e. word embedding vs. BERT word piece token IDs).</p>
+<p>This is used in <a class="reference internal" href="#zensols.deeplearn.batch.domain.Batch" title="zensols.deeplearn.batch.domain.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> to skip label vectorization while encoding
+of prediction based batches.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.mapping.FieldFeatureMapping.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/mapping.html#FieldFeatureMapping.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write this instance as either a <code class="xref py py-class docutils literal notranslate"><span class="pre">Writable</span></code> or as a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dictable</span></code>.
+If class attribute <code class="docutils literal notranslate"><span class="pre">_DICTABLE_WRITABLE_DESCENDANTS</span></code> is set as
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, then use the <a class="reference internal" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping.write" title="zensols.deeplearn.batch.mapping.FieldFeatureMapping.write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write()</span></code></a> method on children instead of
+writing the generated dictionary.  Otherwise, write this instance by
+first creating a <code class="docutils literal notranslate"><span class="pre">dict</span></code> recursively using <code class="xref py py-meth docutils literal notranslate"><span class="pre">asdict()</span></code>, then
+formatting the output.</p>
+<p>If the attribute <code class="docutils literal notranslate"><span class="pre">_DICTABLE_WRITE_EXCLUDES</span></code> is set, those attributes
+are removed from what is written in the <a class="reference internal" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping.write" title="zensols.deeplearn.batch.mapping.FieldFeatureMapping.write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write()</span></code></a> method.</p>
+<p>Note that this attribute will need to be set in all descendants in the
+instance hierarchy since writing the object instance graph is done
+recursively.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.batch.mapping.ManagerFeatureMapping">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.batch.mapping.</code><code class="sig-name descname">ManagerFeatureMapping</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vectorizer_manager_name</span></em>, <em class="sig-param"><span class="n">fields</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/mapping.html#ManagerFeatureMapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.mapping.ManagerFeatureMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.dictable.Dictable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.dictable.Dictable</span></code></a></p>
+<p>Meta data for a vectorizer manager with fields describing attributes to be
+vectorized from features in to feature contests.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.mapping.ManagerFeatureMapping.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vectorizer_manager_name</span></em>, <em class="sig-param"><span class="n">fields</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.batch.mapping.ManagerFeatureMapping.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.mapping.ManagerFeatureMapping.fields">
+<code class="sig-name descname">fields</code><em class="property">: Tuple<span class="p">[</span><a class="reference internal" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping" title="zensols.deeplearn.batch.mapping.FieldFeatureMapping">zensols.deeplearn.batch.mapping.FieldFeatureMapping</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.batch.mapping.ManagerFeatureMapping.fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>The fields of the data point to be vectorized.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.mapping.ManagerFeatureMapping.remove_field">
+<code class="sig-name descname">remove_field</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attr</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/mapping.html#ManagerFeatureMapping.remove_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.mapping.ManagerFeatureMapping.remove_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a field by attribute if it exists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>attr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – the name of the field’s attribute to remove</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the field was removed, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.mapping.ManagerFeatureMapping.vectorizer_manager_name">
+<code class="sig-name descname">vectorizer_manager_name</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.batch.mapping.ManagerFeatureMapping.vectorizer_manager_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The configuration name that identifiees an instance of
+<code class="docutils literal notranslate"><span class="pre">FeatureVectorizerManager</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.mapping.ManagerFeatureMapping.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/mapping.html#ManagerFeatureMapping.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.mapping.ManagerFeatureMapping.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write this instance as either a <code class="xref py py-class docutils literal notranslate"><span class="pre">Writable</span></code> or as a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dictable</span></code>.
+If class attribute <code class="docutils literal notranslate"><span class="pre">_DICTABLE_WRITABLE_DESCENDANTS</span></code> is set as
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, then use the <a class="reference internal" href="#zensols.deeplearn.batch.mapping.ManagerFeatureMapping.write" title="zensols.deeplearn.batch.mapping.ManagerFeatureMapping.write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write()</span></code></a> method on children instead of
+writing the generated dictionary.  Otherwise, write this instance by
+first creating a <code class="docutils literal notranslate"><span class="pre">dict</span></code> recursively using <code class="xref py py-meth docutils literal notranslate"><span class="pre">asdict()</span></code>, then
+formatting the output.</p>
+<p>If the attribute <code class="docutils literal notranslate"><span class="pre">_DICTABLE_WRITE_EXCLUDES</span></code> is set, those attributes
+are removed from what is written in the <a class="reference internal" href="#zensols.deeplearn.batch.mapping.ManagerFeatureMapping.write" title="zensols.deeplearn.batch.mapping.ManagerFeatureMapping.write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write()</span></code></a> method.</p>
+<p>Note that this attribute will need to be set in all descendants in the
+instance hierarchy since writing the object instance graph is done
+recursively.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-batch-meta">
+<h2>zensols.deeplearn.batch.meta<a class="headerlink" href="#zensols-deeplearn-batch-meta" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-c8db2112cd1df60344ba05cc74b079c037aa9787.png" alt="Inheritance diagram of zensols.deeplearn.batch.meta" usemap="#inheritance31a9c9a6e2" class="inheritance graphviz" /></div>
+<map id="inheritance31a9c9a6e2" name="inheritance31a9c9a6e2">
+<area shape="rect" id="node2" href="#zensols.deeplearn.batch.meta.BatchFieldMetadata" target="_top" title="Data that describes a field mapping in a batch object." alt="" coords="235,225,373,251"/>
+<area shape="rect" id="node4" href="#zensols.deeplearn.batch.meta.BatchMetadata" target="_top" title="Describes metadata about a :class:`.Batch` instance." alt="" coords="398,225,509,251"/>
+<area shape="rect" id="node5" href="#zensols.deeplearn.batch.meta.BatchMetadataFactory" target="_top" title="Creates instances of :class:`.BatchMetadata`." alt="" coords="5,225,160,251"/>
+<area shape="rect" id="node11" href="zensols.deeplearn.html#zensols.deeplearn.domain.NetworkSettings" target="_top" title="A container settings class for network models. &#160;This abstract class must" alt="" coords="326,299,445,324"/>
+<area shape="rect" id="node10" href="#zensols.deeplearn.batch.meta.MetadataNetworkSettings" target="_top" title="A network settings container that has metadata about batches it recieves for" alt="" coords="299,372,472,397"/>
+</map><span class="target" id="module-zensols.deeplearn.batch.meta"></span><p>Contains container classes for batch data.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.batch.meta.BatchFieldMetadata">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.batch.meta.</code><code class="sig-name descname">BatchFieldMetadata</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field</span></em>, <em class="sig-param"><span class="n">vectorizer</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/meta.html#BatchFieldMetadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchFieldMetadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.dictable.Dictable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.dictable.Dictable</span></code></a></p>
+<p>Data that describes a field mapping in a batch object.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.meta.BatchFieldMetadata.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">field</span></em>, <em class="sig-param"><span class="n">vectorizer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchFieldMetadata.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.meta.BatchFieldMetadata.field">
+<code class="sig-name descname">field</code><em class="property">: <a class="reference internal" href="#zensols.deeplearn.batch.mapping.FieldFeatureMapping" title="zensols.deeplearn.batch.mapping.FieldFeatureMapping">zensols.deeplearn.batch.mapping.FieldFeatureMapping</a></em><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchFieldMetadata.field" title="Permalink to this definition">¶</a></dt>
+<dd><p>The field mapping.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.meta.BatchFieldMetadata.shape">
+<em class="property">property </em><code class="sig-name descname">shape</code><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchFieldMetadata.shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.meta.BatchFieldMetadata.vectorizer">
+<code class="sig-name descname">vectorizer</code><em class="property">: <a class="reference internal" href="zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.domain.FeatureVectorizer" title="zensols.deeplearn.vectorize.domain.FeatureVectorizer">zensols.deeplearn.vectorize.domain.FeatureVectorizer</a></em><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchFieldMetadata.vectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>The vectorizer used to map the field.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.meta.BatchFieldMetadata.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/meta.html#BatchFieldMetadata.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchFieldMetadata.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write this instance as either a <code class="xref py py-class docutils literal notranslate"><span class="pre">Writable</span></code> or as a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dictable</span></code>.
+If class attribute <code class="docutils literal notranslate"><span class="pre">_DICTABLE_WRITABLE_DESCENDANTS</span></code> is set as
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, then use the <a class="reference internal" href="#zensols.deeplearn.batch.meta.BatchFieldMetadata.write" title="zensols.deeplearn.batch.meta.BatchFieldMetadata.write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write()</span></code></a> method on children instead of
+writing the generated dictionary.  Otherwise, write this instance by
+first creating a <code class="docutils literal notranslate"><span class="pre">dict</span></code> recursively using <code class="xref py py-meth docutils literal notranslate"><span class="pre">asdict()</span></code>, then
+formatting the output.</p>
+<p>If the attribute <code class="docutils literal notranslate"><span class="pre">_DICTABLE_WRITE_EXCLUDES</span></code> is set, those attributes
+are removed from what is written in the <a class="reference internal" href="#zensols.deeplearn.batch.meta.BatchFieldMetadata.write" title="zensols.deeplearn.batch.meta.BatchFieldMetadata.write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write()</span></code></a> method.</p>
+<p>Note that this attribute will need to be set in all descendants in the
+instance hierarchy since writing the object instance graph is done
+recursively.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.batch.meta.BatchMetadata">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.batch.meta.</code><code class="sig-name descname">BatchMetadata</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_point_class</span></em>, <em class="sig-param"><span class="n">batch_class</span></em>, <em class="sig-param"><span class="n">mapping</span></em>, <em class="sig-param"><span class="n">fields_by_attribute</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/meta.html#BatchMetadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchMetadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.dictable.Dictable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.dictable.Dictable</span></code></a></p>
+<p>Describes metadata about a <a class="reference internal" href="#zensols.deeplearn.batch.domain.Batch" title="zensols.deeplearn.batch.domain.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> instance.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.meta.BatchMetadata.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_point_class</span></em>, <em class="sig-param"><span class="n">batch_class</span></em>, <em class="sig-param"><span class="n">mapping</span></em>, <em class="sig-param"><span class="n">fields_by_attribute</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchMetadata.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.meta.BatchMetadata.batch_class">
+<code class="sig-name descname">batch_class</code><em class="property">: Type<span class="p">[</span><a class="reference internal" href="#zensols.deeplearn.batch.domain.Batch" title="zensols.deeplearn.batch.domain.Batch">zensols.deeplearn.batch.domain.Batch</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchMetadata.batch_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#zensols.deeplearn.batch.domain.Batch" title="zensols.deeplearn.batch.domain.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a> class, which are created at encoding time.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.meta.BatchMetadata.data_point_class">
+<code class="sig-name descname">data_point_class</code><em class="property">: Type<span class="p">[</span><a class="reference internal" href="#zensols.deeplearn.batch.domain.DataPoint" title="zensols.deeplearn.batch.domain.DataPoint">zensols.deeplearn.batch.domain.DataPoint</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchMetadata.data_point_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference internal" href="#zensols.deeplearn.batch.domain.DataPoint" title="zensols.deeplearn.batch.domain.DataPoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataPoint</span></code></a> class, which are created at encoding time.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.meta.BatchMetadata.fields_by_attribute">
+<code class="sig-name descname">fields_by_attribute</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span><a class="reference internal" href="#zensols.deeplearn.batch.meta.BatchFieldMetadata" title="zensols.deeplearn.batch.meta.BatchFieldMetadata">zensols.deeplearn.batch.meta.BatchFieldMetadata</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchMetadata.fields_by_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mapping by field name to attribute.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.meta.BatchMetadata.mapping">
+<code class="sig-name descname">mapping</code><em class="property">: <a class="reference internal" href="#zensols.deeplearn.batch.mapping.BatchFeatureMapping" title="zensols.deeplearn.batch.mapping.BatchFeatureMapping">zensols.deeplearn.batch.mapping.BatchFeatureMapping</a></em><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchMetadata.mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>The mapping used for encoding and decoding the batch.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.meta.BatchMetadata.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/meta.html#BatchMetadata.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchMetadata.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write this instance as either a <code class="xref py py-class docutils literal notranslate"><span class="pre">Writable</span></code> or as a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dictable</span></code>.
+If class attribute <code class="docutils literal notranslate"><span class="pre">_DICTABLE_WRITABLE_DESCENDANTS</span></code> is set as
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, then use the <a class="reference internal" href="#zensols.deeplearn.batch.meta.BatchMetadata.write" title="zensols.deeplearn.batch.meta.BatchMetadata.write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write()</span></code></a> method on children instead of
+writing the generated dictionary.  Otherwise, write this instance by
+first creating a <code class="docutils literal notranslate"><span class="pre">dict</span></code> recursively using <code class="xref py py-meth docutils literal notranslate"><span class="pre">asdict()</span></code>, then
+formatting the output.</p>
+<p>If the attribute <code class="docutils literal notranslate"><span class="pre">_DICTABLE_WRITE_EXCLUDES</span></code> is set, those attributes
+are removed from what is written in the <a class="reference internal" href="#zensols.deeplearn.batch.meta.BatchMetadata.write" title="zensols.deeplearn.batch.meta.BatchMetadata.write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write()</span></code></a> method.</p>
+<p>Note that this attribute will need to be set in all descendants in the
+instance hierarchy since writing the object instance graph is done
+recursively.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.batch.meta.BatchMetadataFactory">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.batch.meta.</code><code class="sig-name descname">BatchMetadataFactory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stash</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/meta.html#BatchMetadataFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchMetadataFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.annotation.PersistableContainer" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.annotation.PersistableContainer</span></code></a></p>
+<p>Creates instances of <a class="reference internal" href="#zensols.deeplearn.batch.meta.BatchMetadata" title="zensols.deeplearn.batch.meta.BatchMetadata"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchMetadata</span></code></a>.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.meta.BatchMetadataFactory.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stash</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchMetadataFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.meta.BatchMetadataFactory.stash">
+<code class="sig-name descname">stash</code><em class="property">: <a class="reference internal" href="#zensols.deeplearn.batch.stash.BatchStash" title="zensols.deeplearn.batch.stash.BatchStash">zensols.deeplearn.batch.stash.BatchStash</a></em><a class="headerlink" href="#zensols.deeplearn.batch.meta.BatchMetadataFactory.stash" title="Permalink to this definition">¶</a></dt>
+<dd><p>The stash used to create the batches.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.batch.meta.MetadataNetworkSettings">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.batch.meta.</code><code class="sig-name descname">MetadataNetworkSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">batch_metadata_factory</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/meta.html#MetadataNetworkSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.meta.MetadataNetworkSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.domain.NetworkSettings" title="zensols.deeplearn.domain.NetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.NetworkSettings</span></code></a></p>
+<p>A network settings container that has metadata about batches it recieves for
+its model.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.meta.MetadataNetworkSettings.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">batch_metadata_factory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.batch.meta.MetadataNetworkSettings.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.meta.MetadataNetworkSettings.batch_metadata">
+<em class="property">property </em><code class="sig-name descname">batch_metadata</code><a class="headerlink" href="#zensols.deeplearn.batch.meta.MetadataNetworkSettings.batch_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the batch metadata used by this model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.batch.meta.BatchMetadata" title="zensols.deeplearn.batch.meta.BatchMetadata"><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchMetadata</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.meta.MetadataNetworkSettings.batch_metadata_factory">
+<code class="sig-name descname">batch_metadata_factory</code><em class="property">: <a class="reference internal" href="#zensols.deeplearn.batch.meta.BatchMetadataFactory" title="zensols.deeplearn.batch.meta.BatchMetadataFactory">zensols.deeplearn.batch.meta.BatchMetadataFactory</a></em><a class="headerlink" href="#zensols.deeplearn.batch.meta.MetadataNetworkSettings.batch_metadata_factory" title="Permalink to this definition">¶</a></dt>
+<dd><p>The factory that produces the metadata that describe the batch data
+during the calls to <code class="xref py py-meth docutils literal notranslate"><span class="pre">_forward()</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-batch-multi">
+<h2>zensols.deeplearn.batch.multi<a class="headerlink" href="#zensols-deeplearn-batch-multi" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-c6ef41f632a341a44c801f2580957e3bed166c05.png" alt="Inheritance diagram of zensols.deeplearn.batch.multi" usemap="#inheritance8ae0f09ca7" class="inheritance graphviz" /></div>
+<map id="inheritance8ae0f09ca7" name="inheritance8ae0f09ca7">
+<area shape="rect" id="node10" href="#zensols.deeplearn.batch.multi.TorchMultiProcessStash" target="_top" title="A multiprocessing stash that interacts with PyTorch in a way that it can" alt="" coords="59,519,223,544"/>
+</map><span class="target" id="module-zensols.deeplearn.batch.multi"></span><p>Multi processing with torch.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.batch.multi.TorchMultiProcessStash">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.batch.multi.</code><code class="sig-name descname">TorchMultiProcessStash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delegate</span></em>, <em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">chunk_size</span></em>, <em class="sig-param"><span class="n">workers</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/multi.html#TorchMultiProcessStash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.multi.TorchMultiProcessStash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.multi.html#zensols.multi.stash.MultiProcessStash" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.multi.stash.MultiProcessStash</span></code></a></p>
+<p>A multiprocessing stash that interacts with PyTorch in a way that it can
+access the GPU(s) in forked subprocesses using the <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a>
+library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/multiprocessing.html#module-torch.multiprocessing" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-mod docutils literal notranslate"><span class="pre">torch.multiprocessing</span></code></a></p>
+</dd>
+<dt class="field-even">See</dt>
+<dd class="field-even"><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">zensols.deeplearn.TorchConfig.init()</span></code></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.multi.TorchMultiProcessStash.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delegate</span></em>, <em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">chunk_size</span></em>, <em class="sig-param"><span class="n">workers</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.batch.multi.TorchMultiProcessStash.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.multi.TorchMultiProcessStash.chunk_size">
+<code class="sig-name descname">chunk_size</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.batch.multi.TorchMultiProcessStash.chunk_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.multi.TorchMultiProcessStash.config">
+<code class="sig-name descname">config</code><em class="property">: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.configbase.Configurable" title="(in Zensols Utilities v1.6.2)">zensols.config.configbase.Configurable</a></em><a class="headerlink" href="#zensols.deeplearn.batch.multi.TorchMultiProcessStash.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.multi.TorchMultiProcessStash.name">
+<code class="sig-name descname">name</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.batch.multi.TorchMultiProcessStash.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.multi.TorchMultiProcessStash.workers">
+<code class="sig-name descname">workers</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.batch.multi.TorchMultiProcessStash.workers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-batch-stash">
+<h2>zensols.deeplearn.batch.stash<a class="headerlink" href="#zensols-deeplearn-batch-stash" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-d5ce8ecee00061122139b307ab979552e1094d77.png" alt="Inheritance diagram of zensols.deeplearn.batch.stash" usemap="#inheritance455a9bb692" class="inheritance graphviz" /></div>
+<map id="inheritance455a9bb692" name="inheritance455a9bb692">
+<area shape="rect" id="node4" href="zensols.dataset.html#zensols.dataset.interface.SplitKeyContainer" target="_top" title="An interface defining a container that partitions data sets (i.e. ``train``" alt="" coords="5,299,132,324"/>
+<area shape="rect" id="node2" href="#zensols.deeplearn.batch.stash.BatchStash" target="_top" title="A stash that vectorizes features in to easily consumable tensors for" alt="" coords="210,592,301,617"/>
+<area shape="rect" id="node3" href="#zensols.deeplearn.batch.multi.TorchMultiProcessStash" target="_top" title="A multiprocessing stash that interacts with PyTorch in a way that it can" alt="" coords="219,519,383,544"/>
+</map><span class="target" id="module-zensols.deeplearn.batch.stash"></span><dl class="py class">
+<dt id="zensols.deeplearn.batch.stash.BatchStash">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.batch.stash.</code><code class="sig-name descname">BatchStash</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">config_factory</em>, <em class="sig-param">delegate</em>, <em class="sig-param">config</em>, <em class="sig-param">chunk_size</em>, <em class="sig-param">workers</em>, <em class="sig-param">data_point_type</em>, <em class="sig-param">batch_type</em>, <em class="sig-param">split_stash_container</em>, <em class="sig-param">vectorizer_manager_set</em>, <em class="sig-param">batch_size</em>, <em class="sig-param">model_torch_config</em>, <em class="sig-param">data_point_id_sets_path</em>, <em class="sig-param">decoded_attributes=&lt;property object&gt;</em>, <em class="sig-param">batch_limit=9223372036854775807</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/stash.html#BatchStash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.batch.multi.TorchMultiProcessStash" title="zensols.deeplearn.batch.multi.TorchMultiProcessStash"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.batch.multi.TorchMultiProcessStash</span></code></a>, <a class="reference internal" href="zensols.dataset.html#zensols.dataset.interface.SplitKeyContainer" title="zensols.dataset.interface.SplitKeyContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.dataset.interface.SplitKeyContainer</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.writeback.Writeback" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.writeback.Writeback</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.dealloc.Deallocatable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.dealloc.Deallocatable</span></code></a></p>
+<p>A stash that vectorizes features in to easily consumable tensors for
+training and testing.  This stash produces instances of <a class="reference internal" href="#zensols.deeplearn.batch.domain.Batch" title="zensols.deeplearn.batch.domain.Batch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></a>,
+which is a batch in the machine learning sense, and the first dimension of
+what will become the tensor used in PyTorch.  Each of these batches has a
+logical one to many relationship to that batche’s respective set of data
+points, which is encapsulated in the <a class="reference internal" href="#zensols.deeplearn.batch.domain.DataPoint" title="zensols.deeplearn.batch.domain.DataPoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataPoint</span></code></a> class.</p>
+<p>The stash creates subprocesses to vectorize features in to tensors in
+chunks of IDs (data point IDs) from the subordinate stash using
+<code class="docutils literal notranslate"><span class="pre">DataPointIDSet</span></code> instances.</p>
+<p>To speed up experiements, all available features configured in
+<code class="docutils literal notranslate"><span class="pre">vectorizer_manager_set</span></code> are encoded on disk.  However, only the
+<code class="docutils literal notranslate"><span class="pre">decoded_attributes</span></code> (see attribute below) are avilable to the model
+regardless of what was created during encoding time.</p>
+<p>The lifecycle of the data follows:</p>
+<ol class="arabic simple">
+<li><p>Feature data created by the client, which could be language features,
+row data etc.</p></li>
+<li><p>Vectorize the feature data using the vectorizers in
+<code class="docutils literal notranslate"><span class="pre">vectorizer_manager_set</span></code>.  This creates the feature contexts
+(<code class="docutils literal notranslate"><span class="pre">FeatureContext</span></code>) specifically meant to be pickeled.</p></li>
+<li><p>Pickle the feature contexts when dumping to disk, which is invoked in
+the child processes of this class.</p></li>
+<li><p>At train time, load the feature contexts from disk.</p></li>
+<li><p>Decode the feature contexts in to PyTorch tensors.</p></li>
+<li><p>The model manager uses the <code class="docutils literal notranslate"><span class="pre">to</span></code> method to copy the CPU tensors to the
+GPU (where GPUs are available).</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">See _process</dt>
+<dd class="field-odd"><p>for details on the pickling of the batch instances</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">config_factory</em>, <em class="sig-param">delegate</em>, <em class="sig-param">config</em>, <em class="sig-param">chunk_size</em>, <em class="sig-param">workers</em>, <em class="sig-param">data_point_type</em>, <em class="sig-param">batch_type</em>, <em class="sig-param">split_stash_container</em>, <em class="sig-param">vectorizer_manager_set</em>, <em class="sig-param">batch_size</em>, <em class="sig-param">model_torch_config</em>, <em class="sig-param">data_point_id_sets_path</em>, <em class="sig-param">decoded_attributes=&lt;property object&gt;</em>, <em class="sig-param">batch_limit=9223372036854775807</em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.batch_data_point_sets">
+<em class="property">property </em><code class="sig-name descname">batch_data_point_sets</code><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.batch_data_point_sets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the data point ID sets.  Each instance returned will correlate to a
+batch and each set of keys point to a feature <a class="reference internal" href="#zensols.deeplearn.batch.domain.DataPoint" title="zensols.deeplearn.batch.domain.DataPoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataPoint</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#zensols.deeplearn.batch.interface.DataPointIDSet" title="zensols.deeplearn.batch.interface.DataPointIDSet">DataPointIDSet</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.batch_limit">
+<code class="sig-name descname">batch_limit</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = 9223372036854775807</em><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.batch_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>The max number of batches to process, which is useful for debugging.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.batch_size">
+<code class="sig-name descname">batch_size</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of data points in each batch, except the last (unless the
+data point cardinality divides the batch size).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.batch_type">
+<code class="sig-name descname">batch_type</code><em class="property">: Type<span class="p">[</span>Batch<span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.batch_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The batch class to be instantiated when created batchs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/stash.html#BatchStash.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the batch, batch data point sets.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.clear_all">
+<code class="sig-name descname">clear_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/stash.html#BatchStash.clear_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.clear_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the batch, batch data point sets, and the source data
+(<a class="reference internal" href="#zensols.deeplearn.batch.stash.BatchStash.split_stash_container" title="zensols.deeplearn.batch.stash.BatchStash.split_stash_container"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_stash_container</span></code></a>).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.data_point_id_sets_path">
+<code class="sig-name descname">data_point_id_sets_path</code><em class="property">: Path</em><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.data_point_id_sets_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path of where to store key data for the splits; note that the
+container might store it’s key splits in some other location.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.data_point_type">
+<code class="sig-name descname">data_point_type</code><em class="property">: Type<span class="p">[</span>DataPoint<span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.data_point_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>A subclass type of <a class="reference internal" href="#zensols.deeplearn.batch.domain.DataPoint" title="zensols.deeplearn.batch.domain.DataPoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataPoint</span></code></a> implemented for the specific
+feature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/stash.html#BatchStash.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources for this instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.decoded_attributes">
+<em class="property">property </em><code class="sig-name descname">decoded_attributes</code><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.decoded_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>The attributes to decode; only these are avilable to the model
+regardless of what was created during encoding time; if None, all are
+available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.load">
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/stash.html#BatchStash.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a data value from the pickled data with key <code class="docutils literal notranslate"><span class="pre">name</span></code>.  Semantically,
+this method loads the using the stash’s implementation.  For example
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DirectoryStash</span></code> loads the data from a file if it exists, but
+factory type stashes will always re-generate the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.model_torch_config">
+<code class="sig-name descname">model_torch_config</code><em class="property">: TorchConfig</em><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.model_torch_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>The PyTorch configuration used to (optionally) copy CPU to GPU memory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.prime">
+<code class="sig-name descname">prime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/batch/stash.html#BatchStash.prime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.prime" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the delegate stash data does not exist, use this implementation to
+generate the data and process in children processes.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.split_stash_container">
+<code class="sig-name descname">split_stash_container</code><em class="property">: SplitStashContainer</em><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.split_stash_container" title="Permalink to this definition">¶</a></dt>
+<dd><p>The source data stash that has both the data and data set keys for each
+split (i.e. <code class="docutils literal notranslate"><span class="pre">train</span></code> vs <code class="docutils literal notranslate"><span class="pre">test</span></code>).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.batch.stash.BatchStash.vectorizer_manager_set">
+<code class="sig-name descname">vectorizer_manager_set</code><em class="property">: FeatureVectorizerManagerSet</em><a class="headerlink" href="#zensols.deeplearn.batch.stash.BatchStash.vectorizer_manager_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to vectorize features in to tensors.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-zensols.deeplearn.batch">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zensols.deeplearn.batch" title="Permalink to this headline">¶</a></h2>
+<p>Contains classes that batch vectorized data in forked subprocesses.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="zensols.deeplearn.cli.html" class="btn btn-neutral float-right" title="zensols.deeplearn.cli package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="zensols.deeplearn.html" class="btn btn-neutral float-left" title="zensols.deeplearn package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

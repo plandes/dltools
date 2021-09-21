@@ -1,0 +1,920 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.cli package &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="zensols.deeplearn.dataframe package" href="zensols.deeplearn.dataframe.html" />
+    <link rel="prev" title="zensols.deeplearn.batch package" href="zensols.deeplearn.batch.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataframe.html">zensols.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataset.html">zensols.dataset package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="zensols.deeplearn.html">zensols.deeplearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="zensols.deeplearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">zensols.deeplearn.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-domain">zensols.deeplearn.domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-plot">zensols.deeplearn.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-torchconfig">zensols.deeplearn.torchconfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-torchtype">zensols.deeplearn.torchtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#module-zensols.deeplearn">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">zensols.deeplearn.cli package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-cli-app">zensols.deeplearn.cli.app</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zensols.deeplearn.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="zensols.deeplearn.html">zensols.deeplearn package</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.cli package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/zensols.deeplearn.cli.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="zensols-deeplearn-cli-package">
+<h1>zensols.deeplearn.cli package<a class="headerlink" href="#zensols-deeplearn-cli-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="zensols-deeplearn-cli-app">
+<h2>zensols.deeplearn.cli.app<a class="headerlink" href="#zensols-deeplearn-cli-app" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-a099521d4169ee679085d1652a493047f41a9716.png" alt="Inheritance diagram of zensols.deeplearn.cli.app" usemap="#inheritancef2cdb98801" class="inheritance graphviz" /></div>
+<map id="inheritancef2cdb98801" name="inheritancef2cdb98801">
+<area shape="rect" id="node8" href="#zensols.deeplearn.cli.app.FacadeApplicationFactory" target="_top" title="This is a utility class that creates instances of" alt="" coords="5,299,179,324"/>
+<area shape="rect" id="node4" href="#zensols.deeplearn.cli.app.ClearType" target="_top" title="Indicates what type of data to delete (clear)." alt="" coords="341,79,422,104"/>
+<area shape="rect" id="node13" href="#zensols.deeplearn.cli.app.InfoItem" target="_top" title="Indicates what information to dump in" alt="" coords="447,79,519,104"/>
+<area shape="rect" id="node7" href="#zensols.deeplearn.cli.app.FacadeApplication" target="_top" title="Base class for applications that use :class:`.ModelFacade`." alt="" coords="283,152,413,177"/>
+<area shape="rect" id="node10" href="#zensols.deeplearn.cli.app.FacadeInfoApplication" target="_top" title="Contains methods that provide information about the model via the facade." alt="" coords="182,225,333,251"/>
+<area shape="rect" id="node11" href="#zensols.deeplearn.cli.app.FacadeModelApplication" target="_top" title="Test, train and validate models." alt="" coords="357,225,521,251"/>
+<area shape="rect" id="node12" href="#zensols.deeplearn.cli.app.FacadePredictApplication" target="_top" title="An applicaiton that provides prediction funtionality." alt="" coords="545,225,716,251"/>
+<area shape="rect" id="node9" href="#zensols.deeplearn.cli.app.FacadeApplicationManager" target="_top" title="A very high level client interface making it easy to configure and run" alt="" coords="511,5,689,31"/>
+<area shape="rect" id="node14" href="#zensols.deeplearn.cli.app.JupyterManager" target="_top" title="A facade application manager that provides additional convenience" alt="" coords="543,79,657,104"/>
+</map><span class="target" id="module-zensols.deeplearn.cli.app"></span><p>Command line entry point to the application using the application CLI.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.cli.app.ClearType">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.cli.app.</code><code class="sig-name descname">ClearType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#ClearType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.ClearType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>Indicates what type of data to delete (clear).</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.ClearType.batch">
+<code class="sig-name descname">batch</code><em class="property"> = 1</em><a class="headerlink" href="#zensols.deeplearn.cli.app.ClearType.batch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.ClearType.source">
+<code class="sig-name descname">source</code><em class="property"> = 2</em><a class="headerlink" href="#zensols.deeplearn.cli.app.ClearType.source" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.cli.app.FacadeApplication">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.cli.app.</code><code class="sig-name descname">FacadeApplication</code><span class="sig-paren">(</span><em class="sig-param">config</em>, <em class="sig-param">facade_name='facade'</em>, <em class="sig-param">facade_path=None</em>, <em class="sig-param">config_factory_args=&lt;factory&gt;</em>, <em class="sig-param">config_overwrites=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.dealloc.Deallocatable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.dealloc.Deallocatable</span></code></a></p>
+<p>Base class for applications that use <a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade" title="zensols.deeplearn.model.facade.ModelFacade"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelFacade</span></code></a>.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplication.CLI_META">
+<code class="sig-name descname">CLI_META</code><em class="property"> = {'mnemonic_excludes': {'clear_cached_facade', 'create_facade', 'deallocate', 'get_cached_facade'}}</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplication.CLI_META" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tell the command line app API to igonore subclass and client specific use
+case methods.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplication.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">config</em>, <em class="sig-param">facade_name='facade'</em>, <em class="sig-param">facade_path=None</em>, <em class="sig-param">config_factory_args=&lt;factory&gt;</em>, <em class="sig-param">config_overwrites=None</em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplication.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplication.clear_cached_facade">
+<code class="sig-name descname">clear_cached_facade</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplication.clear_cached_facade"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplication.clear_cached_facade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear any cached facade this application instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplication.config">
+<code class="sig-name descname">config</code><em class="property">: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.configbase.Configurable" title="(in Zensols Utilities v1.6.2)">zensols.config.configbase.Configurable</a></em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplication.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>The config used to create facade instances.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplication.config_factory_args">
+<code class="sig-name descname">config_factory_args</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Any<span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplication.config_factory_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>The arguments given to the <code class="xref py py-class docutils literal notranslate"><span class="pre">ImportConfigFactory</span></code>,
+which could be useful for reloading all classes while debugingg.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplication.config_overwrites">
+<code class="sig-name descname">config_overwrites</code><em class="property">: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.configbase.Configurable" title="(in Zensols Utilities v1.6.2)">zensols.config.configbase.Configurable</a></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplication.config_overwrites" title="Permalink to this definition">¶</a></dt>
+<dd><p>A configurable that clobbers any configuration in <a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplication.config" title="zensols.deeplearn.cli.app.FacadeApplication.config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config</span></code></a> for those
+sections/options set.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplication.create_facade">
+<code class="sig-name descname">create_facade</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplication.create_facade"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplication.create_facade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new instance of the facade.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade" title="zensols.deeplearn.model.facade.ModelFacade"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelFacade</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplication.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplication.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplication.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources for this instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplication.facade_name">
+<code class="sig-name descname">facade_name</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = 'facade'</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplication.facade_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The client facade.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplication.facade_path">
+<code class="sig-name descname">facade_path</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)">pathlib.Path</a></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplication.facade_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path to the model, or if <code class="docutils literal notranslate"><span class="pre">None</span></code>, use the last trained model, which is
+directory specified by <code class="xref py py-obj docutils literal notranslate"><span class="pre">path</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplication.get_cached_facade">
+<code class="sig-name descname">get_cached_facade</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade" title="zensols.deeplearn.model.facade.ModelFacade">zensols.deeplearn.model.facade.ModelFacade</a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplication.get_cached_facade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a created facade that is cached in this application instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade" title="zensols.deeplearn.model.facade.ModelFacade"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelFacade</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationFactory">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.cli.app.</code><code class="sig-name descname">FacadeApplicationFactory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">package_resource</span></em>, <em class="sig-param"><span class="n">app_config_resource</span><span class="o">=</span><span class="default_value">'resources/app.conf'</span></em>, <em class="sig-param"><span class="n">children_configs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reload_factory</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reload_pattern</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplicationFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.cli.html#zensols.cli.app.ApplicationFactory" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.cli.app.ApplicationFactory</span></code></a></p>
+<p>This is a utility class that creates instances of
+<a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplication" title="zensols.deeplearn.cli.app.FacadeApplication"><code class="xref py py-class docutils literal notranslate"><span class="pre">FacadeApplication</span></code></a>.  It’s only needed if you need to create a
+facade without wanting invoke the command line attached to the
+applications.</p>
+<p>It does this by only invoking the first pass applications so all the
+correct initialization happens before returning factory artifacts.</p>
+<p>There mst be a <a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplication.facade_name" title="zensols.deeplearn.cli.app.FacadeApplication.facade_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FacadeApplication.facade_name</span></code></a> entry in the
+configuration tied to an instance of <a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplication" title="zensols.deeplearn.cli.app.FacadeApplication"><code class="xref py py-class docutils literal notranslate"><span class="pre">FacadeApplication</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplicationFactory.create_facade" title="zensols.deeplearn.cli.app.FacadeApplicationFactory.create_facade"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_facade()</span></code></a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationFactory.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">package_resource</span></em>, <em class="sig-param"><span class="n">app_config_resource</span><span class="o">=</span><span class="default_value">'resources/app.conf'</span></em>, <em class="sig-param"><span class="n">children_configs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reload_factory</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">reload_pattern</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationFactory.create_facade">
+<code class="sig-name descname">create_facade</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">app_args</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplicationFactory.create_facade"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationFactory.create_facade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the facade tied to the application without invoking the command line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]) – the (would be) command line arguments used to create the
+application</p></li>
+<li><p><strong>app_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]) – the arguments to set on the the facade application
+after it is created and before it creates the facade</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade" title="zensols.deeplearn.model.facade.ModelFacade"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelFacade</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationFactory.package_resource">
+<code class="sig-name descname">package_resource</code><em class="property">: Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span><a class="reference external" href="https://plandes.github.io/util/api/zensols.util.html#zensols.util.pkgres.PackageResource" title="(in Zensols Utilities v1.6.2)">zensols.util.pkgres.PackageResource</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationFactory.package_resource" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.cli.app.</code><code class="sig-name descname">FacadeApplicationManager</code><span class="sig-paren">(</span><em class="sig-param">cli_class=None</em>, <em class="sig-param">factory_args=&lt;factory&gt;</em>, <em class="sig-param">cli_args_fn=&lt;factory&gt;</em>, <em class="sig-param">reset_torch=True</em>, <em class="sig-param">allocation_tracking=False</em>, <em class="sig-param">logger_name='notebook'</em>, <em class="sig-param">default_logging_level='WARNING'</em>, <em class="sig-param">progress_bar_cols=120</em>, <em class="sig-param">browser_width=95</em>, <em class="sig-param">config_overwrites=&lt;factory&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplicationManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A very high level client interface making it easy to configure and run
+models from an interactive environment such as a Python REPL or a Jupyter
+notebook (see <a class="reference internal" href="#zensols.deeplearn.cli.app.JupyterManager" title="zensols.deeplearn.cli.app.JupyterManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">JupyterManager</span></code></a>)</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">cli_class=None</em>, <em class="sig-param">factory_args=&lt;factory&gt;</em>, <em class="sig-param">cli_args_fn=&lt;factory&gt;</em>, <em class="sig-param">reset_torch=True</em>, <em class="sig-param">allocation_tracking=False</em>, <em class="sig-param">logger_name='notebook'</em>, <em class="sig-param">default_logging_level='WARNING'</em>, <em class="sig-param">progress_bar_cols=120</em>, <em class="sig-param">browser_width=95</em>, <em class="sig-param">config_overwrites=&lt;factory&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.allocation_tracking">
+<code class="sig-name descname">allocation_tracking</code><em class="property">: Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><em class="property"> = False</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.allocation_tracking" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether or not to track resource/memory leaks.  If set to <code class="docutils literal notranslate"><span class="pre">stack</span></code>, the
+stack traces of the unallocated objects will be printed.  If set to
+<code class="docutils literal notranslate"><span class="pre">counts</span></code> only the counts will be printed.  If set to <code class="docutils literal notranslate"><span class="pre">True</span></code> only the
+unallocated objects without the stack will be printed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.browser_width">
+<code class="sig-name descname">browser_width</code><em class="property">: dataclasses.InitVar<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span></em><em class="property"> = 95</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.browser_width" title="Permalink to this definition">¶</a></dt>
+<dd><p>The width of the browser windows as a percentage.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.cleanup">
+<code class="sig-name descname">cleanup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_cuda</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplicationManager.cleanup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Report memory leaks, run the Python garbage collector and optionally empty
+the CUDA cache.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>include_cuda</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code> clear the GPU cache</p></li>
+<li><p><strong>quiet</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – do not report unallocated objects, regardless of the
+setting of <a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.allocation_tracking" title="zensols.deeplearn.cli.app.FacadeApplicationManager.allocation_tracking"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocation_tracking</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplicationManager.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all post create configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.config" title="zensols.deeplearn.cli.app.FacadeApplicationManager.config"><code class="xref py py-meth docutils literal notranslate"><span class="pre">config()</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.cli_args_fn">
+<code class="sig-name descname">cli_args_fn</code><em class="property">: List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.cli_args_fn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the arguments used to create the facade from the application
+factory.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.cli_class">
+<code class="sig-name descname">cli_class</code><em class="property">: Type<span class="p">[</span><a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplicationFactory" title="zensols.deeplearn.cli.app.FacadeApplicationFactory">zensols.deeplearn.cli.app.FacadeApplicationFactory</a><span class="p">]</span></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.cli_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>The class the application factory used to create the facade.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.config">
+<code class="sig-name descname">config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">section</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplicationManager.config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add overwriting configuration used when creating the facade.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>section</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – the section to be overwritten (or added)</p></li>
+<li><p><strong>kwargs</strong> – the key/value pairs used as the section data to
+overwrite</p></li>
+</ul>
+</dd>
+<dt class="field-even">See</dt>
+<dd class="field-even"><p><a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.create_facade" title="zensols.deeplearn.cli.app.FacadeApplicationManager.create_facade"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_facade()</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.config_overwrites">
+<code class="sig-name descname">config_overwrites</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.config_overwrites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clobbers any configuration in <a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.config" title="zensols.deeplearn.cli.app.FacadeApplicationManager.config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">config</span></code></a> for those sections/options set.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.create_facade">
+<code class="sig-name descname">create_facade</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplicationManager.create_facade"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.create_facade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return a facade with columns that fit a notebook.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – given to the <a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.cli_args_fn" title="zensols.deeplearn.cli.app.FacadeApplicationManager.cli_args_fn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cli_args_fn</span></code></a> function to create
+arguments passed to the CLI</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade" title="zensols.deeplearn.model.facade.ModelFacade"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelFacade</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplicationManager.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources in the CLI factory if it exists.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.default_logging_level">
+<code class="sig-name descname">default_logging_level</code><em class="property">: dataclasses.InitVar<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><em class="property"> = 'WARNING'</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.default_logging_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set, then initialize the logging system using this as the default logging
+level.  This is the upper case logging name such as <code class="docutils literal notranslate"><span class="pre">WARNING</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.facade">
+<em class="property">property </em><code class="sig-name descname">facade</code><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.facade" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current facade for this notebook instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade" title="zensols.deeplearn.model.facade.ModelFacade"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelFacade</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the existing facade, or that created by <a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.create_facade" title="zensols.deeplearn.cli.app.FacadeApplicationManager.create_facade"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_facade()</span></code></a>
+if it doesn’t already exist</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.factory_args">
+<code class="sig-name descname">factory_args</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Any<span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.factory_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>obj`cli_class` on create.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>The arguments given to the initializer of</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.logger_name">
+<code class="sig-name descname">logger_name</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><em class="property"> = 'notebook'</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.logger_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the logger to use for logging in the notebook itself.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.progress_bar_cols">
+<code class="sig-name descname">progress_bar_cols</code><em class="property">: dataclasses.InitVar<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span></em><em class="property"> = 120</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.progress_bar_cols" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of columns to use for the progress bar.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.reset_torch">
+<code class="sig-name descname">reset_torch</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><em class="property"> = True</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.reset_torch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset random state for consistency for each new created facade.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">display_results</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplicationManager.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train, test and optionally show results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>display_results</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, write and plot the results</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeApplicationManager.show_leaks">
+<code class="sig-name descname">show_leaks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">'counts'</span></em>, <em class="sig-param"><span class="n">fail</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeApplicationManager.show_leaks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.show_leaks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show all resources/memory leaks in the current facade.  First, this
+deallocates the facade, then prints any lingering objects using
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Deallocatable</span></code>.</p>
+<p><strong>Important</strong>: <a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplicationManager.allocation_tracking" title="zensols.deeplearn.cli.app.FacadeApplicationManager.allocation_tracking"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocation_tracking</span></code></a> must be set to <code class="docutils literal notranslate"><span class="pre">True</span></code> for
+this to work.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – one of <code class="docutils literal notranslate"><span class="pre">stack</span></code>, <code class="docutils literal notranslate"><span class="pre">counts</span></code>, or <code class="docutils literal notranslate"><span class="pre">tensors</span></code></p></li>
+<li><p><strong>fail</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, raise an exception if there are any
+unallocated references found</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.cli.app.FacadeInfoApplication">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.cli.app.</code><code class="sig-name descname">FacadeInfoApplication</code><span class="sig-paren">(</span><em class="sig-param">config</em>, <em class="sig-param">facade_name='facade'</em>, <em class="sig-param">facade_path=None</em>, <em class="sig-param">config_factory_args=&lt;factory&gt;</em>, <em class="sig-param">config_overwrites=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeInfoApplication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeInfoApplication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplication" title="zensols.deeplearn.cli.app.FacadeApplication"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.cli.app.FacadeApplication</span></code></a></p>
+<p>Contains methods that provide information about the model via the facade.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeInfoApplication.CLI_META">
+<code class="sig-name descname">CLI_META</code><em class="property"> = {'mnemonic_overrides': {'print_information': 'info', 'result_summary': 'resum'}, 'option_overrides': {'debug_value': {'long_name': 'execlevel', 'short_name': None}, 'info_item': {'long_name': 'item', 'short_name': 'i'}}}</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeInfoApplication.CLI_META" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeInfoApplication.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">config</em>, <em class="sig-param">facade_name='facade'</em>, <em class="sig-param">facade_path=None</em>, <em class="sig-param">config_factory_args=&lt;factory&gt;</em>, <em class="sig-param">config_overwrites=None</em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeInfoApplication.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeInfoApplication.config">
+<code class="sig-name descname">config</code><em class="property">: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.configbase.Configurable" title="(in Zensols Utilities v1.6.2)">zensols.config.configbase.Configurable</a></em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeInfoApplication.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeInfoApplication.config_factory_args">
+<code class="sig-name descname">config_factory_args</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Any<span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeInfoApplication.config_factory_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeInfoApplication.debug">
+<code class="sig-name descname">debug</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">debug_value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeInfoApplication.debug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeInfoApplication.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Debug the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>debug_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – the executor debugging level</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeInfoApplication.print_information">
+<code class="sig-name descname">print_information</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">info_item</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeInfoApplication.print_information"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeInfoApplication.print_information" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output facade data set, vectorizer and other configuration information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>info_item</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="#zensols.deeplearn.cli.app.InfoItem" title="zensols.deeplearn.cli.app.InfoItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">InfoItem</span></code></a>]) – what to print</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeInfoApplication.result_summary">
+<code class="sig-name descname">result_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">out_file</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">result_dir</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeInfoApplication.result_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeInfoApplication.result_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a result summary from a directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>out_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a>]) – the output path</p></li>
+<li><p><strong>result_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a>]) – the directory to find the results</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.cli.app.FacadeModelApplication">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.cli.app.</code><code class="sig-name descname">FacadeModelApplication</code><span class="sig-paren">(</span><em class="sig-param">config</em>, <em class="sig-param">facade_name='facade'</em>, <em class="sig-param">facade_path=None</em>, <em class="sig-param">config_factory_args=&lt;factory&gt;</em>, <em class="sig-param">config_overwrites=None</em>, <em class="sig-param">use_progress_bar=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeModelApplication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeModelApplication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplication" title="zensols.deeplearn.cli.app.FacadeApplication"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.cli.app.FacadeApplication</span></code></a></p>
+<p>Test, train and validate models.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeModelApplication.CLI_META">
+<code class="sig-name descname">CLI_META</code><em class="property"> = {'mnemonic_excludes': {'clear_cached_facade', 'create_facade', 'deallocate', 'get_cached_facade'}, 'mnemonic_overrides': {'batch': {'option_includes': {'limit'}}, 'clear': {'name': 'rm', 'option_excludes': 'use_progress_bar'}, 'early_stop': {'name': 'stop', 'option_includes': {}}, 'result': {'option_includes': {}}, 'train_production': 'trainprod'}, 'option_overrides': {'clear_type': {'long_name': 'type', 'short_name': None}, 'use_progress_bar': {'long_name': 'progress', 'short_name': 'p'}}}</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeModelApplication.CLI_META" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeModelApplication.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">config</em>, <em class="sig-param">facade_name='facade'</em>, <em class="sig-param">facade_path=None</em>, <em class="sig-param">config_factory_args=&lt;factory&gt;</em>, <em class="sig-param">config_overwrites=None</em>, <em class="sig-param">use_progress_bar=False</em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeModelApplication.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeModelApplication.batch">
+<code class="sig-name descname">batch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">limit</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeModelApplication.batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeModelApplication.batch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create batches (if not created already) and print statistics on the dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the number of batches to print out</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeModelApplication.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><em class="sig-param">clear_type=&lt;ClearType.batch: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeModelApplication.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeModelApplication.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete generated data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>clear_type</strong> (<a class="reference internal" href="#zensols.deeplearn.cli.app.ClearType" title="zensols.deeplearn.cli.app.ClearType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClearType</span></code></a>) – the type of data to delete</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeModelApplication.create_facade">
+<code class="sig-name descname">create_facade</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeModelApplication.create_facade"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeModelApplication.create_facade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new instance of the facade.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade" title="zensols.deeplearn.model.facade.ModelFacade"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelFacade</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeModelApplication.early_stop">
+<code class="sig-name descname">early_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeModelApplication.early_stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeModelApplication.early_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops the execution of training the model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeModelApplication.result">
+<code class="sig-name descname">result</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">res_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeModelApplication.result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeModelApplication.result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the last results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>res_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – the result ID</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeModelApplication.test">
+<code class="sig-name descname">test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeModelApplication.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeModelApplication.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test an existing model the model and dump the results of the test.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeModelApplication.train">
+<code class="sig-name descname">train</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeModelApplication.train"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeModelApplication.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train the model and dump the results, including a graph of the
+train/validation loss.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeModelApplication.train_production">
+<code class="sig-name descname">train_production</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeModelApplication.train_production"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeModelApplication.train_production" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train, test the model on train and test datasets, then dump the results with
+a graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadeModelApplication.train_test">
+<code class="sig-name descname">train_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadeModelApplication.train_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeModelApplication.train_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train, test the model, then dump the results with a graph.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadeModelApplication.use_progress_bar">
+<code class="sig-name descname">use_progress_bar</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><em class="property"> = False</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadeModelApplication.use_progress_bar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the progress bar.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.cli.app.FacadePredictApplication">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.cli.app.</code><code class="sig-name descname">FacadePredictApplication</code><span class="sig-paren">(</span><em class="sig-param">config</em>, <em class="sig-param">facade_name='facade'</em>, <em class="sig-param">facade_path=None</em>, <em class="sig-param">config_factory_args=&lt;factory&gt;</em>, <em class="sig-param">config_overwrites=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadePredictApplication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadePredictApplication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplication" title="zensols.deeplearn.cli.app.FacadeApplication"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.cli.app.FacadeApplication</span></code></a></p>
+<p>An applicaiton that provides prediction funtionality.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadePredictApplication.CLI_META">
+<code class="sig-name descname">CLI_META</code><em class="property"> = {'mnemonic_excludes': {'clear_cached_facade', 'create_facade', 'deallocate', 'get_cached_facade'}, 'mnemonic_overrides': {'predictions': {'name': 'preds'}}}</em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadePredictApplication.CLI_META" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadePredictApplication.config">
+<code class="sig-name descname">config</code><em class="property">: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.configbase.Configurable" title="(in Zensols Utilities v1.6.2)">zensols.config.configbase.Configurable</a></em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadePredictApplication.config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.FacadePredictApplication.config_factory_args">
+<code class="sig-name descname">config_factory_args</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Any<span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadePredictApplication.config_factory_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.FacadePredictApplication.predictions">
+<code class="sig-name descname">predictions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">res_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">out_file</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#FacadePredictApplication.predictions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.FacadePredictApplication.predictions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write predictions to a CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>res_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]) – the result ID</p></li>
+<li><p><strong>out_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a>]) – the output path</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.cli.app.InfoItem">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.cli.app.</code><code class="sig-name descname">InfoItem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#InfoItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.InfoItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>Indicates what information to dump in
+<a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeInfoApplication.print_information" title="zensols.deeplearn.cli.app.FacadeInfoApplication.print_information"><code class="xref py py-meth docutils literal notranslate"><span class="pre">FacadeInfoApplication.print_information()</span></code></a>.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.InfoItem.batch">
+<code class="sig-name descname">batch</code><em class="property"> = 5</em><a class="headerlink" href="#zensols.deeplearn.cli.app.InfoItem.batch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.InfoItem.conf">
+<code class="sig-name descname">conf</code><em class="property"> = 4</em><a class="headerlink" href="#zensols.deeplearn.cli.app.InfoItem.conf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.InfoItem.meta">
+<code class="sig-name descname">meta</code><em class="property"> = 1</em><a class="headerlink" href="#zensols.deeplearn.cli.app.InfoItem.meta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.InfoItem.model">
+<code class="sig-name descname">model</code><em class="property"> = 3</em><a class="headerlink" href="#zensols.deeplearn.cli.app.InfoItem.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.InfoItem.param">
+<code class="sig-name descname">param</code><em class="property"> = 2</em><a class="headerlink" href="#zensols.deeplearn.cli.app.InfoItem.param" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.cli.app.JupyterManager">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.cli.app.</code><code class="sig-name descname">JupyterManager</code><span class="sig-paren">(</span><em class="sig-param">cli_class=None</em>, <em class="sig-param">factory_args=&lt;factory&gt;</em>, <em class="sig-param">cli_args_fn=&lt;factory&gt;</em>, <em class="sig-param">reset_torch=True</em>, <em class="sig-param">allocation_tracking=False</em>, <em class="sig-param">logger_name='notebook'</em>, <em class="sig-param">default_logging_level='WARNING'</em>, <em class="sig-param">progress_bar_cols=120</em>, <em class="sig-param">browser_width=95</em>, <em class="sig-param">config_overwrites=&lt;factory&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#JupyterManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.JupyterManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.cli.app.FacadeApplicationManager" title="zensols.deeplearn.cli.app.FacadeApplicationManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.cli.app.FacadeApplicationManager</span></code></a></p>
+<p>A facade application manager that provides additional convenience
+functionality.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.JupyterManager.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">cli_class=None</em>, <em class="sig-param">factory_args=&lt;factory&gt;</em>, <em class="sig-param">cli_args_fn=&lt;factory&gt;</em>, <em class="sig-param">reset_torch=True</em>, <em class="sig-param">allocation_tracking=False</em>, <em class="sig-param">logger_name='notebook'</em>, <em class="sig-param">default_logging_level='WARNING'</em>, <em class="sig-param">progress_bar_cols=120</em>, <em class="sig-param">browser_width=95</em>, <em class="sig-param">config_overwrites=&lt;factory&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.cli.app.JupyterManager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.JupyterManager.cli_args_fn">
+<code class="sig-name descname">cli_args_fn</code><em class="property">: List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.cli.app.JupyterManager.cli_args_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.JupyterManager.config_overwrites">
+<code class="sig-name descname">config_overwrites</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.cli.app.JupyterManager.config_overwrites" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.JupyterManager.create_facade">
+<code class="sig-name descname">create_facade</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#JupyterManager.create_facade"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.JupyterManager.create_facade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return a facade with columns that fit a notebook.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – given to the <a class="reference internal" href="#zensols.deeplearn.cli.app.JupyterManager.cli_args_fn" title="zensols.deeplearn.cli.app.JupyterManager.cli_args_fn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cli_args_fn</span></code></a> function to create
+arguments passed to the CLI</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade" title="zensols.deeplearn.model.facade.ModelFacade"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelFacade</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.cli.app.JupyterManager.factory_args">
+<code class="sig-name descname">factory_args</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Any<span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.cli.app.JupyterManager.factory_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.cli.app.JupyterManager.set_browser_width">
+<em class="property">static </em><code class="sig-name descname">set_browser_width</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/cli/app.html#JupyterManager.set_browser_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.cli.app.JupyterManager.set_browser_width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the entire width of the browser to create more real estate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the width as a percent (<code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">100]</span></code>) to use as the width
+in the notebook</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-zensols.deeplearn.cli">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zensols.deeplearn.cli" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="zensols.deeplearn.dataframe.html" class="btn btn-neutral float-right" title="zensols.deeplearn.dataframe package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="zensols.deeplearn.batch.html" class="btn btn-neutral float-left" title="zensols.deeplearn.batch package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

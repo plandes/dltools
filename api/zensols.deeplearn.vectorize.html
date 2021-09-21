@@ -1,0 +1,1303 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.vectorize package &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributing" href="../CONTRIBUTING.html" />
+    <link rel="prev" title="zensols.deeplearn.result package" href="zensols.deeplearn.result.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataframe.html">zensols.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataset.html">zensols.dataset package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="zensols.deeplearn.html">zensols.deeplearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="zensols.deeplearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.cli.html">zensols.deeplearn.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-domain">zensols.deeplearn.domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-plot">zensols.deeplearn.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-torchconfig">zensols.deeplearn.torchconfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-torchtype">zensols.deeplearn.torchtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#module-zensols.deeplearn">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.cli.html">zensols.deeplearn.cli package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">zensols.deeplearn.vectorize package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-vectorize-domain">zensols.deeplearn.vectorize.domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-vectorize-manager">zensols.deeplearn.vectorize.manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-vectorize-vectorizers">zensols.deeplearn.vectorize.vectorizers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zensols.deeplearn.vectorize">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="zensols.deeplearn.html">zensols.deeplearn package</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.vectorize package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/zensols.deeplearn.vectorize.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="zensols-deeplearn-vectorize-package">
+<h1>zensols.deeplearn.vectorize package<a class="headerlink" href="#zensols-deeplearn-vectorize-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="zensols-deeplearn-vectorize-domain">
+<h2>zensols.deeplearn.vectorize.domain<a class="headerlink" href="#zensols-deeplearn-vectorize-domain" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-133f293d0f4744547c6d86257ac394cd769021f9.png" alt="Inheritance diagram of zensols.deeplearn.vectorize.domain" usemap="#inheritance2156cc519e" class="inheritance graphviz" /></div>
+<map id="inheritance2156cc519e" name="inheritance2156cc519e">
+<area shape="rect" id="node7" href="zensols.deeplearn.html#zensols.deeplearn.domain.DeepLearnError" target="_top" title="Raised for any frame originated error." alt="" coords="371,79,485,104"/>
+<area shape="rect" id="node3" href="#zensols.deeplearn.vectorize.domain.ConfigurableVectorization" target="_top" title="ConfigurableVectorization(name: str, config_factory: zensols.config.factory.ConfigFactory)" alt="" coords="60,225,231,251"/>
+<area shape="rect" id="node9" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer" target="_top" title="An asbstrct base class that transforms a Python object in to a PyTorch" alt="" coords="5,299,131,324"/>
+<area shape="rect" id="node8" href="#zensols.deeplearn.vectorize.domain.FeatureContext" target="_top" title="Data created by coding and meant to be pickled on the file system." alt="" coords="331,225,443,251"/>
+<area shape="rect" id="node14" href="#zensols.deeplearn.vectorize.domain.VectorizerError" target="_top" title="Thrown by instances of :class:`.FeatureVectorizer` during encoding or" alt="" coords="373,152,483,177"/>
+<area shape="rect" id="node10" href="#zensols.deeplearn.vectorize.domain.MultiFeatureContext" target="_top" title="A composite context that contains a tuple of other contexts." alt="" coords="155,299,295,324"/>
+<area shape="rect" id="node11" href="#zensols.deeplearn.vectorize.domain.NullFeatureContext" target="_top" title="A no&#45;op feature context used for cases such as prediction batches with data" alt="" coords="319,299,454,324"/>
+<area shape="rect" id="node12" href="#zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext" target="_top" title="Contains data that was encded from a dense matrix as a sparse matrix and" alt="" coords="479,299,671,324"/>
+<area shape="rect" id="node13" href="#zensols.deeplearn.vectorize.domain.TensorFeatureContext" target="_top" title="A context that encodes data directly to a tensor. &#160;This tensor could be a" alt="" coords="695,299,846,324"/>
+</map><span class="target" id="module-zensols.deeplearn.vectorize.domain"></span><p>Vectorization base classes and basic functionality.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.domain.ConfigurableVectorization">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.domain.</code><code class="sig-name descname">ConfigurableVectorization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#ConfigurableVectorization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.ConfigurableVectorization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.annotation.PersistableContainer" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.annotation.PersistableContainer</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.writable.Writable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.writable.Writable</span></code></a></p>
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.ConfigurableVectorization.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.ConfigurableVectorization.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.domain.ConfigurableVectorization.config_factory">
+<code class="sig-name descname">config_factory</code><em class="property">: <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.factory.ConfigFactory" title="(in Zensols Utilities v1.6.2)">zensols.config.factory.ConfigFactory</a></em><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.ConfigurableVectorization.config_factory" title="Permalink to this definition">¶</a></dt>
+<dd><p>The configuration factory that created this instance and used for
+serialization functions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.domain.ConfigurableVectorization.name">
+<code class="sig-name descname">name</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.ConfigurableVectorization.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the section given in the configuration.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.domain.FeatureContext">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.domain.</code><code class="sig-name descname">FeatureContext</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#FeatureContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.FeatureContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.annotation.PersistableContainer" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.annotation.PersistableContainer</span></code></a></p>
+<p>Data created by coding and meant to be pickled on the file system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See EncodableFeatureVectorizer.encode</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.FeatureContext.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.FeatureContext.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.domain.FeatureContext.feature_id">
+<code class="sig-name descname">feature_id</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.FeatureContext.feature_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The feature id of the <a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer" title="zensols.deeplearn.vectorize.domain.FeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizer</span></code></a> that created this context.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.domain.FeatureVectorizer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.domain.</code><code class="sig-name descname">FeatureVectorizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#FeatureVectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.domain.ConfigurableVectorization" title="zensols.deeplearn.vectorize.domain.ConfigurableVectorization"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.domain.ConfigurableVectorization</span></code></a></p>
+<p>An asbstrct base class that transforms a Python object in to a PyTorch
+tensor.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.FeatureVectorizer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.FeatureVectorizer.description">
+<em class="property">property </em><code class="sig-name descname">description</code><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>A short human readable name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p>obj:<cite>feature_id</cite></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.domain.FeatureVectorizer.feature_id">
+<code class="sig-name descname">feature_id</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer.feature_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uniquely identifies this vectorizer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.FeatureVectorizer.shape">
+<em class="property">property </em><code class="sig-name descname">shape</code><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the shape of the tensor created by <code class="docutils literal notranslate"><span class="pre">transform</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.FeatureVectorizer.transform">
+<em class="property">abstract </em><code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#FeatureVectorizer.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform <code class="docutils literal notranslate"><span class="pre">data</span></code> to a tensor data format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.FeatureVectorizer.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#FeatureVectorizer.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the contents of this instance to <code class="docutils literal notranslate"><span class="pre">writer</span></code> using indention <code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the starting indentation depth</p></li>
+<li><p><strong>writer</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOBase" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a>) – the writer to dump the content of this writable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.domain.MultiFeatureContext">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.domain.</code><code class="sig-name descname">MultiFeatureContext</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">contexts</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#MultiFeatureContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.MultiFeatureContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureContext" title="zensols.deeplearn.vectorize.domain.FeatureContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.domain.FeatureContext</span></code></a></p>
+<p>A composite context that contains a tuple of other contexts.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.MultiFeatureContext.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">contexts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.MultiFeatureContext.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.domain.MultiFeatureContext.contexts">
+<code class="sig-name descname">contexts</code><em class="property">: Tuple<span class="p">[</span><a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureContext" title="zensols.deeplearn.vectorize.domain.FeatureContext">zensols.deeplearn.vectorize.domain.FeatureContext</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.MultiFeatureContext.contexts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.MultiFeatureContext.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#MultiFeatureContext.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.MultiFeatureContext.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources for this instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.MultiFeatureContext.is_empty">
+<em class="property">property </em><code class="sig-name descname">is_empty</code><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.MultiFeatureContext.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>rtype</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.domain.NullFeatureContext">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.domain.</code><code class="sig-name descname">NullFeatureContext</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#NullFeatureContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.NullFeatureContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureContext" title="zensols.deeplearn.vectorize.domain.FeatureContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.domain.FeatureContext</span></code></a></p>
+<p>A no-op feature context used for cases such as prediction batches with data
+points that have no labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_prediction()</span></code></p>
+</dd>
+<dt class="field-even">See</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Batch</span></code></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.NullFeatureContext.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.NullFeatureContext.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.domain.NullFeatureContext.feature_id">
+<code class="sig-name descname">feature_id</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.NullFeatureContext.feature_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.domain.</code><code class="sig-name descname">SparseTensorFeatureContext</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">sparse_data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#SparseTensorFeatureContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureContext" title="zensols.deeplearn.vectorize.domain.FeatureContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.domain.FeatureContext</span></code></a></p>
+<p>Contains data that was encded from a dense matrix as a sparse matrix and
+back.  Using torch sparse matrices currently lead to deadlocking in child
+proceesses, so use scipy :class:<code class="docutils literal notranslate"><span class="pre">csr_matrix</span></code> is used instead.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.USE_SPARSE">
+<code class="sig-name descname">USE_SPARSE</code><em class="property"> = True</em><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.USE_SPARSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">sparse_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.instance">
+<em class="property">classmethod </em><code class="sig-name descname">instance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">arr</span></em>, <em class="sig-param"><span class="n">torch_config</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#SparseTensorFeatureContext.instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.sparse_arr">
+<em class="property">property </em><code class="sig-name descname">sparse_arr</code><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.sparse_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">csr_matrix</span></code>]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>rtype</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.sparse_data">
+<code class="sig-name descname">sparse_data</code><em class="property">: Union<span class="p">[</span>Tuple<span class="p">[</span>Tuple<span class="p">[</span>scipy.sparse.csr.csr_matrix<span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span><span class="p">]</span><span class="p">, </span><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))">torch.Tensor</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.sparse_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>The sparse array data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.to_sparse">
+<em class="property">classmethod </em><code class="sig-name descname">to_sparse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arr</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#SparseTensorFeatureContext.to_sparse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.to_sparse" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">csr_matrix</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.to_tensor">
+<code class="sig-name descname">to_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">torch_config</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#SparseTensorFeatureContext.to_tensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.SparseTensorFeatureContext.to_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.domain.TensorFeatureContext">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.domain.</code><code class="sig-name descname">TensorFeatureContext</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">tensor</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#TensorFeatureContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.TensorFeatureContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureContext" title="zensols.deeplearn.vectorize.domain.FeatureContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.domain.FeatureContext</span></code></a></p>
+<p>A context that encodes data directly to a tensor.  This tensor could be a
+sparse matrix becomes dense during the decoding process.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.TensorFeatureContext.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">tensor</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.TensorFeatureContext.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.domain.TensorFeatureContext.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#TensorFeatureContext.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.TensorFeatureContext.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources for this instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.domain.TensorFeatureContext.tensor">
+<code class="sig-name descname">tensor</code><em class="property">: <a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))">torch.Tensor</a></em><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.TensorFeatureContext.tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>The output tensor of the encoding phase.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="zensols.deeplearn.vectorize.domain.VectorizerError">
+<em class="property">exception </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.domain.</code><code class="sig-name descname">VectorizerError</code><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/domain.html#VectorizerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.VectorizerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.domain.DeepLearnError" title="zensols.deeplearn.domain.DeepLearnError"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.DeepLearnError</span></code></a></p>
+<p>Thrown by instances of <a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer" title="zensols.deeplearn.vectorize.domain.FeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizer</span></code></a> during encoding or
+decoding operations.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.domain.VectorizerError.__module__">
+<code class="sig-name descname">__module__</code><em class="property"> = 'zensols.deeplearn.vectorize.domain'</em><a class="headerlink" href="#zensols.deeplearn.vectorize.domain.VectorizerError.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-vectorize-manager">
+<h2>zensols.deeplearn.vectorize.manager<a class="headerlink" href="#zensols-deeplearn-vectorize-manager" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-8e24fa43a4aed4e128f349f9ee8bf9325b5d8d56.png" alt="Inheritance diagram of zensols.deeplearn.vectorize.manager" usemap="#inheritance93ff744fb5" class="inheritance graphviz" /></div>
+<map id="inheritance93ff744fb5" name="inheritance93ff744fb5">
+<area shape="rect" id="node2" href="#zensols.deeplearn.vectorize.domain.ConfigurableVectorization" target="_top" title="ConfigurableVectorization(name: str, config_factory: zensols.config.factory.ConfigFactory)" alt="" coords="199,225,369,251"/>
+<area shape="rect" id="node7" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer" target="_top" title="An asbstrct base class that transforms a Python object in to a PyTorch" alt="" coords="47,299,172,324"/>
+<area shape="rect" id="node8" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" target="_top" title="Creates and manages instances of :class:`.EncodableFeatureVectorizer` and" alt="" coords="197,299,371,324"/>
+<area shape="rect" id="node9" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet" target="_top" title="A set of managers used collectively to encode and decode a series of" alt="" coords="396,299,591,324"/>
+<area shape="rect" id="node6" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" target="_top" title="This vectorizer splits transformation up in to encoding and decoding. &#160;The" alt="" coords="16,372,203,397"/>
+<area shape="rect" id="node10" href="#zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer" target="_top" title="Instances of this class use the output of" alt="" coords="5,445,213,471"/>
+</map><span class="target" id="module-zensols.deeplearn.vectorize.manager"></span><dl class="py class">
+<dt id="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.manager.</code><code class="sig-name descname">EncodableFeatureVectorizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#EncodableFeatureVectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer" title="zensols.deeplearn.vectorize.domain.FeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.domain.FeatureVectorizer</span></code></a></p>
+<p>This vectorizer splits transformation up in to encoding and decoding.  The
+encoded state as a <code class="docutils literal notranslate"><span class="pre">FeatureContext</span></code>, in cases where encoding is
+prohibitively expensive, is computed once and pickled to the file system.
+It is then loaded and finally decoded into a tensor.</p>
+<p>Examples include computing an encoding as indexes of a word embedding
+during the encoding phase.  Then generating the full embedding layer during
+decoding.  Note that this decoding is done with a <code class="docutils literal notranslate"><span class="pre">TorchConfig</span></code> so the
+output tensor goes directly to the GPU.</p>
+<p>This abstract base class only needs the <code class="docutils literal notranslate"><span class="pre">_encode</span></code> method overridden.  The
+<code class="docutils literal notranslate"><span class="pre">_decode</span></code> must be overridden if the context is not of type
+<code class="docutils literal notranslate"><span class="pre">TensorFeatureContext</span></code>.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.decode">
+<code class="sig-name descname">decode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">context</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#EncodableFeatureVectorizer.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode a (potentially) unpickled context and return a tensor using the
+manager’s <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.torch_config" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.torch_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">torch_config</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.encode">
+<code class="sig-name descname">encode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#EncodableFeatureVectorizer.encode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode data to a context ready to (potentially) be pickled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureContext" title="zensols.deeplearn.vectorize.domain.FeatureContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureContext</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.manager">
+<code class="sig-name descname">manager</code><em class="property">: <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" title="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager">zensols.deeplearn.vectorize.manager.FeatureVectorizerManager</a></em><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>The manager used to create this vectorizer that has resources needed to
+encode and decode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.torch_config">
+<em class="property">property </em><code class="sig-name descname">torch_config</code><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.torch_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>The torch configuration used to create encoded/decoded tensors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig" title="zensols.deeplearn.torchconfig.TorchConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">TorchConfig</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#EncodableFeatureVectorizer.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the output of the encoding as input to the decoding to directly produce
+the output tensor ready to be used in testing, training, validation
+etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.manager.</code><code class="sig-name descname">FeatureVectorizerManager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">torch_config</span></em>, <em class="sig-param"><span class="n">configured_vectorizers</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.domain.ConfigurableVectorization" title="zensols.deeplearn.vectorize.domain.ConfigurableVectorization"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.domain.ConfigurableVectorization</span></code></a></p>
+<p>Creates and manages instances of <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">EncodableFeatureVectorizer</span></code></a> and
+parses text in to feature based document.</p>
+<p>This handles encoding data into a context, which is data ready to be
+pickled on the file system with the idea this intermediate state is
+expensive to create.  At training time, the context is brought back in to
+memory and efficiently decoded in to a tensor.</p>
+<p>This class keeps track of two kinds of vectorizers:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>module: registered with <code class="docutils literal notranslate"><span class="pre">register_vectorizer</span></code> in Python modules</p></li>
+<li><dl class="simple">
+<dt>configured: registered at instance create time in</dt><dd><p><code class="docutils literal notranslate"><span class="pre">configured_vectorizers</span></code></p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>Instances of this class act like a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> of all registered
+vectorizers.  This includes both module and configured vectorizers.  The
+keys are the <a href="#id1"><span class="problematic" id="id2">``</span></a>feature_id``s and values are the contained vectorizers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">EncodableFeatureVectorizer</span></code></a></p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.ATTR_EXP_META">
+<code class="sig-name descname">ATTR_EXP_META</code><em class="property"> = ('torch_config', 'configured_vectorizers')</em><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.ATTR_EXP_META" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.MANAGER_SEP">
+<code class="sig-name descname">MANAGER_SEP</code><em class="property"> = '.'</em><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.MANAGER_SEP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">torch_config</span></em>, <em class="sig-param"><span class="n">configured_vectorizers</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.configured_vectorizers">
+<code class="sig-name descname">configured_vectorizers</code><em class="property">: Set<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.configured_vectorizers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration names of vectorizors to use by this manager.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManager.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources for this instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.feature_ids">
+<em class="property">property </em><code class="sig-name descname">feature_ids</code><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.feature_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the feature ids supported by this manager, which are the keys of the
+vectorizer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" title="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizerManager</span></code></a></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Set[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManager.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the feature vectorizer named <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer" title="zensols.deeplearn.vectorize.domain.FeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizer</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.items">
+<code class="sig-name descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManager.items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.items" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer" title="zensols.deeplearn.vectorize.domain.FeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizer</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.keys">
+<code class="sig-name descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManager.keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.keys" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.torch_config">
+<code class="sig-name descname">torch_config</code><em class="property">: <a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig" title="zensols.deeplearn.torchconfig.TorchConfig">zensols.deeplearn.torchconfig.TorchConfig</a></em><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.torch_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>The torch configuration used to encode and decode tensors.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.transform">
+<code class="sig-name descname">transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManager.transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple of duples with the output tensor of a vectorizer and the
+vectorizer that created the output.  Every vectorizer listed in
+<code class="docutils literal notranslate"><span class="pre">feature_ids</span></code> is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>, <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">EncodableFeatureVectorizer</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.values">
+<code class="sig-name descname">values</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManager.values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.values" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer" title="zensols.deeplearn.vectorize.domain.FeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizer</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManager.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the contents of this instance to <code class="docutils literal notranslate"><span class="pre">writer</span></code> using indention <code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the starting indentation depth</p></li>
+<li><p><strong>writer</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOBase" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a>) – the writer to dump the content of this writable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.manager.</code><code class="sig-name descname">FeatureVectorizerManagerSet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">names</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManagerSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.domain.ConfigurableVectorization" title="zensols.deeplearn.vectorize.domain.ConfigurableVectorization"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.domain.ConfigurableVectorization</span></code></a></p>
+<p>A set of managers used collectively to encode and decode a series of
+features across many different kinds of data (i.e. labels, language
+features, numeric).</p>
+<p>In the same way a <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" title="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizerManager</span></code></a> acts like a
+<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>, this class is a <code class="docutils literal notranslate"><span class="pre">dict</span></code> for
+<a class="reference internal" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" title="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizerManager</span></code></a> instances.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.ATTR_EXP_META">
+<code class="sig-name descname">ATTR_EXP_META</code><em class="property"> = ('managers',)</em><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.ATTR_EXP_META" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">names</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManagerSet.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources for this instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.feature_ids">
+<em class="property">property </em><code class="sig-name descname">feature_ids</code><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.feature_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all feature IDs supported across all manager registered with the
+manager set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Set[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManagerSet.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.get" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" title="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizerManager</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.keys">
+<code class="sig-name descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManagerSet.keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.keys" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Set</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.names">
+<code class="sig-name descname">names</code><em class="property">: List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.names" title="Permalink to this definition">¶</a></dt>
+<dd><p>The sections defining <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" title="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizerManager</span></code></a> instances.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.values">
+<code class="sig-name descname">values</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManagerSet.values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.values" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference internal" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" title="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureVectorizerManager</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#FeatureVectorizerManagerSet.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the contents of this instance to <code class="docutils literal notranslate"><span class="pre">writer</span></code> using indention <code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the starting indentation depth</p></li>
+<li><p><strong>writer</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOBase" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a>) – the writer to dump the content of this writable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.manager.</code><code class="sig-name descname">TransformableFeatureVectorizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em>, <em class="sig-param"><span class="n">encode_transformed</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#TransformableFeatureVectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer</span></code></a></p>
+<p>Instances of this class use the output of
+<a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.transform" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.transform"><code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodableFeatureVectorizer.transform()</span></code></a> (chain encode and decode) as
+the output of <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.encode" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.encode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">EncodableFeatureVectorizer.encode()</span></code></a>, then passes
+through the decode.</p>
+<p>This is useful if the decoding phase is very expensive and you’d rather
+take that hit when creating batches written to the file system.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em>, <em class="sig-param"><span class="n">encode_transformed</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer.decode">
+<code class="sig-name descname">decode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">context</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#TransformableFeatureVectorizer.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode a (potentially) unpickled context and return a tensor using the
+manager’s <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch_config</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer.encode">
+<code class="sig-name descname">encode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/manager.html#TransformableFeatureVectorizer.encode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode data to a context ready to (potentially) be pickled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureContext" title="zensols.deeplearn.vectorize.domain.FeatureContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureContext</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer.encode_transformed">
+<code class="sig-name descname">encode_transformed</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><a class="headerlink" href="#zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer.encode_transformed" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, enable the transformed output of the encoding step as the
+decode step (see class docs).</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-vectorize-vectorizers">
+<h2>zensols.deeplearn.vectorize.vectorizers<a class="headerlink" href="#zensols-deeplearn-vectorize-vectorizers" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-fcb1d3d529997566f93787054ce8cd38d5b1a10c.png" alt="Inheritance diagram of zensols.deeplearn.vectorize.vectorizers" usemap="#inheritance2b573327dc" class="inheritance graphviz" /></div>
+<map id="inheritance2b573327dc" name="inheritance2b573327dc">
+<area shape="rect" id="node2" href="#zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer" target="_top" title="Use another vectorizer to vectorize each instance in an iterable. &#160;Each" alt="" coords="5,445,251,471"/>
+<area shape="rect" id="node3" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" target="_top" title="This vectorizer splits transformation up in to encoding and decoding. &#160;The" alt="" coords="689,372,876,397"/>
+<area shape="rect" id="node4" href="#zensols.deeplearn.vectorize.vectorizers.AttributeEncodableFeatureVectorizer" target="_top" title="Vectorize a iterable of floats. &#160;This vectorizer has an undefined shape" alt="" coords="275,445,509,471"/>
+<area shape="rect" id="node5" href="#zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer" target="_top" title="A base class that vectorizies nominal categories in to integer indexes." alt="" coords="534,445,773,471"/>
+<area shape="rect" id="node12" href="#zensols.deeplearn.vectorize.vectorizers.IdentityEncodableFeatureVectorizer" target="_top" title="An identity vectorizer, which encodes tensors verbatim, or concatenates a" alt="" coords="797,445,1027,471"/>
+<area shape="rect" id="node14" href="#zensols.deeplearn.vectorize.vectorizers.MaskFeatureVectorizer" target="_top" title="Creates masks where the first N elements of a vector are 1&#39;s with the rest" alt="" coords="1051,445,1208,471"/>
+<area shape="rect" id="node17" href="#zensols.deeplearn.vectorize.vectorizers.SeriesEncodableFeatureVectorizer" target="_top" title="Vectorize a Pandas series, such as a list of rows. &#160;This vectorizer has an" alt="" coords="1233,445,1455,471"/>
+<area shape="rect" id="node15" href="#zensols.deeplearn.vectorize.vectorizers.NominalEncodedEncodableFeatureVectorizer" target="_top" title="Map each label to a nominal, which is useful for class labels." alt="" coords="356,519,641,544"/>
+<area shape="rect" id="node16" href="#zensols.deeplearn.vectorize.vectorizers.OneHotEncodedEncodableFeatureVectorizer" target="_top" title="Vectorize from a list of nominals. &#160;This is useful for encoding labels for" alt="" coords="665,519,948,544"/>
+<area shape="rect" id="node6" href="#zensols.deeplearn.vectorize.domain.ConfigurableVectorization" target="_top" title="ConfigurableVectorization(name: str, config_factory: zensols.config.factory.ConfigFactory)" alt="" coords="697,225,868,251"/>
+<area shape="rect" id="node10" href="#zensols.deeplearn.vectorize.domain.FeatureVectorizer" target="_top" title="An asbstrct base class that transforms a Python object in to a PyTorch" alt="" coords="720,299,845,324"/>
+<area shape="rect" id="node11" href="#zensols.deeplearn.vectorize.domain.FeatureContext" target="_top" title="Data created by coding and meant to be pickled on the file system." alt="" coords="892,225,1004,251"/>
+<area shape="rect" id="node13" href="#zensols.deeplearn.vectorize.vectorizers.MaskFeatureContext" target="_top" title="A feature context used for the :class:`.MaskFeatureVectorizer` vectorizer." alt="" coords="876,299,1020,324"/>
+</map><span class="target" id="module-zensols.deeplearn.vectorize.vectorizers"></span><p>Vectorizer implementations.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.vectorizers.</code><code class="sig-name descname">AggregateEncodableFeatureVectorizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em>, <em class="sig-param"><span class="n">delegate_feature_id</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">pad_label</span><span class="o">=</span><span class="default_value">- 100</span></em>, <em class="sig-param"><span class="n">add_mask</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/vectorizers.html#AggregateEncodableFeatureVectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer</span></code></a></p>
+<p>Use another vectorizer to vectorize each instance in an iterable.  Each
+iterable is then concatenated in to a single tensor on decode.</p>
+<p><strong>Important</strong>: you must add the delegate vectorizer to the same vectorizer
+manager set as this instance since it uses the manager to find it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Shape</dt>
+<dd class="field-odd"><p>(-1, delegate.shape[1] * (2 ^ add_mask))</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.DEFAULT_PAD_LABEL">
+<code class="sig-name descname">DEFAULT_PAD_LABEL</code><em class="property"> = -100</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.DEFAULT_PAD_LABEL" title="Permalink to this definition">¶</a></dt>
+<dd><p><a href="#id3"><span class="problematic" id="id4">`</span></a>pad_label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>The default value used for</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>obj</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.DESCRIPTION">
+<code class="sig-name descname">DESCRIPTION</code><em class="property"> = 'aggregate vectorizer'</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.DESCRIPTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em>, <em class="sig-param"><span class="n">delegate_feature_id</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">pad_label</span><span class="o">=</span><span class="default_value">- 100</span></em>, <em class="sig-param"><span class="n">add_mask</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.add_mask">
+<code class="sig-name descname">add_mask</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><em class="property"> = False</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.add_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, every data item includes a mask (1 if the data item is
+present, 0 if not) in the row directly after the respective data row.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.create_padded_tensor">
+<code class="sig-name descname">create_padded_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/vectorizers.html#AggregateEncodableFeatureVectorizer.create_padded_tensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.create_padded_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a tensor with all elements set to <a class="reference internal" href="#zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.pad_label" title="zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.pad_label"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pad_label</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Size</span></code>) – the dimensions of the created tensor</p></li>
+<li><p><strong>data_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dtype</span></code>]) – the data type of the new tensor</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.delegate">
+<em class="property">property </em><code class="sig-name descname">delegate</code><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.delegate" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">EncodableFeatureVectorizer</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>rtype</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.delegate_feature_id">
+<code class="sig-name descname">delegate_feature_id</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.delegate_feature_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The feature ID of the delegate vectorizer to use (configured in same
+vectorizer manager).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.pad_label">
+<code class="sig-name descname">pad_label</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = -100</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.pad_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>The numeric label to use for padded elements.  This defaults to
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">ignore_index</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.size">
+<code class="sig-name descname">size</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = -1</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AggregateEncodableFeatureVectorizer.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The second dimension size of the tensor to create when decoding.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AttributeEncodableFeatureVectorizer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.vectorizers.</code><code class="sig-name descname">AttributeEncodableFeatureVectorizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/vectorizers.html#AttributeEncodableFeatureVectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AttributeEncodableFeatureVectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer</span></code></a></p>
+<p>Vectorize a iterable of floats.  This vectorizer has an undefined shape
+since both the number of columns and rows are not specified at runtime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Shape</dt>
+<dd class="field-odd"><p>(1,)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AttributeEncodableFeatureVectorizer.DESCRIPTION">
+<code class="sig-name descname">DESCRIPTION</code><em class="property"> = 'single attribute'</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AttributeEncodableFeatureVectorizer.DESCRIPTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AttributeEncodableFeatureVectorizer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AttributeEncodableFeatureVectorizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.AttributeEncodableFeatureVectorizer.manager">
+<code class="sig-name descname">manager</code><em class="property">: <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" title="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager">zensols.deeplearn.vectorize.manager.FeatureVectorizerManager</a></em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.AttributeEncodableFeatureVectorizer.manager" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.vectorizers.</code><code class="sig-name descname">CategoryEncodableFeatureVectorizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em>, <em class="sig-param"><span class="n">categories</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/vectorizers.html#CategoryEncodableFeatureVectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer</span></code></a></p>
+<p>A base class that vectorizies nominal categories in to integer indexes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Shape</dt>
+<dd class="field-odd"><p>(1, <a href="#id5"><span class="problematic" id="id6">|categories|</span></a>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em>, <em class="sig-param"><span class="n">categories</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer.by_label">
+<em class="property">property </em><code class="sig-name descname">by_label</code><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer.by_label" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>rtype</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer.categories">
+<code class="sig-name descname">categories</code><em class="property">: Set<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer.categories" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of string enumerated values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer.get_classes">
+<code class="sig-name descname">get_classes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nominals</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/vectorizers.html#CategoryEncodableFeatureVectorizer.get_classes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer.get_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the label string values for indexes <code class="docutils literal notranslate"><span class="pre">nominals</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nominals</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – the integers that map to the respective string class</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.vectorizers.IdentityEncodableFeatureVectorizer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.vectorizers.</code><code class="sig-name descname">IdentityEncodableFeatureVectorizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/vectorizers.html#IdentityEncodableFeatureVectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.IdentityEncodableFeatureVectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer</span></code></a></p>
+<p>An identity vectorizer, which encodes tensors verbatim, or concatenates a
+list of tensors in to one tensor of the same dimension.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.IdentityEncodableFeatureVectorizer.DESCRIPTION">
+<code class="sig-name descname">DESCRIPTION</code><em class="property"> = 'identity function encoder'</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.IdentityEncodableFeatureVectorizer.DESCRIPTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.vectorizers.IdentityEncodableFeatureVectorizer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.IdentityEncodableFeatureVectorizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.IdentityEncodableFeatureVectorizer.manager">
+<code class="sig-name descname">manager</code><em class="property">: <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" title="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager">zensols.deeplearn.vectorize.manager.FeatureVectorizerManager</a></em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.IdentityEncodableFeatureVectorizer.manager" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.vectorizers.MaskFeatureContext">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.vectorizers.</code><code class="sig-name descname">MaskFeatureContext</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">sequence_lengths</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/vectorizers.html#MaskFeatureContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.MaskFeatureContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.domain.FeatureContext" title="zensols.deeplearn.vectorize.domain.FeatureContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.domain.FeatureContext</span></code></a></p>
+<p>A feature context used for the <a class="reference internal" href="#zensols.deeplearn.vectorize.vectorizers.MaskFeatureVectorizer" title="zensols.deeplearn.vectorize.vectorizers.MaskFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">MaskFeatureVectorizer</span></code></a> vectorizer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sequence_lengths</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – the lengths of all each row to mask</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.vectorizers.MaskFeatureContext.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">sequence_lengths</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.MaskFeatureContext.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.MaskFeatureContext.sequence_lengths">
+<code class="sig-name descname">sequence_lengths</code><em class="property">: Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.MaskFeatureContext.sequence_lengths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.vectorizers.MaskFeatureVectorizer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.vectorizers.</code><code class="sig-name descname">MaskFeatureVectorizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'bool'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/vectorizers.html#MaskFeatureVectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.MaskFeatureVectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer</span></code></a></p>
+<p>Creates masks where the first N elements of a vector are 1’s with the rest
+0’s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Shape</dt>
+<dd class="field-odd"><p>(-1, size)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.MaskFeatureVectorizer.DESCRIPTION">
+<code class="sig-name descname">DESCRIPTION</code><em class="property"> = 'mask'</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.MaskFeatureVectorizer.DESCRIPTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.vectorizers.MaskFeatureVectorizer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">'bool'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.MaskFeatureVectorizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.MaskFeatureVectorizer.data_type">
+<code class="sig-name descname">data_type</code><em class="property">: Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><span class="p">, </span>torch.dtype<span class="p">]</span></em><em class="property"> = 'bool'</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.MaskFeatureVectorizer.data_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The mask tensor type.  To use the int type that matches the resolution of
+the manager’s <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch_config</span></code>, use <code class="docutils literal notranslate"><span class="pre">DEFAULT_INT</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.MaskFeatureVectorizer.size">
+<code class="sig-name descname">size</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = -1</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.MaskFeatureVectorizer.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The length of all mask vectors or <code class="docutils literal notranslate"><span class="pre">-1</span></code> make the length the max size of the
+sequence in the batch.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.vectorizers.NominalEncodedEncodableFeatureVectorizer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.vectorizers.</code><code class="sig-name descname">NominalEncodedEncodableFeatureVectorizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em>, <em class="sig-param"><span class="n">categories</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">decode_one_hot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/vectorizers.html#NominalEncodedEncodableFeatureVectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.NominalEncodedEncodableFeatureVectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer" title="zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer</span></code></a></p>
+<p>Map each label to a nominal, which is useful for class labels.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.NominalEncodedEncodableFeatureVectorizer.DESCRIPTION">
+<code class="sig-name descname">DESCRIPTION</code><em class="property"> = 'nominal encoder'</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.NominalEncodedEncodableFeatureVectorizer.DESCRIPTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.vectorizers.NominalEncodedEncodableFeatureVectorizer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em>, <em class="sig-param"><span class="n">categories</span></em>, <em class="sig-param"><span class="n">data_type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">decode_one_hot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.NominalEncodedEncodableFeatureVectorizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.NominalEncodedEncodableFeatureVectorizer.data_type">
+<code class="sig-name descname">data_type</code><em class="property">: Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><span class="p">, </span>torch.dtype<span class="p">]</span></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.NominalEncodedEncodableFeatureVectorizer.data_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type to use for encoding, which if a string, must be a key in of
+<a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.torchtype.TorchTypes.NAME_TO_TYPE" title="zensols.deeplearn.torchtype.TorchTypes.NAME_TO_TYPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TorchTypes.NAME_TO_TYPE</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.NominalEncodedEncodableFeatureVectorizer.decode_one_hot">
+<code class="sig-name descname">decode_one_hot</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><em class="property"> = False</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.NominalEncodedEncodableFeatureVectorizer.decode_one_hot" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, during decoding create a one-hot encoded tensor of shape
+<code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">|labels|)</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.vectorizers.OneHotEncodedEncodableFeatureVectorizer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.vectorizers.</code><code class="sig-name descname">OneHotEncodedEncodableFeatureVectorizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em>, <em class="sig-param"><span class="n">categories</span></em>, <em class="sig-param"><span class="n">optimize_bools</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/vectorizers.html#OneHotEncodedEncodableFeatureVectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.OneHotEncodedEncodableFeatureVectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer" title="zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.vectorizers.CategoryEncodableFeatureVectorizer</span></code></a></p>
+<p>Vectorize from a list of nominals.  This is useful for encoding labels for
+the categorization machine learning task.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.OneHotEncodedEncodableFeatureVectorizer.DESCRIPTION">
+<code class="sig-name descname">DESCRIPTION</code><em class="property"> = 'category encoder'</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.OneHotEncodedEncodableFeatureVectorizer.DESCRIPTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.vectorizers.OneHotEncodedEncodableFeatureVectorizer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em>, <em class="sig-param"><span class="n">categories</span></em>, <em class="sig-param"><span class="n">optimize_bools</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.OneHotEncodedEncodableFeatureVectorizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.OneHotEncodedEncodableFeatureVectorizer.optimize_bools">
+<code class="sig-name descname">optimize_bools</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><em class="property"> = True</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.OneHotEncodedEncodableFeatureVectorizer.optimize_bools" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, more efficiently represent boolean encodings.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.vectorize.vectorizers.SeriesEncodableFeatureVectorizer">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.vectorize.vectorizers.</code><code class="sig-name descname">SeriesEncodableFeatureVectorizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/vectorize/vectorizers.html#SeriesEncodableFeatureVectorizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.SeriesEncodableFeatureVectorizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer" title="zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer</span></code></a></p>
+<p>Vectorize a Pandas series, such as a list of rows.  This vectorizer has an
+undefined shape since both the number of columns and rows are not specified
+at runtime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Shape</dt>
+<dd class="field-odd"><p>(-1, 1)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.SeriesEncodableFeatureVectorizer.DESCRIPTION">
+<code class="sig-name descname">DESCRIPTION</code><em class="property"> = 'pandas series'</em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.SeriesEncodableFeatureVectorizer.DESCRIPTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.vectorize.vectorizers.SeriesEncodableFeatureVectorizer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">feature_id</span></em>, <em class="sig-param"><span class="n">manager</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.SeriesEncodableFeatureVectorizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.vectorize.vectorizers.SeriesEncodableFeatureVectorizer.manager">
+<code class="sig-name descname">manager</code><em class="property">: <a class="reference internal" href="#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager" title="zensols.deeplearn.vectorize.manager.FeatureVectorizerManager">zensols.deeplearn.vectorize.manager.FeatureVectorizerManager</a></em><a class="headerlink" href="#zensols.deeplearn.vectorize.vectorizers.SeriesEncodableFeatureVectorizer.manager" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-zensols.deeplearn.vectorize">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zensols.deeplearn.vectorize" title="Permalink to this headline">¶</a></h2>
+<p>Provides classses that vectorize features in to torch tensors instances of
+<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../CONTRIBUTING.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="zensols.deeplearn.result.html" class="btn btn-neutral float-left" title="zensols.deeplearn.result package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

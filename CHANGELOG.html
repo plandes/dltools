@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Change Log &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="top.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Change Log</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/CHANGELOG.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="change-log">
+<h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h1>
+<p>All notable changes to this project will be documented in this file.</p>
+<p>The format is based on <a class="reference external" href="http://keepachangelog.com/">Keep a Changelog</a>
+and this project adheres to <a class="reference external" href="http://semver.org/">Semantic Versioning</a>.</p>
+<div class="section" id="unreleased">
+<h2><a class="reference external" href="https://github.com/plandes/deeplearn/compare/v0.1.5...HEAD">Unreleased</a><a class="headerlink" href="#unreleased" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id1">
+<h2><a class="reference external" href="https://github.com/plandes/deeplearn/compare/v0.1.4...v0.1.5">0.1.5</a> - 2021-09-21<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="changed">
+<h3>Changed<a class="headerlink" href="#changed" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Rename <code class="docutils literal notranslate"><span class="pre">DataframeStash</span></code> to <code class="docutils literal notranslate"><span class="pre">SplitKeyDataframeStash</span></code>.</p></li>
+<li><p>Split out <code class="docutils literal notranslate"><span class="pre">FacadePredictApplication</span></code> from the <code class="docutils literal notranslate"><span class="pre">FacadeModelApplication</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="added">
+<h3>Added<a class="headerlink" href="#added" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Class <code class="docutils literal notranslate"><span class="pre">AutoSplitDataframeStash</span></code> to automatically split (add a column) a
+Pandas dataframe in to training, validation and test datasets.</p></li>
+<li><p>Configuration resource library.</p></li>
+<li><p>Add a default distribution for <code class="docutils literal notranslate"><span class="pre">StashSplitKeyContainer</span></code>.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id2">
+<h2><a class="reference external" href="https://github.com/plandes/deeplearn/compare/v0.1.3...v0.1.4">0.1.4</a> - 2021-09-07<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>Changed<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Upgrade to <a class="reference external" href="https://github.com/plandes/util">zensols.util</a> version 1.6.0.</p></li>
+<li><p>Better model facade write behavior.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h2><a class="reference external" href="https://github.com/plandes/deeplearn/compare/v0.1.2...v0.1.3">0.1.3</a> - 2021-08-07<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>Changed<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Fix torch config GPU-&gt;CPU copy/dealloc; add outcomes/output in batch.</p></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3>Added<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>CLI application to facade “glue” <code class="docutils literal notranslate"><span class="pre">FacadeApplication</span></code>.</p></li>
+<li><p>Sequence classification: model base class and batch iterator.</p></li>
+<li><p>Track direct output/outcomes/logits from model in results.</p></li>
+<li><p>More GPU side memory de-allocation.</p></li>
+<li><p>Support for float/quotient batch limits.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><a class="reference external" href="https://github.com/plandes/deeplearn/compare/v0.1.1...v0.1.2">0.1.2</a> - 2021-04-29<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h3>Changed<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Upgraded to torch 1.8 and <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> 0.24.1.</p></li>
+<li><p>Protect deallocation of non-copied (GPU to GPU) batches.</p></li>
+<li><p>Warning clean up for <code class="docutils literal notranslate"><span class="pre">numpy</span></code>.</p></li>
+<li><p>Better model naming and file/directory name output.</p></li>
+<li><p>Clone tensor correctly in 1.7 per warning.</p></li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h3>Added<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Sparse support for size 3 tensors.</p></li>
+<li><p>New <a class="reference external" href="https://github.com/plandes/util">zensols.util</a> 1.5 CLI application interface to facade.</p></li>
+<li><p>Summary spreadsheet reporting for results.  This scans a directory for
+results and adds performance metrics in to CSV file for easy reporting across
+multiple models.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id10">
+<h2><a class="reference external" href="https://github.com/plandes/deeplearn/compare/v0.1.0...v0.1.1">0.1.1</a> - 2020-12-29<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>Maintenance release.</p>
+<div class="section" id="id11">
+<h3>Changed<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Updated dependencies and tested across Python 3.7, 3.8, 3.9.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id12">
+<h2><a class="reference external" href="https://github.com/plandes/deeplearn/compare/v0.0.6...v0.1.0">0.1.0</a> - 2020-12-10<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>First fully functional major feature release, which includes batch
+persistence/processing, layers, vectorizors, debugging and many other
+features/support.  See <a class="reference external" href="https://plandes.github.io/deeplearn/">documentation</a> for more information.</p>
+</div>
+<div class="section" id="id13">
+<h2><a class="reference external" href="https://github.com/plandes/deeplearn/compare/v0.0.5...v0.0.6">0.0.6</a> - 2020-05-11<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h3>Changed<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Upgrade to <a class="reference external" href="https://github.com/plandes/util">zensols.util</a> 1.2.1 and torch 1.4.0.</p></li>
+</ul>
+</div>
+<div class="section" id="id15">
+<h3>Added<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Type conversion from torch to numpy and sparse types.</p></li>
+<li><p>Implementation of sparse matrix encoding and decoding to compensate for
+PyTorch bug with hanging child processing in <code class="docutils literal notranslate"><span class="pre">multiprocessing</span></code> API.</p></li>
+<li><p>Key split stash implementation for data set splits.</p></li>
+<li><p>Vectorization framework</p></li>
+<li><p>Model training and testing framework.</p></li>
+<li><p>Notebook example usage.</p></li>
+<li><p>Unit tests, for which, now give very good coverage.</p></li>
+</ul>
+</div>
+<div class="section" id="removed">
+<h3>Removed<a class="headerlink" href="#removed" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Travis build: too time consuming to make CUDA, python and xenial etc. all
+play together nicely.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id16">
+<h2><a class="reference external" href="https://github.com/plandes/deeplearn/compare/v0.0.4...v0.0.5">0.0.5</a> - 2020-05-04<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id17">
+<h3>Added<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Create sparse tensors.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id18">
+<h2><a class="reference external" href="https://github.com/plandes/deeplearn/compare/v0.0.3...v0.0.6">0.0.4</a> - 2020-04-27<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="change">
+<h3>Change<a class="headerlink" href="#change" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Travis tests.</p></li>
+<li><p>Upgraded to Python 3.7.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id19">
+<h2><a class="reference external" href="https://github.com/plandes/deeplearn/compare/v0.0.2...v0.0.3">0.0.3</a> - 2019-12-14<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<p>Data classes are now used so Python 3.7 is now a requirement.</p>
+<div class="section" id="id20">
+<h3>Added<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Arbitrarily deep linear layer using constant or decay parameter counts.</p></li>
+<li><p>Conv2d interface to PyTorch.</p></li>
+</ul>
+</div>
+<div class="section" id="id21">
+<h3>Changed<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Better handling of tensor to memory mapping and device handling in general.</p></li>
+</ul>
+</div>
+<div class="section" id="id22">
+<h3>Removed<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Moved <code class="docutils literal notranslate"><span class="pre">test.py</span></code> from this repository to <a class="reference external" href="https://github.com/plandes/actioncli">zensols.actioncli</a>.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id23">
+<h2><a class="reference external" href="https://github.com/plandes/deeplearn/compare/v0.0.1...v0.0.2">0.0.2</a> - 2019-07-07<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id24">
+<h3>Added<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Tests.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="id25">
+<h2><a class="reference external" href="https://github.com/plandes/deeplearn/compare/v0.0.0...v0.0.1">0.0.1</a> - 2019-07-07<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id26">
+<h3>Added<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Initial version.</p></li>
+</ul>
+<!-- links --></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

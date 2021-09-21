@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.model.trainmng &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.model.trainmng</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.model.trainmng</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Contains a class to assist in the training of the :class:`.ModelExecutor`.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">Logger</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn</span> <span class="kn">import</span> <span class="n">ModelError</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn.result</span> <span class="kn">import</span> <span class="n">EpochResult</span>
+
+
+<div class="viewcode-block" id="UpdateAction"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.trainmng.UpdateAction">[docs]</a><span class="k">class</span> <span class="nc">UpdateAction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An action type to invoke on the :class:`.ModelExecutor` during training.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ITERATE_EPOCH</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">SET_EPOCH</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">STOP</span> <span class="o">=</span> <span class="mi">2</span></div>
+
+
+<div class="viewcode-block" id="TrainStatus"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.trainmng.TrainStatus">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">TrainStatus</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Indicates what to do in the next epoch of the training cycle.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">action</span><span class="p">:</span> <span class="n">UpdateAction</span>
+    <span class="n">epoch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TrainManager"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.trainmng.TrainManager">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">TrainManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The class is used to assist in the training of the :class:`.ModelExecutor`.</span>
+<span class="sd">    It updates validation loss and helps with early stopping decisions.  It</span>
+<span class="sd">    also watches for a file on the file system to provide instructions on what</span>
+<span class="sd">    to do in the next epoch.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">status_logger</span><span class="p">:</span> <span class="n">Logger</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The logger to record status updates during training.&quot;&quot;&quot;</span>
+
+    <span class="n">progress_logger</span><span class="p">:</span> <span class="n">Logger</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The logger to record progress updates during training.  This is used only</span>
+<span class="sd">    when the progress bar is turned off (see</span>
+<span class="sd">    :meth:`.ModelFacade._configure_cli_logging`).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">update_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;See :obj:`.ModelExecutor.update_path`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">max_consecutive_increased_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;See :obj:`.Domain.max_consecutive_increased_count`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TrainManager.start"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.trainmng.TrainManager.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">L1Loss</span><span class="p">,</span> <span class="n">scheduler</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+              <span class="n">n_epochs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">pbar</span><span class="p">:</span> <span class="n">tqdm</span><span class="p">):</span>
+        <span class="c1"># clear any early stop state</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">progress_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;cleaning update file: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">update_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_path</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">optimizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span> <span class="o">=</span> <span class="n">scheduler</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_epochs</span> <span class="o">=</span> <span class="n">n_epochs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_epoch</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">consecutive_increased_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># set initial &quot;min&quot; to infinity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valid_loss_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">Inf</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pbar</span> <span class="o">=</span> <span class="n">pbar</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">progress_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;watching update file </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">update_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validation_loss_decreases</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_optimizer_lr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the current optimizer learning rate, which can be modified by a</span>
+<span class="sd">        scheduler if one is configured.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">param_group</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">optimizer</span><span class="o">.</span><span class="n">param_groups</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">param_group</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">])</span>
+
+<div class="viewcode-block" id="TrainManager.update_loss"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.trainmng.TrainManager.update_loss">[docs]</a>    <span class="k">def</span> <span class="nf">update_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valid_epoch_result</span><span class="p">:</span> <span class="n">EpochResult</span><span class="p">,</span>
+                    <span class="n">train_epoch_result</span><span class="p">:</span> <span class="n">EpochResult</span><span class="p">,</span>
+                    <span class="n">ave_valid_loss</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Update the training and validation loss.</span>
+
+<span class="sd">        :return: a tuple of the latest minimum validation loss and whether or</span>
+<span class="sd">                 not the last validation loss has decreased</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_logger</span>
+        <span class="n">progress_logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_logger</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span>
+        <span class="n">valid_loss</span> <span class="o">=</span> <span class="n">valid_epoch_result</span><span class="o">.</span><span class="n">ave_loss</span>
+
+        <span class="c1"># adjust the learning rate if a scheduler is configured</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">ave_valid_loss</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;epoch ave valid loss/results averaged valid_loss &#39;</span> <span class="o">+</span>
+                         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ave_valid_loss</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">valid_loss</span><span class="si">}</span><span class="s1">, &#39;</span> <span class="o">+</span>
+                         <span class="sa">f</span><span class="s1">&#39;losses: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">valid_epoch_result</span><span class="o">.</span><span class="n">losses</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">decreased</span> <span class="o">=</span> <span class="n">valid_loss</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_loss_min</span>
+        <span class="n">dec_str</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">/&#39;</span> <span class="k">if</span> <span class="n">decreased</span> <span class="k">else</span> <span class="s1">&#39;/</span><span class="se">\\</span><span class="s1">&#39;</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ave_valid_loss</span> <span class="o">-</span> <span class="n">valid_loss</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-10</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;validation loss and result are not close: &#39;</span> <span class="o">+</span>
+                           <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ave_valid_loss</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">valid_loss</span><span class="si">}</span><span class="s1"> &gt; 1e-10&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">train_epoch_result</span><span class="o">.</span><span class="n">contains_results</span><span class="p">:</span>
+            <span class="n">train_loss</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">train_epoch_result</span><span class="o">.</span><span class="n">ave_loss</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">train_loss</span> <span class="o">=</span> <span class="s1">&#39;&lt;none&gt;&#39;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;tr:</span><span class="si">{</span><span class="n">train_loss</span><span class="si">}</span><span class="s1">|va min:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">valid_loss_min</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">|&#39;</span> <span class="o">+</span>
+               <span class="sa">f</span><span class="s1">&#39;va:</span><span class="si">{</span><span class="n">valid_loss</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_optimizer_lr</span><span class="p">(</span><span class="n">optimizer</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;|lr:</span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">dec_str</span><span class="si">}</span><span class="s1">&#39;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pbar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pbar</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;epoch </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current_epoch</span><span class="si">}</span><span class="s1">/&#39;</span> <span class="o">+</span>
+                            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_epochs</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># save model if validation loss has decreased</span>
+        <span class="k">if</span> <span class="n">decreased</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">progress_logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">progress_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;validation loss decreased min/iter&#39;</span> <span class="o">+</span>
+                                      <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">valid_loss_min</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span>
+                                      <span class="sa">f</span><span class="s1">&#39;/</span><span class="si">{</span><span class="n">valid_loss</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">); saving model&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">valid_loss_min</span> <span class="o">=</span> <span class="n">valid_loss</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">consecutive_increased_count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">validation_loss_decreases</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">progress_logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">progress_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;validation loss increased min/iter&#39;</span> <span class="o">+</span>
+                                      <span class="sa">f</span><span class="s1">&#39;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">valid_loss_min</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span>
+                                      <span class="sa">f</span><span class="s1">&#39;/</span><span class="si">{</span><span class="n">valid_loss</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">consecutive_increased_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_loss_min</span><span class="p">,</span> <span class="n">decreased</span></div>
+
+    <span class="k">def</span> <span class="nf">_read_status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TrainStatus</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Read the early stop/update file and return a value to update the current</span>
+<span class="sd">        epoch number (if any).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">update</span> <span class="o">=</span> <span class="n">TrainStatus</span><span class="p">(</span><span class="n">UpdateAction</span><span class="o">.</span><span class="n">ITERATE_EPOCH</span><span class="p">)</span>
+        <span class="n">update_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_path</span>
+        <span class="k">if</span> <span class="n">update_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">status_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;update check at </span><span class="si">{</span><span class="n">update_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">update_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">update_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="s1">&#39;epoch&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                        <span class="n">epoch</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">])</span>
+                        <span class="n">update</span><span class="o">.</span><span class="n">epoch</span> <span class="o">=</span> <span class="n">epoch</span>
+                        <span class="n">update</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">UpdateAction</span><span class="o">.</span><span class="n">SET_EPOCH</span>
+                        <span class="n">update</span><span class="o">.</span><span class="n">reason</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;update from </span><span class="si">{</span><span class="n">update_path</span><span class="si">}</span><span class="s1">: &#39;</span> <span class="o">+</span>
+                                         <span class="sa">f</span><span class="s1">&#39;setting epoch to: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">reason</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;bad format in </span><span class="si">{</span><span class="n">update_path</span><span class="si">}</span><span class="s1">--assume exit: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="n">update</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">UpdateAction</span><span class="o">.</span><span class="n">STOP</span>
+                    <span class="n">update</span><span class="o">.</span><span class="n">reason</span> <span class="o">=</span> <span class="n">reason</span>
+                <span class="n">update_path</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">update</span>
+
+    <span class="k">def</span> <span class="nf">_get_stop_reason</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">reason</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_epoch</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_epochs</span><span class="p">:</span>
+            <span class="n">reason</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;epoch threshold reached at </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_epochs</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">consecutive_increased_count</span> <span class="o">&gt;</span>
+              <span class="bp">self</span><span class="o">.</span><span class="n">max_consecutive_increased_count</span><span class="p">):</span>
+            <span class="n">reason</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;reached max consecutive increased count: &#39;</span> <span class="o">+</span>
+                      <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">max_consecutive_increased_count</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">reason</span>
+
+<div class="viewcode-block" id="TrainManager.get_status"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.trainmng.TrainManager.get_status">[docs]</a>    <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TrainStatus</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the epoch to set in the training loop of the :class:`.ModelExecutor`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_status</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">status</span><span class="o">.</span><span class="n">action</span> <span class="o">==</span> <span class="n">UpdateAction</span><span class="o">.</span><span class="n">STOP</span><span class="p">:</span>
+            <span class="c1"># setting to the max value fails the executors train outter loop</span>
+            <span class="c1"># causing a robust non-error exit</span>
+            <span class="n">status</span><span class="o">.</span><span class="n">epoch</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span>
+        <span class="k">elif</span> <span class="n">status</span><span class="o">.</span><span class="n">action</span> <span class="o">==</span> <span class="n">UpdateAction</span><span class="o">.</span><span class="n">SET_EPOCH</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_epoch</span> <span class="o">=</span> <span class="n">status</span><span class="o">.</span><span class="n">epoch</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pbar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pbar</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_epoch</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">status</span><span class="o">.</span><span class="n">action</span> <span class="o">==</span> <span class="n">UpdateAction</span><span class="o">.</span><span class="n">ITERATE_EPOCH</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">current_epoch</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">status</span><span class="o">.</span><span class="n">epoch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_epoch</span>
+            <span class="n">stop_reason</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_stop_reason</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pbar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">stop_reason</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">status</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">UpdateAction</span><span class="o">.</span><span class="n">STOP</span>
+                <span class="n">status</span><span class="o">.</span><span class="n">reason</span> <span class="o">=</span> <span class="n">stop_reason</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unknownn status: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span><span class="o">.</span><span class="n">reason</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">status</span><span class="o">.</span><span class="n">reason</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">status</span></div>
+
+<div class="viewcode-block" id="TrainManager.stop"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.trainmng.TrainManager.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Stops the execution of training the model.  Currently this is done by</span>
+<span class="sd">        creating a file the executor monitors.</span>
+
+<span class="sd">        :return: ``True`` if the application is configured to early stop and</span>
+<span class="sd">                 the signal has not already been given</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">update_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_path</span>
+        <span class="k">if</span> <span class="n">update_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">update_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="n">update_path</span><span class="o">.</span><span class="n">touch</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;created early stop file: </span><span class="si">{</span><span class="n">update_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

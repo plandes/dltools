@@ -1,0 +1,8 @@
+<map id="inheritance4926bb2fe5" name="inheritance4926bb2fe5">
+<area shape="rect" id="node1" title="Helper class that provides a standard way to create an ABC using" alt="" coords="41,5,113,31"/>
+<area shape="rect" id="node5" title="All subclasses have the ability to deallocate any resources. &#160;This is useful" alt="" coords="26,79,127,104"/>
+<area shape="rect" id="node2" href="#zensols.deeplearn.model.module.BaseNetworkModule" target="_top" title="A utility base network module that contains ubiquitous, but optional layers," alt="" coords="79,225,221,251"/>
+<area shape="rect" id="node3" href="#zensols.deeplearn.model.module.DebugModule" target="_top" title="A utility base class that makes logging more understandable." alt="" coords="172,152,275,177"/>
+<area shape="rect" id="node4" title="Classes can extend this that want to persist :class:`.PersistableWork`" alt="" coords="5,152,148,177"/>
+<area shape="rect" id="node6" title="Base class for all neural network modules." alt="" coords="187,79,259,104"/>
+</map>

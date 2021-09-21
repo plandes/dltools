@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.vectorize.manager &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.vectorize.manager</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.vectorize.manager</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="sd">&quot;&quot;&quot;Vectorization base classes and basic functionality.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span><span class="p">,</span> <span class="n">ABCMeta</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">TextIOBase</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">zensols.persist</span> <span class="kn">import</span> <span class="n">persisted</span><span class="p">,</span> <span class="n">PersistedWork</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn</span> <span class="kn">import</span> <span class="n">TorchConfig</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">VectorizerError</span><span class="p">,</span> <span class="n">ConfigurableVectorization</span><span class="p">,</span> <span class="n">FeatureVectorizer</span><span class="p">,</span>
+    <span class="n">FeatureContext</span><span class="p">,</span> <span class="n">TensorFeatureContext</span><span class="p">,</span> <span class="n">SparseTensorFeatureContext</span><span class="p">,</span>
+    <span class="n">NullFeatureContext</span><span class="p">,</span> <span class="n">MultiFeatureContext</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="EncodableFeatureVectorizer"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">EncodableFeatureVectorizer</span><span class="p">(</span><span class="n">FeatureVectorizer</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This vectorizer splits transformation up in to encoding and decoding.  The</span>
+<span class="sd">    encoded state as a ``FeatureContext``, in cases where encoding is</span>
+<span class="sd">    prohibitively expensive, is computed once and pickled to the file system.</span>
+<span class="sd">    It is then loaded and finally decoded into a tensor.</span>
+
+<span class="sd">    Examples include computing an encoding as indexes of a word embedding</span>
+<span class="sd">    during the encoding phase.  Then generating the full embedding layer during</span>
+<span class="sd">    decoding.  Note that this decoding is done with a ``TorchConfig`` so the</span>
+<span class="sd">    output tensor goes directly to the GPU.</span>
+
+<span class="sd">    This abstract base class only needs the ``_encode`` method overridden.  The</span>
+<span class="sd">    ``_decode`` must be overridden if the context is not of type</span>
+<span class="sd">    ``TensorFeatureContext``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">manager</span><span class="p">:</span> <span class="n">FeatureVectorizerManager</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The manager used to create this vectorizer that has resources needed to</span>
+<span class="sd">    encode and decode.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="EncodableFeatureVectorizer.transform"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Use the output of the encoding as input to the decoding to directly produce</span>
+<span class="sd">        the output tensor ready to be used in testing, training, validation</span>
+<span class="sd">        etc.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">context</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="EncodableFeatureVectorizer.encode"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FeatureContext</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Encode data to a context ready to (potentially) be pickled.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="EncodableFeatureVectorizer.decode"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">FeatureContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Decode a (potentially) unpickled context and return a tensor using the</span>
+<span class="sd">        manager&#39;s :obj:`torch_config`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">arr</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_context</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">NullFeatureContext</span><span class="p">):</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">MultiFeatureContext</span><span class="p">)</span> <span class="ow">and</span> <span class="n">context</span><span class="o">.</span><span class="n">is_empty</span><span class="p">:</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">NullFeatureContext</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">feature_id</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decode</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">arr</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">torch_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TorchConfig</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The torch configuration used to create encoded/decoded tensors.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">torch_config</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FeatureContext</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">FeatureContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="n">arr</span><span class="p">:</span> <span class="n">Tensor</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">NullFeatureContext</span><span class="p">):</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">TensorFeatureContext</span><span class="p">):</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">tensor</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">SparseTensorFeatureContext</span><span class="p">):</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">torch_config</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cstr</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">context</span><span class="p">)</span> <span class="k">if</span> <span class="n">context</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">context</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="k">raise</span> <span class="n">VectorizerError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;unknown context: </span><span class="si">{</span><span class="n">cstr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;decoded </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">context</span><span class="p">)</span><span class="si">}</span><span class="s1"> to </span><span class="si">{</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">arr</span>
+
+    <span class="k">def</span> <span class="nf">_validate_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">FeatureContext</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">feature_id</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_id</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">VectorizerError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;context meant for </span><span class="si">{</span><span class="n">context</span><span class="o">.</span><span class="n">feature_id</span><span class="si">}</span><span class="s1"> &#39;</span> <span class="o">+</span>
+                                  <span class="sa">f</span><span class="s1">&#39;routed to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">feature_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TransformableFeatureVectorizer"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">TransformableFeatureVectorizer</span><span class="p">(</span><span class="n">EncodableFeatureVectorizer</span><span class="p">,</span>
+                                     <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Instances of this class use the output of</span>
+<span class="sd">    :meth:`.EncodableFeatureVectorizer.transform` (chain encode and decode) as</span>
+<span class="sd">    the output of :meth:`EncodableFeatureVectorizer.encode`, then passes</span>
+<span class="sd">    through the decode.</span>
+
+<span class="sd">    This is useful if the decoding phase is very expensive and you&#39;d rather</span>
+<span class="sd">    take that hit when creating batches written to the file system.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">encode_transformed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;If ``True``, enable the transformed output of the encoding step as the</span>
+<span class="sd">    decode step (see class docs).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TransformableFeatureVectorizer.encode"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FeatureContext</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;encoding </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s1">, also decode after encode&#39;</span> <span class="o">+</span>
+                         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">encode_transformed</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_transformed</span><span class="p">:</span>
+            <span class="n">ctx</span><span class="p">:</span> <span class="n">FeatureContext</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">arr</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decode</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+            <span class="n">ctx</span> <span class="o">=</span> <span class="n">TensorFeatureContext</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">feature_id</span><span class="p">,</span> <span class="n">arr</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ctx</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ctx</span></div>
+
+<div class="viewcode-block" id="TransformableFeatureVectorizer.decode"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.TransformableFeatureVectorizer.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">FeatureContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;decoding </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">context</span><span class="p">)</span><span class="si">}</span><span class="s1">, already decoded: &#39;</span> <span class="o">+</span>
+                         <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">encode_transformed</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_transformed</span><span class="p">:</span>
+            <span class="n">ctx</span><span class="p">:</span> <span class="n">TensorFeatureContext</span> <span class="o">=</span> <span class="n">context</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">tensor</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;already decoded: </span><span class="si">{</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">arr</span></div></div>
+
+
+
+<div class="viewcode-block" id="FeatureVectorizerManager"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager">[docs]</a><span class="c1"># manager</span>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">FeatureVectorizerManager</span><span class="p">(</span><span class="n">ConfigurableVectorization</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Creates and manages instances of :class:`.EncodableFeatureVectorizer` and</span>
+<span class="sd">    parses text in to feature based document.</span>
+
+<span class="sd">    This handles encoding data into a context, which is data ready to be</span>
+<span class="sd">    pickled on the file system with the idea this intermediate state is</span>
+<span class="sd">    expensive to create.  At training time, the context is brought back in to</span>
+<span class="sd">    memory and efficiently decoded in to a tensor.</span>
+
+<span class="sd">    This class keeps track of two kinds of vectorizers:</span>
+
+<span class="sd">        * module: registered with ``register_vectorizer`` in Python modules</span>
+
+<span class="sd">        * configured: registered at instance create time in</span>
+<span class="sd">                      ``configured_vectorizers``</span>
+
+<span class="sd">    Instances of this class act like a :class:`dict` of all registered</span>
+<span class="sd">    vectorizers.  This includes both module and configured vectorizers.  The</span>
+<span class="sd">    keys are the ``feature_id``s and values are the contained vectorizers.</span>
+
+<span class="sd">    :see: :class:`.EncodableFeatureVectorizer`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ATTR_EXP_META</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;torch_config&#39;</span><span class="p">,</span> <span class="s1">&#39;configured_vectorizers&#39;</span><span class="p">)</span>
+    <span class="n">MANAGER_SEP</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>
+
+    <span class="n">torch_config</span><span class="p">:</span> <span class="n">TorchConfig</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The torch configuration used to encode and decode tensors.&quot;&quot;&quot;</span>
+
+    <span class="n">configured_vectorizers</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;Configuration names of vectorizors to use by this manager.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">manager_set</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_vectorizers_pw</span> <span class="o">=</span> <span class="n">PersistedWork</span><span class="p">(</span><span class="s1">&#39;_vectorizers_pw&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+<div class="viewcode-block" id="FeatureVectorizerManager.transform"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.transform">[docs]</a>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> \
+            <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">EncodableFeatureVectorizer</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return a tuple of duples with the output tensor of a vectorizer and the</span>
+<span class="sd">        vectorizer that created the output.  Every vectorizer listed in</span>
+<span class="sd">        ``feature_ids`` is used.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">vec</span><span class="p">:</span> <span class="p">(</span><span class="n">vec</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">vec</span><span class="p">),</span></div>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">_vectorizers</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_vectorizers_pw&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_vectorizers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FeatureVectorizer</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return a dictionary of all registered vectorizers.  This includes both</span>
+<span class="sd">        module and configured vectorizers.  The keys are the ``feature_id``s</span>
+<span class="sd">        and values are the contained vectorizers.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_vectorizers</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_create_vectorizers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FeatureVectorizer</span><span class="p">]:</span>
+        <span class="n">vectorizers</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="n">feature_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">conf_instances</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">configured_vectorizers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sec</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">configured_vectorizers</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;creating vectorizer </span><span class="si">{</span><span class="n">sec</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">sec</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MANAGER_SEP</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">VectorizerError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s1">&#39;Separator </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">MANAGER_SEP</span><span class="si">}</span><span class="s1"> not &#39;</span> <span class="o">+</span>
+                        <span class="sa">f</span><span class="s1">&#39;allowed in names: </span><span class="si">{</span><span class="n">sec</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="p">(</span><span class="n">sec</span><span class="p">,</span> <span class="n">manager</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+                <span class="n">conf_instances</span><span class="p">[</span><span class="n">vec</span><span class="o">.</span><span class="n">feature_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">vec</span>
+                <span class="n">feature_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">vec</span><span class="o">.</span><span class="n">feature_id</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">feature_id</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">feature_ids</span><span class="p">):</span>
+            <span class="n">inst</span> <span class="o">=</span> <span class="n">conf_instances</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">feature_id</span><span class="p">)</span>
+            <span class="n">vectorizers</span><span class="p">[</span><span class="n">feature_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span>
+        <span class="k">return</span> <span class="n">vectorizers</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_feature_ids&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">feature_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Get the feature ids supported by this manager, which are the keys of the</span>
+<span class="sd">        vectorizer.</span>
+
+<span class="sd">        :see: :class:`.FeatureVectorizerManager`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">frozenset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vectorizers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<div class="viewcode-block" id="FeatureVectorizerManager.get"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FeatureVectorizer</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the feature vectorizer named ``name``.&quot;&quot;&quot;</span>
+        <span class="n">fv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectorizers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="c1"># if we can&#39;t find the vectorizer, try using dot syntax to find it in</span>
+        <span class="c1"># the parent manager set</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">fv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MANAGER_SEP</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager_set</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">mng_name</span><span class="p">,</span> <span class="n">vec</span> <span class="o">=</span> <span class="n">name</span><span class="p">[:</span><span class="n">idx</span><span class="p">],</span> <span class="n">name</span><span class="p">[</span><span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+                <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;looking up </span><span class="si">{</span><span class="n">mng_name</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">vec</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">mng</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager_set</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">mng_name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">mng</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">fv</span> <span class="o">=</span> <span class="n">mng</span><span class="o">.</span><span class="n">_vectorizers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">fv</span>
+<div class="viewcode-block" id="FeatureVectorizerManager.keys"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.keys">[docs]</a>
+    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectorizers</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<div class="viewcode-block" id="FeatureVectorizerManager.values"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.values">[docs]</a>
+    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">FeatureVectorizer</span><span class="p">]:</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectorizers</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<div class="viewcode-block" id="FeatureVectorizerManager.items"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.items">[docs]</a>
+    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FeatureVectorizer</span><span class="p">]]:</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectorizers</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_vectorizers</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FeatureVectorizer</span><span class="p">:</span>
+        <span class="n">fv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">VectorizerError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Manager &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; has no vectorizer: &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fv</span>
+<div class="viewcode-block" id="FeatureVectorizerManager.deallocate"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.deallocate">[docs]</a>
+    <span class="k">def</span> <span class="nf">deallocate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectorizers_pw</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+            <span class="n">vecs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectorizers</span>
+            <span class="k">for</span> <span class="n">vec</span> <span class="ow">in</span> <span class="n">vecs</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">vec</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+            <span class="n">vecs</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+<div class="viewcode-block" id="FeatureVectorizerManager.write"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManager.write">[docs]</a>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">writer</span><span class="p">:</span> <span class="n">TextIOBase</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_line</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">depth</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">vec</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_vectorizers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span></div></div>
+            <span class="n">vec</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FeatureVectorizerManagerSet"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">FeatureVectorizerManagerSet</span><span class="p">(</span><span class="n">ConfigurableVectorization</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A set of managers used collectively to encode and decode a series of</span>
+<span class="sd">    features across many different kinds of data (i.e. labels, language</span>
+<span class="sd">    features, numeric).</span>
+
+<span class="sd">    In the same way a :class:`.FeatureVectorizerManager` acts like a</span>
+<span class="sd">    :class:`dict`, this class is a ``dict`` for</span>
+<span class="sd">    :class:`.FeatureVectorizerManager` instances.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ATTR_EXP_META</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;managers&#39;</span><span class="p">,)</span>
+
+    <span class="n">names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The sections defining :class:`.FeatureVectorizerManager` instances.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_managers_pw</span> <span class="o">=</span> <span class="n">PersistedWork</span><span class="p">(</span><span class="s1">&#39;_managers_pw&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_managers_pw&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_managers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FeatureVectorizerManager</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;All registered vectorizer managers of the manager.&quot;&quot;&quot;</span>
+        <span class="n">mngs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">names</span><span class="p">:</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">manager_set</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="n">mngs</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span>
+        <span class="k">return</span> <span class="n">mngs</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_feature_ids&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">feature_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return all feature IDs supported across all manager registered with the</span>
+<span class="sd">        manager set.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
+            <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">feature_ids</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">())))</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FeatureVectorizerManager</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_managers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+<div class="viewcode-block" id="FeatureVectorizerManagerSet.get"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FeatureVectorizerManager</span><span class="p">:</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_managers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<div class="viewcode-block" id="FeatureVectorizerManagerSet.values"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.values">[docs]</a>
+    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">FeatureVectorizerManager</span><span class="p">]:</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_managers</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<div class="viewcode-block" id="FeatureVectorizerManagerSet.keys"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.keys">[docs]</a>
+    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span></div>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_managers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<div class="viewcode-block" id="FeatureVectorizerManagerSet.deallocate"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.deallocate">[docs]</a>
+    <span class="k">def</span> <span class="nf">deallocate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_managers_pw</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+            <span class="n">mngs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_managers</span>
+            <span class="k">for</span> <span class="n">mng</span> <span class="ow">in</span> <span class="n">mngs</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">mng</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+            <span class="n">mngs</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+<div class="viewcode-block" id="FeatureVectorizerManagerSet.write"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.FeatureVectorizerManagerSet.write">[docs]</a>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">writer</span><span class="p">:</span> <span class="n">TextIOBase</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_line</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">mng</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_managers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span></div></div>
+            <span class="n">mng</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

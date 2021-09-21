@@ -1,0 +1,6 @@
+<map id="inheritance50c3108ca7" name="inheritance50c3108ca7">
+<area shape="rect" id="node1" title="Helper class that provides a standard way to create an ABC using" alt="" coords="41,5,113,31"/>
+<area shape="rect" id="node2" title="All subclasses have the ability to deallocate any resources. &#160;This is useful" alt="" coords="26,79,127,104"/>
+<area shape="rect" id="node3" title="Classes can extend this that want to persist :class:`.PersistableWork`" alt="" coords="5,152,148,177"/>
+<area shape="rect" id="node4" href="#zensols.deeplearn.model.pred.PredictionMapper" target="_top" title="Used by a top level client to create features used to create instances of" alt="" coords="15,225,138,251"/>
+</map>

@@ -1,0 +1,478 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.dataframe package &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="zensols.dataset package" href="zensols.dataset.html" />
+    <link rel="prev" title="API Reference" href="../api.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">zensols.dataframe package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-dataframe-stash">zensols.dataframe.stash</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zensols.dataframe">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataset.html">zensols.dataset package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.html">zensols.deeplearn package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.cli.html">zensols.deeplearn.cli package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+      <li>zensols.dataframe package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/zensols.dataframe.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="zensols-dataframe-package">
+<h1>zensols.dataframe package<a class="headerlink" href="#zensols-dataframe-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="zensols-dataframe-stash">
+<h2>zensols.dataframe.stash<a class="headerlink" href="#zensols-dataframe-stash" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-5c02c9052742021bbc0d5ce377b9895fc5a31848.png" alt="Inheritance diagram of zensols.dataframe.stash" usemap="#inheritancec136185d9f" class="inheritance graphviz" /></div>
+<map id="inheritancec136185d9f" name="inheritancec136185d9f">
+<area shape="rect" id="node14" href="zensols.dataset.html#zensols.dataset.interface.SplitKeyContainer" target="_top" title="An interface defining a container that partitions data sets (i.e. ``train``" alt="" coords="410,225,537,251"/>
+<area shape="rect" id="node5" href="#zensols.dataframe.stash.DataframeError" target="_top" title="Thrown for dataframe stash issues." alt="" coords="555,79,666,104"/>
+<area shape="rect" id="node3" href="#zensols.dataframe.stash.AutoSplitDataframeStash" target="_top" title="Automatically a dataframe in to train, test and validation datasets by" alt="" coords="177,372,348,397"/>
+<area shape="rect" id="node4" href="#zensols.dataframe.stash.SplitKeyDataframeStash" target="_top" title="A stash and split key container that reads from a dataframe." alt="" coords="274,299,441,324"/>
+<area shape="rect" id="node11" href="#zensols.dataframe.stash.DefaultDataframeStash" target="_top" title="A default implementation of :class:`.DataframeSplitStash` that creates the" alt="" coords="373,372,531,397"/>
+<area shape="rect" id="node6" href="#zensols.dataframe.stash.DataframeStash" target="_top" title="A factory stash that uses a Pandas data frame from which to load. &#160;It uses" alt="" coords="225,225,343,251"/>
+</map><span class="target" id="module-zensols.dataframe.stash"></span><p>Stashes that operate on a dataframe, which are useful to common machine
+learning tasks.</p>
+<dl class="py class">
+<dt id="zensols.dataframe.stash.AutoSplitDataframeStash">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.dataframe.stash.</code><code class="sig-name descname">AutoSplitDataframeStash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe_path</span></em>, <em class="sig-param"><span class="n">key_path</span></em>, <em class="sig-param"><span class="n">split_col</span></em>, <em class="sig-param"><span class="n">distribution</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#AutoSplitDataframeStash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.AutoSplitDataframeStash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.dataframe.stash.SplitKeyDataframeStash" title="zensols.dataframe.stash.SplitKeyDataframeStash"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.dataframe.stash.SplitKeyDataframeStash</span></code></a></p>
+<p>Automatically a dataframe in to train, test and validation datasets by
+adding a <code class="xref py py-obj docutils literal notranslate"><span class="pre">split_col</span></code> with the split name.</p>
+<dl class="py method">
+<dt id="zensols.dataframe.stash.AutoSplitDataframeStash.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe_path</span></em>, <em class="sig-param"><span class="n">key_path</span></em>, <em class="sig-param"><span class="n">split_col</span></em>, <em class="sig-param"><span class="n">distribution</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.dataframe.stash.AutoSplitDataframeStash.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.dataframe.stash.AutoSplitDataframeStash.distribution">
+<code class="sig-name descname">distribution</code><em class="property">: Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span></em><a class="headerlink" href="#zensols.dataframe.stash.AutoSplitDataframeStash.distribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>The distribution as a percent across all key splits.  The distribution
+values must add to 1.  The keys must have <code class="docutils literal notranslate"><span class="pre">train</span></code>, <code class="docutils literal notranslate"><span class="pre">test</span></code> and
+<code class="docutils literal notranslate"><span class="pre">validate</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="zensols.dataframe.stash.DataframeError">
+<em class="property">exception </em><code class="sig-prename descclassname">zensols.dataframe.stash.</code><code class="sig-name descname">DataframeError</code><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#DataframeError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.DataframeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.util.html#zensols.util.APIError" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.util.APIError</span></code></a></p>
+<p>Thrown for dataframe stash issues.</p>
+<dl class="py attribute">
+<dt id="zensols.dataframe.stash.DataframeError.__module__">
+<code class="sig-name descname">__module__</code><em class="property"> = 'zensols.dataframe.stash'</em><a class="headerlink" href="#zensols.dataframe.stash.DataframeError.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.dataframe.stash.DataframeStash">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.dataframe.stash.</code><code class="sig-name descname">DataframeStash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#DataframeStash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.DataframeStash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.domain.ReadOnlyStash" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.domain.ReadOnlyStash</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.dealloc.Deallocatable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.dealloc.Deallocatable</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.config.html#zensols.config.writable.Writable" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.config.writable.Writable</span></code></a>, <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.domain.PrimeableStash" title="(in Zensols Utilities v1.6.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.persist.domain.PrimeableStash</span></code></a></p>
+<p>A factory stash that uses a Pandas data frame from which to load.  It uses
+the data frame index as the keys and <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a> as values.  The
+dataframe is usually constructed by reading a file (i.e.CSV) and doing some
+transformation before using it in an implementation of this stash.</p>
+<p>The dataframe created by <code class="xref py py-meth docutils literal notranslate"><span class="pre">_get_dataframe()</span></code> must have a string or
+integer index since keys for all stashes are of type <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>.  The
+index will be mapped to a string if it is an int automatically.</p>
+<dl class="py method">
+<dt id="zensols.dataframe.stash.DataframeStash.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.dataframe.stash.DataframeStash.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataframe.stash.DataframeStash.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#DataframeStash.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.DataframeStash.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all data from the from the stash.</p>
+<p><strong>Important</strong>: Exercise caution with this method, of course.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataframe.stash.DataframeStash.dataframe">
+<em class="property">property </em><code class="sig-name descname">dataframe</code><a class="headerlink" href="#zensols.dataframe.stash.DataframeStash.dataframe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.dataframe.stash.DataframeStash.dataframe_path">
+<code class="sig-name descname">dataframe_path</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)">pathlib.Path</a></em><a class="headerlink" href="#zensols.dataframe.stash.DataframeStash.dataframe_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path to store the pickeled version of the generated dataframe
+created with <code class="xref py py-meth docutils literal notranslate"><span class="pre">_get_dataframe()</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataframe.stash.DataframeStash.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#DataframeStash.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.DataframeStash.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources for this instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataframe.stash.DataframeStash.exists">
+<code class="sig-name descname">exists</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#DataframeStash.exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.DataframeStash.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return <code class="docutils literal notranslate"><span class="pre">True</span></code> if data with key <code class="docutils literal notranslate"><span class="pre">name</span></code> exists.</p>
+<p><strong>Implementation note</strong>: This <code class="xref py py-meth docutils literal notranslate"><span class="pre">Stash.exists()</span></code> method is very
+inefficient and should be overriden.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataframe.stash.DataframeStash.keys">
+<code class="sig-name descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#DataframeStash.keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.DataframeStash.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterable of keys in the collection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataframe.stash.DataframeStash.load">
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#DataframeStash.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.DataframeStash.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a data value from the pickled data with key <code class="docutils literal notranslate"><span class="pre">name</span></code>.  Semantically,
+this method loads the using the stash’s implementation.  For example
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DirectoryStash</span></code> loads the data from a file if it exists, but
+factory type stashes will always re-generate the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataframe.stash.DataframeStash.prime">
+<code class="sig-name descname">prime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#DataframeStash.prime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.DataframeStash.prime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataframe.stash.DataframeStash.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#DataframeStash.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.DataframeStash.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the contents of this instance to <code class="docutils literal notranslate"><span class="pre">writer</span></code> using indention <code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the starting indentation depth</p></li>
+<li><p><strong>writer</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOBase" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a>) – the writer to dump the content of this writable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.dataframe.stash.DefaultDataframeStash">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.dataframe.stash.</code><code class="sig-name descname">DefaultDataframeStash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe_path</span></em>, <em class="sig-param"><span class="n">key_path</span></em>, <em class="sig-param"><span class="n">split_col</span></em>, <em class="sig-param"><span class="n">input_csv_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#DefaultDataframeStash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.DefaultDataframeStash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.dataframe.stash.SplitKeyDataframeStash" title="zensols.dataframe.stash.SplitKeyDataframeStash"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.dataframe.stash.SplitKeyDataframeStash</span></code></a></p>
+<p>A default implementation of <code class="xref py py-class docutils literal notranslate"><span class="pre">DataframeSplitStash</span></code> that creates the
+Pandas dataframe by simply reading it from a specificed CSV file.  The
+index is a string type appropriate for a stash.</p>
+<dl class="py method">
+<dt id="zensols.dataframe.stash.DefaultDataframeStash.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe_path</span></em>, <em class="sig-param"><span class="n">key_path</span></em>, <em class="sig-param"><span class="n">split_col</span></em>, <em class="sig-param"><span class="n">input_csv_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.dataframe.stash.DefaultDataframeStash.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.dataframe.stash.DefaultDataframeStash.input_csv_path">
+<code class="sig-name descname">input_csv_path</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)">pathlib.Path</a></em><a class="headerlink" href="#zensols.dataframe.stash.DefaultDataframeStash.input_csv_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>A path to the CSV of the source data.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.dataframe.stash.SplitKeyDataframeStash">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.dataframe.stash.</code><code class="sig-name descname">SplitKeyDataframeStash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe_path</span></em>, <em class="sig-param"><span class="n">key_path</span></em>, <em class="sig-param"><span class="n">split_col</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#SplitKeyDataframeStash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.SplitKeyDataframeStash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.dataframe.stash.DataframeStash" title="zensols.dataframe.stash.DataframeStash"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.dataframe.stash.DataframeStash</span></code></a>, <a class="reference internal" href="zensols.dataset.html#zensols.dataset.interface.SplitKeyContainer" title="zensols.dataset.interface.SplitKeyContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.dataset.interface.SplitKeyContainer</span></code></a></p>
+<p>A stash and split key container that reads from a dataframe.</p>
+<dl class="py method">
+<dt id="zensols.dataframe.stash.SplitKeyDataframeStash.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataframe_path</span></em>, <em class="sig-param"><span class="n">key_path</span></em>, <em class="sig-param"><span class="n">split_col</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.dataframe.stash.SplitKeyDataframeStash.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataframe.stash.SplitKeyDataframeStash.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#SplitKeyDataframeStash.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.SplitKeyDataframeStash.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all data from the from the stash.</p>
+<p><strong>Important</strong>: Exercise caution with this method, of course.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataframe.stash.SplitKeyDataframeStash.clear_keys">
+<code class="sig-name descname">clear_keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#SplitKeyDataframeStash.clear_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.SplitKeyDataframeStash.clear_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear only the cache of keys generated from the group by.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataframe.stash.SplitKeyDataframeStash.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#SplitKeyDataframeStash.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.SplitKeyDataframeStash.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources for this instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.dataframe.stash.SplitKeyDataframeStash.key_path">
+<code class="sig-name descname">key_path</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.9)">pathlib.Path</a></em><a class="headerlink" href="#zensols.dataframe.stash.SplitKeyDataframeStash.key_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path where the key splits (as a <code class="docutils literal notranslate"><span class="pre">dict</span></code>) is pickled.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.dataframe.stash.SplitKeyDataframeStash.split_col">
+<code class="sig-name descname">split_col</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.dataframe.stash.SplitKeyDataframeStash.split_col" title="Permalink to this definition">¶</a></dt>
+<dd><p>The column name in the dataframe used to indicate the split
+(i.e. <code class="docutils literal notranslate"><span class="pre">train</span></code> vs <code class="docutils literal notranslate"><span class="pre">test</span></code>).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.dataframe.stash.SplitKeyDataframeStash.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">depth=0</em>, <em class="sig-param">writer=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='utf-8'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/dataframe/stash.html#SplitKeyDataframeStash.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.dataframe.stash.SplitKeyDataframeStash.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the contents of this instance to <code class="docutils literal notranslate"><span class="pre">writer</span></code> using indention <code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the starting indentation depth</p></li>
+<li><p><strong>writer</strong> (<a class="reference external" href="https://docs.python.org/3/library/io.html#io.TextIOBase" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextIOBase</span></code></a>) – the writer to dump the content of this writable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-zensols.dataframe">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zensols.dataframe" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="zensols.dataset.html" class="btn btn-neutral float-right" title="zensols.dataset package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../api.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

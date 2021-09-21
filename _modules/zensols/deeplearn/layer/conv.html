@@ -1,0 +1,535 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.layer.conv &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../layer.html">zensols.deeplearn.layer</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.layer.conv</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.layer.conv</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Convolution network creation utilities.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span><span class="p">,</span> <span class="n">ABCMeta</span>
+<span class="kn">import</span> <span class="nn">copy</span> <span class="k">as</span> <span class="nn">cp</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">LayerError</span>
+
+
+<div class="viewcode-block" id="Flattenable"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.Flattenable">[docs]</a><span class="k">class</span> <span class="nc">Flattenable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A class with a :obj:`flatten_dim` and :obj:`out_shape` properties.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">out_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return the shape of the layer after flattened in to one dimension.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">flatten_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the number or neurons of the layer after flattening in to one</span>
+<span class="sd">        dimension.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_shape</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sup</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sup</span><span class="si">}</span><span class="s1">, out: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_shape</span><span class="si">}</span><span class="s1">&#39;</span></div>
+
+
+<div class="viewcode-block" id="Im2DimCalculator"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.Im2DimCalculator">[docs]</a><span class="k">class</span> <span class="nc">Im2DimCalculator</span><span class="p">(</span><span class="n">Flattenable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convolution matrix dimension calculation utility.</span>
+
+<span class="sd">    Implementation as Matrix Multiplication section.</span>
+
+<span class="sd">    Example (im2col)::</span>
+<span class="sd">      W_in = H_in = 227</span>
+<span class="sd">      Ch_in = D_in = 3</span>
+<span class="sd">      Ch_out = D_out = 3</span>
+<span class="sd">      K = 96</span>
+<span class="sd">      F = (11, 11)</span>
+<span class="sd">      S = 4</span>
+<span class="sd">      P = 0</span>
+<span class="sd">      W_out = H_out = 227 - 11 + (2 * 0) / 4 = 55 output locations</span>
+<span class="sd">      X_col = Fw^2 * D_out x W_out * H_out = 11^2 * 3 x 55 * 55 = 363 x 3025</span>
+
+<span class="sd">    Example (im2row)::</span>
+<span class="sd">      W_row = 96 filters of size 11 x 11 x 3 =&gt; K x 11 * 11 * 3 = 96 x 363</span>
+
+<span class="sd">    Result of convolution: transpose(W_row) dot X_col.  Must reshape back to 55</span>
+<span class="sd">    x 55 x 96</span>
+
+<span class="sd">    :see: `Stanford &lt;http://cs231n.github.io/convolutional-networks/#conv&gt;`_</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Im2DimCalculator.__init__"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.Im2DimCalculator.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">W</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">H</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">D</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">K</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                 <span class="n">F</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">S</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">P</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize.</span>
+
+<span class="sd">        :param W: width</span>
+
+<span class="sd">        :param H: height</span>
+
+<span class="sd">        :param D: depth [of volume] (usually same as K)</span>
+
+<span class="sd">        :param K: number of filters</span>
+
+<span class="sd">        :param F: tuple of kernel/filter (width, height)</span>
+
+<span class="sd">        :param S: stride</span>
+
+<span class="sd">        :param P: padding</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="n">W</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">=</span> <span class="n">H</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="n">D</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">K</span> <span class="o">=</span> <span class="n">K</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">F</span> <span class="o">=</span> <span class="n">F</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">S</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="n">P</span></div>
+
+<div class="viewcode-block" id="Im2DimCalculator.validate"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.Im2DimCalculator.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">S</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">W</span> <span class="o">-</span> <span class="n">F</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">P</span><span class="p">))</span> <span class="o">%</span> <span class="n">S</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">LayerError</span><span class="p">(</span><span class="s1">&#39;Incongruous convolution width layer parameters&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">H</span> <span class="o">-</span> <span class="n">F</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">P</span><span class="p">))</span> <span class="o">%</span> <span class="n">S</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">LayerError</span><span class="p">(</span><span class="s1">&#39;Incongruous convolution height layer parameters&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">F</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">W</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">P</span><span class="p">))):</span>
+            <span class="k">raise</span> <span class="n">LayerError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Kernel/filter </span><span class="si">{</span><span class="n">F</span><span class="si">}</span><span class="s1"> must be &lt;= width </span><span class="si">{</span><span class="n">W</span><span class="si">}</span><span class="s1"> + 2 * padding </span><span class="si">{</span><span class="n">P</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">F</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">H</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">P</span><span class="p">))):</span>
+            <span class="k">raise</span> <span class="n">LayerError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Kernel/filter </span><span class="si">{</span><span class="n">F</span><span class="si">}</span><span class="s1"> must be &lt;= height </span><span class="si">{</span><span class="n">H</span><span class="si">}</span><span class="s1"> + 2 * padding </span><span class="si">{</span><span class="n">P</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_col</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="n">LayerError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Columns of W_row </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">W_row</span><span class="si">}</span><span class="s1"> do not match &#39;</span> <span class="o">+</span>
+                             <span class="sa">f</span><span class="s1">&#39;rows of X_col </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">X_col</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">W_out</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(((</span><span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">))</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">H_out</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(((</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">))</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">X_col</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO: not supported for non-square filters</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_out</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_out</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">W_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO: not supported for non-square filters</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">K</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">D</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">out_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">K</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_out</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_out</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Im2DimCalculator.flatten"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.Im2DimCalculator.flatten">[docs]</a>    <span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">fd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flatten_dim</span>
+        <span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">fd</span><span class="p">)</span> <span class="k">if</span> <span class="n">axis</span> <span class="k">else</span> <span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">F</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">D</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">attrs</span> <span class="o">=</span> <span class="s1">&#39;W H D K F S P W_out H_out W_row X_col out_shape&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">=</span><span class="si">{</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ConvolutionLayerFactory"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.ConvolutionLayerFactory">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">ConvolutionLayerFactory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create convolution layers.  Each attribute maps a corresponding attribuate</span>
+<span class="sd">    variable in :class:`.Im2DimCalculator`, which documented in the parenthesis</span>
+<span class="sd">    in the parameter documentation below.</span>
+
+<span class="sd">    :param width: the width of the image/data (``W``)</span>
+
+<span class="sd">    :param height: the height of the image/data (``H``)</span>
+
+<span class="sd">    :param depth: the volume, which is usually same as ``n_filters`` (``D``)</span>
+
+<span class="sd">    :param n_filters: the number of filters, aka the filter depth/volume</span>
+<span class="sd">                      (``K``)</span>
+
+<span class="sd">    :param kernel_filter: the kernel filter dimension in width X height (``F``)</span>
+
+<span class="sd">    :param stride: the stride, which is the number of cells to skip for each</span>
+<span class="sd">                   convolution (``S``)</span>
+
+<span class="sd">    :param padding: the zero&#39;d number of cells on the ends of the image/data</span>
+<span class="sd">                    (``P``)</span>
+
+<span class="sd">    :see: `Stanford &lt;http://cs231n.github.io/convolutional-networks/#conv&gt;`_</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">n_filters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">kernel_filter</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">stride</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">padding</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">calc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Im2DimCalculator</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Im2DimCalculator</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>
+            <span class="s1">&#39;W&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+            <span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+            <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span>
+            <span class="s1">&#39;K&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span><span class="p">,</span>
+            <span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_filter</span><span class="p">,</span>
+            <span class="s1">&#39;S&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+            <span class="s1">&#39;P&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">})</span>
+
+<div class="viewcode-block" id="ConvolutionLayerFactory.copy_calc"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.copy_calc">[docs]</a>    <span class="k">def</span> <span class="nf">copy_calc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">:</span> <span class="n">Im2DimCalculator</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">W</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">H</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">D</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_filters</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">K</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_filter</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">F</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">S</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">P</span></div>
+
+<div class="viewcode-block" id="ConvolutionLayerFactory.flatten"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.flatten">[docs]</a>    <span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a new flattened instance of this class.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+        <span class="n">calc</span> <span class="o">=</span> <span class="n">clone</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">copy_calc</span><span class="p">(</span><span class="n">calc</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clone</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">flatten_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the dimension of a flattened array of the convolution layer</span>
+<span class="sd">        represented by this instance.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">flatten_dim</span>
+
+<div class="viewcode-block" id="ConvolutionLayerFactory.clone"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a clone of this factory instance.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">clone</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clone</span></div>
+
+<div class="viewcode-block" id="ConvolutionLayerFactory.conv1d"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.conv1d">[docs]</a>    <span class="k">def</span> <span class="nf">conv1d</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a convolution layer in one dimension.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">D</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">K</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">S</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConvolutionLayerFactory.conv2d"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.conv2d">[docs]</a>    <span class="k">def</span> <span class="nf">conv2d</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a convolution layer in two dimensions.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">D</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">K</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">S</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ConvolutionLayerFactory.batch_norm2d"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.batch_norm2d">[docs]</a>    <span class="k">def</span> <span class="nf">batch_norm2d</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a 2D batch normalization layer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">K</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calc</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PoolFactory"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.PoolFactory">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">PoolFactory</span><span class="p">(</span><span class="n">Flattenable</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a 2D max pool and output it&#39;s shape.</span>
+
+<span class="sd">    :see: `Stanford &lt;https://cs231n.github.io/convolutional-networks/#pool&gt;`_</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">layer_factory</span><span class="p">:</span> <span class="n">ConvolutionLayerFactory</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">stride</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">padding</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_calc_out_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="PoolFactory.create_pool"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.PoolFactory.create_pool">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">create_pool</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+        <span class="k">pass</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">out_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the dimensions for a max pooling filter and creates a layer.</span>
+
+<span class="sd">        :param F: the spacial extent (kernel filter)</span>
+
+<span class="sd">        :param S: the stride</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_out_shape</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return the pooling layer.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_pool</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MaxPool1dFactory"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.MaxPool1dFactory">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">MaxPool1dFactory</span><span class="p">(</span><span class="n">PoolFactory</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a 1D max pool and output it&#39;s shape.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kernel_filter</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;The filter used for max pooling.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_calc_out_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="n">calc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_factory</span><span class="o">.</span><span class="n">calc</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">flatten_dim</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_filter</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span>
+        <span class="n">Lo</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((((</span><span class="n">L</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">P</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">F</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="n">S</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">Lo</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MaxPool1dFactory.create_pool"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.MaxPool1dFactory.create_pool">[docs]</a>    <span class="k">def</span> <span class="nf">create_pool</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool1d</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_filter</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MaxPool2dFactory"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.MaxPool2dFactory">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">MaxPool2dFactory</span><span class="p">(</span><span class="n">PoolFactory</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a 2D max pool and output it&#39;s shape.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kernel_filter</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="sd">&quot;&quot;&quot;The filter used for max pooling.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_calc_out_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="n">calc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_factory</span><span class="o">.</span><span class="n">calc</span>
+        <span class="n">K</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">out_shape</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_filter</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span>
+        <span class="n">W_2</span> <span class="o">=</span> <span class="p">((</span><span class="n">W</span> <span class="o">-</span> <span class="n">F</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">P</span><span class="p">))</span> <span class="o">/</span> <span class="n">S</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">H_2</span> <span class="o">=</span> <span class="p">((</span><span class="n">H</span> <span class="o">-</span> <span class="n">F</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">P</span><span class="p">))</span> <span class="o">/</span> <span class="n">S</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">W_2</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">H_2</span><span class="p">))</span>
+
+<div class="viewcode-block" id="MaxPool2dFactory.create_pool"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.conv.MaxPool2dFactory.create_pool">[docs]</a>    <span class="k">def</span> <span class="nf">create_pool</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_filter</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

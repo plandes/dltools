@@ -1,0 +1,566 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Pre-Processing Data &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Results" href="results.html" />
+    <link rel="prev" title="Model" href="model.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">Model</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pre-Processing Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-file">Configuration File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-as-a-pandas-data-frame">Data as a Pandas Data Frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vectorizers">Vectorizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#processing-data-points">Processing Data Points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#batches">Batches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#batch-stash">Batch Stash</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Pre-Processing Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/doc/preprocess.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pre-processing-data">
+<h1>Pre-Processing Data<a class="headerlink" href="#pre-processing-data" title="Permalink to this headline">¶</a></h1>
+<p>Processing the raw data in your application’s data set to creation of the
+batches is a pre-process set that happens before the model is trained.
+Everything in <a class="reference external" href="https://pytorch.org">PyTorch</a> is done with tensors, so we first must be able to
+process the data in to some numeric form.  The framework uses the <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.domain.Stash">Stash</a>
+instances to create and later retrieve data since they allow an easy way to
+index all data points with a unique key.  After the data is processed across
+each instance, all data is then vectorized in to <em>batches</em>, which contain a
+grouping of data and used as mini-batches.</p>
+<div class="section" id="configuration-file">
+<h2>Configuration File<a class="headerlink" href="#configuration-file" title="Permalink to this headline">¶</a></h2>
+<p>Please first read the <a class="reference external" href="https://plandes.github.io/util/doc/config.html#configuration-factory">configuration factory</a> documentation as they are tightly
+integrated with this framework.  We’ll start our configuration file with
+defining locations of the data set, where to store temporary and result files:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[default]</span>
+<span class="na">root_dir</span> <span class="o">=</span> <span class="s">${env:app_root}</span>
+<span class="na">test_resources</span> <span class="o">=</span> <span class="s">${root_dir}/test-resources/iris</span>
+<span class="na">temporary_dir</span> <span class="o">=</span> <span class="s">${root_dir}/target/iris</span>
+<span class="na">temporary_batch_dir</span> <span class="o">=</span> <span class="s">${temporary_dir}/batch</span>
+<span class="na">results_dir</span> <span class="o">=</span> <span class="s">${temporary_dir}/results</span>
+</pre></div>
+</div>
+<p>Next we’ll add two instances of a <a class="reference external" href="../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig">TorchConfig</a>, which help with allocating
+<a class="reference external" href="https://pytorch.org">PyTorch</a> resources:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[torch_config]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">zensols.deeplearn.TorchConfig</span>
+<span class="na">use_gpu</span> <span class="o">=</span> <span class="s">False</span>
+<span class="na">data_type</span> <span class="o">=</span> <span class="s">eval({&#39;import&#39;: [&#39;torch&#39;]}): torch.float32</span>
+
+<span class="k">[gpu_torch_config]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">zensols.deeplearn.TorchConfig</span>
+<span class="na">use_gpu</span> <span class="o">=</span> <span class="s">True</span>
+<span class="na">data_type</span> <span class="o">=</span> <span class="s">eval({&#39;import&#39;: [&#39;torch&#39;]}): torch.float32</span>
+</pre></div>
+</div>
+<p>which defines a CPU based configuration used for creating
+batches.  The GPU based configuration will be used for creating tensors in the
+GPU device.  Both default to creating tensors of type 32-bit floats.</p>
+</div>
+<div class="section" id="data-as-a-pandas-data-frame">
+<h2>Data as a Pandas Data Frame<a class="headerlink" href="#data-as-a-pandas-data-frame" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://github.com/plandes/deeplearn/blob/master/test/python/iris/model.py">Iris example</a> dataset comes as a CSV file, so we can use the framework’s
+<a class="reference external" href="https://pandas.pydata.org">Pandas</a> class <a class="reference external" href="../api/zensols.dataframe.html#zensols.dataframe.stash.DefaultDataframeStash">DefaultDataframeStash</a>, which we can use to create instances of
+<a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.DataPoint">DataPoint</a> directly:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[dataset_stash]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">zensols.dataframe.DefaultDataframeStash</span>
+<span class="na">dataframe_path</span> <span class="o">=</span> <span class="s">path: ${default:temporary_dir}/df.dat</span>
+<span class="na">key_path</span> <span class="o">=</span> <span class="s">path: ${default:temporary_dir}/keys.dat</span>
+<span class="na">split_col</span> <span class="o">=</span> <span class="s">ds_type</span>
+<span class="na">input_csv_path</span> <span class="o">=</span> <span class="s">path: ${default:test_resources}/iris.csv</span>
+</pre></div>
+</div>
+<p>This creates an <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.domain.Stash">Stash</a> instance that pre-processes data from a CSV file found
+at <code class="docutils literal notranslate"><span class="pre">input_csv_path</span></code> in a ready to use format and pickles it in a file at
+<code class="docutils literal notranslate"><span class="pre">dataframe_path</span></code>, which we’ve defined to be in our temporary file space as a
+file system level caching strategy.  If the directory doesn’t exist, it will
+create it.</p>
+<p>The <a class="reference external" href="../api/zensols.dataframe.html#zensols.dataframe.stash.DefaultDataframeStash">DefaultDataframeStash</a> needs a column to indicate to which data set the
+respective point belongs.  A column called <code class="docutils literal notranslate"><span class="pre">ds_type</span></code> was added to <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/iris">Iris data
+set</a> in this repository for this reason.  The <code class="docutils literal notranslate"><span class="pre">split_col</span></code> is given this column
+to create a set of keys for each data set for fast retrieval and access.  The
+key splits (list of keys for each split) are pickled in the <code class="docutils literal notranslate"><span class="pre">key_path</span></code></p>
+<p>Next we create a <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.domain.Stash">Stash</a> that create a new and separate stash for each data
+set:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[dataset_split_stash]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">zensols.dataset.DatasetSplitStash</span>
+<span class="na">delegate</span> <span class="o">=</span> <span class="s">instance: dataset_stash</span>
+<span class="na">split_container</span> <span class="o">=</span> <span class="s">instance: dataset_stash</span>
+</pre></div>
+</div>
+<p>The <a class="reference external" href="../api/zensols.dataset.html#zensols.dataset.stash.DatasetSplitStash">DatasetSplitStash</a> has a <a class="reference external" href="../api/zensols.dataset.html?highlight=datasetsplitstash#zensols.dataset.interface.SplitStashContainer.splits">splits method</a> that returns a dictionary of
+string split name to data set based on the key splits we defined earlier.  In
+this case, we set both the <code class="docutils literal notranslate"><span class="pre">delegate</span></code>, which is the stash to use the data, and
+the <code class="docutils literal notranslate"><span class="pre">split_container</span></code> as the <a class="reference external" href="../api/zensols.dataset.html#zensols.dataset.interface.SplitStashContainer">SplitStashContainer</a> since
+<a class="reference external" href="../api/zensols.dataframe.html#zensols.dataframe.stash.DefaultDataframeStash">DefaultDataframeStash</a> serves both these purposes.  Note that for non-data
+frame containers, this step of defining the resources need to be configured
+with care.</p>
+<p>Now let’s access the data and test the data set split behavior:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zensols.config</span> <span class="kn">import</span> <span class="n">ExtendedInterpolationEnvConfig</span> <span class="k">as</span> <span class="n">AppConfig</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zensols.config</span> <span class="kn">import</span> <span class="n">ImportConfigFactory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">AppConfig</span><span class="p">(</span><span class="s1">&#39;test-resources/iris/iris.conf&#39;</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;app_root&#39;</span><span class="p">:</span> <span class="s1">&#39;.&#39;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fac</span> <span class="o">=</span> <span class="n">ImportConfigFactory</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stash</span> <span class="o">=</span> <span class="n">fac</span><span class="p">(</span><span class="s1">&#39;dataset_split_stash&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">stash</span><span class="p">)</span>
+<span class="go">150</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">train</span> <span class="o">=</span> <span class="n">stash</span><span class="o">.</span><span class="n">splits</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">)</span>
+<span class="go">113</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">stash</span><span class="o">.</span><span class="n">splits</span><span class="p">[</span><span class="s1">&#39;dev&#39;</span><span class="p">])</span>
+<span class="go">12</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">stash</span><span class="o">.</span><span class="n">splits</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">])</span>
+<span class="go">25</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stash</span><span class="o">.</span><span class="n">splits</span><span class="p">[</span><span class="s1">&#39;dev&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">(&#39;32&#39;, &#39;34&#39;, &#39;60&#39;, &#39;80&#39;, &#39;82&#39;, &#39;124&#39;, &#39;127&#39;, &#39;129&#39;, &#39;130&#39;, &#39;136&#39;, &#39;143&#39;, &#39;144&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">row</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">stash</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="go">&lt;class &#39;pandas.core.series.Series&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">row</span>
+<span class="go">sepal_length       5.2</span>
+<span class="go">sepal_width        4.1</span>
+<span class="go">petal_length       1.5</span>
+<span class="go">petal_width        0.1</span>
+<span class="go">species         setosa</span>
+<span class="go">ds_type            dev</span>
+<span class="go">Name: 32, dtype: object</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="vectorizers">
+<h2>Vectorizers<a class="headerlink" href="#vectorizers" title="Permalink to this headline">¶</a></h2>
+<p>Vectorizers are classes that transform a specific kind of data to a <a class="reference external" href="https://pytorch.org">PyTorch</a>
+tensor.  The <a class="reference external" href="../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.domain.FeatureVectorizer">FeatureVectorizer</a> is a base class that provides the <code class="docutils literal notranslate"><span class="pre">transform</span></code>
+method and is used for transform only use cases (much like the fit/transform in
+the <a class="reference external" href="https://scikit-learn.org/stable/">scikit-learn</a> package).  However, an extension is the
+<a class="reference external" href="../api/zensols.deeplearn.vectorize.html#zensols.deeplearn.vectorize.manager.EncodableFeatureVectorizer">EncodableFeatureVectorizer</a>, which transforms as a two step process:</p>
+<ul class="simple">
+<li><p>encoding: outputs an intermediate picklable format,</p></li>
+<li><p>decoding: transforms the output of the encoding as a tensor.</p></li>
+</ul>
+<p>As we’ll see later, vectorizers are used to encode data in a compact format
+that is quick to read and pickled to the file system for each data set.  During
+training, this data is read back from the file system and transformed in to
+tensors, usually going straight to the GPU.  In many cases, the tensors are
+persisted directly to the file system, but this is up to the discretion of the
+vectorizer.</p>
+<p>Each vectorizer is configured as being a member of a vectorizer manager, and
+vectorizer managers are configured in vectorizer manager sets.  The class
+itself is vectorized and typically a member of its own vectorizer manager with
+the features each a separate vectorizer manager.  For the Iris application, we
+have the following label vectorizer:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[label_vectorizer]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">zensols.deeplearn.vectorize.OneHotEncodedEncodableFeatureVectorizer</span>
+<span class="na">categories</span> <span class="o">=</span> <span class="s">eval: [&#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39;]</span>
+<span class="na">feature_id</span> <span class="o">=</span> <span class="s">ilabel</span>
+</pre></div>
+</div>
+<p>which provides a vectorizer that outputs one-hot encoded vectors for the three
+types of Iris flowers.  When creating batches, the output shape will be
+<code class="docutils literal notranslate"><span class="pre">(batches,</span> <span class="pre">1)</span></code>.  Next we create a vectorizer that decodes features
+directly from the row features of the data frame:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[series_vectorizer]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">zensols.deeplearn.vectorize.SeriesEncodableFeatureVectorizer</span>
+<span class="na">feature_id</span> <span class="o">=</span> <span class="s">iseries</span>
+</pre></div>
+</div>
+<p>Finally we create the vectorizer manager and the set it belongs to:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[iris_vectorizer_manager]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">zensols.deeplearn.vectorize.FeatureVectorizerManager</span>
+<span class="na">torch_config</span> <span class="o">=</span> <span class="s">instance: torch_config</span>
+<span class="na">configured_vectorizers</span> <span class="o">=</span> <span class="s">eval: &#39;label_vectorizer series_vectorizer&#39;.split()</span>
+
+<span class="k">[vectorizer_manager_set]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">zensols.deeplearn.vectorize.FeatureVectorizerManagerSet</span>
+<span class="na">names</span> <span class="o">=</span> <span class="s">eval: &#39;iris_vectorizer_manager&#39;.split()</span>
+</pre></div>
+</div>
+<p>where we provide the CPU based <code class="docutils literal notranslate"><span class="pre">torch_config</span></code> used to generate the encoded
+tensors when persisting to the file system.  Given our application is so
+simple, we use only one vectorizer manager for labels and features.</p>
+<p>See the documentation on the <a class="reference external" href="#vectorizers">list of vectorizers</a>.</p>
+</div>
+<div class="section" id="processing-data-points">
+<h2>Processing Data Points<a class="headerlink" href="#processing-data-points" title="Permalink to this headline">¶</a></h2>
+<p>Each observation is called a <em>data point</em> in the framework and extends from
+<a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.DataPoint">DataPoint</a>.  Your application must extend this class and define properties and
+attributes that access the data that is to be vectorized.</p>
+<p>For the Iris example, the <a class="reference external" href="https://github.com/plandes/deeplearn/blob/master/test/python/iris/model.py">IrisDataPoint</a> extends the <a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.DataPoint">DataPoint</a> and contains
+a <a class="reference external" href="https://pandas.pydata.org">Pandas</a> row as we saw in the <a class="reference external" href="#data-as-a-pandas-data-frame">previous
+section</a>.  We need to define a class that will be
+instantiated for each data point <a class="reference external" href="https://pandas.pydata.org">Pandas</a> row:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">IrisDataPoint</span><span class="p">(</span><span class="n">DataPoint</span><span class="p">):</span>
+    <span class="n">LABEL_COL</span> <span class="o">=</span> <span class="s1">&#39;species&#39;</span>
+    <span class="n">FLOWER_DIMS</span> <span class="o">=</span> <span class="s1">&#39;sepal_length sepal_width petal_length petal_width&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+    <span class="n">row</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">LABEL_COL</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">flower_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">row</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">FLOWER_DIMS</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="batches">
+<h2>Batches<a class="headerlink" href="#batches" title="Permalink to this headline">¶</a></h2>
+<p>During training, <a class="reference external" href="https://pytorch.org">PyTorch</a> takes mini-batches of data that are groupings of
+occurrences, or <em>data points</em>, which are grouped in to <a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.Batch">Batch</a> instances.  This
+class is responsible for using the vectorizers to encode the data that’s
+pickled to the file system, then read it back and decode it.</p>
+<p>A <a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash">BatchStash</a> is a <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.domain.Stash">Stash</a> that manages instances of [Batches], which includes
+creating them (when not already found on the file system).  Because
+<a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash">BatchStash</a> extends from <a class="reference external" href="https://plandes.github.io/util/api/zensols.multi.html#zensols.multi.stash.MultiProcessStash">MultiProcessStash</a>, this is done across multiple sub
+processes to speed the work up.  By default, the configuration of worker
+processes are based on the number of cores in the system.</p>
+<p>Like the <a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.DataPoint">DataPoint</a>, you’re application needs to extend from <a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.domain.Batch">Batch</a> with data
+properties.  For the Iris example, we define:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">IrisBatch</span><span class="p">(</span><span class="n">Batch</span><span class="p">):</span>
+    <span class="n">MAPPINGS</span> <span class="o">=</span> <span class="n">BatchFeatureMapping</span><span class="p">(</span>
+        <span class="s1">&#39;label&#39;</span><span class="p">,</span>
+        <span class="p">[</span><span class="n">ManagerFeatureMapping</span><span class="p">(</span>
+            <span class="s1">&#39;iris_vectorizer_manager&#39;</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">FieldFeatureMapping</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;ilabel&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+             <span class="n">FieldFeatureMapping</span><span class="p">(</span><span class="s1">&#39;flower_dims&#39;</span><span class="p">,</span> <span class="s1">&#39;iseries&#39;</span><span class="p">)))])</span>
+
+    <span class="k">def</span> <span class="nf">_get_batch_feature_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchFeatureMapping</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">MAPPINGS</span>
+
+    <span class="k">def</span> <span class="nf">get_flower_dimensions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;flower_dims&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The class defines an access method for the features in <code class="docutils literal notranslate"><span class="pre">get_flower_dimensions</span></code>.
+It also defines a metadata mapping.  The <code class="docutils literal notranslate"><span class="pre">label</span></code> string indicates this is the
+attribute name in the batch for labels.  The vectorizer manager for features
+and labels is then given with mappings from attribute name to feature ID.  The
+<code class="docutils literal notranslate"><span class="pre">True</span></code> in the label field mapping indicates it is an aggregate and to use the
+vectorizer on each item in the list, then concatenate the result in to one tensor.</p>
+<p>First let’s define how and where to store the batches as a <a class="reference external" href="https://plandes.github.io/util/api/zensols.persist.html#zensols.persist.domain.Stash">Stash</a>:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[batch_dataset_dir_stash]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">zensols.persist.DirectoryStash</span>
+<span class="na">path</span> <span class="o">=</span> <span class="s">path: ${default:temporary_batch_dir}/data</span>
+</pre></div>
+</div>
+<p>This uses a directory stash that will pickle each batch as a separate file in
+the temporary space <code class="docutils literal notranslate"><span class="pre">data</span></code> directory specified.</p>
+</div>
+<div class="section" id="batch-stash">
+<h2>Batch Stash<a class="headerlink" href="#batch-stash" title="Permalink to this headline">¶</a></h2>
+<p>Next we configure the <a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash">BatchStash</a>, which is responsible for creating each data
+point row from the <a class="reference external" href="https://pandas.pydata.org">Pandas</a> data frame, then <a class="reference external" href="#vectorizers">vectorizing</a> it.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[batch_dataset_stash]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">zensols.deeplearn.batch.BatchStash</span>
+<span class="na">delegate</span> <span class="o">=</span> <span class="s">instance: batch_dataset_dir_stash</span>
+<span class="na">split_stash_container</span> <span class="o">=</span> <span class="s">instance: dataset_stash</span>
+<span class="na">data_point_id_sets_path</span> <span class="o">=</span> <span class="s">path: ${default:temporary_batch_dir}/batch-point-keys.dat</span>
+<span class="na">vectorizer_manager_set</span> <span class="o">=</span> <span class="s">instance: vectorizer_manager_set</span>
+<span class="na">data_point_type</span> <span class="o">=</span> <span class="s">eval({&#39;import&#39;: [&#39;iris.model&#39;]}): iris.model.IrisDataPoint</span>
+<span class="na">batch_type</span> <span class="o">=</span> <span class="s">eval({&#39;import&#39;: [&#39;iris.model&#39;]}): iris.model.IrisBatch</span>
+<span class="na">decoded_attributes</span> <span class="o">=</span> <span class="s">None</span>
+<span class="na">model_torch_config</span> <span class="o">=</span> <span class="s">instance: gpu_torch_config</span>
+<span class="na">chunk_size</span> <span class="o">=</span> <span class="s">0</span>
+<span class="na">workers</span> <span class="o">=</span> <span class="s">0</span>
+<span class="na">batch_size</span> <span class="o">=</span> <span class="s">20</span>
+<span class="na">batch_limit</span> <span class="o">=</span> <span class="s">eval: sys.maxsize</span>
+</pre></div>
+</div>
+<p>There is a lot to unpack in this configuration, so the parameters (options)
+broken down below:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">delegate</span></code>: we refer to the directory stash for backing persistence of the
+batches</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">split_stash_container</span></code>: we’ll reuse the same key splits from the data frame
+based stash</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_point_id_sets_path</span></code>: tells where to store the generated mapping of
+<em>batch</em> to <em>data point</em> keys, which tell us which data points will be encoded
+in to each batch</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vectorizer_manager_set</span></code>: refers to the vectorizer set we defined
+<a class="reference external" href="#vectorizers">previously</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_point_type</span></code>: is a class <a class="reference external" href="#processing-data-points">we defined</a>, which is
+the class that is given the row data in the initializer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">batch_type</span></code>: is the class of the batch, which we defined in the
+<a class="reference external" href="#batches">batches</a> section.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">decoded_attributes</span></code>: a list of feature attributes (i.e. <code class="docutils literal notranslate"><span class="pre">label</span></code> or
+<code class="docutils literal notranslate"><span class="pre">flower_dims</span></code>) to fetch from the batch.  If <code class="docutils literal notranslate"><span class="pre">None</span></code> is given, all are used,
+which is our case.  Identifying only certain features can speed up batch
+reads from the file system by leaving out those not needed for the model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model_torch_config</span></code>: is the instance of the <a class="reference external" href="../api/zensols.deeplearn.html#zensols.deeplearn.torchconfig.TorchConfig">TorchConfig</a> to use to decode,
+which has to be in sync with model (this instance reference will pop up other
+places as well)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chunk_size</span></code>: the number of chunks for each process or <code class="docutils literal notranslate"><span class="pre">0</span></code> to optimize (see
+<a class="reference external" href="https://plandes.github.io/util/api/zensols.multi.html#zensols.multi.stash.MultiProcessStash">MultiProcessStash</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">workers</span></code>: the number of worker processes or <code class="docutils literal notranslate"><span class="pre">0</span></code> to optimize (see <a class="reference external" href="https://plandes.github.io/util/api/zensols.multi.html#zensols.multi.stash.MultiProcessStash">MultiProcessStash</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">batch_size</span></code>: the max number of data points for each batch</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">batch_limit</span></code>: the max number of batches to create (handy for debugging).</p></li>
+</ul>
+<p>When you first use the <a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash">BatchStash</a> instance, it will look to see if the
+directory specified in the <code class="docutils literal notranslate"><span class="pre">batch_dataset_dir_stash</span></code> stash exists.  When it
+finds it will not, it will spawn multiple processes each created a set of
+batches on the file system.  Let’s explore what’s in the batch we defined:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zensols.config</span> <span class="kn">import</span> <span class="n">ExtendedInterpolationEnvConfig</span> <span class="k">as</span> <span class="n">AppConfig</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zensols.config</span> <span class="kn">import</span> <span class="n">ImportConfigFactory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">AppConfig</span><span class="p">(</span><span class="s1">&#39;test-resources/iris/iris.conf&#39;</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;app_root&#39;</span><span class="p">:</span> <span class="s1">&#39;.&#39;</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fac</span> <span class="o">=</span> <span class="n">ImportConfigFactory</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stash</span> <span class="o">=</span> <span class="n">fac</span><span class="p">(</span><span class="s1">&#39;batch_dataset_stash&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">tuple</span><span class="p">(</span><span class="n">stash</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">(&#39;7&#39;, &#39;4&#39;, &#39;0&#39;, &#39;2&#39;, &#39;3&#39;, &#39;1&#39;, &#39;5&#39;, &#39;8&#39;, &#39;6&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">stash</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+<span class="go">20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+<span class="go">IrisBatch</span>
+<span class="go">    size: 20</span>
+<span class="go">        label: torch.Size([20, 3])</span>
+<span class="go">        flower_dims: torch.Size([20, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">(&#39;label&#39;, &#39;flower_dims&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([20, 3])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;flower_dims&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([20, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+<span class="go">tensor([[0., 0., 1.],</span>
+<span class="go">        ...</span>
+<span class="go">        [0., 0., 1.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;flower_dims&#39;</span><span class="p">]</span>
+<span class="go">tensor([[6.3000, 2.9000, 5.6000, 1.8000],</span>
+<span class="go">        ...</span>
+<span class="go">        [7.7000, 2.8000, 6.7000, 2.0000]])</span>
+</pre></div>
+</div>
+<p>Finally, we define a split stash as we did for the data frame based stash.
+This is necessary so later the model trainer can produce a training, validation
+and test data set to train and test the model.</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[iris_dataset_stash]</span>
+<span class="na">class_name</span> <span class="o">=</span> <span class="s">zensols.dataset.SortedDatasetSplitStash</span>
+<span class="na">delegate</span> <span class="o">=</span> <span class="s">instance: batch_dataset_stash</span>
+<span class="na">split_container</span> <span class="o">=</span> <span class="s">instance: batch_dataset_stash</span>
+<span class="na">sort_function</span> <span class="o">=</span> <span class="s">eval: int</span>
+</pre></div>
+</div>
+<p>Here we define a <a class="reference external" href="../api/zensols.dataset.html#zensols.dataset.stash.SortedDatasetSplitStash">SortedDatasetSplitStash</a> instance to keep the data sorted.
+In our case, it doesn’t matter our data is already in a random order, so when
+keys are assigned the order is maintained exactly as it was before.  This
+guarantees that same order is kept.  We could have also used a
+<a class="reference external" href="../api/zensols.dataset.html#zensols.dataset.stash.DatasetSplitStash">DatasetSplitStash</a>, which would still keep an order to the data, just not one
+that returns the data in ascending order by key.</p>
+<p>The <a class="reference external" href="../api/zensols.deeplearn.batch.html#zensols.deeplearn.batch.stash.BatchStash">BatchStash</a> extends <a class="reference external" href="../api/zensols.dataset.html#zensols.dataset.interface.SplitStashContainer">SplitStashContainer</a> and delegates that functionality
+to the <code class="docutils literal notranslate"><span class="pre">split_stash_container</span></code> instance.  For this reason, both the
+<code class="docutils literal notranslate"><span class="pre">split_container</span></code> and <code class="docutils literal notranslate"><span class="pre">delegate</span></code> point to the same instance.  The
+<code class="docutils literal notranslate"><span class="pre">sort_function</span></code> tells the stash to convert keys from strings (which are used as
+keys in all stashes) before sorting.</p>
+<!-- links --></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="results.html" class="btn btn-neutral float-right" title="Results" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="model.html" class="btn btn-neutral float-left" title="Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

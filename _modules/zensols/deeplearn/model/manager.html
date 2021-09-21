@@ -1,0 +1,469 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.model.manager &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.model.manager</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.model.manager</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;A utility class to help with a ``ModelExecutor`` life cycle.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">zensols.util</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">zensols.config</span> <span class="kn">import</span> <span class="n">ConfigFactory</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn</span> <span class="kn">import</span> <span class="n">ModelError</span><span class="p">,</span> <span class="n">TorchConfig</span><span class="p">,</span> <span class="n">NetworkSettings</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">BaseNetworkModule</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ModelManager"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.manager.ModelManager">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">ModelManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This class manages the lifecycle of an instance of a ``ModelExecutor``.</span>
+<span class="sd">    This class is mostly used by the executor to control it&#39;s lifecycle.</span>
+<span class="sd">    However, a client can also use an instance of this to revive a model that&#39;s</span>
+<span class="sd">    been saved to disk with the ``ModelResultManager``</span>
+
+<span class="sd">    :see ModelExecutor:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The path of where the model results saved to disk by</span>
+<span class="sd">    ``ModelResultManager``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">config_factory</span><span class="p">:</span> <span class="n">ConfigFactory</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The configuration factory to be used to create the ``ModelExecutor``.&quot;&quot;&quot;</span>
+
+    <span class="n">model_executor_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;The configuration entry and name of the ``ModelExecutor`` instance.&quot;&quot;&quot;</span>
+
+    <span class="n">persist_random_seed_context</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;If ``True`` persist the current random seed state, which helps in creating</span>
+<span class="sd">    consistent results across train/test/validate.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">keep_last_state_dict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot;Whether or not to store the PyTorch module state in attribute</span>
+<span class="sd">    ``last_saved_state_dict``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_paths</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="n">Path</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="s1">&#39;state.pt&#39;</span><span class="p">,</span> <span class="n">path</span> <span class="o">/</span> <span class="s1">&#39;weight.pt&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ModelManager.load_from_path"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.manager.ModelManager.load_from_path">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load_from_path</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Load and return an instance of this class from a previously saved model.</span>
+<span class="sd">        This method exists to recreate a :class:`.ModelManager` from a saved</span>
+<span class="sd">        file from scratch.  The returned model manager can be used to create</span>
+<span class="sd">        the executor or :class:`ModelFacade` using :obj:``config_factory``.</span>
+
+<span class="sd">        :param path: points to the model file persisted with</span>
+<span class="sd">                     :py:meth:`_save_executor`</span>
+
+<span class="sd">        :return: an instance of :class:`.ModelManager` that was used to save</span>
+<span class="sd">                 the executor pointed by ``path``</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">checkpoint</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_load_checkpoint</span><span class="p">(</span><span class="o">*</span><span class="bp">cls</span><span class="o">.</span><span class="n">_get_paths</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;keys: </span><span class="si">{</span><span class="n">checkpoint</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">config_factory</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;config_factory&#39;</span><span class="p">]</span>
+        <span class="n">model_executor_name</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;model_executor_name&#39;</span><span class="p">]</span>
+        <span class="n">persist_random</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;random_seed_context&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">config_factory</span><span class="p">,</span> <span class="n">model_executor_name</span><span class="p">,</span> <span class="n">persist_random</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelManager.load_executor"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.manager.ModelManager.load_executor">[docs]</a>    <span class="k">def</span> <span class="nf">load_executor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Load the model the last saved model from the disk.  This is used load an</span>
+<span class="sd">        instance of a ``ModelExecutor`` with all previous state completely in</span>
+<span class="sd">        tact.  It does this by using an instance of</span>
+<span class="sd">        :class:`zensols.config.factory.Configurable` and a</span>
+<span class="sd">        :class:`zensols.config.factory.ImportConfigFactory` to reconstruct the</span>
+<span class="sd">        executor and it&#39;s state by recreating all instances.</span>
+
+<span class="sd">        After the executor has been recreated with the factory, the previous</span>
+<span class="sd">        model results and model weights are restored.</span>
+
+<span class="sd">        :return: an instance of :class:`zensols.deeplearn.model.ModelExecutor`</span>
+<span class="sd">        :see: :class:`zensols.deeplearn.model.ModelExecutor`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">checkpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_checkpoint</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_random_seed</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">)</span>
+        <span class="n">config_factory</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;config_factory&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;loading config factory: </span><span class="si">{</span><span class="n">config_factory</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># executor: ModelExecutor</span>
+        <span class="n">executor</span> <span class="o">=</span> <span class="n">config_factory</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;model_executor_name&#39;</span><span class="p">])</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">BaseNetworkModule</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_module</span><span class="p">(</span><span class="n">executor</span><span class="o">.</span><span class="n">net_settings</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_optimizer_state</span><span class="p">(</span><span class="n">executor</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">checkpoint</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">executor</span></div>
+
+    <span class="k">def</span> <span class="nf">_load_optimizer_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">executor</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">BaseNetworkModule</span><span class="p">,</span>
+                              <span class="n">checkpoint</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;model_state_dict&#39;</span><span class="p">])</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">_set_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">model_result</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;model_result&#39;</span><span class="p">]</span>
+        <span class="n">criterion</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">criterion_optimizer_scheduler</span>
+        <span class="k">if</span> <span class="s1">&#39;model_scheduler_state_dict&#39;</span> <span class="ow">in</span> <span class="n">checkpoint</span><span class="p">:</span>
+            <span class="n">scheduler_state</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;model_scheduler_state_dict&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scheduler_state</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;model_optim_state_dict&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">scheduler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">scheduler_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scheduler</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">scheduler_state</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;loaded model from </span><span class="si">{</span><span class="n">executor</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1"> &#39;</span> <span class="o">+</span>
+                        <span class="sa">f</span><span class="s1">&#39;on device </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_load_model_optim_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">executor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load the model and optimizer weights from the last check point.  A side</span>
+<span class="sd">        effect is that the optimizer is recreated.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">_get_or_create_model</span><span class="p">()</span>
+        <span class="n">checkpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_checkpoint</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_optimizer_state</span><span class="p">(</span><span class="n">executor</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">checkpoint</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_save_executor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">executor</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save a ``ModelExecutor`` instance.</span>
+
+<span class="sd">        :param executor: the executor to persost to disk</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;saving model state&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">persist_random_seed_context</span><span class="p">:</span>
+            <span class="n">random_seed_context</span> <span class="o">=</span> <span class="n">TorchConfig</span><span class="o">.</span><span class="n">get_random_seed_context</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">random_seed_context</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">criterion</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">criterion_optimizer_scheduler</span>
+        <span class="k">if</span> <span class="n">scheduler</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">scheduler_state</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scheduler_state</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
+        <span class="n">state_dict</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keep_last_state_dict</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_saved_state_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_state_dict</span><span class="p">(</span><span class="n">state_dict</span><span class="p">)</span>
+        <span class="n">checkpoint</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;config_factory&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="p">,</span>
+                      <span class="s1">&#39;random_seed_context&#39;</span><span class="p">:</span> <span class="n">random_seed_context</span><span class="p">,</span>
+                      <span class="s1">&#39;model_executor_name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_executor_name</span><span class="p">,</span>
+                      <span class="s1">&#39;net_settings_name&#39;</span><span class="p">:</span> <span class="n">executor</span><span class="o">.</span><span class="n">net_settings</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                      <span class="s1">&#39;model_result&#39;</span><span class="p">:</span> <span class="n">executor</span><span class="o">.</span><span class="n">model_result</span><span class="p">,</span>
+                      <span class="s1">&#39;model_optim_state_dict&#39;</span><span class="p">:</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span>
+                      <span class="s1">&#39;model_scheduler_state_dict&#39;</span><span class="p">:</span> <span class="n">scheduler_state</span><span class="p">,</span>
+                      <span class="s1">&#39;model_state_dict&#39;</span><span class="p">:</span> <span class="n">state_dict</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_checkpoint</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net_settings</span><span class="p">:</span> <span class="n">NetworkSettings</span><span class="p">,</span>
+                       <span class="n">reload</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseNetworkModule</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Create a new instance of the network model instance.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls_name</span> <span class="o">=</span> <span class="n">net_settings</span><span class="o">.</span><span class="n">get_module_class_name</span><span class="p">()</span>
+        <span class="n">resolver</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="o">.</span><span class="n">class_resolver</span>
+        <span class="n">initial_reload</span> <span class="o">=</span> <span class="n">resolver</span><span class="o">.</span><span class="n">reload</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">resolver</span><span class="o">.</span><span class="n">reload</span> <span class="o">=</span> <span class="n">reload</span>
+            <span class="bp">cls</span> <span class="o">=</span> <span class="n">resolver</span><span class="o">.</span><span class="n">find_class</span><span class="p">(</span><span class="n">cls_name</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">resolver</span><span class="o">.</span><span class="n">reload</span> <span class="o">=</span> <span class="n">initial_reload</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">net_settings</span><span class="p">)</span>
+        <span class="c1"># force the model on the CPU to let the executor manage, otherwise, the</span>
+        <span class="c1"># model could be on the GPU but only certain parameters on the CPU</span>
+        <span class="c1"># after load in `load_model_optim_weights&#39;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;created model </span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s1"> on device: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_copy_state_dict</span><span class="p">(</span><span class="n">state_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Copy the PyTorch module state (weights) and return them as a dict.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">state_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">state_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+
+    <span class="k">def</span> <span class="nf">_set_random_seed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkpoint</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
+        <span class="n">random_seed_context</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;random_seed_context&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">random_seed_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">TorchConfig</span><span class="o">.</span><span class="n">set_random_seed</span><span class="p">(</span><span class="o">**</span><span class="n">random_seed_context</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_save_final_trained_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">executor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the results of the :class:`.ModelResult`, which is typically called</span>
+<span class="sd">        when the validation loss decreases.  Note this does not save the model</span>
+<span class="sd">        weights since doing so might clobber with an overtrained model</span>
+<span class="sd">        (assuming the last converved with the lowest validation loss was</span>
+<span class="sd">        saved).</span>
+
+<span class="sd">        :param executor: the executor with the model results to save</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;updating results: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">checkpoint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_checkpoint</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;model_result&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">model_result</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_checkpoint</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_save_checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkpoint</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">save_weights</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the check point to disk.</span>
+
+<span class="sd">        :param checkpoint: all model state (results, random seed, weights etc)</span>
+
+<span class="sd">        :param save_weights: if ``True`` then save the weights to the weight</span>
+<span class="sd">                             file (in addition to the state to the state file)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state_path</span><span class="p">,</span> <span class="n">weight_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_paths</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="s1">&#39;model_optim_state_dict model_state_dict&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+            <span class="n">wval</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">save_weights</span> <span class="ow">and</span> <span class="n">wval</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;Missing checkpoint key while saving weights: </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">weights</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">wval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">save_weights</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">time</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;saved model weights to </span><span class="si">{</span><span class="n">weight_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">):</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">weight_path</span><span class="p">))</span>
+        <span class="k">with</span> <span class="n">time</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;saved model state to </span><span class="si">{</span><span class="n">state_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">):</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">state_path</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_get_checkpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">load_weights</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;The check point from loaded by the PyTorch framework.  This contains the</span>
+<span class="sd">        executor, model results, and model weights.</span>
+
+<span class="sd">        :param load_weights: if ``True`` load the weights from the weights file</span>
+<span class="sd">                             and add it to the checkpoint state</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state_path</span><span class="p">,</span> <span class="n">weight_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_paths</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">load_weights</span><span class="p">:</span>
+            <span class="n">weight_path</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_checkpoint</span><span class="p">(</span><span class="n">state_path</span><span class="p">,</span> <span class="n">weight_path</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_load_checkpoint</span><span class="p">(</span><span class="n">state_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">weight_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> \
+            <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">state_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;no such state file: </span><span class="si">{</span><span class="n">state_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;loading check point from: </span><span class="si">{</span><span class="n">state_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">time</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;loaded check point from </span><span class="si">{</span><span class="n">state_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">):</span>
+            <span class="n">cp</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">state_path</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">weight_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">weight_path</span><span class="p">))</span>
+            <span class="n">cp</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cp</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

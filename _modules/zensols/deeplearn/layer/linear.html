@@ -1,0 +1,442 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.layer.linear &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../layer.html">zensols.deeplearn.layer</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.layer.linear</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.layer.linear</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Convenience classes for linear layers.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ActivationNetworkSettings</span><span class="p">,</span>
+    <span class="n">DropoutNetworkSettings</span><span class="p">,</span>
+    <span class="n">BatchNormNetworkSettings</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn.model</span> <span class="kn">import</span> <span class="n">BaseNetworkModule</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">LayerError</span>
+
+
+<div class="viewcode-block" id="DeepLinearNetworkSettings"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">DeepLinearNetworkSettings</span><span class="p">(</span><span class="n">ActivationNetworkSettings</span><span class="p">,</span>
+                                <span class="n">DropoutNetworkSettings</span><span class="p">,</span>
+                                <span class="n">BatchNormNetworkSettings</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Settings for a deep fully connected network using :class:`.DeepLinear`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">## TODO: centralize on either in_features or input_size:</span>
+    <span class="c1"># embedding_output_size, RecurrentCRFNetworkSettings.input_size</span>
+    <span class="n">in_features</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The number of features to the first layer.&quot;&quot;&quot;</span>
+
+    <span class="n">out_features</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The number of features as output from the last layer.&quot;&quot;&quot;</span>
+
+    <span class="n">middle_features</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The number of features in the middle layers; if ``proportions`` is</span>
+<span class="sd">    ``True``, then each number is how much to grow or shrink as a percetage of</span>
+<span class="sd">    the last layer, otherwise, it&#39;s the number of features.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">proportions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;Whether or not to interpret ``middle_features`` as a proportion of the</span>
+<span class="sd">    previous layer or use directly as the size of the middle layer.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">repeats</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The number of repeats of the :obj:`middle_features` configuration.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DeepLinearNetworkSettings.get_module_class_name"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.get_module_class_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_module_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;.DeepLinear&#39;</span></div></div>
+
+
+<div class="viewcode-block" id="DeepLinear"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinear">[docs]</a><span class="k">class</span> <span class="nc">DeepLinear</span><span class="p">(</span><span class="n">BaseNetworkModule</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A layer that has contains one more nested layers, including batch</span>
+<span class="sd">    normalization and activation.  The input and output layer shapes are given</span>
+<span class="sd">    and an optional 0 or more middle layers are given as percent changes in</span>
+<span class="sd">    size or exact numbers.</span>
+
+<span class="sd">    If the network settings are configured to have batch normalization, batch</span>
+<span class="sd">    normalization layers are added after each linear layer.</span>
+
+<span class="sd">    The drop out and activation function (if any) are applied in between each</span>
+<span class="sd">    layer allowing other drop outs and activation functions to be applied</span>
+<span class="sd">    before and after.  Note that the activation is implemented as a function,</span>
+<span class="sd">    and not a layer.</span>
+
+<span class="sd">    For example, if batch normalization and an activation function is</span>
+<span class="sd">    configured and two layers are configured, the network is configured as:</span>
+
+<span class="sd">      1. linear</span>
+<span class="sd">      2. batch normalization</span>
+<span class="sd">      3. activation</span>
+<span class="sd">      4. linear</span>
+<span class="sd">      5. batch normalization</span>
+<span class="sd">      6. activation</span>
+
+<span class="sd">    The module also provides the output features of each layer with</span>
+<span class="sd">    :py:meth:`n_features_after_layer` and ability to forward though only the</span>
+<span class="sd">    first given set of layers with :meth:`forward_n_layers`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">MODULE_NAME</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
+
+<div class="viewcode-block" id="DeepLinear.__init__"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinear.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net_settings</span><span class="p">:</span> <span class="n">DeepLinearNetworkSettings</span><span class="p">,</span>
+                 <span class="n">sub_logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the deep linear layer.</span>
+
+<span class="sd">        :param net_settings: the deep linear layer configuration</span>
+
+<span class="sd">        :param sub_logger: the logger to use for the forward process in this</span>
+<span class="sd">                           layer</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">net_settings</span><span class="p">,</span> <span class="n">sub_logger</span><span class="p">)</span>
+        <span class="n">ns</span> <span class="o">=</span> <span class="n">net_settings</span>
+        <span class="n">last_feat</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">in_features</span>
+        <span class="n">lin_layers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">bnorm_layers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;in: </span><span class="si">{</span><span class="n">ns</span><span class="o">.</span><span class="n">in_features</span><span class="si">}</span><span class="s1">, &#39;</span> <span class="o">+</span>
+                        <span class="sa">f</span><span class="s1">&#39;middle: </span><span class="si">{</span><span class="n">ns</span><span class="o">.</span><span class="n">middle_features</span><span class="si">}</span><span class="s1">, &#39;</span> <span class="o">+</span>
+                        <span class="sa">f</span><span class="s1">&#39;out: </span><span class="si">{</span><span class="n">ns</span><span class="o">.</span><span class="n">out_features</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">mf</span> <span class="ow">in</span> <span class="n">ns</span><span class="o">.</span><span class="n">middle_features</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">repeats</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">proportions</span><span class="p">:</span>
+                    <span class="n">next_feat</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">last_feat</span> <span class="o">*</span> <span class="n">mf</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">next_feat</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_add_layer</span><span class="p">(</span><span class="n">last_feat</span><span class="p">,</span> <span class="n">next_feat</span><span class="p">,</span> <span class="n">ns</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
+                                <span class="n">lin_layers</span><span class="p">,</span> <span class="n">bnorm_layers</span><span class="p">)</span>
+                <span class="n">last_feat</span> <span class="o">=</span> <span class="n">next_feat</span>
+        <span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">out_features</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_layer</span><span class="p">(</span><span class="n">last_feat</span><span class="p">,</span> <span class="n">ns</span><span class="o">.</span><span class="n">out_features</span><span class="p">,</span> <span class="n">ns</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
+                            <span class="n">lin_layers</span><span class="p">,</span> <span class="n">bnorm_layers</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lin_layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">lin_layers</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bnorm_layers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bnorm_layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">bnorm_layers</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bnorm_layers</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="DeepLinear.deallocate"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinear.deallocate">[docs]</a>    <span class="k">def</span> <span class="nf">deallocate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;lin_layers&#39;</span><span class="p">):</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">lin_layers</span></div>
+
+    <span class="k">def</span> <span class="nf">_add_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">out_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dropout</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                   <span class="n">lin_layers</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">bnorm_layers</span><span class="p">):</span>
+        <span class="n">ns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">net_settings</span>
+        <span class="n">n_layer</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lin_layers</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;add </span><span class="si">{</span><span class="n">n_layer</span><span class="si">}</span><span class="s1">: in=</span><span class="si">{</span><span class="n">in_features</span><span class="si">}</span><span class="s1"> out=</span><span class="si">{</span><span class="n">out_features</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">lin_layer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">)</span>
+        <span class="n">lin_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lin_layer</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">batch_norm_d</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">out_features</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">LayerError</span><span class="p">(</span><span class="s1">&#39;Bad out features&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">batch_norm_features</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">bn_features</span> <span class="o">=</span> <span class="n">out_features</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">bn_features</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">batch_norm_features</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">create_batch_norm_layer</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">batch_norm_d</span><span class="p">,</span> <span class="n">bn_features</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">LayerError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Bad layer params: D=</span><span class="si">{</span><span class="n">ns</span><span class="o">.</span><span class="n">batch_norm_d</span><span class="si">}</span><span class="s1">, &#39;</span> <span class="o">+</span>
+                                 <span class="sa">f</span><span class="s1">&#39;features=</span><span class="si">{</span><span class="n">out_features</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">bnorm_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DeepLinear.get_linear_layers"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinear.get_linear_layers">[docs]</a>    <span class="k">def</span> <span class="nf">get_linear_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return all linear layers.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lin_layers</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DeepLinear.get_batch_norm_layers"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinear.get_batch_norm_layers">[docs]</a>    <span class="k">def</span> <span class="nf">get_batch_norm_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Return all batch normalize layers.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bnorm_layers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bnorm_layers</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">out_features</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;The number of features output from all layers of this module.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">n_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_linear_layers</span><span class="p">())</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_features_after_layer</span><span class="p">(</span><span class="n">n_layers</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DeepLinear.n_features_after_layer"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinear.n_features_after_layer">[docs]</a>    <span class="k">def</span> <span class="nf">n_features_after_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nth_layer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get the output features of the Nth (0 index based) layer.</span>
+
+<span class="sd">        :param nth_layer: the layer to use for getting the output features</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_linear_layers</span><span class="p">()[</span><span class="n">nth_layer</span><span class="p">]</span><span class="o">.</span><span class="n">out_features</span></div>
+
+<div class="viewcode-block" id="DeepLinear.forward_n_layers"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.linear.DeepLinear.forward_n_layers">[docs]</a>    <span class="k">def</span> <span class="nf">forward_n_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">n_layers</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                         <span class="n">full_forward</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Forward throught the first 0 index based N layers.</span>
+
+<span class="sd">        :param n_layers: the number of layers to forward through (0-based</span>
+<span class="sd">                         index)</span>
+
+<span class="sd">        :param full_forward: if ``True``, also return the full forward as a</span>
+<span class="sd">                             second parameter</span>
+
+<span class="sd">        :return: the tensor output of all layers or a tuple of ``(N-th layer,</span>
+<span class="sd">                 all layers)``</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n_layers</span><span class="p">,</span> <span class="n">full_forward</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+                 <span class="n">n_layers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span><span class="p">,</span>
+                 <span class="n">full_forward</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="n">lin_layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_linear_layers</span><span class="p">()</span>
+        <span class="n">bnorm_layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_batch_norm_layers</span><span class="p">()</span>
+        <span class="n">n_layers</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lin_layers</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_layers</span><span class="p">)</span>
+        <span class="n">x_ret</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;linear: num layers: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lin_layers</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lin_layers</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_shape_debug</span><span class="p">(</span><span class="s1">&#39;deep linear&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_dropout</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">bnorm_layers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">blayer</span> <span class="o">=</span> <span class="n">bnorm_layers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;batch norm: </span><span class="si">{</span><span class="n">blayer</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">blayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_activation</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">n_layers</span><span class="p">:</span>
+                <span class="n">x_ret</span> <span class="o">=</span> <span class="n">x</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;reached </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">th layer = n_layers&#39;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_shape_debug</span><span class="p">(</span><span class="s1">&#39;x_ret&#39;</span><span class="p">,</span> <span class="n">x_ret</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">full_forward</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span><span class="p">(</span><span class="s1">&#39;breaking&#39;</span><span class="p">)</span>
+                    <span class="k">break</span>
+
+        <span class="k">if</span> <span class="n">full_forward</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x_ret</span><span class="p">,</span> <span class="n">x</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

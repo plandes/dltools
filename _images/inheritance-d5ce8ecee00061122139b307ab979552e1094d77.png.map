@@ -1,0 +1,19 @@
+<map id="inheritance455a9bb692" name="inheritance455a9bb692">
+<area shape="rect" id="node1" title="Helper class that provides a standard way to create an ABC using" alt="" coords="317,5,389,31"/>
+<area shape="rect" id="node4" href="zensols.dataset.html#zensols.dataset.interface.SplitKeyContainer" target="_top" title="An interface defining a container that partitions data sets (i.e. ``train``" alt="" coords="5,299,132,324"/>
+<area shape="rect" id="node6" title="All subclasses have the ability to deallocate any resources. &#160;This is useful" alt="" coords="119,372,221,397"/>
+<area shape="rect" id="node8" title="This is a pure virtual class that represents CRUDing data that uses ``dict``" alt="" coords="267,79,339,104"/>
+<area shape="rect" id="node11" title="An interface for classes that have multi&#45;line debuging capability." alt="" coords="475,79,547,104"/>
+<area shape="rect" id="node12" title="An interface that recieves notifications that the factory has created this" alt="" coords="581,152,732,177"/>
+<area shape="rect" id="node17" title="Any subclass that has the ability (and need) to do preprocessing. &#160;For" alt="" coords="363,79,443,104"/>
+<area shape="rect" id="node2" href="#zensols.deeplearn.batch.stash.BatchStash" target="_top" title="A stash that vectorizes features in to easily consumable tensors for" alt="" coords="210,592,301,617"/>
+<area shape="rect" id="node3" href="#zensols.deeplearn.batch.multi.TorchMultiProcessStash" target="_top" title="A multiprocessing stash that interacts with PyTorch in a way that it can" alt="" coords="219,519,383,544"/>
+<area shape="rect" id="node5" title="Subclass for classes that want to write attribute changes back to a" alt="" coords="481,225,561,251"/>
+<area shape="rect" id="node7" title="Any stash that has a resource that needs to be closed." alt="" coords="207,152,322,177"/>
+<area shape="rect" id="node9" title="Delegate pattern. &#160;It can also be used as a no&#45;op if no delegate is given." alt="" coords="221,225,329,251"/>
+<area shape="rect" id="node16" title="Any subclass that has the ability to do processing before any CRUD method is" alt="" coords="346,152,461,177"/>
+<area shape="rect" id="node15" title="Provide support for preemptively creating data in a stash. &#160;It provides this" alt="" coords="225,299,347,324"/>
+<area shape="rect" id="node10" title="A class that that generates a dictionary recursively from data classes and" alt="" coords="485,152,557,177"/>
+<area shape="rect" id="node13" title="A stash that forks processes to process data in a distributed fashion. &#160;The" alt="" coords="245,445,377,471"/>
+<area shape="rect" id="node14" title="A stash that&#39;s primable and preemptive." alt="" coords="245,372,418,397"/>
+</map>

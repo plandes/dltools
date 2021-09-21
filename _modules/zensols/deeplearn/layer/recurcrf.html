@@ -1,0 +1,391 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.layer.recurcrf &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../layer.html">zensols.deeplearn.layer</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.layer.recurcrf</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.deeplearn.layer.recurcrf</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Contains an implementation of a recurrent with a conditional random field</span>
+<span class="sd">layer.  This is usually configured as a BiLSTM CRF.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ActivationNetworkSettings</span><span class="p">,</span>
+    <span class="n">DropoutNetworkSettings</span><span class="p">,</span>
+    <span class="n">BatchNormNetworkSettings</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">zensols.deeplearn.model</span> <span class="kn">import</span> <span class="n">BaseNetworkModule</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">RecurrentAggregation</span><span class="p">,</span>
+    <span class="n">RecurrentAggregationNetworkSettings</span><span class="p">,</span>
+    <span class="n">DeepLinearNetworkSettings</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">CRF</span><span class="p">,</span> <span class="n">DeepLinear</span>
+
+
+<div class="viewcode-block" id="RecurrentCRFNetworkSettings"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">RecurrentCRFNetworkSettings</span><span class="p">(</span><span class="n">ActivationNetworkSettings</span><span class="p">,</span>
+                                  <span class="n">DropoutNetworkSettings</span><span class="p">,</span>
+                                  <span class="n">BatchNormNetworkSettings</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Settings for a recurrent neural network using :class:`.RecurrentCRF`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">network_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;One of ``rnn``, ``lstm`` or ``gru`` (usually ``lstm``).&quot;&quot;&quot;</span>
+
+    <span class="n">bidirectional</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;Whether or not the network is bidirectional (usually ``True``).&quot;&quot;&quot;</span>
+
+    <span class="n">input_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The input size to the layer.&quot;&quot;&quot;</span>
+
+    <span class="n">hidden_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The size of the hidden states of the network.&quot;&quot;&quot;</span>
+
+    <span class="n">num_layers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The number of *&quot;stacked&quot;* layers.&quot;&quot;&quot;</span>
+
+    <span class="n">num_labels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The number of output labels from the CRF.&quot;&quot;&quot;</span>
+
+    <span class="n">decoder_settings</span><span class="p">:</span> <span class="n">DeepLinearNetworkSettings</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;The decoder feed forward network.&quot;&quot;&quot;</span>
+
+    <span class="n">score_reduction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;Reduces how the score output over batches.</span>
+
+<span class="sd">    :see: :class:`.CRF`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="RecurrentCRFNetworkSettings.to_recurrent_aggregation"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.to_recurrent_aggregation">[docs]</a>    <span class="k">def</span> <span class="nf">to_recurrent_aggregation</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RecurrentAggregationNetworkSettings</span><span class="p">:</span>
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name config_factory dropout network_type bidirectional &#39;</span> <span class="o">+</span>
+                 <span class="s1">&#39;input_size hidden_size num_layers&#39;</span><span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">split</span><span class="p">()}</span>
+        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;aggregation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span>
+        <span class="k">return</span> <span class="n">RecurrentAggregationNetworkSettings</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RecurrentCRFNetworkSettings.get_module_class_name"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.get_module_class_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_module_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;.RecurrentCRF&#39;</span></div></div>
+
+
+<div class="viewcode-block" id="RecurrentCRF"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.recurcrf.RecurrentCRF">[docs]</a><span class="k">class</span> <span class="nc">RecurrentCRF</span><span class="p">(</span><span class="n">BaseNetworkModule</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Adapt the :class:`.CRF` module using the framework based</span>
+<span class="sd">    :class:`.BaseNetworkModule` class.  This provides methods</span>
+<span class="sd">    :meth:`forward_recur_decode` and :meth:`decode`, which decodes the input.</span>
+
+<span class="sd">    This adds a recurrent neural network and a fully connected feed forward</span>
+<span class="sd">    decoder layer before the CRF layer.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">MODULE_NAME</span> <span class="o">=</span> <span class="s1">&#39;recur crf&#39;</span>
+
+<div class="viewcode-block" id="RecurrentCRF.__init__"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.recurcrf.RecurrentCRF.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net_settings</span><span class="p">:</span> <span class="n">RecurrentCRFNetworkSettings</span><span class="p">,</span>
+                 <span class="n">sub_logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the reccurent CRF layer.</span>
+
+<span class="sd">        :param net_settings: the recurrent layer configuration</span>
+
+<span class="sd">        :param sub_logger: the logger to use for the forward process in this</span>
+<span class="sd">                           layer</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">net_settings</span><span class="p">,</span> <span class="n">sub_logger</span><span class="p">)</span>
+        <span class="n">ns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">net_settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recur_settings</span> <span class="o">=</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">to_recurrent_aggregation</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;recur settings: </span><span class="si">{</span><span class="n">rs</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_dim</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">hidden_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recur</span> <span class="o">=</span> <span class="n">RecurrentAggregation</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span> <span class="n">sub_logger</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">decoder_settings</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">rs</span><span class="o">.</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">ns</span><span class="o">.</span><span class="n">num_labels</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ln</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">decoder_settings</span>
+            <span class="n">ln</span><span class="o">.</span><span class="n">in_features</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">hidden_size</span>
+            <span class="n">ln</span><span class="o">.</span><span class="n">out_features</span> <span class="o">=</span> <span class="n">ns</span><span class="o">.</span><span class="n">num_labels</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;linear: </span><span class="si">{</span><span class="n">ln</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span> <span class="o">=</span> <span class="n">DeepLinear</span><span class="p">(</span><span class="n">ln</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">crf</span> <span class="o">=</span> <span class="n">CRF</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">num_labels</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="n">score_reduction</span><span class="o">=</span><span class="n">ns</span><span class="o">.</span><span class="n">score_reduction</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">crf</span><span class="o">.</span><span class="n">reset_parameters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_zero</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="RecurrentCRF.deallocate"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.recurcrf.RecurrentCRF.deallocate">[docs]</a>    <span class="k">def</span> <span class="nf">deallocate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recur</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recur_settings</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="RecurrentCRF.forward_recur_decode"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.recurcrf.RecurrentCRF.forward_recur_decode">[docs]</a>    <span class="k">def</span> <span class="nf">forward_recur_decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Forward the input through the recurrent network (i.e. LSTM), batch</span>
+<span class="sd">        normalization and activation (if confgiured), and decoder output.</span>
+
+<span class="sd">        :param x: the network input</span>
+
+<span class="sd">        :return: the fully connected linear feed forward decoded output</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shape_debug</span><span class="p">(</span><span class="s1">&#39;recur in&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recur</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># don&#39;t apply dropout since the recur last layer already has when</span>
+        <span class="c1"># configured</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_batch_norm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_forward_activation</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shape_debug</span><span class="p">(</span><span class="s1">&#39;decode&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span></div>
+
+<div class="viewcode-block" id="RecurrentCRF.to"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.recurcrf.RecurrentCRF.to">[docs]</a>    <span class="k">def</span> <span class="nf">to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_zero</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shape_debug</span><span class="p">(</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shape_debug</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_zero</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_zero</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+                <span class="p">[</span><span class="mf">0.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">labels</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">labels</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_recur_decode</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># zero out negative values, since otherwise invalid transitions are</span>
+        <span class="c1"># indexed with negative values, which come from the default cross</span>
+        <span class="c1"># entropy loss functions `ignore_index`</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_zero</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">crf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;training loss: </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+<div class="viewcode-block" id="RecurrentCRF.decode"><a class="viewcode-back" href="../../../../api/zensols.deeplearn.layer.html#zensols.deeplearn.layer.recurcrf.RecurrentCRF.decode">[docs]</a>    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Forward the input though the recurrent network, decoder, and then the CRF.</span>
+
+<span class="sd">        :param x: the input</span>
+
+<span class="sd">        :param mask: the mask used to block the last N states not provided</span>
+
+<span class="sd">        :return: the CRF sequence output and the score provided by the CRF&#39;s</span>
+<span class="sd">                 veterbi algorithm as a tuple</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shape_debug</span><span class="p">(</span><span class="s1">&#39;mask&#39;</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_recur_decode</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">seq</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">crf</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;decoded: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span><span class="si">}</span><span class="s1"> seqs, score: </span><span class="si">{</span><span class="n">score</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">seq</span><span class="p">,</span> <span class="n">score</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

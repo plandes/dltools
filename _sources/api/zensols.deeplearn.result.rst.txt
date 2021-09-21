@@ -1,0 +1,63 @@
+zensols.deeplearn.result package
+================================
+
+Submodules
+----------
+
+zensols.deeplearn.result.domain
+-------------------------------
+.. inheritance-diagram:: zensols.deeplearn.result.domain
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.result.domain
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.result.manager
+--------------------------------
+.. inheritance-diagram:: zensols.deeplearn.result.manager
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.result.manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.result.plot
+-----------------------------
+.. inheritance-diagram:: zensols.deeplearn.result.plot
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.result.plot
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.result.pred
+-----------------------------
+.. inheritance-diagram:: zensols.deeplearn.result.pred
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.result.pred
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.result.report
+-------------------------------
+.. inheritance-diagram:: zensols.deeplearn.result.report
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.result.report
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: zensols.deeplearn.result
+   :members:
+   :undoc-members:
+   :show-inheritance:

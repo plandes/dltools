@@ -1,0 +1,43 @@
+zensols.deeplearn.dataframe package
+===================================
+
+Submodules
+----------
+
+zensols.deeplearn.dataframe.batch
+---------------------------------
+.. inheritance-diagram:: zensols.deeplearn.dataframe.batch
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.dataframe.batch
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.dataframe.util
+--------------------------------
+.. inheritance-diagram:: zensols.deeplearn.dataframe.util
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.dataframe.util
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.dataframe.vectorize
+-------------------------------------
+.. inheritance-diagram:: zensols.deeplearn.dataframe.vectorize
+   :parts: 1
+
+.. automodule:: zensols.deeplearn.dataframe.vectorize
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: zensols.deeplearn.dataframe
+   :members:
+   :undoc-members:
+   :show-inheritance:

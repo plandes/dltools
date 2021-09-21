@@ -1,0 +1,1470 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>zensols.deeplearn.layer package &mdash; DeepZensols Deep Learning Framework 0.1.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="zensols.deeplearn.model package" href="zensols.deeplearn.model.html" />
+    <link rel="prev" title="zensols.deeplearn.dataframe package" href="zensols.deeplearn.dataframe.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../top.html" class="icon icon-home"> DeepZensols Deep Learning Framework
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataframe.html">zensols.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.dataset.html">zensols.dataset package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="zensols.deeplearn.html">zensols.deeplearn package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="zensols.deeplearn.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.cli.html">zensols.deeplearn.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-domain">zensols.deeplearn.domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-plot">zensols.deeplearn.plot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-torchconfig">zensols.deeplearn.torchconfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#zensols-deeplearn-torchtype">zensols.deeplearn.torchtype</a></li>
+<li class="toctree-l3"><a class="reference internal" href="zensols.deeplearn.html#module-zensols.deeplearn">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.cli.html">zensols.deeplearn.cli package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">zensols.deeplearn.layer package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-layer-conv">zensols.deeplearn.layer.conv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-layer-crf">zensols.deeplearn.layer.crf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-layer-linear">zensols.deeplearn.layer.linear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-layer-recur">zensols.deeplearn.layer.recur</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zensols-deeplearn-layer-recurcrf">zensols.deeplearn.layer.recurcrf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-zensols.deeplearn.layer">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../top.html">DeepZensols Deep Learning Framework</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../top.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="zensols.deeplearn.html">zensols.deeplearn package</a> &raquo;</li>
+        
+      <li>zensols.deeplearn.layer package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/zensols.deeplearn.layer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="zensols-deeplearn-layer-package">
+<h1>zensols.deeplearn.layer package<a class="headerlink" href="#zensols-deeplearn-layer-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="zensols-deeplearn-layer-conv">
+<h2>zensols.deeplearn.layer.conv<a class="headerlink" href="#zensols-deeplearn-layer-conv" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-566f1a1acd3c0a3992417c48ce335e50a874a934.png" alt="Inheritance diagram of zensols.deeplearn.layer.conv" usemap="#inheritance462387d04d" class="inheritance graphviz" /></div>
+<map id="inheritance462387d04d" name="inheritance462387d04d">
+<area shape="rect" id="node1" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory" target="_top" title="Create convolution layers. &#160;Each attribute maps a corresponding attribuate" alt="" coords="5,5,172,31"/>
+<area shape="rect" id="node2" href="#zensols.deeplearn.layer.conv.Flattenable" target="_top" title="A class with a :obj:`flatten_dim` and :obj:`out_shape` properties." alt="" coords="196,5,283,31"/>
+<area shape="rect" id="node3" href="#zensols.deeplearn.layer.conv.Im2DimCalculator" target="_top" title="Convolution matrix dimension calculation utility." alt="" coords="109,79,236,104"/>
+<area shape="rect" id="node5" href="#zensols.deeplearn.layer.conv.PoolFactory" target="_top" title="Create a 2D max pool and output it&#39;s shape." alt="" coords="260,79,352,104"/>
+<area shape="rect" id="node4" href="#zensols.deeplearn.layer.conv.MaxPool1dFactory" target="_top" title="Create a 1D max pool and output it&#39;s shape." alt="" coords="163,152,294,177"/>
+<area shape="rect" id="node6" href="#zensols.deeplearn.layer.conv.MaxPool2dFactory" target="_top" title="Create a 2D max pool and output it&#39;s shape." alt="" coords="318,152,449,177"/>
+</map><span class="target" id="module-zensols.deeplearn.layer.conv"></span><p>Convolution network creation utilities.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.layer.conv.</code><code class="sig-name descname">ConvolutionLayerFactory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">depth</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">n_filters</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">kernel_filter</span><span class="o">=</span><span class="default_value">(2, 2)</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#ConvolutionLayerFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Create convolution layers.  Each attribute maps a corresponding attribuate
+variable in <a class="reference internal" href="#zensols.deeplearn.layer.conv.Im2DimCalculator" title="zensols.deeplearn.layer.conv.Im2DimCalculator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Im2DimCalculator</span></code></a>, which documented in the parenthesis
+in the parameter documentation below.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the width of the image/data (<code class="docutils literal notranslate"><span class="pre">W</span></code>)</p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the height of the image/data (<code class="docutils literal notranslate"><span class="pre">H</span></code>)</p></li>
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the volume, which is usually same as <code class="docutils literal notranslate"><span class="pre">n_filters</span></code> (<code class="docutils literal notranslate"><span class="pre">D</span></code>)</p></li>
+<li><p><strong>n_filters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the number of filters, aka the filter depth/volume
+(<code class="docutils literal notranslate"><span class="pre">K</span></code>)</p></li>
+<li><p><strong>kernel_filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – the kernel filter dimension in width X height (<code class="docutils literal notranslate"><span class="pre">F</span></code>)</p></li>
+<li><p><strong>stride</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the stride, which is the number of cells to skip for each
+convolution (<code class="docutils literal notranslate"><span class="pre">S</span></code>)</p></li>
+<li><p><strong>padding</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the zero’d number of cells on the ends of the image/data
+(<code class="docutils literal notranslate"><span class="pre">P</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">See</dt>
+<dd class="field-even"><p><a class="reference external" href="http://cs231n.github.io/convolutional-networks/#conv">Stanford</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">depth</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">n_filters</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">kernel_filter</span><span class="o">=</span><span class="default_value">(2, 2)</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.batch_norm2d">
+<code class="sig-name descname">batch_norm2d</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#ConvolutionLayerFactory.batch_norm2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.batch_norm2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a 2D batch normalization layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">BatchNorm2d</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.calc">
+<em class="property">property </em><code class="sig-name descname">calc</code><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.calc" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#zensols.deeplearn.layer.conv.Im2DimCalculator" title="zensols.deeplearn.layer.conv.Im2DimCalculator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Im2DimCalculator</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>rtype</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.clone">
+<code class="sig-name descname">clone</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#ConvolutionLayerFactory.clone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a clone of this factory instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.conv1d">
+<code class="sig-name descname">conv1d</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#ConvolutionLayerFactory.conv1d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.conv1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a convolution layer in one dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Conv1d</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.conv2d">
+<code class="sig-name descname">conv2d</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#ConvolutionLayerFactory.conv2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.conv2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a convolution layer in two dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Conv2d</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.copy_calc">
+<code class="sig-name descname">copy_calc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">calc</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#ConvolutionLayerFactory.copy_calc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.copy_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.depth">
+<code class="sig-name descname">depth</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = 1</em><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.depth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.flatten">
+<code class="sig-name descname">flatten</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#ConvolutionLayerFactory.flatten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new flattened instance of this class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.flatten_dim">
+<em class="property">property </em><code class="sig-name descname">flatten_dim</code><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.flatten_dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the dimension of a flattened array of the convolution layer
+represented by this instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.height">
+<code class="sig-name descname">height</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = 1</em><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.kernel_filter">
+<code class="sig-name descname">kernel_filter</code><em class="property">: Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span></em><em class="property"> = (2, 2)</em><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.kernel_filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.n_filters">
+<code class="sig-name descname">n_filters</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = 1</em><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.n_filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.padding">
+<code class="sig-name descname">padding</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = 0</em><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.padding" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.stride">
+<code class="sig-name descname">stride</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = 1</em><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.stride" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.conv.ConvolutionLayerFactory.width">
+<code class="sig-name descname">width</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = 1</em><a class="headerlink" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.layer.conv.Flattenable">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.layer.conv.</code><code class="sig-name descname">Flattenable</code><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#Flattenable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.Flattenable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A class with a <a class="reference internal" href="#zensols.deeplearn.layer.conv.Flattenable.flatten_dim" title="zensols.deeplearn.layer.conv.Flattenable.flatten_dim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flatten_dim</span></code></a> and <a class="reference internal" href="#zensols.deeplearn.layer.conv.Flattenable.out_shape" title="zensols.deeplearn.layer.conv.Flattenable.out_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">out_shape</span></code></a> properties.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.Flattenable.flatten_dim">
+<em class="property">property </em><code class="sig-name descname">flatten_dim</code><a class="headerlink" href="#zensols.deeplearn.layer.conv.Flattenable.flatten_dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number or neurons of the layer after flattening in to one
+dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.Flattenable.out_shape">
+<em class="property">property </em><code class="sig-name descname">out_shape</code><a class="headerlink" href="#zensols.deeplearn.layer.conv.Flattenable.out_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the shape of the layer after flattened in to one dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.layer.conv.Im2DimCalculator">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.layer.conv.</code><code class="sig-name descname">Im2DimCalculator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">W</span></em>, <em class="sig-param"><span class="n">H</span></em>, <em class="sig-param"><span class="n">D</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">K</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">F</span><span class="o">=</span><span class="default_value">(2, 2)</span></em>, <em class="sig-param"><span class="n">S</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">P</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#Im2DimCalculator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.Im2DimCalculator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.layer.conv.Flattenable" title="zensols.deeplearn.layer.conv.Flattenable"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.layer.conv.Flattenable</span></code></a></p>
+<p>Convolution matrix dimension calculation utility.</p>
+<p>Implementation as Matrix Multiplication section.</p>
+<dl class="simple">
+<dt>Example (im2col)::</dt><dd><p>W_in = H_in = 227
+Ch_in = D_in = 3
+Ch_out = D_out = 3
+K = 96
+F = (11, 11)
+S = 4
+P = 0
+W_out = H_out = 227 - 11 + (2 * 0) / 4 = 55 output locations
+X_col = Fw^2 * D_out x W_out * H_out = 11^2 * 3 x 55 * 55 = 363 x 3025</p>
+</dd>
+<dt>Example (im2row)::</dt><dd><p>W_row = 96 filters of size 11 x 11 x 3 =&gt; K x 11 * 11 * 3 = 96 x 363</p>
+</dd>
+</dl>
+<p>Result of convolution: transpose(W_row) dot X_col.  Must reshape back to 55
+x 55 x 96</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference external" href="http://cs231n.github.io/convolutional-networks/#conv">Stanford</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.Im2DimCalculator.H_out">
+<em class="property">property </em><code class="sig-name descname">H_out</code><a class="headerlink" href="#zensols.deeplearn.layer.conv.Im2DimCalculator.H_out" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.Im2DimCalculator.W_out">
+<em class="property">property </em><code class="sig-name descname">W_out</code><a class="headerlink" href="#zensols.deeplearn.layer.conv.Im2DimCalculator.W_out" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.Im2DimCalculator.W_row">
+<em class="property">property </em><code class="sig-name descname">W_row</code><a class="headerlink" href="#zensols.deeplearn.layer.conv.Im2DimCalculator.W_row" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.Im2DimCalculator.X_col">
+<em class="property">property </em><code class="sig-name descname">X_col</code><a class="headerlink" href="#zensols.deeplearn.layer.conv.Im2DimCalculator.X_col" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.Im2DimCalculator.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">W</span></em>, <em class="sig-param"><span class="n">H</span></em>, <em class="sig-param"><span class="n">D</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">K</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">F</span><span class="o">=</span><span class="default_value">(2, 2)</span></em>, <em class="sig-param"><span class="n">S</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">P</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#Im2DimCalculator.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.Im2DimCalculator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>W</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – width</p></li>
+<li><p><strong>H</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – height</p></li>
+<li><p><strong>D</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – depth [of volume] (usually same as K)</p></li>
+<li><p><strong>K</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – number of filters</p></li>
+<li><p><strong>F</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]) – tuple of kernel/filter (width, height)</p></li>
+<li><p><strong>S</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – stride</p></li>
+<li><p><strong>P</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – padding</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.Im2DimCalculator.flatten">
+<code class="sig-name descname">flatten</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">axis</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#Im2DimCalculator.flatten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.Im2DimCalculator.flatten" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.Im2DimCalculator.out_shape">
+<em class="property">property </em><code class="sig-name descname">out_shape</code><a class="headerlink" href="#zensols.deeplearn.layer.conv.Im2DimCalculator.out_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the shape of the layer after flattened in to one dimension.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.Im2DimCalculator.validate">
+<code class="sig-name descname">validate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#Im2DimCalculator.validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.Im2DimCalculator.validate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.layer.conv.MaxPool1dFactory">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.layer.conv.</code><code class="sig-name descname">MaxPool1dFactory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">layer_factory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">kernel_filter</span><span class="o">=</span><span class="default_value">2</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#MaxPool1dFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.MaxPool1dFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.layer.conv.PoolFactory" title="zensols.deeplearn.layer.conv.PoolFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.layer.conv.PoolFactory</span></code></a></p>
+<p>Create a 1D max pool and output it’s shape.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.MaxPool1dFactory.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">layer_factory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">kernel_filter</span><span class="o">=</span><span class="default_value">2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.layer.conv.MaxPool1dFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.MaxPool1dFactory.create_pool">
+<code class="sig-name descname">create_pool</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#MaxPool1dFactory.create_pool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.MaxPool1dFactory.create_pool" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.conv.MaxPool1dFactory.kernel_filter">
+<code class="sig-name descname">kernel_filter</code><em class="property">: Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span></em><em class="property"> = 2</em><a class="headerlink" href="#zensols.deeplearn.layer.conv.MaxPool1dFactory.kernel_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>The filter used for max pooling.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.layer.conv.MaxPool2dFactory">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.layer.conv.</code><code class="sig-name descname">MaxPool2dFactory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">layer_factory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">kernel_filter</span><span class="o">=</span><span class="default_value">(2, 2)</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#MaxPool2dFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.MaxPool2dFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.layer.conv.PoolFactory" title="zensols.deeplearn.layer.conv.PoolFactory"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.layer.conv.PoolFactory</span></code></a></p>
+<p>Create a 2D max pool and output it’s shape.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.MaxPool2dFactory.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">layer_factory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">kernel_filter</span><span class="o">=</span><span class="default_value">(2, 2)</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.layer.conv.MaxPool2dFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.MaxPool2dFactory.create_pool">
+<code class="sig-name descname">create_pool</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#MaxPool2dFactory.create_pool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.MaxPool2dFactory.create_pool" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.conv.MaxPool2dFactory.kernel_filter">
+<code class="sig-name descname">kernel_filter</code><em class="property">: Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span></em><em class="property"> = (2, 2)</em><a class="headerlink" href="#zensols.deeplearn.layer.conv.MaxPool2dFactory.kernel_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>The filter used for max pooling.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.layer.conv.PoolFactory">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.layer.conv.</code><code class="sig-name descname">PoolFactory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">layer_factory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#PoolFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.PoolFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#zensols.deeplearn.layer.conv.Flattenable" title="zensols.deeplearn.layer.conv.Flattenable"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.layer.conv.Flattenable</span></code></a></p>
+<p>Create a 2D max pool and output it’s shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://cs231n.github.io/convolutional-networks/#pool">Stanford</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.PoolFactory.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">layer_factory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.layer.conv.PoolFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.PoolFactory.create_pool">
+<em class="property">abstract </em><code class="sig-name descname">create_pool</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/conv.html#PoolFactory.create_pool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.conv.PoolFactory.create_pool" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.conv.PoolFactory.layer_factory">
+<code class="sig-name descname">layer_factory</code><em class="property">: <a class="reference internal" href="#zensols.deeplearn.layer.conv.ConvolutionLayerFactory" title="zensols.deeplearn.layer.conv.ConvolutionLayerFactory">zensols.deeplearn.layer.conv.ConvolutionLayerFactory</a></em><em class="property"> = None</em><a class="headerlink" href="#zensols.deeplearn.layer.conv.PoolFactory.layer_factory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.conv.PoolFactory.out_shape">
+<em class="property">property </em><code class="sig-name descname">out_shape</code><a class="headerlink" href="#zensols.deeplearn.layer.conv.PoolFactory.out_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the dimensions for a max pooling filter and creates a layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>F</strong> – the spacial extent (kernel filter)</p></li>
+<li><p><strong>S</strong> – the stride</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.conv.PoolFactory.padding">
+<code class="sig-name descname">padding</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = 0</em><a class="headerlink" href="#zensols.deeplearn.layer.conv.PoolFactory.padding" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.conv.PoolFactory.stride">
+<code class="sig-name descname">stride</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><em class="property"> = 1</em><a class="headerlink" href="#zensols.deeplearn.layer.conv.PoolFactory.stride" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-layer-crf">
+<h2>zensols.deeplearn.layer.crf<a class="headerlink" href="#zensols-deeplearn-layer-crf" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-c61b134dbace759bc1f86959416a06a0d3ab23e0.png" alt="Inheritance diagram of zensols.deeplearn.layer.crf" usemap="#inheritance4fe2d297f9" class="inheritance graphviz" /></div>
+<map id="inheritance4fe2d297f9" name="inheritance4fe2d297f9">
+<area shape="rect" id="node1" href="#zensols.deeplearn.layer.crf.CRF" target="_top" title="Conditional random field." alt="" coords="5,79,77,104"/>
+</map><span class="target" id="module-zensols.deeplearn.layer.crf"></span><p>Conditional random field PyTorch module forked from Kemal Kurniawan’s
+<code class="docutils literal notranslate"><span class="pre">pytorch_crf</span></code> GitHub repository.  See the <code class="docutils literal notranslate"><span class="pre">Torch</span> <span class="pre">CRF</span></code> section of the
+<code class="docutils literal notranslate"><span class="pre">README.md</span></code> module documentation for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">see</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://github.com/kmkurn/pytorch-crf">pytorch_crf</a></p>
+</dd>
+<dt class="field-even">see</dt>
+<dd class="field-even"><p><a class="reference external" href="https://github.com/plandes/deeplearn#torch-crf">Torch CRF Readme</a></p>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="zensols.deeplearn.layer.crf.CRF">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.layer.crf.</code><code class="sig-name descname">CRF</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_tags</span></em>, <em class="sig-param"><span class="n">batch_first</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">score_reduction</span><span class="o">=</span><span class="default_value">'skip'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/crf.html#CRF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.crf.CRF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>Conditional random field.</p>
+<p>This module implements a conditional random field <a class="reference internal" href="#lmp01" id="id3"><span>[LMP01]</span></a>. The forward computation
+of this class computes the log likelihood of the given sequence of tags and
+emission score tensor. This class also has <cite>~CRF.decode</cite> method which finds
+the best tag sequence given an emission score tensor using <a class="reference external" href="https://en.wikipedia.org/wiki/Viterbi_algorithm">Viterbi algorithm</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_tags</strong> – Number of tags.</p></li>
+<li><p><strong>batch_first</strong> – Whether the first dimension corresponds to the size of a minibatch.</p></li>
+<li><p><strong>score_reduction</strong> – <dl class="simple">
+<dt>reduces how the score output over batches, and then</dt><dd><p>tags, and has shape <code class="docutils literal notranslate"><span class="pre">(batch</span> <span class="pre">size,</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">tags)</span></code>
+with the exception of <code class="docutils literal notranslate"><span class="pre">tags</span></code>, which has shape
+<code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">sequence</span> <span class="pre">length,</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">tags)</span></code>; how
+output is returned in <a class="reference internal" href="#zensols.deeplearn.layer.crf.CRF.decode" title="zensols.deeplearn.layer.crf.CRF.decode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">decode()</span></code></a> by:</p>
+</dd>
+</dl>
+<ul>
+<li><p><strong>skip</strong>: do not return scores, only the decoded output (default)</p></li>
+<li><p><strong>none</strong>: return the scores unaltered, then divide by the batch count</p></li>
+<li><p><strong>tags</strong>: all scores</p></li>
+<li><p><strong>sum</strong>: sum the max over batches, then divide by the batch count</p></li>
+<li><p><strong>max</strong>: max over each batch max, then divide by the batch count</p></li>
+<li><p><strong>min</strong>: min over each batch max, then divide by the batch count</p></li>
+<li><p><strong>mean</strong>: average the max over batchs, then divide by the batch count</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.crf.CRF.start_transitions">
+<code class="sig-name descname">start_transitions</code><a class="headerlink" href="#zensols.deeplearn.layer.crf.CRF.start_transitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start transition score tensor of size
+<code class="docutils literal notranslate"><span class="pre">(num_tags,)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><cite>~torch.nn.Parameter</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.crf.CRF.end_transitions">
+<code class="sig-name descname">end_transitions</code><a class="headerlink" href="#zensols.deeplearn.layer.crf.CRF.end_transitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>End transition score tensor of size
+<code class="docutils literal notranslate"><span class="pre">(num_tags,)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><cite>~torch.nn.Parameter</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.crf.CRF.transitions">
+<code class="sig-name descname">transitions</code><a class="headerlink" href="#zensols.deeplearn.layer.crf.CRF.transitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transition score tensor of size
+<code class="docutils literal notranslate"><span class="pre">(num_tags,</span> <span class="pre">num_tags)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><cite>~torch.nn.Parameter</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="citation">
+<dt class="label" id="lmp01"><span class="brackets"><a class="fn-backref" href="#id3">LMP01</a></span></dt>
+<dd><p>Lafferty, J., McCallum, A., Pereira, F. (2001).
+“Conditional random fields: Probabilistic models for segmenting and
+labeling sequence data”. <em>Proc. 18th International Conf. on Machine
+Learning</em>. Morgan Kaufmann. pp. 282–289.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.crf.CRF.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_tags</span></em>, <em class="sig-param"><span class="n">batch_first</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">score_reduction</span><span class="o">=</span><span class="default_value">'skip'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/crf.html#CRF.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.crf.CRF.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.crf.CRF.decode">
+<code class="sig-name descname">decode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">emissions</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/crf.html#CRF.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.crf.CRF.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the most likely tag sequence using Viterbi algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>emissions</strong> (<cite>~torch.Tensor</cite>) – Emission score tensor of size
+<code class="docutils literal notranslate"><span class="pre">(seq_length,</span> <span class="pre">batch_size,</span> <span class="pre">num_tags)</span></code> if <code class="docutils literal notranslate"><span class="pre">batch_first</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>,
+<code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">seq_length,</span> <span class="pre">num_tags)</span></code> otherwise.</p></li>
+<li><p><strong>mask</strong> (<cite>~torch.ByteTensor</cite>) – Mask tensor of size <code class="docutils literal notranslate"><span class="pre">(seq_length,</span> <span class="pre">batch_size)</span></code>
+if <code class="docutils literal notranslate"><span class="pre">batch_first</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, <code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">seq_length)</span></code> otherwise.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of list containing the best tag sequence for each batch and
+optionally the scores based on the (~`score_reduction`) parameter
+in <a class="reference internal" href="#zensols.deeplearn.layer.crf.CRF.__init__" title="zensols.deeplearn.layer.crf.CRF.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]], <a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.crf.CRF.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">emissions</span></em>, <em class="sig-param"><span class="n">tags</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reduction</span><span class="o">=</span><span class="default_value">'sum'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/crf.html#CRF.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.crf.CRF.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the conditional log likelihood of a sequence of tags given emission scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>emissions</strong> (<cite>~torch.Tensor</cite>) – Emission score tensor of size
+<code class="docutils literal notranslate"><span class="pre">(seq_length,</span> <span class="pre">batch_size,</span> <span class="pre">num_tags)</span></code> if <code class="docutils literal notranslate"><span class="pre">batch_first</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>,
+<code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">seq_length,</span> <span class="pre">num_tags)</span></code> otherwise.</p></li>
+<li><p><strong>tags</strong> (<cite>~torch.LongTensor</cite>) – Sequence of tags tensor of size
+<code class="docutils literal notranslate"><span class="pre">(seq_length,</span> <span class="pre">batch_size)</span></code> if <code class="docutils literal notranslate"><span class="pre">batch_first</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>,
+<code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">seq_length)</span></code> otherwise.</p></li>
+<li><p><strong>mask</strong> (<cite>~torch.ByteTensor</cite>) – Mask tensor of size <code class="docutils literal notranslate"><span class="pre">(seq_length,</span> <span class="pre">batch_size)</span></code>
+if <code class="docutils literal notranslate"><span class="pre">batch_first</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, <code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">seq_length)</span></code> otherwise.</p></li>
+<li><p><strong>reduction</strong> – Specifies  the reduction to apply to the output:
+<code class="docutils literal notranslate"><span class="pre">none|sum|mean|token_mean</span></code>. <code class="docutils literal notranslate"><span class="pre">none</span></code>: no reduction will be applied.
+<code class="docutils literal notranslate"><span class="pre">sum</span></code>: the output will be summed over batches. <code class="docutils literal notranslate"><span class="pre">mean</span></code>: the output will be
+averaged over batches. <code class="docutils literal notranslate"><span class="pre">token_mean</span></code>: the output will be averaged over tokens.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The log likelihood. This will have size <code class="docutils literal notranslate"><span class="pre">(batch_size,)</span></code> if
+reduction is <code class="docutils literal notranslate"><span class="pre">none</span></code>, <code class="docutils literal notranslate"><span class="pre">()</span></code> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><cite>~torch.Tensor</cite></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.crf.CRF.reset_parameters">
+<code class="sig-name descname">reset_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/crf.html#CRF.reset_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.crf.CRF.reset_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the transition parameters.</p>
+<p>The parameters will be initialized randomly from a uniform distribution
+between -0.1 and 0.1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.crf.CRF.training">
+<code class="sig-name descname">training</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><a class="headerlink" href="#zensols.deeplearn.layer.crf.CRF.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-layer-linear">
+<h2>zensols.deeplearn.layer.linear<a class="headerlink" href="#zensols-deeplearn-layer-linear" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-8e68cc7c296d4a1916eae24a213c1cc2fc245cb4.png" alt="Inheritance diagram of zensols.deeplearn.layer.linear" usemap="#inheritanced9fd020494" class="inheritance graphviz" /></div>
+<map id="inheritanced9fd020494" name="inheritanced9fd020494">
+<area shape="rect" id="node2" href="zensols.deeplearn.html#zensols.deeplearn.domain.ActivationNetworkSettings" target="_top" title="A network settings that contains a activation setting and creates a" alt="" coords="5,372,183,397"/>
+<area shape="rect" id="node11" href="#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings" target="_top" title="Settings for a deep fully connected network using :class:`.DeepLinear`." alt="" coords="207,445,392,471"/>
+<area shape="rect" id="node3" href="zensols.deeplearn.html#zensols.deeplearn.domain.NetworkSettings" target="_top" title="A container settings class for network models. &#160;This abstract class must" alt="" coords="240,299,359,324"/>
+<area shape="rect" id="node7" href="zensols.deeplearn.html#zensols.deeplearn.domain.BatchNormNetworkSettings" target="_top" title="A network settings that contains a batchnorm setting and creates a batchnorm" alt="" coords="207,372,392,397"/>
+<area shape="rect" id="node12" href="zensols.deeplearn.html#zensols.deeplearn.domain.DropoutNetworkSettings" target="_top" title="A network settings that contains a dropout setting and creates a dropout" alt="" coords="417,372,582,397"/>
+<area shape="rect" id="node4" href="zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule" target="_top" title="A utility base network module that contains ubiquitous, but optional layers," alt="" coords="385,225,528,251"/>
+<area shape="rect" id="node10" href="#zensols.deeplearn.layer.linear.DeepLinear" target="_top" title="A layer that has contains one more nested layers, including batch" alt="" coords="413,299,501,324"/>
+<area shape="rect" id="node5" href="zensols.deeplearn.model.html#zensols.deeplearn.model.module.DebugModule" target="_top" title="A utility base class that makes logging more understandable." alt="" coords="465,152,568,177"/>
+</map><span class="target" id="module-zensols.deeplearn.layer.linear"></span><p>Convenience classes for linear layers.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.layer.linear.DeepLinear">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.layer.linear.</code><code class="sig-name descname">DeepLinear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">net_settings</span></em>, <em class="sig-param"><span class="n">sub_logger</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/linear.html#DeepLinear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule" title="zensols.deeplearn.model.module.BaseNetworkModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.model.module.BaseNetworkModule</span></code></a></p>
+<p>A layer that has contains one more nested layers, including batch
+normalization and activation.  The input and output layer shapes are given
+and an optional 0 or more middle layers are given as percent changes in
+size or exact numbers.</p>
+<p>If the network settings are configured to have batch normalization, batch
+normalization layers are added after each linear layer.</p>
+<p>The drop out and activation function (if any) are applied in between each
+layer allowing other drop outs and activation functions to be applied
+before and after.  Note that the activation is implemented as a function,
+and not a layer.</p>
+<p>For example, if batch normalization and an activation function is
+configured and two layers are configured, the network is configured as:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>linear</p></li>
+<li><p>batch normalization</p></li>
+<li><p>activation</p></li>
+<li><p>linear</p></li>
+<li><p>batch normalization</p></li>
+<li><p>activation</p></li>
+</ol>
+</div></blockquote>
+<p>The module also provides the output features of each layer with
+<a class="reference internal" href="#zensols.deeplearn.layer.linear.DeepLinear.n_features_after_layer" title="zensols.deeplearn.layer.linear.DeepLinear.n_features_after_layer"><code class="xref py py-meth docutils literal notranslate"><span class="pre">n_features_after_layer()</span></code></a> and ability to forward though only the
+first given set of layers with <a class="reference internal" href="#zensols.deeplearn.layer.linear.DeepLinear.forward_n_layers" title="zensols.deeplearn.layer.linear.DeepLinear.forward_n_layers"><code class="xref py py-meth docutils literal notranslate"><span class="pre">forward_n_layers()</span></code></a>.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.linear.DeepLinear.MODULE_NAME">
+<code class="sig-name descname">MODULE_NAME</code><em class="property"> = 'linear'</em><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinear.MODULE_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.linear.DeepLinear.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">net_settings</span></em>, <em class="sig-param"><span class="n">sub_logger</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/linear.html#DeepLinear.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinear.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the deep linear layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>net_settings</strong> (<a class="reference internal" href="#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings" title="zensols.deeplearn.layer.linear.DeepLinearNetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeepLinearNetworkSettings</span></code></a>) – the deep linear layer configuration</p></li>
+<li><p><strong>sub_logger</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></a>]) – the logger to use for the forward process in this
+layer</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.linear.DeepLinear.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/linear.html#DeepLinear.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinear.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources for this instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.linear.DeepLinear.forward_n_layers">
+<code class="sig-name descname">forward_n_layers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">n_layers</span></em>, <em class="sig-param"><span class="n">full_forward</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/linear.html#DeepLinear.forward_n_layers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinear.forward_n_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward throught the first 0 index based N layers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_layers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – the number of layers to forward through (0-based
+index)</p></li>
+<li><p><strong>full_forward</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, also return the full forward as a
+second parameter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the tensor output of all layers or a tuple of <code class="docutils literal notranslate"><span class="pre">(N-th</span> <span class="pre">layer,</span>
+<span class="pre">all</span> <span class="pre">layers)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.linear.DeepLinear.get_batch_norm_layers">
+<code class="sig-name descname">get_batch_norm_layers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/linear.html#DeepLinear.get_batch_norm_layers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinear.get_batch_norm_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all batch normalize layers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.linear.DeepLinear.get_linear_layers">
+<code class="sig-name descname">get_linear_layers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/linear.html#DeepLinear.get_linear_layers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinear.get_linear_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all linear layers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.linear.DeepLinear.n_features_after_layer">
+<code class="sig-name descname">n_features_after_layer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nth_layer</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/linear.html#DeepLinear.n_features_after_layer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinear.n_features_after_layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the output features of the Nth (0 index based) layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nth_layer</strong> – the layer to use for getting the output features</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.linear.DeepLinear.out_features">
+<em class="property">property </em><code class="sig-name descname">out_features</code><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinear.out_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of features output from all layers of this module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.linear.DeepLinear.training">
+<code class="sig-name descname">training</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinear.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.layer.linear.DeepLinearNetworkSettings">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.layer.linear.</code><code class="sig-name descname">DeepLinearNetworkSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">batch_norm_d</span></em>, <em class="sig-param"><span class="n">batch_norm_features</span></em>, <em class="sig-param"><span class="n">dropout</span></em>, <em class="sig-param"><span class="n">activation</span></em>, <em class="sig-param"><span class="n">in_features</span></em>, <em class="sig-param"><span class="n">out_features</span></em>, <em class="sig-param"><span class="n">middle_features</span></em>, <em class="sig-param"><span class="n">proportions</span></em>, <em class="sig-param"><span class="n">repeats</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/linear.html#DeepLinearNetworkSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.domain.ActivationNetworkSettings" title="zensols.deeplearn.domain.ActivationNetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.ActivationNetworkSettings</span></code></a>, <a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.domain.DropoutNetworkSettings" title="zensols.deeplearn.domain.DropoutNetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.DropoutNetworkSettings</span></code></a>, <a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.domain.BatchNormNetworkSettings" title="zensols.deeplearn.domain.BatchNormNetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.BatchNormNetworkSettings</span></code></a></p>
+<p>Settings for a deep fully connected network using <a class="reference internal" href="#zensols.deeplearn.layer.linear.DeepLinear" title="zensols.deeplearn.layer.linear.DeepLinear"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeepLinear</span></code></a>.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">batch_norm_d</span></em>, <em class="sig-param"><span class="n">batch_norm_features</span></em>, <em class="sig-param"><span class="n">dropout</span></em>, <em class="sig-param"><span class="n">activation</span></em>, <em class="sig-param"><span class="n">in_features</span></em>, <em class="sig-param"><span class="n">out_features</span></em>, <em class="sig-param"><span class="n">middle_features</span></em>, <em class="sig-param"><span class="n">proportions</span></em>, <em class="sig-param"><span class="n">repeats</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.get_module_class_name">
+<code class="sig-name descname">get_module_class_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/linear.html#DeepLinearNetworkSettings.get_module_class_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.get_module_class_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.in_features">
+<code class="sig-name descname">in_features</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.in_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of features to the first layer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.middle_features">
+<code class="sig-name descname">middle_features</code><em class="property">: Tuple<span class="p">[</span>Any<span class="p">]</span></em><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.middle_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of features in the middle layers; if <code class="docutils literal notranslate"><span class="pre">proportions</span></code> is
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, then each number is how much to grow or shrink as a percetage of
+the last layer, otherwise, it’s the number of features.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.out_features">
+<code class="sig-name descname">out_features</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.out_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of features as output from the last layer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.proportions">
+<code class="sig-name descname">proportions</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.proportions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether or not to interpret <code class="docutils literal notranslate"><span class="pre">middle_features</span></code> as a proportion of the
+previous layer or use directly as the size of the middle layer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.repeats">
+<code class="sig-name descname">repeats</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.repeats" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of repeats of the <a class="reference internal" href="#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.middle_features" title="zensols.deeplearn.layer.linear.DeepLinearNetworkSettings.middle_features"><code class="xref py py-obj docutils literal notranslate"><span class="pre">middle_features</span></code></a> configuration.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-layer-recur">
+<h2>zensols.deeplearn.layer.recur<a class="headerlink" href="#zensols-deeplearn-layer-recur" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-be076d26a4683fb441a0c7e1fc7e108c46ac879c.png" alt="Inheritance diagram of zensols.deeplearn.layer.recur" usemap="#inheritance58f98266e6" class="inheritance graphviz" /></div>
+<map id="inheritance58f98266e6" name="inheritance58f98266e6">
+<area shape="rect" id="node2" href="zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule" target="_top" title="A utility base network module that contains ubiquitous, but optional layers," alt="" coords="370,225,513,251"/>
+<area shape="rect" id="node13" href="#zensols.deeplearn.layer.recur.RecurrentAggregation" target="_top" title="A recurrent neural network model with an output aggregation. &#160;This includes" alt="" coords="367,299,515,324"/>
+<area shape="rect" id="node3" href="zensols.deeplearn.model.html#zensols.deeplearn.model.module.DebugModule" target="_top" title="A utility base class that makes logging more understandable." alt="" coords="443,152,546,177"/>
+<area shape="rect" id="node10" href="zensols.deeplearn.html#zensols.deeplearn.domain.NetworkSettings" target="_top" title="A container settings class for network models. &#160;This abstract class must" alt="" coords="210,299,329,324"/>
+<area shape="rect" id="node9" href="zensols.deeplearn.html#zensols.deeplearn.domain.DropoutNetworkSettings" target="_top" title="A network settings that contains a dropout setting and creates a dropout" alt="" coords="187,372,352,397"/>
+<area shape="rect" id="node14" href="#zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings" target="_top" title="Settings for a recurrent neural network. &#160;This configures a" alt="" coords="147,445,392,471"/>
+</map><span class="target" id="module-zensols.deeplearn.layer.recur"></span><p>This file contains a convenience wrapper around RNN, GRU and LSTM modules in
+PyTorch.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregation">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.layer.recur.</code><code class="sig-name descname">RecurrentAggregation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">net_settings</span></em>, <em class="sig-param"><span class="n">sub_logger</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recur.html#RecurrentAggregation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule" title="zensols.deeplearn.model.module.BaseNetworkModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.model.module.BaseNetworkModule</span></code></a></p>
+<p>A recurrent neural network model with an output aggregation.  This includes
+RNNs, LSTMs and GRUs.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregation.MODULE_NAME">
+<code class="sig-name descname">MODULE_NAME</code><em class="property"> = 'recur'</em><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregation.MODULE_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregation.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">net_settings</span></em>, <em class="sig-param"><span class="n">sub_logger</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recur.html#RecurrentAggregation.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregation.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the recurrent layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>net_settings</strong> (<a class="reference internal" href="#zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings" title="zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecurrentAggregationNetworkSettings</span></code></a>) – the reccurent layer configuration</p></li>
+<li><p><strong>sub_logger</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></a>]) – the logger to use for the forward process in this
+layer</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregation.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recur.html#RecurrentAggregation.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregation.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources for this instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregation.out_features">
+<em class="property">property </em><code class="sig-name descname">out_features</code><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregation.out_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of features output from all layers of this module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregation.training">
+<code class="sig-name descname">training</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregation.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.layer.recur.</code><code class="sig-name descname">RecurrentAggregationNetworkSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">dropout</span></em>, <em class="sig-param"><span class="n">network_type</span></em>, <em class="sig-param"><span class="n">aggregation</span></em>, <em class="sig-param"><span class="n">bidirectional</span></em>, <em class="sig-param"><span class="n">input_size</span></em>, <em class="sig-param"><span class="n">hidden_size</span></em>, <em class="sig-param"><span class="n">num_layers</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recur.html#RecurrentAggregationNetworkSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.domain.DropoutNetworkSettings" title="zensols.deeplearn.domain.DropoutNetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.DropoutNetworkSettings</span></code></a></p>
+<p>Settings for a recurrent neural network.  This configures a
+<a class="reference internal" href="#zensols.deeplearn.layer.recur.RecurrentAggregation" title="zensols.deeplearn.layer.recur.RecurrentAggregation"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecurrentAggregation</span></code></a> layer.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">dropout</span></em>, <em class="sig-param"><span class="n">network_type</span></em>, <em class="sig-param"><span class="n">aggregation</span></em>, <em class="sig-param"><span class="n">bidirectional</span></em>, <em class="sig-param"><span class="n">input_size</span></em>, <em class="sig-param"><span class="n">hidden_size</span></em>, <em class="sig-param"><span class="n">num_layers</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.aggregation">
+<code class="sig-name descname">aggregation</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.aggregation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A convenience operation to aggregate the parameters; this is one of:
+<code class="docutils literal notranslate"><span class="pre">max</span></code>: return the max of the output states <code class="docutils literal notranslate"><span class="pre">ave</span></code>: return the average of
+the output states <code class="docutils literal notranslate"><span class="pre">last</span></code>: return the last output state <code class="docutils literal notranslate"><span class="pre">none</span></code>: do not
+apply an aggregation function.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.bidirectional">
+<code class="sig-name descname">bidirectional</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.bidirectional" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether or not the network is bidirectional.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.get_module_class_name">
+<code class="sig-name descname">get_module_class_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recur.html#RecurrentAggregationNetworkSettings.get_module_class_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.get_module_class_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.hidden_size">
+<code class="sig-name descname">hidden_size</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.hidden_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The size of the hidden states of the network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.input_size">
+<code class="sig-name descname">input_size</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.input_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The input size to the network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.network_type">
+<code class="sig-name descname">network_type</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.network_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>One of <code class="docutils literal notranslate"><span class="pre">rnn</span></code>, <code class="docutils literal notranslate"><span class="pre">lstm</span></code> or <code class="docutils literal notranslate"><span class="pre">gru</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.num_layers">
+<code class="sig-name descname">num_layers</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings.num_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of <em>“stacked”</em> layers.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="zensols-deeplearn-layer-recurcrf">
+<h2>zensols.deeplearn.layer.recurcrf<a class="headerlink" href="#zensols-deeplearn-layer-recurcrf" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img src="../_images/inheritance-8bd062b6b3e37681a973566ef31401d3306ed40a.png" alt="Inheritance diagram of zensols.deeplearn.layer.recurcrf" usemap="#inheritance8d5a28bcf1" class="inheritance graphviz" /></div>
+<map id="inheritance8d5a28bcf1" name="inheritance8d5a28bcf1">
+<area shape="rect" id="node2" href="zensols.deeplearn.html#zensols.deeplearn.domain.ActivationNetworkSettings" target="_top" title="A network settings that contains a activation setting and creates a" alt="" coords="5,372,183,397"/>
+<area shape="rect" id="node16" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings" target="_top" title="Settings for a recurrent neural network using :class:`.RecurrentCRF`." alt="" coords="197,445,401,471"/>
+<area shape="rect" id="node3" href="zensols.deeplearn.html#zensols.deeplearn.domain.NetworkSettings" target="_top" title="A container settings class for network models. &#160;This abstract class must" alt="" coords="240,299,359,324"/>
+<area shape="rect" id="node7" href="zensols.deeplearn.html#zensols.deeplearn.domain.BatchNormNetworkSettings" target="_top" title="A network settings that contains a batchnorm setting and creates a batchnorm" alt="" coords="207,372,392,397"/>
+<area shape="rect" id="node12" href="zensols.deeplearn.html#zensols.deeplearn.domain.DropoutNetworkSettings" target="_top" title="A network settings that contains a dropout setting and creates a dropout" alt="" coords="417,372,582,397"/>
+<area shape="rect" id="node4" href="zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule" target="_top" title="A utility base network module that contains ubiquitous, but optional layers," alt="" coords="389,225,532,251"/>
+<area shape="rect" id="node15" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRF" target="_top" title="Adapt the :class:`.CRF` module using the framework based" alt="" coords="407,299,514,324"/>
+<area shape="rect" id="node5" href="zensols.deeplearn.model.html#zensols.deeplearn.model.module.DebugModule" target="_top" title="A utility base class that makes logging more understandable." alt="" coords="468,152,571,177"/>
+</map><span class="target" id="module-zensols.deeplearn.layer.recurcrf"></span><p>Contains an implementation of a recurrent with a conditional random field
+layer.  This is usually configured as a BiLSTM CRF.</p>
+<dl class="py class">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRF">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.layer.recurcrf.</code><code class="sig-name descname">RecurrentCRF</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">net_settings</span></em>, <em class="sig-param"><span class="n">sub_logger</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recurcrf.html#RecurrentCRF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule" title="zensols.deeplearn.model.module.BaseNetworkModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.model.module.BaseNetworkModule</span></code></a></p>
+<p>Adapt the <a class="reference internal" href="#zensols.deeplearn.layer.crf.CRF" title="zensols.deeplearn.layer.crf.CRF"><code class="xref py py-class docutils literal notranslate"><span class="pre">CRF</span></code></a> module using the framework based
+<a class="reference internal" href="zensols.deeplearn.model.html#zensols.deeplearn.model.module.BaseNetworkModule" title="zensols.deeplearn.model.module.BaseNetworkModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseNetworkModule</span></code></a> class.  This provides methods
+<a class="reference internal" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRF.forward_recur_decode" title="zensols.deeplearn.layer.recurcrf.RecurrentCRF.forward_recur_decode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">forward_recur_decode()</span></code></a> and <a class="reference internal" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRF.decode" title="zensols.deeplearn.layer.recurcrf.RecurrentCRF.decode"><code class="xref py py-meth docutils literal notranslate"><span class="pre">decode()</span></code></a>, which decodes the input.</p>
+<p>This adds a recurrent neural network and a fully connected feed forward
+decoder layer before the CRF layer.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRF.MODULE_NAME">
+<code class="sig-name descname">MODULE_NAME</code><em class="property"> = 'recur crf'</em><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRF.MODULE_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRF.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">net_settings</span></em>, <em class="sig-param"><span class="n">sub_logger</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recurcrf.html#RecurrentCRF.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRF.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the reccurent CRF layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>net_settings</strong> (<a class="reference internal" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings" title="zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecurrentCRFNetworkSettings</span></code></a>) – the recurrent layer configuration</p></li>
+<li><p><strong>sub_logger</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></a>]) – the logger to use for the forward process in this
+layer</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRF.deallocate">
+<code class="sig-name descname">deallocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recurcrf.html#RecurrentCRF.deallocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRF.deallocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deallocate all resources for this instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRF.decode">
+<code class="sig-name descname">decode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">mask</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recurcrf.html#RecurrentCRF.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRF.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward the input though the recurrent network, decoder, and then the CRF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – the input</p></li>
+<li><p><strong>mask</strong> (<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – the mask used to block the last N states not provided</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>, <a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the CRF sequence output and the score provided by the CRF’s
+veterbi algorithm as a tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRF.forward_recur_decode">
+<code class="sig-name descname">forward_recur_decode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recurcrf.html#RecurrentCRF.forward_recur_decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRF.forward_recur_decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward the input through the recurrent network (i.e. LSTM), batch
+normalization and activation (if confgiured), and decoder output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>) – the network input</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the fully connected linear feed forward decoded output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRF.to">
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recurcrf.html#RecurrentCRF.to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRF.to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves and/or casts the parameters and buffers.</p>
+<p>This can be called as</p>
+<dl class="py function">
+<dt id="id0">
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dtype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">non_blocking</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recurcrf.html#RecurrentCRF.to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="id4">
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dtype</span></em>, <em class="sig-param"><span class="n">non_blocking</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recurcrf.html#RecurrentCRF.to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="id5">
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor</span></em>, <em class="sig-param"><span class="n">non_blocking</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recurcrf.html#RecurrentCRF.to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="id6">
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.channels_last</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recurcrf.html#RecurrentCRF.to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Its signature is similar to <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.Tensor.to.html#torch.Tensor.to" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.to()</span></code></a>, but only accepts
+floating point or complex <code class="xref py py-attr docutils literal notranslate"><span class="pre">dtype`s.</span> <span class="pre">In</span> <span class="pre">addition,</span> <span class="pre">this</span> <span class="pre">method</span> <span class="pre">will</span>
+<span class="pre">only</span> <span class="pre">cast</span> <span class="pre">the</span> <span class="pre">floating</span> <span class="pre">point</span> <span class="pre">or</span> <span class="pre">complex</span> <span class="pre">parameters</span> <span class="pre">and</span> <span class="pre">buffers</span> <span class="pre">to</span> <span class="pre">:attr:`dtype</span></code>
+(if given). The integral parameters and buffers will be moved
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">device</span></code>, if that is given, but with dtypes unchanged. When
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">non_blocking</span></code> is set, it tries to convert/move asynchronously
+with respect to the host if possible, e.g., moving CPU Tensors with
+pinned memory to CUDA devices.</p>
+<p>See below for examples.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method modifies the module in-place.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">torch.device</span></code>) – the desired device of the parameters
+and buffers in this module</p></li>
+<li><p><strong>dtype</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">torch.dtype</span></code>) – the desired floating point or complex dtype of
+the parameters and buffers in this module</p></li>
+<li><p><strong>tensor</strong> (<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><em>torch.Tensor</em></a>) – Tensor whose dtype and device are the desired
+dtype and device for all parameters and buffers in this module</p></li>
+<li><p><strong>memory_format</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">torch.memory_format</span></code>) – the desired memory
+format for 4D parameters and buffers in this module (keyword
+only argument)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>self</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Module</p>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span>
+<span class="go">Parameter containing:</span>
+<span class="go">tensor([[ 0.1913, -0.3420],</span>
+<span class="go">        [-0.5113, -0.2325]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">double</span><span class="p">)</span>
+<span class="go">Linear(in_features=2, out_features=2, bias=True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span>
+<span class="go">Parameter containing:</span>
+<span class="go">tensor([[ 0.1913, -0.3420],</span>
+<span class="go">        [-0.5113, -0.2325]], dtype=torch.float64)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gpu1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:1&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">gpu1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">half</span><span class="p">,</span> <span class="n">non_blocking</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">Linear(in_features=2, out_features=2, bias=True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span>
+<span class="go">Parameter containing:</span>
+<span class="go">tensor([[ 0.1914, -0.3420],</span>
+<span class="go">        [-0.5112, -0.2324]], dtype=torch.float16, device=&#39;cuda:1&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cpu</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">cpu</span><span class="p">)</span>
+<span class="go">Linear(in_features=2, out_features=2, bias=True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span>
+<span class="go">Parameter containing:</span>
+<span class="go">tensor([[ 0.1914, -0.3420],</span>
+<span class="go">        [-0.5112, -0.2324]], dtype=torch.float16)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cdouble</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span>
+<span class="go">Parameter containing:</span>
+<span class="go">tensor([[ 0.3741+0.j,  0.2382+0.j],</span>
+<span class="go">        [ 0.5593+0.j, -0.4443+0.j]], dtype=torch.complex128)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linear</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">cdouble</span><span class="p">))</span>
+<span class="go">tensor([[0.6122+0.j, 0.1150+0.j],</span>
+<span class="go">        [0.6122+0.j, 0.1150+0.j],</span>
+<span class="go">        [0.6122+0.j, 0.1150+0.j]], dtype=torch.complex128)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRF.training">
+<code class="sig-name descname">training</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRF.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings">
+<em class="property">class </em><code class="sig-prename descclassname">zensols.deeplearn.layer.recurcrf.</code><code class="sig-name descname">RecurrentCRFNetworkSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">batch_norm_d</span></em>, <em class="sig-param"><span class="n">batch_norm_features</span></em>, <em class="sig-param"><span class="n">dropout</span></em>, <em class="sig-param"><span class="n">activation</span></em>, <em class="sig-param"><span class="n">network_type</span></em>, <em class="sig-param"><span class="n">bidirectional</span></em>, <em class="sig-param"><span class="n">input_size</span></em>, <em class="sig-param"><span class="n">hidden_size</span></em>, <em class="sig-param"><span class="n">num_layers</span></em>, <em class="sig-param"><span class="n">num_labels</span></em>, <em class="sig-param"><span class="n">decoder_settings</span></em>, <em class="sig-param"><span class="n">score_reduction</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recurcrf.html#RecurrentCRFNetworkSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.domain.ActivationNetworkSettings" title="zensols.deeplearn.domain.ActivationNetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.ActivationNetworkSettings</span></code></a>, <a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.domain.DropoutNetworkSettings" title="zensols.deeplearn.domain.DropoutNetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.DropoutNetworkSettings</span></code></a>, <a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.domain.BatchNormNetworkSettings" title="zensols.deeplearn.domain.BatchNormNetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.BatchNormNetworkSettings</span></code></a></p>
+<p>Settings for a recurrent neural network using <a class="reference internal" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRF" title="zensols.deeplearn.layer.recurcrf.RecurrentCRF"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecurrentCRF</span></code></a>.</p>
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">config_factory</span></em>, <em class="sig-param"><span class="n">batch_norm_d</span></em>, <em class="sig-param"><span class="n">batch_norm_features</span></em>, <em class="sig-param"><span class="n">dropout</span></em>, <em class="sig-param"><span class="n">activation</span></em>, <em class="sig-param"><span class="n">network_type</span></em>, <em class="sig-param"><span class="n">bidirectional</span></em>, <em class="sig-param"><span class="n">input_size</span></em>, <em class="sig-param"><span class="n">hidden_size</span></em>, <em class="sig-param"><span class="n">num_layers</span></em>, <em class="sig-param"><span class="n">num_labels</span></em>, <em class="sig-param"><span class="n">decoder_settings</span></em>, <em class="sig-param"><span class="n">score_reduction</span></em><span class="sig-paren">)</span><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.bidirectional">
+<code class="sig-name descname">bidirectional</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.bidirectional" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether or not the network is bidirectional (usually <code class="docutils literal notranslate"><span class="pre">True</span></code>).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.decoder_settings">
+<code class="sig-name descname">decoder_settings</code><em class="property">: <a class="reference internal" href="#zensols.deeplearn.layer.linear.DeepLinearNetworkSettings" title="zensols.deeplearn.layer.linear.DeepLinearNetworkSettings">zensols.deeplearn.layer.linear.DeepLinearNetworkSettings</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.decoder_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>The decoder feed forward network.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.get_module_class_name">
+<code class="sig-name descname">get_module_class_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recurcrf.html#RecurrentCRFNetworkSettings.get_module_class_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.get_module_class_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.hidden_size">
+<code class="sig-name descname">hidden_size</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.hidden_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The size of the hidden states of the network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.input_size">
+<code class="sig-name descname">input_size</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.input_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The input size to the layer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.network_type">
+<code class="sig-name descname">network_type</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.network_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>One of <code class="docutils literal notranslate"><span class="pre">rnn</span></code>, <code class="docutils literal notranslate"><span class="pre">lstm</span></code> or <code class="docutils literal notranslate"><span class="pre">gru</span></code> (usually <code class="docutils literal notranslate"><span class="pre">lstm</span></code>).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.num_labels">
+<code class="sig-name descname">num_labels</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.num_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of output labels from the CRF.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.num_layers">
+<code class="sig-name descname">num_layers</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.num_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of <em>“stacked”</em> layers.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.score_reduction">
+<code class="sig-name descname">score_reduction</code><em class="property">: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></em><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.score_reduction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reduces how the score output over batches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">See</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.layer.crf.CRF" title="zensols.deeplearn.layer.crf.CRF"><code class="xref py py-class docutils literal notranslate"><span class="pre">CRF</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.to_recurrent_aggregation">
+<code class="sig-name descname">to_recurrent_aggregation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/zensols/deeplearn/layer/recurcrf.html#RecurrentCRFNetworkSettings.to_recurrent_aggregation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.recurcrf.RecurrentCRFNetworkSettings.to_recurrent_aggregation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings" title="zensols.deeplearn.layer.recur.RecurrentAggregationNetworkSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecurrentAggregationNetworkSettings</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-zensols.deeplearn.layer">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-zensols.deeplearn.layer" title="Permalink to this headline">¶</a></h2>
+<p>Provides neural network layer implementations, which are all subclasses of
+<a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.10.0a0+git6cf311c ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a>.</p>
+<dl class="py exception">
+<dt id="zensols.deeplearn.layer.LayerError">
+<em class="property">exception </em><code class="sig-prename descclassname">zensols.deeplearn.layer.</code><code class="sig-name descname">LayerError</code><a class="reference internal" href="../_modules/zensols/deeplearn/layer.html#LayerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#zensols.deeplearn.layer.LayerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="zensols.deeplearn.html#zensols.deeplearn.domain.ModelError" title="zensols.deeplearn.domain.ModelError"><code class="xref py py-class docutils literal notranslate"><span class="pre">zensols.deeplearn.domain.ModelError</span></code></a></p>
+<p>Thrown for all deep learning layer errors.</p>
+<dl class="py attribute">
+<dt id="zensols.deeplearn.layer.LayerError.__module__">
+<code class="sig-name descname">__module__</code><em class="property"> = 'zensols.deeplearn.layer'</em><a class="headerlink" href="#zensols.deeplearn.layer.LayerError.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="zensols.deeplearn.model.html" class="btn btn-neutral float-right" title="zensols.deeplearn.model package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="zensols.deeplearn.dataframe.html" class="btn btn-neutral float-left" title="zensols.deeplearn.dataframe package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paul Landes.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
