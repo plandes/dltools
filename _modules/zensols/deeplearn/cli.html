@@ -1,0 +1,1529 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>zensols.deeplearn.cli - Deep Zensols Deep Learning Framework 1.13.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../top.html"><div class="brand">Deep Zensols Deep Learning Framework 1.13.3 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../top.html">
+  
+  
+  <span class="sidebar-brand-text">Deep Zensols Deep Learning Framework 1.13.3 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.dataframe.html">zensols.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.dataset.html">zensols.dataset package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/zensols.deeplearn.html">zensols.deeplearn package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of zensols.deeplearn package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for zensols.deeplearn.cli</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Command line entry point to the application using the application CLI.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="p">)</span>
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.result.manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelResultManager</span><span class="p">,</span> <span class="n">ModelResult</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.result.report</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelResultReporter</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.datdesc</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataDescriber</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">it</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextIOBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.util.std</span><span class="w"> </span><span class="kn">import</span> <span class="n">stdout</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.persist</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">dealloc</span><span class="p">,</span> <span class="n">Deallocatable</span><span class="p">,</span> <span class="n">PersistedWork</span><span class="p">,</span> <span class="n">persisted</span><span class="p">,</span> <span class="n">Stash</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.config</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Writable</span><span class="p">,</span> <span class="n">Configurable</span><span class="p">,</span> <span class="n">ImportConfigFactory</span><span class="p">,</span> <span class="n">DictionaryConfig</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.cli</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ApplicationError</span><span class="p">,</span> <span class="n">Application</span><span class="p">,</span> <span class="n">ApplicationFactory</span><span class="p">,</span>
+    <span class="n">ActionCliManager</span><span class="p">,</span> <span class="n">Invokable</span><span class="p">,</span> <span class="n">CliHarness</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">DeepLearnError</span><span class="p">,</span> <span class="n">TorchConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelFacade</span><span class="p">,</span> <span class="n">ModelError</span><span class="p">,</span> <span class="n">ModelPacker</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="InfoItem">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.InfoItem">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">InfoItem</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Indicates what information to dump in</span>
+<span class="sd">    :meth:`.FacadeInfoApplication.print_information`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">param</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">feature</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="ClearType">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.ClearType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClearType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Indicates what type of data to delete (clear).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">none</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="Format">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.Format">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Format</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">txt</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">json</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">yaml</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">csv</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">latex</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">render</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="BatchReport">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.BatchReport">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BatchReport</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">none</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">split</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="ReportType">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.ReportType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ReportType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">combined</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">majority</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="FacadeApplication">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplication">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FacadeApplication</span><span class="p">(</span><span class="n">Deallocatable</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for applications that use :class:`.ModelFacade`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CLI_META</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mnemonic_excludes&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;get_cached_facade&#39;</span><span class="p">,</span> <span class="s1">&#39;create_facade&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;deallocate&#39;</span><span class="p">,</span> <span class="s1">&#39;clear_cached_facade&#39;</span><span class="p">},</span>
+                <span class="s1">&#39;option_overrides&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;model_path&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;model&#39;</span><span class="p">,</span>
+                                                    <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+                                     <span class="s1">&#39;out_format&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;format&#39;</span><span class="p">,</span>
+                                                    <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="s1">&#39;f&#39;</span><span class="p">}}}</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tell the command line app API to igonore subclass and client specific use</span>
+<span class="sd">    case methods.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span><span class="p">:</span> <span class="n">Configurable</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The config used to create facade instances.&quot;&quot;&quot;</span>
+
+    <span class="n">facade_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;facade&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The client facade.&quot;&quot;&quot;</span>
+
+    <span class="c1"># simply copy this field and documentation to the implementation class to</span>
+    <span class="c1"># add model path location (for those subclasses that don&#39;t have the</span>
+    <span class="c1"># ``CLASS_INSPECTOR`` class level attribute set (see</span>
+    <span class="c1"># :obj:`~zensols.introspect.insp.ClassInspector.INSPECT_META`);</span>
+    <span class="c1"># this can also be set as a parameter such as with</span>
+    <span class="c1"># :meth:`.FacadeModelApplication.test`</span>
+    <span class="n">model_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The path to the model or use the last trained model if not provided.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config_factory_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The arguments given to the :class:`~zensols.config.ImportConfigFactory`,</span>
+<span class="sd">    which could be useful for reloading all classes while debugingg.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config_overwrites</span><span class="p">:</span> <span class="n">Configurable</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A configurable that clobbers any configuration in :obj:`config` for those</span>
+<span class="sd">    sections/options set.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cache_global_facade</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether to globally cache the facade returned by</span>
+<span class="sd">    :meth:`get_cached_facade`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model_config_overwrites</span><span class="p">:</span> <span class="n">Configurable</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration that is injected into the model loaded by the</span>
+<span class="sd">    :class:`..model.ModelManager`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dealloc_resources</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_facade</span> <span class="o">=</span> <span class="n">PersistedWork</span><span class="p">(</span>
+            <span class="s1">&#39;_cached_facade&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span>
+            <span class="n">cache_global</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cache_global_facade</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_enable_cli_logging</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">facade</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_enable_cli_logging</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">progress_bar</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">configure_cli_logging</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_model_path</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the path to the model, which defaults to :obj:`model_path`.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_batch_stash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Stash</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">facade</span><span class="o">.</span><span class="n">batch_stash</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_dataset_stash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Stash</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">facade</span><span class="o">.</span><span class="n">batch_stash</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_batch_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Stash</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">facade</span><span class="o">.</span><span class="n">get_batch_metrics</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_result_reporter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelResultReporter</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">facade</span><span class="o">.</span><span class="n">get_result_reporter</span><span class="p">(</span><span class="n">cross_fold</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FacadeApplication.create_facade">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplication.create_facade">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_facade</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelFacade</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new instance of the facade.&quot;&quot;&quot;</span>
+        <span class="c1"># we must create a new (non-shared) instance of the facade since it</span>
+        <span class="c1"># will get deallcated after complete.</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span>
+        <span class="n">model_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_model_path</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_overwrites</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_overwrites</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">model_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cf</span> <span class="o">=</span> <span class="n">ImportConfigFactory</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">config_factory_args</span><span class="p">)</span>
+            <span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">facade_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;created facade: </span><span class="si">{</span><span class="n">facade</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dealloc_resources</span><span class="o">.</span><span class="n">extend</span><span class="p">((</span><span class="n">cf</span><span class="p">,</span> <span class="n">facade</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;loading model from </span><span class="si">{</span><span class="n">model_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">mconf</span> <span class="o">=</span> <span class="n">ImportConfigFactory</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">config_factory_args</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="n">mconf</span><span class="p">)</span> <span class="k">as</span> <span class="n">cf</span><span class="p">:</span>
+                <span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ModelFacade</span><span class="p">]</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">get_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">facade_name</span><span class="p">)</span>
+            <span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">load_from_path</span><span class="p">(</span>
+                <span class="n">path</span><span class="o">=</span><span class="n">model_path</span><span class="p">,</span>
+                <span class="n">model_config_overwrites</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model_config_overwrites</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;created facade: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span><span class="si">}</span><span class="s1"> &#39;</span> <span class="o">+</span>
+                             <span class="sa">f</span><span class="s1">&#39;from path: </span><span class="si">{</span><span class="n">model_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dealloc_resources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">facade</span></div>
+
+
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_cached_facade&#39;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_cached_facade</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelFacade</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a created facade that is cached in this application instance.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">()</span>
+
+<div class="viewcode-block" id="FacadeApplication.clear_cached_facade">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplication.clear_cached_facade">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_cached_facade</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear any cached facade this application instance.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached_facade</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cached_facade</span><span class="p">()</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_facade</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="FacadeApplication.deallocate">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplication.deallocate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">deallocate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_try_deallocate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dealloc_resources</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cached_facade</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="FacadeInfoApplication">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeInfoApplication">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FacadeInfoApplication</span><span class="p">(</span><span class="n">FacadeApplication</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Contains methods that provide information about the model via the facade.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CLI_META</span> <span class="o">=</span> <span class="n">ActionCliManager</span><span class="o">.</span><span class="n">combine_meta</span><span class="p">(</span>
+        <span class="n">FacadeApplication</span><span class="p">,</span>
+        <span class="p">{</span><span class="s1">&#39;mnemonic_overrides&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;print_information&#39;</span><span class="p">:</span> <span class="s1">&#39;info&#39;</span><span class="p">},</span>
+         <span class="s1">&#39;option_excludes&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;feature_stash_name&#39;</span><span class="p">},</span>
+         <span class="s1">&#39;option_overrides&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;info_item&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;item&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="s1">&#39;i&#39;</span><span class="p">},</span>
+                              <span class="s1">&#39;debug_value&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;execlevel&#39;</span><span class="p">,</span>
+                                              <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}}})</span>
+
+    <span class="n">feature_stash_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;feature_stash&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The section name of the stash to write for :obj:`.InfoItem.feature`.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FacadeInfoApplication.print_information">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeInfoApplication.print_information">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info_item</span><span class="p">:</span> <span class="n">InfoItem</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="n">model_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Output facade data set, vectorizer and other configuration</span>
+<span class="sd">        information.</span>
+
+<span class="sd">        :param info_item: what to print</span>
+
+<span class="sd">        :param model_path: the path to the model or use the last trained model</span>
+<span class="sd">                           if not provided</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">write_feature</span><span class="p">():</span>
+            <span class="n">sec</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_stash_name</span>
+            <span class="k">if</span> <span class="n">sec</span> <span class="ow">in</span> <span class="n">facade</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sections</span><span class="p">:</span>
+                <span class="n">stash</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">facade</span><span class="o">.</span><span class="n">config_factory</span><span class="p">(</span><span class="n">sec</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stash</span><span class="p">,</span> <span class="n">Writable</span><span class="p">):</span>
+                    <span class="n">stash</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+
+        <span class="c1"># see :class:`.FacadeApplicationFactory&#39;</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">write_batch</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">it</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">facade</span><span class="o">.</span><span class="n">batch_stash</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="n">batch</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">write_model_config</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># if the model path is given, we a facade model was created</span>
+                <span class="n">facade</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># otherwise, use whatever configuration was used in this app</span>
+                <span class="n">facade</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+
+        <span class="c1"># inspect a model specified by a path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="o">=</span> <span class="n">model_path</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_no_op&#39;</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">facade</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s1">:&#39;</span><span class="p">)</span>
+                <span class="n">fn_map</span> <span class="o">=</span> \
+                    <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="n">facade</span><span class="o">.</span><span class="n">write</span><span class="p">,</span>
+                     <span class="n">InfoItem</span><span class="o">.</span><span class="n">meta</span><span class="p">:</span> <span class="n">facade</span><span class="o">.</span><span class="n">batch_metadata</span><span class="o">.</span><span class="n">write</span><span class="p">,</span>
+                     <span class="n">InfoItem</span><span class="o">.</span><span class="n">param</span><span class="p">:</span> <span class="n">facade</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">write_settings</span><span class="p">,</span>
+                     <span class="n">InfoItem</span><span class="o">.</span><span class="n">model</span><span class="p">:</span> <span class="n">facade</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">write_model</span><span class="p">,</span>
+                     <span class="n">InfoItem</span><span class="o">.</span><span class="n">config</span><span class="p">:</span> <span class="n">write_model_config</span><span class="p">,</span>
+                     <span class="n">InfoItem</span><span class="o">.</span><span class="n">feature</span><span class="p">:</span> <span class="n">write_feature</span><span class="p">,</span>
+                     <span class="n">InfoItem</span><span class="o">.</span><span class="n">batch</span><span class="p">:</span> <span class="n">write_batch</span><span class="p">}</span>
+                <span class="n">fn</span> <span class="o">=</span> <span class="n">fn_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">info_item</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">fn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">DeepLearnError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No such info item: </span><span class="si">{</span><span class="n">info_item</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">fn</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="FacadeInfoApplication.debug">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeInfoApplication.debug">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">debug_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Debug the model.</span>
+
+<span class="sd">        :param debug_value: the executor debugging level</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">debug_value</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">debug_value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">debug_value</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">debug_value</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">_DataDescriberProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">_DEFAULT_LATEX_DIR</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;model-results&#39;</span>
+    <span class="n">NO_WRITE</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;_nowrite_&#39;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_process_data_describer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">out_format</span><span class="p">:</span> <span class="n">Format</span><span class="p">,</span>
+                                <span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span><span class="p">,</span> <span class="n">dd</span><span class="p">:</span> <span class="n">DataDescriber</span><span class="p">,</span>
+                                <span class="n">res</span><span class="p">:</span> <span class="n">ModelResult</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">write_csv</span><span class="p">(</span><span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span><span class="p">,</span> <span class="n">w</span><span class="p">:</span> <span class="n">TextIOBase</span><span class="p">):</span>
+            <span class="n">dd</span><span class="o">.</span><span class="n">describers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">write_latex</span><span class="p">(</span><span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span><span class="p">,</span> <span class="n">out_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">out_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">out_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_DEFAULT_LATEX_DIR</span><span class="p">)</span>
+            <span class="n">dd</span><span class="o">.</span><span class="n">output_dir</span> <span class="o">=</span> <span class="n">out_file</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;zensols.datdesc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+            <span class="n">dd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">include_excel</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">render</span><span class="p">(</span><span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span><span class="p">):</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.rend</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApplicationFactory</span>
+            <span class="n">ApplicationFactory</span><span class="o">.</span><span class="n">get_browser_manager</span><span class="p">()(</span><span class="n">dd</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">out_file</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">NO_WRITE</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">recommend_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">describers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">Format</span><span class="o">.</span><span class="n">txt</span><span class="p">:</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">w</span><span class="p">:</span> <span class="n">res</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">writer</span><span class="o">=</span><span class="n">w</span><span class="p">))</span> <span class="k">if</span> <span class="n">res</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">Format</span><span class="o">.</span><span class="n">json</span><span class="p">:</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">w</span><span class="p">:</span> <span class="n">res</span><span class="o">.</span><span class="n">asjson</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span> <span class="k">if</span> <span class="n">res</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">Format</span><span class="o">.</span><span class="n">yaml</span><span class="p">:</span> <span class="n">res</span><span class="o">.</span><span class="n">asyaml</span> <span class="k">if</span> <span class="n">res</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">Format</span><span class="o">.</span><span class="n">csv</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">w</span><span class="p">:</span> <span class="n">write_csv</span><span class="p">(</span><span class="n">facade</span><span class="p">,</span> <span class="n">w</span><span class="p">),</span>
+            <span class="n">Format</span><span class="o">.</span><span class="n">latex</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">write_latex</span><span class="p">(</span><span class="n">facade</span><span class="p">,</span> <span class="n">out_file</span><span class="p">),</span>
+            <span class="n">Format</span><span class="o">.</span><span class="n">render</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">render</span><span class="p">(</span><span class="n">facade</span><span class="p">),</span>
+        <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">out_format</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ApplicationError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;Format not supported: </span><span class="si">{</span><span class="n">out_format</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_enable_cli_logging</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">out_format</span> <span class="o">!=</span> <span class="n">Format</span><span class="o">.</span><span class="n">latex</span> <span class="ow">and</span> <span class="n">out_format</span> <span class="o">!=</span> <span class="n">Format</span><span class="o">.</span><span class="n">render</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">stdout</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="n">recommend_name</span><span class="o">=</span><span class="n">recommend_name</span><span class="p">,</span>
+                        <span class="n">extension</span><span class="o">=</span><span class="n">out_format</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">fn</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fn</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="FacadeResultApplication">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeResultApplication">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FacadeResultApplication</span><span class="p">(</span><span class="n">FacadeApplication</span><span class="p">,</span> <span class="n">_DataDescriberProcessor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Contains methods that dump previous results.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CLI_META</span> <span class="o">=</span> <span class="n">ActionCliManager</span><span class="o">.</span><span class="n">combine_meta</span><span class="p">(</span>
+        <span class="n">FacadeApplication</span><span class="p">,</span>
+        <span class="p">{</span><span class="s1">&#39;mnemonic_overrides&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;result_ids&#39;</span><span class="p">:</span> <span class="s1">&#39;resids&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;run&#39;</span><span class="p">:</span> <span class="s1">&#39;resrun&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;summary&#39;</span><span class="p">:</span> <span class="s1">&#39;ressum&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;compare_results&#39;</span><span class="p">:</span> <span class="s1">&#39;rescmp&#39;</span><span class="p">},</span>
+         <span class="s1">&#39;option_overrides&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;include_validation&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;validation&#39;</span><span class="p">,</span>
+                                                     <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+                              <span class="s1">&#39;report_type&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;report&#39;</span><span class="p">},</span>
+                              <span class="s1">&#39;describe&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+                              <span class="s1">&#39;sort&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="s1">&#39;s&#39;</span><span class="p">},</span>
+                              <span class="s1">&#39;out_file&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;outfile&#39;</span><span class="p">,</span>
+                                           <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="s1">&#39;o&#39;</span><span class="p">}}})</span>
+
+<div class="viewcode-block" id="FacadeResultApplication.result_ids">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeResultApplication.result_ids">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">result_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show all archived result IDs.&quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn.result</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelResultManager</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="n">rm</span><span class="p">:</span> <span class="n">ModelResultManager</span> <span class="o">=</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">_get_result_reporter</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span><span class="o">.</span><span class="n">result_manager</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">results_stash</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_run_combined</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">out_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                      <span class="n">out_format</span><span class="p">:</span> <span class="n">Format</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List the performance results as a summary.</span>
+
+<span class="sd">        :param res_id: the result ID or use the last if not given</span>
+
+<span class="sd">        :param out_file: the output path or ``-`` for standard out</span>
+
+<span class="sd">        :param out_format: the output format</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.datdesc</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrameDescriber</span><span class="p">,</span> <span class="n">DataDescriber</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn.result</span><span class="w"> </span><span class="kn">import</span> \
+            <span class="n">ModelResult</span><span class="p">,</span> <span class="n">ModelResultReporter</span><span class="p">,</span> <span class="n">PredictionsDataFrameFactory</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">create_data_describer</span><span class="p">(</span><span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataDescriber</span><span class="p">:</span>
+            <span class="n">rm</span><span class="p">:</span> <span class="n">ModelResultManager</span> <span class="o">=</span> <span class="n">facade</span><span class="o">.</span><span class="n">result_manager</span>
+            <span class="n">reporter</span> <span class="o">=</span> <span class="n">ModelResultReporter</span><span class="p">(</span><span class="n">rm</span><span class="p">,</span> <span class="n">include_validation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">dfd</span><span class="p">:</span> <span class="n">DataFrameDescriber</span> <span class="o">=</span> <span class="n">reporter</span><span class="o">.</span><span class="n">dataframe_describer</span>
+            <span class="n">dfd</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;run&#39;</span>
+            <span class="n">dfd</span> <span class="o">=</span> <span class="n">dfd</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+            <span class="n">dfd</span> <span class="o">=</span> <span class="n">dfd</span><span class="o">.</span><span class="n">derive_with_index_meta</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">DataDescriber</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">facade</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s1"> Model Results&#39;</span><span class="p">,</span>
+                <span class="n">describers</span><span class="o">=</span><span class="p">(</span><span class="n">dfd</span><span class="p">,))</span>
+
+        <span class="n">out_format</span> <span class="o">=</span> <span class="n">Format</span><span class="o">.</span><span class="n">txt</span> <span class="k">if</span> <span class="n">out_format</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">out_format</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="n">df_fac</span><span class="p">:</span> <span class="n">PredictionsDataFrameFactory</span> <span class="o">=</span> \
+                <span class="n">facade</span><span class="o">.</span><span class="n">get_predictions_factory</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">res_id</span><span class="p">)</span>
+            <span class="n">res</span><span class="p">:</span> <span class="n">ModelResult</span> <span class="o">=</span> <span class="n">df_fac</span><span class="o">.</span><span class="n">result</span>
+            <span class="n">dd</span><span class="p">:</span> <span class="n">DataDescriber</span> <span class="o">=</span> <span class="n">create_data_describer</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_process_data_describer</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="n">out_format</span><span class="p">,</span> <span class="n">facade</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">dd</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_run_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">out_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">out_format</span><span class="p">:</span> <span class="n">Format</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;List the performance results by label.</span>
+
+<span class="sd">        :param res_id: the result ID or use the last if not given</span>
+
+<span class="sd">        :param out_file: the output path or ``-`` for standard out</span>
+
+<span class="sd">        :param out_format: the output format</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.datdesc</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrameDescriber</span><span class="p">,</span> <span class="n">DataDescriber</span>
+
+        <span class="n">out_format</span> <span class="o">=</span> <span class="n">Format</span><span class="o">.</span><span class="n">csv</span> <span class="k">if</span> <span class="n">out_format</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">out_format</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="n">dfd</span><span class="p">:</span> <span class="n">DataFrameDescriber</span> <span class="o">=</span> <span class="n">facade</span><span class="o">.</span>\
+                <span class="n">get_predictions_factory</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">res_id</span><span class="p">)</span><span class="o">.</span>\
+                <span class="n">metrics_dataframe_describer</span>
+            <span class="n">dfd</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">dfd</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">dd</span> <span class="o">=</span> <span class="n">DataDescriber</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">dfd</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">describers</span><span class="o">=</span><span class="p">(</span><span class="n">dfd</span><span class="p">,))</span>
+            <span class="n">dfd</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;label&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_process_data_describer</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="n">out_format</span><span class="p">,</span> <span class="n">facade</span><span class="p">,</span> <span class="n">dd</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">dd</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_run_majority_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">out_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                            <span class="n">out_format</span><span class="p">:</span> <span class="n">Format</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show majority label metrics of the test dataset using a previous</span>
+<span class="sd">        result set.</span>
+
+<span class="sd">        :param res_id: the result ID or use the last if not given</span>
+
+<span class="sd">        :param out_file: the output path or ``-`` for standard out</span>
+
+<span class="sd">        :param out_format: the output format</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.datdesc</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrameDescriber</span><span class="p">,</span> <span class="n">DataDescriber</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn.result</span><span class="w"> </span><span class="kn">import</span> <span class="n">PredictionsDataFrameFactory</span>
+
+        <span class="n">out_format</span> <span class="o">=</span> <span class="n">Format</span><span class="o">.</span><span class="n">csv</span> <span class="k">if</span> <span class="n">out_format</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">out_format</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="n">pfac</span><span class="p">:</span> <span class="n">PredictionsDataFrameFactory</span> <span class="o">=</span> \
+                <span class="n">facade</span><span class="o">.</span><span class="n">get_predictions_factory</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">res_id</span><span class="p">)</span>
+            <span class="n">dfd</span><span class="p">:</span> <span class="n">DataFrameDescriber</span> <span class="o">=</span> <span class="n">pfac</span><span class="o">.</span><span class="n">majority_label_metrics_describer</span><span class="o">.</span>\
+                <span class="n">transpose</span><span class="p">()</span>
+            <span class="n">dd</span> <span class="o">=</span> <span class="n">DataDescriber</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">dfd</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">describers</span><span class="o">=</span><span class="p">(</span><span class="n">dfd</span><span class="p">,))</span>
+            <span class="n">dfd</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;majority-label&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_process_data_describer</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="n">out_format</span><span class="p">,</span> <span class="n">facade</span><span class="p">,</span> <span class="n">dd</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">dd</span>
+
+<div class="viewcode-block" id="FacadeResultApplication.run">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeResultApplication.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report_type</span><span class="p">:</span> <span class="n">ReportType</span><span class="p">,</span> <span class="n">res_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">out_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">out_format</span><span class="p">:</span> <span class="n">Format</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Report performance results.</span>
+
+<span class="sd">        :param res_id: the result ID or use the last if not given</span>
+
+<span class="sd">        :param out_file: the output path or ``-`` for standard out</span>
+
+<span class="sd">        :param out_format: the output format</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">ReportType</span><span class="o">.</span><span class="n">combined</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_combined</span><span class="p">,</span>
+            <span class="n">ReportType</span><span class="o">.</span><span class="n">label</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_label</span><span class="p">,</span>
+            <span class="n">ReportType</span><span class="o">.</span><span class="n">majority</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_majority_label</span><span class="p">,</span>
+        <span class="p">}[</span><span class="n">report_type</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="n">res_id</span><span class="o">=</span><span class="n">res_id</span><span class="p">,</span> <span class="n">out_file</span><span class="o">=</span><span class="n">out_file</span><span class="p">,</span> <span class="n">out_format</span><span class="o">=</span><span class="n">out_format</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FacadeResultApplication.summary">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeResultApplication.summary">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">out_format</span><span class="p">:</span> <span class="n">Format</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">include_validation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a summary of all archived results.</span>
+
+<span class="sd">        :param out_file: the output path or ``-`` for standard out</span>
+
+<span class="sd">        :param out_format: the output format</span>
+
+<span class="sd">        :param include_validation: whether to include validation results</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.datdesc</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrameDescriber</span><span class="p">,</span> <span class="n">DataDescriber</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn.result</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelResultReporter</span>
+
+        <span class="n">out_format</span> <span class="o">=</span> <span class="n">Format</span><span class="o">.</span><span class="n">csv</span> <span class="k">if</span> <span class="n">out_format</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">out_format</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="n">reporter</span><span class="p">:</span> <span class="n">ModelResultReporter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_result_reporter</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span>
+            <span class="n">reporter</span><span class="o">.</span><span class="n">include_validation</span> <span class="o">=</span> <span class="n">include_validation</span>
+            <span class="n">dfd</span><span class="p">:</span> <span class="n">DataFrameDescriber</span> <span class="o">=</span> <span class="n">reporter</span><span class="o">.</span><span class="n">dataframe_describer</span>
+            <span class="n">dd</span> <span class="o">=</span> <span class="n">DataDescriber</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">dfd</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">describers</span><span class="o">=</span><span class="p">(</span><span class="n">dfd</span><span class="p">,))</span>
+            <span class="n">dfd</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;summary&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_process_data_describer</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="n">out_format</span><span class="p">,</span> <span class="n">facade</span><span class="p">,</span> <span class="n">dd</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">dd</span></div>
+
+
+<div class="viewcode-block" id="FacadeResultApplication.compare_results">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeResultApplication.compare_results">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compare_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res_id_a</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">res_id_b</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compare two previous archived result sets.</span>
+
+<span class="sd">        :param res_id_a: the first result ID to compare</span>
+
+<span class="sd">        :param res_id_b: the second result ID to compare</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn.result</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelResultComparer</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="n">rm</span><span class="p">:</span> <span class="n">ModelResultComparer</span> <span class="o">=</span> <span class="n">facade</span><span class="o">.</span><span class="n">result_manager</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="n">ModelResultComparer</span><span class="p">(</span><span class="n">rm</span><span class="p">,</span> <span class="n">res_id_a</span><span class="p">,</span> <span class="n">res_id_b</span><span class="p">)</span>
+            <span class="n">diff</span><span class="o">.</span><span class="n">write</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="FacadePackageApplication">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadePackageApplication">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FacadePackageApplication</span><span class="p">(</span><span class="n">FacadeApplication</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Contains methods that package models.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CLI_META</span> <span class="o">=</span> <span class="n">ActionCliManager</span><span class="o">.</span><span class="n">combine_meta</span><span class="p">(</span>
+        <span class="n">FacadeApplication</span><span class="p">,</span>
+        <span class="p">{</span><span class="s1">&#39;option_overrides&#39;</span><span class="p">:</span>
+         <span class="p">{</span><span class="s1">&#39;archive_model_dir&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;archdir&#39;</span><span class="p">,</span> <span class="s1">&#39;metavar&#39;</span><span class="p">:</span> <span class="s1">&#39;DIR&#39;</span><span class="p">},</span>
+          <span class="s1">&#39;train_model_dir&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;modeldir&#39;</span><span class="p">,</span> <span class="s1">&#39;metavar&#39;</span><span class="p">:</span> <span class="s1">&#39;DIR&#39;</span><span class="p">}},</span>
+         <span class="s1">&#39;option_excludes&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;packer&#39;</span><span class="p">}})</span>
+
+    <span class="n">packer</span><span class="p">:</span> <span class="n">ModelPacker</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The model packer used to create the model distributions from this app.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FacadePackageApplication.pack">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadePackageApplication.pack">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">archive_model_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Package a distribution model.</span>
+
+<span class="sd">        :param res_id: the result ID or use the last if not given</span>
+
+<span class="sd">        :param archive_model_dir: the directory where the packaged model is</span>
+<span class="sd">                                 written</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">res_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_enable_cli_logging</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span>
+                <span class="n">res_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">facade</span><span class="o">.</span><span class="n">result_manager</span><span class="o">.</span><span class="n">get_last_id</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_enable_cli_logging</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">packer</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">res_id</span><span class="p">,</span> <span class="n">archive_model_dir</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FacadePackageApplication.update_config">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadePackageApplication.update_config">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">train_model_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update a model&#39;s configuration.</span>
+
+<span class="sd">        :param res_id: the result ID or use the last if not given</span>
+
+<span class="sd">        :param train_model_dir: the trained model directory, which has the</span>
+<span class="sd">                                weight and state files</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn.result</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelResultManager</span><span class="p">,</span> <span class="n">ArchivedResult</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="n">mng</span><span class="p">:</span> <span class="n">ModelResultManager</span> <span class="o">=</span> <span class="n">facade</span><span class="o">.</span><span class="n">result_manager</span>
+            <span class="k">if</span> <span class="n">train_model_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">res_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">res_id</span> <span class="o">=</span> <span class="n">mng</span><span class="o">.</span><span class="n">get_last_id</span><span class="p">()</span>
+                <span class="n">res</span><span class="p">:</span> <span class="n">ArchivedResult</span> <span class="o">=</span> <span class="n">mng</span><span class="o">.</span><span class="n">results_stash</span><span class="p">[</span><span class="n">res_id</span><span class="p">]</span>
+                <span class="n">train_model_dir</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">model_path</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">update_model_config_factory</span><span class="p">(</span><span class="n">train_model_dir</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;updated model: </span><span class="si">{</span><span class="n">res</span><span class="o">.</span><span class="n">model_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="FacadeBatchApplication">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeBatchApplication">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FacadeBatchApplication</span><span class="p">(</span><span class="n">FacadeApplication</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create and analyze batches.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CLI_META</span> <span class="o">=</span> <span class="n">ActionCliManager</span><span class="o">.</span><span class="n">combine_meta</span><span class="p">(</span>
+        <span class="n">FacadeApplication</span><span class="p">,</span>
+        <span class="p">{</span><span class="s1">&#39;option_overrides&#39;</span><span class="p">:</span>
+         <span class="p">{</span><span class="s1">&#39;clear_type&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;ctype&#39;</span><span class="p">,</span>
+                         <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+          <span class="s1">&#39;clear&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+          <span class="s1">&#39;report&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+          <span class="s1">&#39;limit&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}},</span>
+         <span class="s1">&#39;mnemonic_overrides&#39;</span><span class="p">:</span>
+         <span class="p">{</span><span class="s1">&#39;batch&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;option_includes&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;limit&#39;</span><span class="p">,</span> <span class="s1">&#39;clear_type&#39;</span><span class="p">,</span> <span class="s1">&#39;report&#39;</span><span class="p">}}}})</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_write_batch_splits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.dataset</span><span class="w"> </span><span class="kn">import</span> \
+            <span class="n">SplitStashContainer</span><span class="p">,</span> <span class="n">StratifiedStashSplitKeyContainer</span>
+        <span class="n">batch_stash</span><span class="p">:</span> <span class="n">Stash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_batch_stash</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span>
+        <span class="n">scont</span><span class="p">:</span> <span class="n">SplitStashContainer</span> <span class="o">=</span> <span class="n">batch_stash</span><span class="o">.</span><span class="n">split_stash_container</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">scont</span><span class="p">,</span> <span class="s1">&#39;split_container&#39;</span><span class="p">)</span> <span class="ow">and</span> \
+           <span class="nb">isinstance</span><span class="p">(</span><span class="n">scont</span><span class="o">.</span><span class="n">split_container</span><span class="p">,</span> <span class="n">StratifiedStashSplitKeyContainer</span><span class="p">):</span>
+            <span class="n">stash</span><span class="p">:</span> <span class="n">StratifiedStashSplitKeyContainer</span> <span class="o">=</span> <span class="n">scont</span><span class="o">.</span><span class="n">split_container</span>
+            <span class="n">stash</span><span class="o">.</span><span class="n">stratified_write</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">stash</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_write_batch_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span><span class="p">):</span>
+        <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_batch_metrics</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span><span class="o">.</span><span class="n">get_label_dataframe</span><span class="p">()</span>
+        <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">facade</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">normal_model_name</span>
+        <span class="n">out_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1">-split-labels.csv&#39;</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;wrote batch labels: </span><span class="si">{</span><span class="n">out_file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_write_batch_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_batch_metrics</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span><span class="o">.</span><span class="n">get_label_variance</span><span class="p">())</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_prime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span><span class="p">):</span>
+        <span class="n">facade</span><span class="o">.</span><span class="n">batch_stash</span><span class="o">.</span><span class="n">prime</span><span class="p">()</span>
+
+<div class="viewcode-block" id="FacadeBatchApplication.batch">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeBatchApplication.batch">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">clear_type</span><span class="p">:</span> <span class="n">ClearType</span> <span class="o">=</span> <span class="n">ClearType</span><span class="o">.</span><span class="n">none</span><span class="p">,</span>
+              <span class="n">report</span><span class="p">:</span> <span class="n">BatchReport</span> <span class="o">=</span> <span class="n">BatchReport</span><span class="o">.</span><span class="n">none</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create batches if not already, print statistics on the dataset.</span>
+
+<span class="sd">        :param clear_type: what to delete to force recreate</span>
+
+<span class="sd">        :param limit: the number of batches to create</span>
+
+<span class="sd">        :param report: the type of report to generate</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_enable_cli_logging</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span>
+            <span class="n">batch_stash</span><span class="p">:</span> <span class="n">Stash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_batch_stash</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span>
+            <span class="n">dataset_stash</span><span class="p">:</span> <span class="n">Stash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_dataset_stash</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">clear_type</span> <span class="o">==</span> <span class="n">ClearType</span><span class="o">.</span><span class="n">batch</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;clearing batches&#39;</span><span class="p">)</span>
+                <span class="n">batch_stash</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">clear_type</span> <span class="o">==</span> <span class="n">ClearType</span><span class="o">.</span><span class="n">source</span><span class="p">:</span>
+                <span class="n">batch_stash</span><span class="o">.</span><span class="n">clear_all</span><span class="p">()</span>
+                <span class="n">batch_stash</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">limit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">batch_stash</span><span class="o">.</span><span class="n">batch_limit</span> <span class="o">=</span> <span class="n">limit</span>
+                <span class="k">if</span> <span class="n">limit</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">batch_stash</span><span class="o">.</span><span class="n">workers</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">dataset_stash</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+            <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">BatchReport</span><span class="o">.</span><span class="n">none</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prime</span><span class="p">,</span>
+                <span class="n">BatchReport</span><span class="o">.</span><span class="n">split</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_write_batch_splits</span><span class="p">,</span>
+                <span class="n">BatchReport</span><span class="o">.</span><span class="n">labels</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_write_batch_labels</span><span class="p">,</span>
+                <span class="n">BatchReport</span><span class="o">.</span><span class="n">stats</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_write_batch_stats</span><span class="p">,</span>
+            <span class="p">}[</span><span class="n">report</span><span class="p">]</span>
+            <span class="n">fn</span><span class="p">(</span><span class="n">facade</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="FacadeModelApplication">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeModelApplication">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FacadeModelApplication</span><span class="p">(</span><span class="n">FacadeApplication</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test, train and validate models.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CLI_META</span> <span class="o">=</span> <span class="n">ActionCliManager</span><span class="o">.</span><span class="n">combine_meta</span><span class="p">(</span>
+        <span class="n">FacadeApplication</span><span class="p">,</span>
+        <span class="p">{</span><span class="s1">&#39;option_overrides&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;use_progress_bar&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;progress&#39;</span><span class="p">,</span>
+                                                   <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="s1">&#39;p&#39;</span><span class="p">},</span>
+                              <span class="s1">&#39;result_name&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;desc&#39;</span><span class="p">,</span>
+                                              <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}},</span>
+         <span class="s1">&#39;mnemonic_overrides&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;train_production&#39;</span><span class="p">:</span> <span class="s1">&#39;trainprod&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;early_stop&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;option_includes&#39;</span><span class="p">:</span> <span class="p">{},</span>
+                                               <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;stop&#39;</span><span class="p">}}})</span>
+
+    <span class="n">use_progress_bar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Display the progress bar.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FacadeModelApplication.create_facade">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeModelApplication.create_facade">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_facade</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelFacade</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new instance of the facade.&quot;&quot;&quot;</span>
+        <span class="n">facade</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">create_facade</span><span class="p">()</span>
+        <span class="n">facade</span><span class="o">.</span><span class="n">progress_bar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_progress_bar</span>
+        <span class="n">facade</span><span class="o">.</span><span class="n">configure_cli_logging</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">facade</span></div>
+
+
+<div class="viewcode-block" id="FacadeModelApplication.train">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeModelApplication.train">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Train the model and dump the results, including a graph of the</span>
+<span class="sd">        train/validation loss.</span>
+
+<span class="sd">        :param result_name: a descriptor used in the results</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">result_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">facade</span><span class="o">.</span><span class="n">result_name</span> <span class="o">=</span> <span class="n">result_name</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">persist_result</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="FacadeModelApplication.test">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeModelApplication.test">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">result_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Test an existing model the model and dump the results of the test.</span>
+
+<span class="sd">        :param model_path: the path to the model or use the last trained model</span>
+<span class="sd">                           if not provided</span>
+
+<span class="sd">        :param result_name: a descriptor used in the results</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_model_path</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">result_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">facade</span><span class="o">.</span><span class="n">result_name</span> <span class="o">=</span> <span class="n">result_name</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">test</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="FacadeModelApplication.train_test">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeModelApplication.train_test">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Train, test the model, then dump the results with a graph.</span>
+
+<span class="sd">        :param result_name: a descriptor used in the results</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">result_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">facade</span><span class="o">.</span><span class="n">result_name</span> <span class="o">=</span> <span class="n">result_name</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">persist_result</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="FacadeModelApplication.train_production">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeModelApplication.train_production">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train_production</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Train, test the model on train and test datasets, then dump the</span>
+<span class="sd">        results with a graph.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">train_production</span><span class="p">()</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">persist_result</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="FacadeModelApplication.early_stop">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeModelApplication.early_stop">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">early_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stops the execution of training the model.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">stop_training</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="FacadePredictApplication">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadePredictApplication">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FacadePredictApplication</span><span class="p">(</span><span class="n">FacadeApplication</span><span class="p">,</span> <span class="n">_DataDescriberProcessor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An applicaiton that provides prediction funtionality.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CLI_META</span> <span class="o">=</span> <span class="n">ActionCliManager</span><span class="o">.</span><span class="n">combine_meta</span><span class="p">(</span>
+        <span class="n">FacadeApplication</span><span class="p">,</span>
+        <span class="p">{</span><span class="s1">&#39;mnemonic_overrides&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="s1">&#39;respreds&#39;</span><span class="p">}})</span>
+
+<div class="viewcode-block" id="FacadePredictApplication.predictions">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadePredictApplication.predictions">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">predictions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">out_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">out_format</span><span class="p">:</span> <span class="n">Format</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write labels and predictions from the test set to a CSV file.</span>
+
+<span class="sd">        :param res_id: the result ID or use the last if not given</span>
+
+<span class="sd">        :param out_file: the output path or ``-`` for standard out</span>
+
+<span class="sd">        :param out_format: the output format</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.datdesc</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrameDescriber</span><span class="p">,</span> <span class="n">DataDescriber</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn.result</span><span class="w"> </span><span class="kn">import</span> <span class="n">PredictionsDataFrameFactory</span>
+
+        <span class="n">out_format</span> <span class="o">=</span> <span class="n">Format</span><span class="o">.</span><span class="n">csv</span> <span class="k">if</span> <span class="n">out_format</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">out_format</span>
+        <span class="k">with</span> <span class="n">dealloc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">())</span> <span class="k">as</span> <span class="n">facade</span><span class="p">:</span>
+            <span class="c1"># log from where the reults are read and output file message</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">configure_cli_logging</span><span class="p">()</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;zensols.deeplearn.result&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">pred_factory</span><span class="p">:</span> <span class="n">PredictionsDataFrameFactory</span> <span class="o">=</span> \
+                    <span class="n">facade</span><span class="o">.</span><span class="n">get_predictions_factory</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">res_id</span><span class="p">)</span>
+                <span class="n">dfd</span><span class="p">:</span> <span class="n">DataFrameDescriber</span> <span class="o">=</span> <span class="n">pred_factory</span><span class="o">.</span><span class="n">dataframe_describer</span>
+                <span class="n">dd</span> <span class="o">=</span> <span class="n">DataDescriber</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">dfd</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">describers</span><span class="o">=</span><span class="p">(</span><span class="n">dfd</span><span class="p">,))</span>
+                <span class="n">dfd</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;predictions&#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_process_data_describer</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="n">out_format</span><span class="p">,</span> <span class="n">facade</span><span class="p">,</span> <span class="n">dd</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">ModelError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ApplicationError</span><span class="p">(</span>
+                    <span class="s1">&#39;Could not predict, probably need to train a model &#39;</span> <span class="o">+</span>
+                    <span class="sa">f</span><span class="s1">&#39;first: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="FacadeApplicationFactory">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplicationFactory">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FacadeApplicationFactory</span><span class="p">(</span><span class="n">ApplicationFactory</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This is a utility class that creates instances of</span>
+<span class="sd">    :class:`.FacadeApplication`.  It&#39;s only needed if you need to create a</span>
+<span class="sd">    facade without wanting invoke the command line attached to the</span>
+<span class="sd">    applications.</span>
+
+<span class="sd">    It does this by only invoking the first pass applications so all the</span>
+<span class="sd">    correct initialization happens before returning factory artifacts.</span>
+
+<span class="sd">    There mst be a :obj:`.FacadeApplication.facade_name` entry in the</span>
+<span class="sd">    configuration tied to an instance of :class:`.FacadeApplication`.</span>
+
+<span class="sd">    :see: :meth:`create_facade`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="FacadeApplicationFactory.create_facade">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplicationFactory.create_facade">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_facade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                      <span class="n">app_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelFacade</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the facade tied to the application without invoking the</span>
+<span class="sd">        command line.</span>
+
+<span class="sd">        :param args: the (would be) command line arguments used to create the</span>
+<span class="sd">                     application</span>
+
+<span class="sd">        :param app_args: the arguments to set on the the facade application</span>
+<span class="sd">                         after it is created and before it creates the facade</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">create_args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">create_args</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">app</span><span class="p">:</span> <span class="n">Application</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">create_args</span><span class="p">)</span>
+        <span class="n">inv</span><span class="p">:</span> <span class="n">Invokable</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">invoke_but_second_pass</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">fac_app</span><span class="p">:</span> <span class="n">FacadeApplication</span> <span class="o">=</span> <span class="n">inv</span><span class="o">.</span><span class="n">instance</span>
+        <span class="k">if</span> <span class="n">app_args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">app_args</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">fac_app</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fac_app</span><span class="o">.</span><span class="n">create_facade</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="FacadeApplicationManager">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplicationManager">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FacadeApplicationManager</span><span class="p">(</span><span class="n">Writable</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A very high level client interface making it easy to configure and run</span>
+<span class="sd">    models from an interactive environment such as a Python REPL or a Jupyter</span>
+<span class="sd">    notebook (see :class:`.JupyterManager`)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cli_harness</span><span class="p">:</span> <span class="n">CliHarness</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The CLI harness used to create the facade application.&quot;&quot;&quot;</span>
+
+    <span class="n">cli_args_fn</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[])</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates the arguments used to create the facade from the application</span>
+<span class="sd">    factory.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">reset_torch</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset random state for consistency for each new created facade.&quot;&quot;&quot;</span>
+
+    <span class="n">allocation_tracking</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether or not to track resource/memory leaks.  If set to ``stack``, the</span>
+<span class="sd">    stack traces of the unallocated objects will be printed.  If set to</span>
+<span class="sd">    ``counts`` only the counts will be printed.  If set to ``True`` only the</span>
+<span class="sd">    unallocated objects without the stack will be printed.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The name of the logger to use for logging in the notebook itself.&quot;&quot;&quot;</span>
+
+    <span class="n">default_logging_level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;WARNING&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;If set, then initialize the logging system using this as the default</span>
+
+<span class="sd">    logging level.  This is the upper case logging name such as ``WARNING``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">progress_bar_cols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The number of columns to use for the progress bar.&quot;&quot;&quot;</span>
+
+    <span class="n">config_overwrites</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clobbers any configuration set by :meth:`config` for those</span>
+<span class="sd">    sections/options set.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocation_tracking</span><span class="p">:</span>
+            <span class="n">Deallocatable</span><span class="o">.</span><span class="n">ALLOCATION_TRACKING</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">logger_name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_facade</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_facade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">app_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelFacade</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the facade tied to the application without invoking the</span>
+<span class="sd">        command line.</span>
+
+<span class="sd">        :param args: the (would be) command line arguments used to create the</span>
+<span class="sd">                     application</span>
+
+<span class="sd">        :param app_args: the arguments to set on the the facade application</span>
+<span class="sd">                         after it is created and before it creates the facade</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">create_args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;info&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">create_args</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">fac_app</span><span class="p">:</span> <span class="n">FacadeApplication</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_harness</span><span class="o">.</span><span class="n">get_instance</span><span class="p">(</span><span class="n">create_args</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fac_app</span><span class="p">,</span> <span class="n">FacadeApplication</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">app_args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">app_args</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">fac_app</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fac_app</span><span class="o">.</span><span class="n">create_facade</span><span class="p">()</span>
+
+<div class="viewcode-block" id="FacadeApplicationManager.cleanup">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplicationManager.cleanup">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_cuda</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Report memory leaks, run the Python garbage collector and optionally</span>
+<span class="sd">        empty the CUDA cache.</span>
+
+<span class="sd">        :param include_cuda: if ``True`` clear the GPU cache</span>
+
+<span class="sd">        :param quiet: do not report unallocated objects, regardless of the</span>
+<span class="sd">                      setting of :obj:`allocation_tracking`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocation_tracking</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
+            <span class="n">include_stack</span><span class="p">,</span> <span class="n">only_counts</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocation_tracking</span> <span class="o">==</span> <span class="s1">&#39;stack&#39;</span><span class="p">:</span>
+                <span class="n">include_stack</span><span class="p">,</span> <span class="n">only_counts</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocation_tracking</span> <span class="o">==</span> <span class="s1">&#39;counts&#39;</span><span class="p">:</span>
+                <span class="n">include_stack</span><span class="p">,</span> <span class="n">only_counts</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span>
+            <span class="n">include_stack</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allocation_tracking</span> <span class="o">==</span> <span class="s1">&#39;stack&#39;</span><span class="p">)</span>
+            <span class="n">Deallocatable</span><span class="o">.</span><span class="n">_print_undeallocated</span><span class="p">(</span><span class="n">include_stack</span><span class="p">,</span> <span class="n">only_counts</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="n">Deallocatable</span><span class="o">.</span><span class="n">_deallocate_all</span><span class="p">()</span>
+        <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">include_cuda</span><span class="p">:</span>
+            <span class="c1"># free up memory in the GPU</span>
+            <span class="n">TorchConfig</span><span class="o">.</span><span class="n">empty_cache</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="FacadeApplicationManager.deallocate">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplicationManager.deallocate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">deallocate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Deallocate all resources in the CLI factory if it exists.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_facade</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;deallocating old factory&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_facade</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_facade</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="FacadeApplicationManager.config">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplicationManager.config">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add overwriting configuration used when creating the facade.</span>
+
+<span class="sd">        :param section: the section to be overwritten (or added)</span>
+
+<span class="sd">        :param kwargs: the key/value pairs used as the section data to</span>
+<span class="sd">                       overwrite</span>
+
+<span class="sd">        :see: :meth:`create_facade`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">section</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_overwrites</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config_overwrites</span><span class="p">[</span><span class="n">section</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_overwrites</span><span class="p">[</span><span class="n">section</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FacadeApplicationManager.clear">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplicationManager.clear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear all post create configuration set with :meth:`config`.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_overwrites</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="FacadeApplicationManager.create_facade">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplicationManager.create_facade">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_facade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelFacade</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create and return a facade.  This deallocates and cleans up state</span>
+<span class="sd">        from any previous facade creation as a side effect.</span>
+
+<span class="sd">        :param args: given to the :obj:`cli_args_fn` function to create</span>
+<span class="sd">                     arguments passed to the CLI</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_overwrites</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">dconf</span> <span class="o">=</span> <span class="n">DictionaryConfig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_overwrites</span><span class="p">)</span>
+            <span class="n">app_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;config_overwrites&#39;</span><span class="p">:</span> <span class="n">dconf</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">app_args</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="c1"># reclaim memory running GC and GPU cache clear</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># reset random state for consistency of each new test</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reset_torch</span><span class="p">:</span>
+                <span class="n">TorchConfig</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+            <span class="c1"># create a factory that instantiates Python objects</span>
+            <span class="n">cli_args_fn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_args_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="c1"># create the facade used for this instance</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_facade</span><span class="p">:</span> <span class="n">ModelFacade</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_facade</span><span class="p">(</span>
+                <span class="n">cli_args_fn</span><span class="p">,</span> <span class="n">app_args</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_facade</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># recover the best we can</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cleanup</span><span class="p">(</span><span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_facade</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">raise</span> <span class="n">DeepLearnError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Could not create facade: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">facade</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelFacade</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The current facade for this notebook instance.</span>
+
+<span class="sd">        :return: the existing facade, or that created by :meth:`create_facade`</span>
+<span class="sd">                 if it doesn&#39;t already exist</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_facade</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_facade</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_facade</span><span class="o">.</span><span class="n">writer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_facade</span>
+
+<div class="viewcode-block" id="FacadeApplicationManager.run">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplicationManager.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display_results</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Train, test and optionally show results.</span>
+
+<span class="sd">        :param display_results: if ``True``, write and plot the results</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">facade</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">facade</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+            <span class="n">facade</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">display_results</span><span class="p">:</span>
+                <span class="n">facade</span><span class="o">.</span><span class="n">write_result</span><span class="p">()</span>
+                <span class="n">facade</span><span class="o">.</span><span class="n">plot_result</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">facade</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="c1"># recover the best we can</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cleanup</span><span class="p">(</span><span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">raise</span> <span class="n">DeepLearnError</span><span class="p">(</span><span class="s1">&#39;Could not run the model&#39;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="FacadeApplicationManager.show_leaks">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplicationManager.show_leaks">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">show_leaks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;counts&#39;</span><span class="p">,</span> <span class="n">fail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show all resources/memory leaks in the current facade.  First, this</span>
+<span class="sd">        deallocates the facade, then prints any lingering objects using</span>
+<span class="sd">        :class:`~zensols.persist.Deallocatable`.</span>
+
+<span class="sd">        **Important**: :obj:`allocation_tracking` must be set to ``True`` for</span>
+<span class="sd">        this to work.</span>
+
+<span class="sd">        :param output: one of ``stack``, ``counts``, or ``tensors``</span>
+
+<span class="sd">        :param fail: if ``True``, raise an exception if there are any</span>
+<span class="sd">                     unallocated references found</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_facade</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">DeepLearnError</span><span class="p">(</span><span class="s1">&#39;No facade created yet&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocation_tracking</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_facade</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;counts&#39;</span><span class="p">:</span>
+                <span class="n">Deallocatable</span><span class="o">.</span><span class="n">_print_undeallocated</span><span class="p">(</span>
+                    <span class="n">only_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fail</span><span class="o">=</span><span class="n">fail</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;stack&#39;</span><span class="p">:</span>
+                <span class="n">Deallocatable</span><span class="o">.</span><span class="n">_print_undeallocated</span><span class="p">(</span>
+                    <span class="n">include_stack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fail</span><span class="o">=</span><span class="n">fail</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;tensors&#39;</span><span class="p">:</span>
+                <span class="n">TorchConfig</span><span class="o">.</span><span class="n">write_in_memory_tensors</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">DeepLearnError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Unknown output type: </span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_facade</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="FacadeApplicationManager.write">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.FacadeApplicationManager.write">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">writer</span><span class="p">:</span> <span class="n">TextIOBase</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span>
+              <span class="n">include_model</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">include_metadata</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+              <span class="n">include_settings</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">facade</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="n">depth</span><span class="p">,</span> <span class="n">writer</span><span class="p">,</span>
+            <span class="n">include_model</span><span class="o">=</span><span class="n">include_model</span><span class="p">,</span>
+            <span class="n">include_metadata</span><span class="o">=</span><span class="n">include_metadata</span><span class="p">,</span>
+            <span class="n">include_settings</span><span class="o">=</span><span class="n">include_settings</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="JupyterManager">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.JupyterManager">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">JupyterManager</span><span class="p">(</span><span class="n">FacadeApplicationManager</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A facade application manager that provides additional convenience</span>
+<span class="sd">    functionality.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">reduce_logging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether to disable most information logging so the progress bar is more</span>
+<span class="sd">    prevalent.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">browser_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">95</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The width of the browser windows as a percentage.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__post_init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">browser_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_browser_width</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">browser_width</span><span class="p">)</span>
+
+<div class="viewcode-block" id="JupyterManager.set_browser_width">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.JupyterManager.set_browser_width">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_browser_width</span><span class="p">(</span><span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">95</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use the entire width of the browser to create more real estate.</span>
+
+<span class="sd">        :param width: the width as a percent (``[0, 100]``) to use as the width</span>
+<span class="sd">                      in the notebook</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">IPython.core.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&lt;style&gt;.container </span><span class="se">{{</span><span class="s1"> width:</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s1">% !important; </span><span class="se">}}</span><span class="s1">&lt;/style&gt;&#39;</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html</span><span class="p">))</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_init_jupyter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the a Jupyter notebook by configuring the logging system</span>
+<span class="sd">        and setting the progress bar.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduce_logging</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;zensols.deeplearn.model.executor.status&#39;</span><span class="p">)</span><span class="o">.</span>\
+                <span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log_level</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_logging_level</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">log_level</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">logging</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_logging_level</span><span class="p">)</span>
+            <span class="c1"># set console based logging</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">facade</span><span class="o">.</span><span class="n">configure_jupyter</span><span class="p">(</span>
+                <span class="n">log_level</span><span class="o">=</span><span class="n">log_level</span><span class="p">,</span>
+                <span class="n">progress_bar_cols</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">progress_bar_cols</span><span class="p">)</span>
+
+<div class="viewcode-block" id="JupyterManager.create_facade">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.cli.JupyterManager.create_facade">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_facade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelFacade</span><span class="p">:</span>
+        <span class="n">facade</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">create_facade</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># initialize jupyter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_jupyter</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">facade</span></div>
+</div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Paul Landes
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../_static/documentation_options.js?v=b8a3e558"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    </body>
+</html>

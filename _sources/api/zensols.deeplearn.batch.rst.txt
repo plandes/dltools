@@ -1,0 +1,61 @@
+zensols.deeplearn.batch package
+===============================
+
+Submodules
+----------
+
+zensols.deeplearn.batch.domain module
+-------------------------------------
+
+.. automodule:: zensols.deeplearn.batch.domain
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.batch.interface module
+----------------------------------------
+
+.. automodule:: zensols.deeplearn.batch.interface
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.batch.mapping module
+--------------------------------------
+
+.. automodule:: zensols.deeplearn.batch.mapping
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.batch.meta module
+-----------------------------------
+
+.. automodule:: zensols.deeplearn.batch.meta
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.batch.multi module
+------------------------------------
+
+.. automodule:: zensols.deeplearn.batch.multi
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.batch.stash module
+------------------------------------
+
+.. automodule:: zensols.deeplearn.batch.stash
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: zensols.deeplearn.batch
+   :members:
+   :undoc-members:
+   :show-inheritance:

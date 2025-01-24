@@ -1,0 +1,819 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>zensols.deeplearn.domain - Deep Zensols Deep Learning Framework 1.13.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../top.html"><div class="brand">Deep Zensols Deep Learning Framework 1.13.3 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../top.html">
+  
+  
+  <span class="sidebar-brand-text">Deep Zensols Deep Learning Framework 1.13.3 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.dataframe.html">zensols.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.dataset.html">zensols.dataset package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/zensols.deeplearn.html">zensols.deeplearn package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of zensols.deeplearn package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for zensols.deeplearn.domain</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This file contains classes that configure the network and classifier runs.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Callable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">InitVar</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIError</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">Writeback</span><span class="p">,</span> <span class="n">ConfigFactory</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.persist</span><span class="w"> </span><span class="kn">import</span> <span class="n">persisted</span><span class="p">,</span> <span class="n">PersistableContainer</span><span class="p">,</span> <span class="n">FileTextUtil</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelObserverManager</span><span class="p">,</span> <span class="n">TorchConfig</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="DeepLearnError">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.DeepLearnError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DeepLearnError</span><span class="p">(</span><span class="n">APIError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised for any frame originated error.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="ModelError">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.ModelError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModelError</span><span class="p">(</span><span class="n">DeepLearnError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised for any model related error.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="EarlyBailError">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.EarlyBailError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">EarlyBailError</span><span class="p">(</span><span class="n">DeepLearnError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience used for helping debug the network.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="EarlyBailError.__init__">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.EarlyBailError.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;early bail to debug the network&#39;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="DatasetSplitType">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.DatasetSplitType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DatasetSplitType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Indicates an action on the model, which is first trained, validated, then</span>
+<span class="sd">    tested.</span>
+
+<span class="sd">    *Implementation note:* for now :obj:`test` is used for both testing the</span>
+<span class="sd">    model and ad-hoc prediction</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">train</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">validation</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="NetworkSettings">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.NetworkSettings">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NetworkSettings</span><span class="p">(</span><span class="n">Writeback</span><span class="p">,</span> <span class="n">PersistableContainer</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A container settings class for network models.  This abstract class must</span>
+<span class="sd">    return the fully qualified (with module name) PyTorch `model</span>
+<span class="sd">    (`torch.nn.Module``) that goes along with these settings.  An instance of</span>
+<span class="sd">    this class is saved in the model file and given back to it when later</span>
+<span class="sd">    restored.</span>
+
+<span class="sd">    **Note**: Instances of this class are pickled as parts of the results in</span>
+<span class="sd">    :class:`zensols.deeplearn.result.domain.ModelResult`, so they must be able</span>
+<span class="sd">    to serialize.  However, they are not used to restore the executor or model,</span>
+<span class="sd">    which are instead, recreated from the configuration for each (re)load (see</span>
+<span class="sd">    the package documentation for more information).</span>
+
+<span class="sd">    :see: :class:`.ModelSettings`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config_factory</span><span class="p">:</span> <span class="n">ConfigFactory</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The configuration factory used to create the module.&quot;&quot;&quot;</span>
+
+    <span class="n">torch_config</span><span class="p">:</span> <span class="n">TorchConfig</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The GPU configuration for :class:`torch.nn.Module` layers.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">PersistableContainer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_allow_config_adds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="NetworkSettings.create_module">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.NetworkSettings.create_module">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new instance of the network model.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_module_class_name</span><span class="p">()</span>
+        <span class="n">resolver</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="o">.</span><span class="n">class_resolver</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="n">resolver</span><span class="o">.</span><span class="n">find_class</span><span class="p">(</span><span class="n">cls_name</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># force the model on the CPU to let the executor manage, otherwise, the</span>
+        <span class="c1"># model could be on the GPU but only certain parameters on the CPU</span>
+        <span class="c1"># after load in `load_model_optim_weights&#39;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;created model </span><span class="si">{</span><span class="bp">cls</span><span class="si">}</span><span class="s1"> on device: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span></div>
+
+
+<div class="viewcode-block" id="NetworkSettings.get_module_class_name">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.NetworkSettings.get_module_class_name">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_module_class_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the fully qualified class name of the module to create by</span>
+<span class="sd">        :class:`~zensols.deeplearn.model.ModelManager`.  This module takes as</span>
+<span class="sd">        the first parameter an instance of this class.</span>
+
+<span class="sd">        **Important**: This method is not used for nested modules.  You must</span>
+<span class="sd">        declare specific class names in the configuration for those nested</span>
+<span class="sd">        class naems.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ActivationNetworkSettings">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.ActivationNetworkSettings">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ActivationNetworkSettings</span><span class="p">(</span><span class="n">NetworkSettings</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A network settings that contains a activation setting and creates a</span>
+<span class="sd">    activation layer.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">activation</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The function between all layers, or ``None`` for no activation.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_set_option</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_set_option</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;activation&#39;</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_activation_function&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_activation_function</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_activation_function&#39;</span><span class="p">,</span> <span class="n">transient</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">activation_function</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">activation</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_activation_function</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">activation</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation</span>
+
+<div class="viewcode-block" id="ActivationNetworkSettings.get_activation_function">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.ActivationNetworkSettings.get_activation_function">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_activation_function</span><span class="p">(</span><span class="n">activation</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">activation</span> <span class="o">==</span> <span class="s1">&#39;relu&#39;</span><span class="p">:</span>
+            <span class="n">activation</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span>
+        <span class="k">elif</span> <span class="n">activation</span> <span class="o">==</span> <span class="s1">&#39;leaky_relu&#39;</span><span class="p">:</span>
+            <span class="n">activation</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">leaky_relu</span>
+        <span class="k">elif</span> <span class="n">activation</span> <span class="o">==</span> <span class="s1">&#39;softmax&#39;</span><span class="p">:</span>
+            <span class="n">activation</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span>
+        <span class="k">elif</span> <span class="n">activation</span> <span class="o">==</span> <span class="s1">&#39;sigmoid&#39;</span><span class="p">:</span>
+            <span class="n">activation</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">activation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">activation</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Known activation function: </span><span class="si">{</span><span class="n">activation</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">activation</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span><span class="si">}</span><span class="s1">,  activation=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">activation</span><span class="si">}</span><span class="s1">&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="DropoutNetworkSettings">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.DropoutNetworkSettings">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DropoutNetworkSettings</span><span class="p">(</span><span class="n">NetworkSettings</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A network settings that contains a dropout setting and creates a dropout</span>
+<span class="sd">    layer.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dropout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The droput used in all layers or ``None`` to disable.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_set_option</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_set_option</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;dropout&#39;</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_dropout_layer&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dropout_layer</span><span class="p">()</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_dropout_layer&#39;</span><span class="p">,</span> <span class="n">transient</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dropout_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="BatchNormNetworkSettings">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.BatchNormNetworkSettings">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BatchNormNetworkSettings</span><span class="p">(</span><span class="n">NetworkSettings</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A network settings that contains a batchnorm setting and creates a</span>
+<span class="sd">    batchnorm layer.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">batch_norm_d</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The dimension of the batch norm or ``None`` to disable.  Based on this</span>
+<span class="sd">    one of the following is used as a layer:</span>
+
+<span class="sd">    * :class:`torch.nn.BatchNorm1d`</span>
+<span class="sd">    * :class:`torch.nn.BatchNorm2d`</span>
+<span class="sd">    * :class:`torch.nn.BatchNorm3d`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">batch_norm_features</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The number of features to use in the batch norm layer.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BatchNormNetworkSettings.create_batch_norm_layer">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.BatchNormNetworkSettings.create_batch_norm_layer">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_batch_norm_layer</span><span class="p">(</span><span class="n">batch_norm_d</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">batch_norm_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+               <span class="mi">1</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">,</span>
+               <span class="mi">2</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">,</span>
+               <span class="mi">3</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm3d</span><span class="p">}[</span><span class="n">batch_norm_d</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">batch_norm_features</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BatchNormNetworkSettings.create_new_batch_norm_layer">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.BatchNormNetworkSettings.create_new_batch_norm_layer">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_new_batch_norm_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch_norm_d</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                    <span class="n">batch_norm_features</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">batch_norm_d</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">batch_norm_d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_norm_d</span>
+        <span class="k">if</span> <span class="n">batch_norm_features</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">batch_norm_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_norm_features</span>
+        <span class="k">if</span> <span class="n">batch_norm_features</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span><span class="s1">&#39;Missing batch norm features&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_batch_norm_layer</span><span class="p">(</span><span class="n">batch_norm_d</span><span class="p">,</span> <span class="n">batch_norm_features</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_batch_norm_layer&#39;</span><span class="p">,</span> <span class="n">transient</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">batch_norm_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_new_batch_norm_layer</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="ModelSettings">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.ModelSettings">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModelSettings</span><span class="p">(</span><span class="n">Writeback</span><span class="p">,</span> <span class="n">PersistableContainer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This configures and instance of :class:`.ModelExecutor`.  This differes</span>
+<span class="sd">    from :class:`.NetworkSettings` in that it configures the model parameters,</span>
+<span class="sd">    and not the neural network parameters.</span>
+
+<span class="sd">    Another reason for these two separate classes is data in this class is not</span>
+<span class="sd">    needed to rehydrate an instance of :class:`torch.nn.Module`.</span>
+
+<span class="sd">    The loss function strategy across parameters ``nominal_labels``,</span>
+<span class="sd">    ``criterion_class`` and ``optimizer_class``, must be consistent.  The</span>
+<span class="sd">    defaults uses nominal labels, which means a single integer, rather than one</span>
+<span class="sd">    hot encoding, is used for the labels.  Most loss function, including the</span>
+<span class="sd">    default :class:`torch.nn.CrossEntropyLoss`` uses nominal labels.  The</span>
+<span class="sd">    optimizer defaults to :class:`torch.optim.Adam`.</span>
+
+<span class="sd">    However, if ``nominal_labels`` is set to ``False``, it is expected that the</span>
+<span class="sd">    label output is a ``Long`` one hot encoding of the class label that must be</span>
+<span class="sd">    decoded with :meth:`.BatchIterator._decode_outcomes` and uses a loss</span>
+<span class="sd">    function such as :class:`torch.nn.BCEWithLogitsLoss`, which applies a</span>
+<span class="sd">    softmax over the output to narow to a nominal.</span>
+
+<span class="sd">    If the ``criterion_class`` is left as the default, the class the</span>
+<span class="sd">    corresponding class across these two is selected based on</span>
+<span class="sd">    ``nominal_labels``.</span>
+
+<span class="sd">    **Note**: Instances of this class are pickled as parts of the results in</span>
+<span class="sd">    :class:`zensols.deeplearn.result.domain.ModelResult`, so they must be able</span>
+<span class="sd">    to serialize.  However, they are not used to restore the executor or model,</span>
+<span class="sd">    which are instead, recreated from the configuration for each (re)load (see</span>
+<span class="sd">    the package documentation for more information).</span>
+
+<span class="sd">    :see: :class:`.NetworkSettings`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A human readable name for the model.&quot;&quot;&quot;</span>
+
+    <span class="n">path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The path to save and load the model.&quot;&quot;&quot;</span>
+
+    <span class="n">learning_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Learning_rate used for the gradient descent step (done in the optimzer).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The number of epochs to train the network.&quot;&quot;&quot;</span>
+
+    <span class="n">append_model_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether and how to append the model&#39;s name to the end of :obj:`path`.  If</span>
+<span class="sd">    this value is ``verbatim``, append the model name as provided with</span>
+<span class="sd">    :obj:`model_name`, if ``normalize`` use :meth:`normalize_name` to normalize</span>
+<span class="sd">    it, and if ``None`` do not append anything.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">max_consecutive_increased_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The maximum number of times the validation loss can increase per epoch</span>
+<span class="sd">    before the executor &quot;gives up&quot; and early stops training.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nominal_labels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;``True`` if using numbers to identify the class as an enumeration rather</span>
+<span class="sd">    than a one hot encoded array.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The list of labels for the model.  This is currently only used for</span>
+<span class="sd">    multi-label classification so the results and give more useful information.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">batch_iteration_class_name</span><span class="p">:</span> <span class="n">InitVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A string fully qualified class name of type :class:`.BatchIterator`.</span>
+<span class="sd">    This must be set to a class such as :class:`.ScoredBatchIterator` to handle</span>
+<span class="sd">    descrete states in the output layer such as terminating CRF states.  The</span>
+<span class="sd">    default is :class:`.BatchIterator`, which expects continuous output layers.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">criterion_class_name</span><span class="p">:</span> <span class="n">InitVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The loss function class name (see class doc).&quot;&quot;&quot;</span>
+
+    <span class="n">optimizer_class_name</span><span class="p">:</span> <span class="n">InitVar</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The optimization algorithm class name (see class doc).&quot;&quot;&quot;</span>
+
+    <span class="n">optimizer_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The parameters given as ``**kwargs`` when creating the optimizer.  Do</span>
+<span class="sd">    **not** add the learning rate, instead see :obj:`learning_rate`.&quot;&quot;&quot;</span>
+
+    <span class="n">clip_gradient_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parameters passed to :func:`torch.nn.utils.clip_grad_value_` to clip</span>
+<span class="sd">    gradients above this threshold.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scale_gradient_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parameters passed to :func:`torch.nn.utils.clip_grad_norm_` to scale</span>
+<span class="sd">    the gradient norm.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scheduler_class_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The fully qualified class name of the learning rate scheduler used for</span>
+<span class="sd">    the optimizer (if not ``None``) such as:</span>
+
+<span class="sd">      * :class:`torch.optim.lr_scheduler.StepLR` or,</span>
+<span class="sd">      * :class:`torch.optim.lr_scheduler.ReduceLROnPlateau`.</span>
+
+<span class="sd">    :see: :obj:`scheduler_params`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scheduler_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The parameters given as ``**kwargs`` when creating the scheduler (if</span>
+<span class="sd">    any).</span>
+
+<span class="sd">    :see: :obj:`scheduler_class_name`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">reduce_outcomes</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;argmax&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The method by which the labels and output is reduced.  The output is</span>
+<span class="sd">    optionally reduced, which is one of the following:</span>
+
+<span class="sd">        * ``argmax``: uses the index of the largest value, which is used for</span>
+<span class="sd">          classification models and the default</span>
+
+<span class="sd">        * ``softmax``: just like ``argmax`` but applies a softmax</span>
+
+<span class="sd">        * ``none``: return the identity.</span>
+
+<span class="sd">        * otherwise, a class name whose instances takes the tensor batch as</span>
+<span class="sd">          input and returns the the replacement batch tensor as the output</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">shuffle_training</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;If ``True`` shuffle the training data set split before the training</span>
+<span class="sd">    process starts.  The shuffling only happens once for all epocs.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">batch_limit</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The max number of batches to train, validate and test on, which is useful</span>
+<span class="sd">    for limiting while debuging; defaults to `sys.maxsize`.  If this value is a</span>
+<span class="sd">    float, it is assumed to be a number between [0, 1] and the number of</span>
+<span class="sd">    batches is multiplied by the value.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">batch_iteration</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;How the batches are buffered, which is one of:</span>
+
+<span class="sd">        * ``gpu``, buffers all data in the GPU</span>
+<span class="sd">        * ``cpu``, which means keep all batches in CPU memory (the default)</span>
+<span class="sd">        * ``buffered`` which means to buffer only one batch at a time (only</span>
+<span class="sd">          for *very* large data).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">prediction_mapper_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates data points from a client for the purposes of prediction.  This</span>
+<span class="sd">    value is the string class name of an instance of :class:`.PredictionMapper`</span>
+<span class="sd">    used to create predictions.  While optional, if not set, ad-hoc predictions</span>
+<span class="sd">    (i.e. from the command line) can not be created.</span>
+
+<span class="sd">    Instances of :class:`.PredictionMapper` are created and managed in the</span>
+<span class="sd">    :class:`~zensols.deeplearn.model.ModelFacade`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cache_batches</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;If ``True`` cache unthawed/processed batches when possible.&quot;&quot;&quot;</span>
+
+    <span class="n">gc_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The frequency by with the garbage collector is invoked.  The *higher* the</span>
+<span class="sd">    value, the more often it will be run during training, testing and</span>
+<span class="sd">    validation.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">observer_manager</span><span class="p">:</span> <span class="n">ModelObserverManager</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="n">ModelObserverManager</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The model observer used by the entire train, test, validation process.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">store_model_result</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether to store the :class:`~.result.domain.ModelResult` instance in the</span>
+<span class="sd">    state file, which is one of:</span>
+
+<span class="sd">        * ``test``: only tested models, as apposed to using</span>
+<span class="sd">          :meth:`~.model.facade.FacadeModel.train_production`</span>
+<span class="sd">        * ``always``: always save results, even in production models</span>
+<span class="sd">        * ``never``: there will be no training or validation results in output</span>
+
+<span class="sd">    The results are also stored as ``.dat`` files in the results directory.</span>
+
+<span class="sd">    :see: :obj:`store_report`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">store_report</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether to store the contents of the results report when the results</span>
+<span class="sd">    aren&#39;t persisted with the model.  The report is store as key</span>
+<span class="sd">    ``model_result_report`` in the ``state.pt`` that lives in the model</span>
+<span class="sd">    directory with ``weight.pt``.</span>
+
+<span class="sd">    :see: :obj:`store_model_result`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                      <span class="n">batch_iteration_class_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                      <span class="n">criterion_class_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                      <span class="n">optimizer_class_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">batch_iteration_class_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">batch_iteration_class_name</span> <span class="o">=</span> \
+                <span class="s1">&#39;zensols.deeplearn.model.BatchIterator&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">batch_iteration_class_name</span> <span class="o">=</span> <span class="n">batch_iteration_class_name</span>
+        <span class="k">if</span> <span class="n">criterion_class_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nominal_labels</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">criterion_class_name</span> <span class="o">=</span> <span class="s1">&#39;torch.nn.CrossEntropyLoss&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">criterion_class_name</span> <span class="o">=</span> <span class="s1">&#39;torch.nn.BCEWithLogitsLoss&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">criterion_class_name</span> <span class="o">=</span> <span class="n">criterion_class_name</span>
+        <span class="k">if</span> <span class="n">optimizer_class_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">optimizer_class_name</span> <span class="o">=</span> <span class="s1">&#39;torch.optim.Adam&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">optimizer_class_name</span> <span class="o">=</span> <span class="n">optimizer_class_name</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">append_model_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">append_model_path</span> <span class="o">==</span> <span class="s1">&#39;verbatim&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_name</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">append_model_path</span> <span class="o">==</span> <span class="s1">&#39;normalize&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span><span class="s2">&quot;Unknown &#39;append_model_path&#39; &quot;</span> <span class="o">+</span>
+                                 <span class="sa">f</span><span class="s2">&quot;value: &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">append_model_path</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ModelSettings.normalize_name">
+<a class="viewcode-back" href="../../../api/zensols.deeplearn.html#zensols.deeplearn.domain.ModelSettings.normalize_name">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">normalize_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Normalize the name in to a string that is more file system friendly.</span>
+<span class="sd">        This is used for the :obj:`model_name` by API components that write data</span>
+<span class="sd">        to the file system about the model this class configures such as</span>
+<span class="sd">        :class:`~zensols.deeplearn.result.ModelResultManager`.</span>
+
+<span class="sd">        :return: the normalized name</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">FileTextUtil</span><span class="o">.</span><span class="n">normalize_text</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">normal_model_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the normalized :obj:`model_name` using :meth:`normalize_name`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">normalize_name</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_allow_config_adds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Paul Landes
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../_static/documentation_options.js?v=b8a3e558"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    </body>
+</html>

@@ -1,0 +1,133 @@
+zensols.deeplearn.model package
+===============================
+
+Submodules
+----------
+
+zensols.deeplearn.model.analyze module
+--------------------------------------
+
+.. automodule:: zensols.deeplearn.model.analyze
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.batchiter module
+----------------------------------------
+
+.. automodule:: zensols.deeplearn.model.batchiter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.executor module
+---------------------------------------
+
+.. automodule:: zensols.deeplearn.model.executor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.facade module
+-------------------------------------
+
+.. automodule:: zensols.deeplearn.model.facade
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.format module
+-------------------------------------
+
+.. automodule:: zensols.deeplearn.model.format
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.manager module
+--------------------------------------
+
+.. automodule:: zensols.deeplearn.model.manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.meta module
+-----------------------------------
+
+.. automodule:: zensols.deeplearn.model.meta
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.module module
+-------------------------------------
+
+.. automodule:: zensols.deeplearn.model.module
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.multilabel module
+-----------------------------------------
+
+.. automodule:: zensols.deeplearn.model.multilabel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.optimizer module
+----------------------------------------
+
+.. automodule:: zensols.deeplearn.model.optimizer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.pack module
+-----------------------------------
+
+.. automodule:: zensols.deeplearn.model.pack
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.pred module
+-----------------------------------
+
+.. automodule:: zensols.deeplearn.model.pred
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.sequence module
+---------------------------------------
+
+.. automodule:: zensols.deeplearn.model.sequence
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.trainmng module
+---------------------------------------
+
+.. automodule:: zensols.deeplearn.model.trainmng
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.model.wgtexecutor module
+------------------------------------------
+
+.. automodule:: zensols.deeplearn.model.wgtexecutor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: zensols.deeplearn.model
+   :members:
+   :undoc-members:
+   :show-inheritance:

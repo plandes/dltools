@@ -1,0 +1,53 @@
+zensols.deeplearn.layer package
+===============================
+
+Submodules
+----------
+
+zensols.deeplearn.layer.conv module
+-----------------------------------
+
+.. automodule:: zensols.deeplearn.layer.conv
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.layer.crf module
+----------------------------------
+
+.. automodule:: zensols.deeplearn.layer.crf
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.layer.linear module
+-------------------------------------
+
+.. automodule:: zensols.deeplearn.layer.linear
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.layer.recur module
+------------------------------------
+
+.. automodule:: zensols.deeplearn.layer.recur
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.layer.recurcrf module
+---------------------------------------
+
+.. automodule:: zensols.deeplearn.layer.recurcrf
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: zensols.deeplearn.layer
+   :members:
+   :undoc-members:
+   :show-inheritance:

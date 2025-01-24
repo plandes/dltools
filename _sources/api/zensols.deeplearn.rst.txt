@@ -1,0 +1,74 @@
+zensols.deeplearn package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   zensols.deeplearn.batch
+   zensols.deeplearn.dataframe
+   zensols.deeplearn.layer
+   zensols.deeplearn.model
+   zensols.deeplearn.result
+   zensols.deeplearn.vectorize
+
+Submodules
+----------
+
+zensols.deeplearn.cli module
+----------------------------
+
+.. automodule:: zensols.deeplearn.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.clicv module
+------------------------------
+
+.. automodule:: zensols.deeplearn.clicv
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.domain module
+-------------------------------
+
+.. automodule:: zensols.deeplearn.domain
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.observer module
+---------------------------------
+
+.. automodule:: zensols.deeplearn.observer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.torchconfig module
+------------------------------------
+
+.. automodule:: zensols.deeplearn.torchconfig
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.torchtype module
+----------------------------------
+
+.. automodule:: zensols.deeplearn.torchtype
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: zensols.deeplearn
+   :members:
+   :undoc-members:
+   :show-inheritance:

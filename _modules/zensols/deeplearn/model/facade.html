@@ -1,0 +1,1320 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
+        <title>zensols.deeplearn.model.facade - Deep Zensols Deep Learning Framework 1.13.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../../top.html"><div class="brand">Deep Zensols Deep Learning Framework 1.13.3 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../../top.html">
+  
+  
+  <span class="sidebar-brand-text">Deep Zensols Deep Learning Framework 1.13.3 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/facade.html">Facade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/model.html">Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/preprocess.html">Pre-Processing Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/results.html">Results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../doc/vectorizers.html">Vectorizers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../api.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/zensols.dataframe.html">zensols.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/zensols.dataset.html">zensols.dataset package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/zensols.deeplearn.html">zensols.deeplearn package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of zensols.deeplearn package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/zensols.deeplearn.batch.html">zensols.deeplearn.batch package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/zensols.deeplearn.dataframe.html">zensols.deeplearn.dataframe package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/zensols.deeplearn.layer.html">zensols.deeplearn.layer package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/zensols.deeplearn.model.html">zensols.deeplearn.model package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/zensols.deeplearn.result.html">zensols.deeplearn.result package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/zensols.deeplearn.vectorize.html">zensols.deeplearn.vectorize package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../CONTRIBUTING.html">Contributing</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for zensols.deeplearn.model.facade</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Client entry point to the model.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">ClassVar</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">InitVar</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextIOBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.config</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Configurable</span><span class="p">,</span>
+    <span class="n">ConfigFactory</span><span class="p">,</span>
+    <span class="n">Writable</span><span class="p">,</span>
+    <span class="n">ImportConfigFactory</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.persist</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">persisted</span><span class="p">,</span> <span class="n">PersistableContainer</span><span class="p">,</span> <span class="n">PersistedWork</span><span class="p">,</span>
+    <span class="n">Deallocatable</span><span class="p">,</span> <span class="n">Stash</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasetSplitStash</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelError</span><span class="p">,</span> <span class="n">NetworkSettings</span><span class="p">,</span> <span class="n">ModelSettings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn.vectorize</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">SparseTensorFeatureContext</span><span class="p">,</span> <span class="n">FeatureVectorizerManagerSet</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn.batch</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Batch</span><span class="p">,</span> <span class="n">DataPoint</span><span class="p">,</span> <span class="n">BatchStash</span><span class="p">,</span> <span class="n">BatchMetadata</span><span class="p">,</span> <span class="n">BatchFeatureMapping</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">BatchMetrics</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zensols.deeplearn.result</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">EpochResult</span><span class="p">,</span> <span class="n">ModelResult</span><span class="p">,</span> <span class="n">ModelResultManager</span><span class="p">,</span> <span class="n">ModelResultReporter</span><span class="p">,</span>
+    <span class="n">PredictionsDataFrameFactory</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ModelManager</span><span class="p">,</span> <span class="n">ModelExecutor</span><span class="p">,</span> <span class="n">PredictionMapper</span><span class="p">,</span>
+    <span class="n">FacadeClassExplorer</span><span class="p">,</span> <span class="n">ResultAnalyzer</span>
+<span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ModelFacade">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModelFacade</span><span class="p">(</span><span class="n">PersistableContainer</span><span class="p">,</span> <span class="n">Writable</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class provides easy to use client entry points to the model</span>
+<span class="sd">    executor, which trains, validates, tests, saves and loads the model.</span>
+
+<span class="sd">    More common attributes, such as the learning rate and number of epochs, are</span>
+<span class="sd">    properties that dispatch to :py:obj:`executor`.  For the others, go</span>
+<span class="sd">    directly to the property.</span>
+
+<span class="sd">    :see: :class:`zensols.deeplearn.domain.ModelSettings`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_SINGLETONS</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ModelFacade</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">config</span><span class="p">:</span> <span class="n">Configurable</span> <span class="o">=</span> <span class="n">field</span><span class="p">()</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The configuraiton used to create the facade, and used to create a new</span>
+<span class="sd">    configuration factory to load models.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config_factory</span><span class="p">:</span> <span class="n">InitVar</span><span class="p">[</span><span class="n">ConfigFactory</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The configuration factory used to create this facade, or ``None`` if no</span>
+<span class="sd">    factory was used.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">progress_bar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create text/ASCII based progress bar if ``True``.&quot;&quot;&quot;</span>
+
+    <span class="n">progress_bar_cols</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;term&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The number of console columns to use for the text/ASCII based progress</span>
+<span class="sd">    bar.  If the value is ``term``, then use the terminal width.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">executor_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;executor&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The configuration entry name for the executor, which defaults to</span>
+<span class="sd">    ``executor``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">writer</span><span class="p">:</span> <span class="n">TextIOBase</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The writer to this in methods like :meth:`train`, and :meth:`test` for</span>
+<span class="sd">    writing performance metrics results and predictions or ``None`` to not</span>
+<span class="sd">    output them.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">predictions_dataframe_factory_class</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">PredictionsDataFrameFactory</span><span class="p">]]</span> <span class="o">=</span> \
+        <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">PredictionsDataFrameFactory</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The factory class used to create predictions, or the string of the</span>
+<span class="sd">    configuration section.  If the latter, the factory is created using</span>
+<span class="sd">    :obj:`config_factory`.</span>
+
+<span class="sd">    :see: :meth:`get_predictions_factory`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model_result_reporter_class</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">ModelResultReporter</span><span class="p">]]</span> <span class="o">=</span> \
+        <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">ModelResultReporter</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The class used to report result summaries over all the runs.&quot;&quot;&quot;</span>
+
+    <span class="n">result_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A descriptor used in the results, which is useful when making</span>
+<span class="sd">    incremental hyperparameter changes to the model.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_factory</span><span class="p">:</span> <span class="n">ConfigFactory</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_config_factory</span><span class="p">(</span><span class="n">config_factory</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config_factory</span> <span class="o">=</span> <span class="n">PersistedWork</span><span class="p">(</span><span class="s1">&#39;_config_factory&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_executor</span> <span class="o">=</span> <span class="n">PersistedWork</span><span class="p">(</span><span class="s1">&#39;_executor&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debuged</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar_cols</span> <span class="o">==</span> <span class="s1">&#39;term&#39;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">term_width</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">get_terminal_size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="c1"># make space for embedded validation loss messages</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar_cols</span> <span class="o">=</span> <span class="n">term_width</span> <span class="o">-</span> <span class="mi">5</span>
+            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;unable to automatically determine &#39;</span> <span class="o">+</span>
+                             <span class="s1">&#39;terminal width--skipping&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar_cols</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="ModelFacade.get_singleton">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.get_singleton">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_singleton</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelFacade</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the singleton application using ``args`` and ``kwargs`` as</span>
+<span class="sd">        initializer arguments.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="n">inst</span><span class="p">:</span> <span class="n">ModelFacade</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_SINGLETONS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">inst</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">inst</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_SINGLETONS</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span>
+        <span class="k">return</span> <span class="n">inst</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_init_config_factory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_factory</span><span class="p">:</span> <span class="n">ConfigFactory</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config_factory</span><span class="p">,</span> <span class="n">ImportConfigFactory</span><span class="p">):</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">config_factory</span><span class="o">.</span><span class="vm">__dict__</span>
+            <span class="n">keeps</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="s1">&#39;reload shared reload_pattern&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">&amp;</span> <span class="n">keeps</span><span class="p">}</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;import config factory params: </span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_config_factory_params</span> <span class="o">=</span> <span class="n">params</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_config_factory_params</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_executor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelExecutor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new instance of an executor.  Used by :obj:`executor`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;creating new executor&#39;</span><span class="p">)</span>
+        <span class="n">executor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">executor_name</span><span class="p">,</span>
+            <span class="n">progress_bar</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="p">,</span>
+            <span class="n">progress_bar_cols</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">progress_bar_cols</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">executor</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_config_factory&#39;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">config_factory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The configuration factory used to create facades.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ImportConfigFactory</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_config_factory_params</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@persisted</span><span class="p">(</span><span class="s1">&#39;_executor&#39;</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">executor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelExecutor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A cached instance of the executor tied to the instance of this class.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_executor</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">net_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NetworkSettings</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the executor&#39;s network settings.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">net_settings</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">model_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelSettings</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the executor&#39;s model settings.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">model_settings</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">result_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelResultManager</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the executor&#39;s result manager.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rm</span><span class="p">:</span> <span class="n">ModelResultManager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">result_manager</span>
+        <span class="k">if</span> <span class="n">rm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rm</span> <span class="o">=</span> <span class="n">ModelError</span><span class="p">(</span><span class="s1">&#39;No result manager available&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rm</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cross_fold_result_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelResultManager</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the executor&#39;s cross-fold validation result manager.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rm</span><span class="p">:</span> <span class="n">ModelResultManager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">cross_fold_result_manager</span>
+        <span class="k">if</span> <span class="n">rm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rm</span> <span class="o">=</span> <span class="n">ModelError</span><span class="p">(</span><span class="s1">&#39;No result manager available&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rm</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">feature_stash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Stash</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The stash used to generate the feature, which is not to be confused</span>
+<span class="sd">        with the batch source stash ``batch_stash``.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">feature_stash</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">batch_stash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchStash</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The stash used to encode and decode batches by the executor.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">batch_stash</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cross_fold_batch_stash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchStash</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The stash used to encode and decode batches by the executor.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">cross_fold_batch_stash</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dataset_stash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DatasetSplitStash</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The stash used to encode and decode batches split by dataset.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">dataset_stash</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">vectorizer_manager_set</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FeatureVectorizerManagerSet</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the vectorizer manager set used for the facade.  This is taken</span>
+<span class="sd">        from the executor&#39;s batch stash.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_stash</span><span class="o">.</span><span class="n">vectorizer_manager_set</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">batch_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchMetadata</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the batch metadata used on the executor.</span>
+
+<span class="sd">        :see: :class:`zensols.deepnlp.model.module.EmbeddingNetworkSettings`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_stash</span><span class="o">.</span><span class="n">batch_metadata</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label_attribute_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the label attribute name.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">bmeta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_metadata</span>
+        <span class="k">if</span> <span class="n">bmeta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bmeta</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">label_attribute_name</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_notify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Notify observers of events from this class.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">observer_manager</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ModelFacade.remove_metadata_mapping_field">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.remove_metadata_mapping_field">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_metadata_mapping_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove a field by attribute if it exists across all metadata</span>
+<span class="sd">        mappings.</span>
+
+<span class="sd">        This is useful when a very expensive vectorizer slows down tasks, such</span>
+<span class="sd">        as prediction, on a single run of a program.  For this use case,</span>
+<span class="sd">        override :meth:`predict` to call this method before calling the super</span>
+<span class="sd">        ``predict`` method.</span>
+
+<span class="sd">        :param attr: the name of the field&#39;s attribute to remove</span>
+
+<span class="sd">        :return: ``True`` if the field was removed, ``False`` otherwise</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">removed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">meta</span><span class="p">:</span> <span class="n">BatchMetadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_metadata</span>
+        <span class="n">mapping</span><span class="p">:</span> <span class="n">BatchFeatureMapping</span>
+        <span class="k">for</span> <span class="n">mapping</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">mapping</span><span class="o">.</span><span class="n">manager_mappings</span><span class="p">:</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span> <span class="ow">or</span> <span class="n">mapping</span><span class="o">.</span><span class="n">remove_field</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">removed</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dropout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The dropout for the entire network.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net_settings</span><span class="o">.</span><span class="n">dropout</span>
+
+    <span class="nd">@dropout</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dropout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dropout</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The dropout for the entire network.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net_settings</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">dropout</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">epochs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The number of epochs for training and validation.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">epochs</span>
+
+    <span class="nd">@epochs</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">epochs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_epochs</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The number of epochs for training and validation.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">epochs</span> <span class="o">=</span> <span class="n">n_epochs</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">learning_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The learning rate to set on the optimizer.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">learning_rate</span>
+
+    <span class="nd">@learning_rate</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">learning_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The learning rate to set on the optimizer.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">learning_rate</span> <span class="o">=</span> <span class="n">learning_rate</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cache_batches</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The cache_batches for the entire network.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">cache_batches</span>
+
+    <span class="nd">@cache_batches</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cache_batches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cache_batches</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The cache_batches for the entire network.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># if the caching strategy changed, be safe and deallocate and purge to</span>
+        <span class="c1"># lazy recreate everything</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">cache_batches</span> <span class="o">!=</span> <span class="n">cache_batches</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">cache_batches</span> <span class="o">=</span> <span class="n">cache_batches</span>
+
+<div class="viewcode-block" id="ModelFacade.get_batch_metrics">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.get_batch_metrics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_batch_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchMetrics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a class that performs metrics on the :obj:`batch_stash`.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">BatchMetrics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_stash</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.get_cross_fold_batch_metrics">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.get_cross_fold_batch_metrics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_cross_fold_batch_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BatchMetrics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a class that performs metrics on the :obj:`batch_stash`.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">BatchMetrics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cross_fold_batch_stash</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.clear">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.clear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear out any cached executor.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;clearing&#39;</span><span class="p">)</span>
+        <span class="n">executor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span>
+        <span class="n">config_factory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="n">config_factory</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_executor</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config_factory</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.reload">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.reload">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clears all state and reloads the configuration.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">reload</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.deallocate">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.deallocate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">deallocate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_SINGLETONS</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.load_from_path">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.load_from_path">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_from_path</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelFacade</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct a new facade from the data saved in a persisted model file.</span>
+<span class="sd">        This uses the :py:meth:`.ModelManager.load_from_path` to reconstruct the</span>
+<span class="sd">        returned facade, which means some attributes are taken from default if</span>
+<span class="sd">        not taken from ``*args`` or ``**kwargs``.</span>
+
+<span class="sd">        :param path: the path of the model file on the file system</span>
+
+<span class="sd">        :param model_config_overwrites:</span>
+<span class="sd">            a :class:`~zensols.config.configbase.Configurable` used to</span>
+<span class="sd">            overrwrite configuration in the model package config</span>
+
+<span class="sd">        :param args: passed through to the initializer of invoking class ``cls``</span>
+
+<span class="sd">        :param kwargs: passed through to the initializer of invoking class</span>
+<span class="sd">                       ``cls``</span>
+
+<span class="sd">        :return: a new instance of a :class:`.ModelFacade`</span>
+
+<span class="sd">        :see: :meth:`.ModelManager.load_from_path`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;loading from facade from </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># load the model from disk</span>
+        <span class="n">mm</span><span class="p">:</span> <span class="n">ModelManager</span> <span class="o">=</span> <span class="n">ModelManager</span><span class="o">.</span><span class="n">load_from_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="c1"># the configuration section name of the executor</span>
+        <span class="k">if</span> <span class="s1">&#39;executor_name&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;executor_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">model_executor_name</span>
+        <span class="c1"># merge in external configuration into the model config before the</span>
+        <span class="c1"># configuration factory begins to instantiate</span>
+        <span class="n">src_conf</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Configurable</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span>
+            <span class="s1">&#39;model_config_overwrites&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># instantiate the executor</span>
+        <span class="n">executor</span><span class="p">:</span> <span class="n">ModelExecutor</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">load_executor</span><span class="p">(</span><span class="n">src_conf</span><span class="p">)</span>
+        <span class="c1"># set the path of the model</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="c1"># cleanup any CUDA memory</span>
+        <span class="n">mm</span><span class="o">.</span><span class="n">config_factory</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="c1"># create a new facade and configure with the loaded model</span>
+        <span class="n">facade</span><span class="p">:</span> <span class="n">ModelFacade</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">executor</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">facade</span><span class="o">.</span><span class="n">_config_factory</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">executor</span><span class="o">.</span><span class="n">config_factory</span><span class="p">)</span>
+        <span class="n">facade</span><span class="o">.</span><span class="n">_executor</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">executor</span><span class="p">)</span>
+        <span class="n">facade</span><span class="o">.</span><span class="n">_model_config</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">config_factory</span><span class="o">.</span><span class="n">config</span>
+        <span class="k">return</span> <span class="n">facade</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.update_model_config_factory">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.update_model_config_factory">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_model_config_factory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                    <span class="n">config_factory</span><span class="p">:</span> <span class="n">ConfigFactory</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the model&#39;s configuration factory and configuration that was</span>
+<span class="sd">        previously used to train the model.  The modification is made in the</span>
+<span class="sd">        model&#39;s state file.</span>
+
+<span class="sd">        **Important**: the caller is responsible for creating the</span>
+<span class="sd">        :obj:`executor` model (i.e. either directly with</span>
+<span class="sd">        :meth:`.ModelExecutor._get_or_create_model` or indirectly with</span>
+<span class="sd">        :meth:`.ModelExector.write_model`).</span>
+
+<span class="sd">        :param path: the path of the model directory, which defaults to the</span>
+<span class="sd">                     model data directory (rather than the model results</span>
+<span class="sd">                     directory)</span>
+
+<span class="sd">        :param config_factory: the configuration factory that will be replaced,</span>
+<span class="sd">                               which defaults to :obj:`config_factory`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">config_factory</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">_get_or_create_model</span><span class="p">()</span>
+            <span class="n">config_factory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span>
+        <span class="n">mm</span><span class="p">:</span> <span class="n">ModelManager</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">model_manager</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># load the model from disk</span>
+            <span class="n">mm</span> <span class="o">=</span> <span class="n">ModelManager</span><span class="o">.</span><span class="n">load_from_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">mm</span><span class="o">.</span><span class="n">_update_config_factory</span><span class="p">(</span><span class="n">config_factory</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">model_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Configurable</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The configurable packaged with the model if this facade was created</span>
+<span class="sd">        with :mth:`load_from_path`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_model_config&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_config</span>
+
+<div class="viewcode-block" id="ModelFacade.debug">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.debug">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">debug_value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Debug the model by setting the configuration to debug mode and</span>
+<span class="sd">        invoking a single forward pass.  Logging must be configured properly to</span>
+<span class="sd">        get the output, which is typically just invoking</span>
+<span class="sd">        :py:meth:`logging.basicConfig`.</span>
+
+<span class="sd">        :param debug_value: ``True`` turns on executor debugging; if an</span>
+<span class="sd">                            ``int``, the higher the value, the more the logging</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">executor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_configure_debug_logging</span><span class="p">()</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">debug_value</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">progress_bar</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">model_settings</span><span class="o">.</span><span class="n">batch_limit</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debuged</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">train</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.persist_result">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.persist_result">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">persist_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the last recorded result during an :py:meth:`.Executor.train` or</span>
+<span class="sd">        :py:meth:`.Executor.test` invocation to disk.  Optionally also save a</span>
+<span class="sd">        plotted graphics file to disk as well when :obj:`persist_plot_result`</span>
+<span class="sd">        is set to ``True``.</span>
+
+<span class="sd">        Note that in Jupyter notebooks, this method has the side effect of</span>
+<span class="sd">        plotting the results in the cell when ``persist_plot_result`` is</span>
+<span class="sd">        ``True``.</span>
+
+<span class="sd">        :param persist_plot_result: if ``True``, plot and save the graph as a</span>
+<span class="sd">                                    PNG file to the results directory</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">executor</span><span class="p">:</span> <span class="n">ModelExecutor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span>
+        <span class="n">rmng</span><span class="p">:</span> <span class="n">ModelResultManager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_manager</span>
+        <span class="k">if</span> <span class="n">executor</span><span class="o">.</span><span class="n">result_manager</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dumping model result: </span><span class="si">{</span><span class="n">executor</span><span class="o">.</span><span class="n">model_result</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">rmng</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">executor</span><span class="o">.</span><span class="n">model_result</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.train">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.train">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Train and test or just debug the model depending on the</span>
+<span class="sd">        configuration.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_name</span>
+        <span class="n">executor</span><span class="p">:</span> <span class="n">ModelExecutor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;training model...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_notify</span><span class="p">(</span><span class="s1">&#39;train_start&#39;</span><span class="p">,</span> <span class="n">result_name</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">time</span><span class="p">(</span><span class="s1">&#39;trained&#39;</span><span class="p">):</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">result_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_notify</span><span class="p">(</span><span class="s1">&#39;train_end&#39;</span><span class="p">,</span> <span class="n">result_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.test">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.test">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the model from disk and test it.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debuged</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span><span class="s1">&#39;Testing is not allowed in debug mode&#39;</span><span class="p">)</span>
+        <span class="n">result_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_name</span>
+        <span class="n">executor</span><span class="p">:</span> <span class="n">ModelExecutor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;testing model...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_notify</span><span class="p">(</span><span class="s1">&#39;test_start&#39;</span><span class="p">,</span> <span class="n">result_name</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">time</span><span class="p">(</span><span class="s1">&#39;tested&#39;</span><span class="p">):</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">result_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">writer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">writer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_notify</span><span class="p">(</span><span class="s1">&#39;test_end&#39;</span><span class="p">,</span> <span class="n">result_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.cross_validate">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.cross_validate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cross_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a cross validation of using the additional resources</span>
+<span class="sd">        configured in the :obj:`executor`.</span>
+
+<span class="sd">        :param n_iterations: the number of train/test iterations per fold</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_name</span>
+        <span class="n">executor</span><span class="p">:</span> <span class="n">ModelExecutor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;cross validating model...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_notify</span><span class="p">(</span><span class="s1">&#39;train_start&#39;</span><span class="p">,</span> <span class="n">result_name</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">time</span><span class="p">(</span><span class="s1">&#39;cross validated&#39;</span><span class="p">):</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">n_iterations</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_notify</span><span class="p">(</span><span class="s1">&#39;train_end&#39;</span><span class="p">,</span> <span class="n">result_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.train_production">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.train_production">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train_production</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Like :meth:`train` but uses the test dataset in addition to the</span>
+<span class="sd">        training dataset to train the model.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_name</span>
+        <span class="n">executor</span><span class="p">:</span> <span class="n">ModelExecutor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">writer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">executor</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">writer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">writer</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;training production model...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_notify</span><span class="p">(</span><span class="s1">&#39;train_production_start&#39;</span><span class="p">,</span> <span class="n">result_name</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">time</span><span class="p">(</span><span class="s1">&#39;trained&#39;</span><span class="p">):</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">train_production</span><span class="p">(</span><span class="n">result_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_notify</span><span class="p">(</span><span class="s1">&#39;train_production_end&#39;</span><span class="p">,</span> <span class="n">result_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.predict">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.predict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datas</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make ad-hoc predictions on batches without labels, and return the</span>
+<span class="sd">        results.</span>
+
+<span class="sd">        :param datas: the data predict on, each as a separate element as a data</span>
+<span class="sd">                      point in a batch</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">executor</span><span class="p">:</span> <span class="n">ModelExecutor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span>
+        <span class="n">ms</span><span class="p">:</span> <span class="n">ModelSettings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_settings</span>
+        <span class="k">if</span> <span class="n">ms</span><span class="o">.</span><span class="n">prediction_mapper_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;The model settings (</span><span class="si">{</span><span class="n">ms</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">) is not configured to create &#39;</span> <span class="o">+</span>
+                <span class="s2">&quot;prediction batches: no set &#39;prediction_mapper&#39;&quot;</span><span class="p">)</span>
+        <span class="c1"># the batch stash is used to create batches from &#39;datas&#39;</span>
+        <span class="n">pm</span><span class="p">:</span> <span class="n">PredictionMapper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="o">.</span><span class="n">new_instance</span><span class="p">(</span>
+            <span class="n">ms</span><span class="o">.</span><span class="n">prediction_mapper_name</span><span class="p">,</span> <span class="n">datas</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_stash</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_notify</span><span class="p">(</span><span class="s1">&#39;predict_start&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># create ad-hoc batches from &#39;datas&#39;</span>
+            <span class="n">batches</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Batch</span><span class="p">]</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">batches</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">executor</span><span class="o">.</span><span class="n">model_exists</span><span class="p">:</span>
+                <span class="n">executor</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;predicting...&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">time</span><span class="p">(</span><span class="s1">&#39;predicted&#39;</span><span class="p">):</span>
+                <span class="c1"># use the model to predict ad-hoc batches</span>
+                <span class="n">res</span><span class="p">:</span> <span class="n">ModelResult</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">batches</span><span class="p">)</span>
+            <span class="n">eres</span><span class="p">:</span> <span class="n">EpochResult</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">ret</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">map_results</span><span class="p">(</span><span class="n">eres</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_notify</span><span class="p">(</span><span class="s1">&#39;predict_end&#39;</span><span class="p">)</span>
+            <span class="n">pm</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.stop_training">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.stop_training">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_training</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Early stop training if the model is currently training.  This invokes</span>
+<span class="sd">        the :meth:`.TrainManager.stop`, communicates to the training process to</span>
+<span class="sd">        stop on the next check.</span>
+
+<span class="sd">        :return: ``True`` if the application is configured to early stop and</span>
+<span class="sd">                 the signal has not already been given</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_notify</span><span class="p">(</span><span class="s1">&#39;stop_training&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">train_manager</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">last_result</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The last recorded result during an :meth:`.ModelExecutor.train` or</span>
+<span class="sd">        :meth:`.ModelExecutor.test` invocation is used.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">model_result</span>
+        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rm</span><span class="p">:</span> <span class="n">ModelResultManager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_manager</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span><span class="s1">&#39;No results found&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">res</span>
+
+<div class="viewcode-block" id="ModelFacade.write_result">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.write_result">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">writer</span><span class="p">:</span> <span class="n">TextIOBase</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span>
+                     <span class="n">include_settings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                     <span class="n">include_converged</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                     <span class="n">include_config</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the last set of results from the file system and print them out.</span>
+<span class="sd">        The result to print is taken from :obj:`last_result`</span>
+
+<span class="sd">        :param depth: the number of indentation levels</span>
+
+<span class="sd">        :param writer: the data sink</span>
+
+<span class="sd">        :param include_settings: whether or not to include model and network</span>
+<span class="sd">                                 settings in the output</span>
+
+<span class="sd">        :param include_config: whether or not to include the configuration in</span>
+<span class="sd">                               the output</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;load previous results&#39;</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">writer</span><span class="p">,</span> <span class="n">include_settings</span><span class="o">=</span><span class="n">include_settings</span><span class="p">,</span>
+                  <span class="n">include_converged</span><span class="o">=</span><span class="n">include_converged</span><span class="p">,</span>
+                  <span class="n">include_config</span><span class="o">=</span><span class="n">include_config</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.plot_result">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.plot_result">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">:</span> <span class="n">ModelResult</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">save</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Plot results and optionally save and show them.  If this is called in</span>
+<span class="sd">        a Jupyter notebook, the plot will be rendered in a cell.</span>
+
+<span class="sd">        :param result: the result to plot, or if ``None``, use</span>
+<span class="sd">                       :py:meth:`last_result`</span>
+
+<span class="sd">        :param save: if ``True``, save the plot to the results directory with</span>
+<span class="sd">                     the same naming as the last data results</span>
+
+<span class="sd">        :param show: if ``True``, invoke ``matplotlib``&#39;s ``show`` function to</span>
+<span class="sd">                     visualize in a non-Jupyter environment</span>
+
+<span class="sd">        :return: the result used to graph, which comes from the executor when</span>
+<span class="sd">                 none is given to the invocation</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">result</span>
+        <span class="n">grapher</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">result_manager</span><span class="o">.</span><span class="n">get_grapher</span><span class="p">()</span>
+        <span class="n">grapher</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">result</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+            <span class="n">grapher</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+            <span class="n">grapher</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_predictions_factory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> \
+            <span class="n">PredictionsDataFrameFactory</span><span class="p">:</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predictions_dataframe_factory_class</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ModelFacade.get_predictions_factory">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.get_predictions_factory">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_predictions_factory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                <span class="n">transform</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">DataPoint</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                <span class="n">batch_limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span><span class="p">,</span>
+                                <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> \
+            <span class="n">PredictionsDataFrameFactory</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a predictions factory from the test data set.</span>
+
+<span class="sd">        :param column_names: the list of string column names for each data item</span>
+<span class="sd">                             the list returned from ``data_point_transform`` to</span>
+<span class="sd">                             be added to the results for each label/prediction</span>
+
+<span class="sd">        :param transform:</span>
+
+<span class="sd">            a function that returns a tuple, each with an element respective of</span>
+<span class="sd">            ``column_names`` to be added to the results for each</span>
+<span class="sd">            label/prediction; if ``None`` (the default), ``str`` used (see the</span>
+<span class="sd">            `Iris Jupyter Notebook</span>
+<span class="sd">            &lt;https://github.com/plandes/deeplearn/blob/master/notebook/iris.ipynb&gt;`_</span>
+<span class="sd">            example)</span>
+
+<span class="sd">        :param batch_limit: the max number of batche of results to output</span>
+
+<span class="sd">        :param name: the name/ID (name of the file sans extension in the</span>
+<span class="sd">                     results directory) of the previously archived saved</span>
+<span class="sd">                     results to fetch or ``None`` to get the last result</span>
+
+<span class="sd">        :param kwargs: additional keyword arguments used to create the factory</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rm</span><span class="p">:</span> <span class="n">ModelResultManager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_manager</span>
+        <span class="n">res</span><span class="p">:</span> <span class="n">ModelResult</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span>
+            <span class="n">key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">get_last_key</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">results_stash</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">model_result</span>
+            <span class="n">key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;No test results found: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">contains_results</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ModelError</span><span class="p">(</span><span class="s1">&#39;No test results found&#39;</span><span class="p">)</span>
+        <span class="n">path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">key_to_path</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;reading predictions from </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_predictions_factory</span><span class="p">(</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">result</span><span class="o">=</span><span class="n">res</span><span class="p">,</span>
+            <span class="n">stash</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_stash</span><span class="p">,</span>
+            <span class="n">column_names</span><span class="o">=</span><span class="n">column_names</span><span class="p">,</span>
+            <span class="n">data_point_transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span>
+            <span class="n">batch_limit</span><span class="o">=</span><span class="n">batch_limit</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.get_result_analyzer">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.get_result_analyzer">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_result_analyzer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                            <span class="n">cache_previous_results</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">ResultAnalyzer</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a results analyzer for comparing in flight training progress.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rm</span><span class="p">:</span> <span class="n">ModelResultManager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_manager</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">rm</span><span class="o">.</span><span class="n">get_last_key</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">ResultAnalyzer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">cache_previous_results</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_result_reporter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModelResultReporter</span><span class="p">:</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_result_reporter_class</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="o">.</span><span class="n">instance</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ModelFacade.get_result_reporter">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.get_result_reporter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_result_reporter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cross_fold</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                            <span class="n">include_validation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> \
+            <span class="n">ModelResultReporter</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an instance of the summary report generator.&quot;&quot;&quot;</span>
+        <span class="n">rm</span><span class="p">:</span> <span class="n">ModelResultManager</span>
+        <span class="k">if</span> <span class="n">cross_fold</span><span class="p">:</span>
+            <span class="n">rm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cross_fold_result_manager</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_manager</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_result_reporter</span><span class="p">(</span>
+            <span class="n">result_manager</span><span class="o">=</span><span class="n">rm</span><span class="p">,</span>
+            <span class="n">include_validation</span><span class="o">=</span><span class="n">include_validation</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">class_explorer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FacadeClassExplorer</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_facade_explorer</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_facade_explorer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FacadeClassExplorer</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a facade explorer used to print the facade&#39;s object graph.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">FacadeClassExplorer</span><span class="p">()</span>
+
+<div class="viewcode-block" id="ModelFacade.write">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.write">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">writer</span><span class="p">:</span> <span class="n">TextIOBase</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+              <span class="n">include_executor</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">include_metadata</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+              <span class="n">include_settings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">include_model</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+              <span class="n">include_config</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">include_object_graph</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">writer</span> <span class="k">if</span> <span class="n">writer</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">writer</span>
+        <span class="n">writer</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="k">if</span> <span class="n">writer</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">writer</span>
+        <span class="n">bmeta</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">bmeta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_metadata</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">include_executor</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_line</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">:&#39;</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">writer</span><span class="p">,</span>
+                                <span class="n">include_settings</span><span class="o">=</span><span class="n">include_settings</span><span class="p">,</span>
+                                <span class="n">include_model</span><span class="o">=</span><span class="n">include_model</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">include_metadata</span> <span class="ow">and</span> <span class="n">bmeta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_line</span><span class="p">(</span><span class="s1">&#39;metadata:&#39;</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span>
+            <span class="n">bmeta</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">include_object_graph</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_line</span><span class="p">(</span><span class="s1">&#39;graph:&#39;</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span>
+            <span class="n">ce</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_facade_explorer</span><span class="p">()</span>
+            <span class="n">ce</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="n">writer</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">include_config</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_line</span><span class="p">(</span><span class="s1">&#39;config:&#39;</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">writer</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_deallocate_config_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inst</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="p">,</span> <span class="n">ImportConfigFactory</span><span class="p">):</span>
+            <span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config_factory</span><span class="o">.</span><span class="n">clear_instance</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span>
+        <span class="n">dealloc</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">Deallocatable</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;deallocate </span><span class="si">{</span><span class="n">inst</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">dealloc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dealloc</span><span class="p">:</span>
+            <span class="n">inst</span><span class="o">.</span><span class="n">deallocate</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_configure_debug_logging</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;When debuging the model, configure the logging system for output.</span>
+<span class="sd">        The correct loggers need to be set to debug mode to print the model</span>
+<span class="sd">        debugging information such as matrix shapes.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;zensols.deeplearn.model&#39;</span><span class="p">,</span>
+                     <span class="vm">__name__</span><span class="p">]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_configure_cli_logging</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info_loggers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+                               <span class="n">debug_loggers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+        <span class="n">info_loggers</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
+            <span class="c1"># multi-process (i.e. batch creation)</span>
+            <span class="s1">&#39;zensols.multi.stash&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;zensols.deeplearn.batch.multi&#39;</span><span class="p">,</span>
+            <span class="c1"># validation/training loss messages</span>
+            <span class="s1">&#39;zensols.deeplearn.model.executor.status&#39;</span><span class="p">,</span>
+            <span class="vm">__name__</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="p">:</span>
+            <span class="n">info_loggers</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
+                <span class="c1"># load messages</span>
+                <span class="s1">&#39;zensols.deeplearn.batch.stash&#39;</span><span class="p">,</span>
+                <span class="c1"># save results messages</span>
+                <span class="s1">&#39;zensols.deeplearn.result&#39;</span><span class="p">,</span>
+                <span class="c1"># validation/training loss messages</span>
+                <span class="s1">&#39;zensols.deeplearn.model.executor.progress&#39;</span><span class="p">,</span>
+                <span class="c1"># model save/load</span>
+                <span class="s1">&#39;zensols.deeplearn.model.manager&#39;</span><span class="p">,</span>
+                <span class="c1"># early stop messages</span>
+                <span class="s1">&#39;zensols.deeplearn.model.trainmng&#39;</span><span class="p">,</span>
+                <span class="c1"># performance metrics formatting</span>
+                <span class="s1">&#39;zensols.deeplearn.model.format&#39;</span><span class="p">,</span>
+                <span class="c1"># model packaging</span>
+                <span class="s1">&#39;zensols.deeplearn.model.pack&#39;</span><span class="p">,</span>
+                <span class="c1"># model save messages</span>
+                <span class="s1">&#39;zensols.deeplearn.result.manager&#39;</span><span class="p">,</span>
+                <span class="c1"># observer module API messages</span>
+                <span class="s1">&#39;zensols.deeplearn.observer.status&#39;</span><span class="p">,</span>
+                <span class="c1"># CLI interface</span>
+                <span class="s1">&#39;zensols.deeplearn.cli&#39;</span><span class="p">])</span>
+
+<div class="viewcode-block" id="ModelFacade.configure_default_cli_logging">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.configure_default_cli_logging">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">configure_default_cli_logging</span><span class="p">(</span><span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Configure the logging system with the defaults.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1">[</span><span class="si">%(levelname)s</span><span class="s1">]</span><span class="si">%(name)s</span><span class="s1">: </span><span class="si">%(message)s</span><span class="s1">&#39;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="n">fmt</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">log_level</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.configure_cli_logging">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.configure_cli_logging">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">configure_cli_logging</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&quot;Configure command line (or Python REPL) debugging.  Each facade can</span>
+<span class="sd">        turn on name spaces that make sense as useful information output for</span>
+<span class="sd">        long running training/testing iterations.</span>
+
+<span class="sd">        This calls &quot;meth:`_configure_cli_logging` to collect the names of</span>
+<span class="sd">        loggers at various levels.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">debug</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">log_level</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">configure_default_cli_logging</span><span class="p">(</span><span class="n">log_level</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_configure_cli_logging</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">debug</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">info</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">debug</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.configure_jupyter">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.configure_jupyter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">configure_jupyter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
+                          <span class="n">progress_bar_cols</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">120</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Configures logging and other configuration related to a Jupyter</span>
+<span class="sd">        notebook.  This is just like :py:meth:`configure_cli_logging`, but</span>
+<span class="sd">        adjusts logging for what is conducive for reporting in Jupyter cells.</span>
+
+<span class="sd">        ;param log_level: the default logging level for the logging system</span>
+
+<span class="sd">        :param progress_bar_cols: the number of columns to use for the progress</span>
+<span class="sd">                                  bar</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configure_cli_logging</span><span class="p">(</span><span class="n">log_level</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span>
+                <span class="c1"># turn off loading messages</span>
+                <span class="s1">&#39;zensols.deeplearn.batch.stash&#39;</span><span class="p">,</span>
+                <span class="c1"># turn off model save messages</span>
+                <span class="s1">&#39;zensols.deeplearn.result.manager&#39;</span><span class="p">]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+        <span class="c1"># number of columns for the progress bar</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">executor</span><span class="o">.</span><span class="n">progress_bar_cols</span> <span class="o">=</span> <span class="n">progress_bar_cols</span>
+        <span class="c1"># turn off console output (non-logging)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">writer</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.get_encode_sparse_matrices">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.get_encode_sparse_matrices">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_encode_sparse_matrices</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return whether or not sparse matricies are encoded.</span>
+
+<span class="sd">        :see: :meth:`set_sparse`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">SparseTensorFeatureContext</span><span class="o">.</span><span class="n">USE_SPARSE</span></div>
+
+
+<div class="viewcode-block" id="ModelFacade.set_encode_sparse_matrices">
+<a class="viewcode-back" href="../../../../api/zensols.deeplearn.model.html#zensols.deeplearn.model.facade.ModelFacade.set_encode_sparse_matrices">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_encode_sparse_matrices</span><span class="p">(</span><span class="n">use_sparse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;If called before batches are created, encode all tensors the would be</span>
+<span class="sd">        encoded as dense rather than sparse when ``use_sparse`` is ``False``.</span>
+<span class="sd">        Oherwise, tensors will be encoded as sparse where it makes sense on a</span>
+<span class="sd">        per vectorizer basis.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">SparseTensorFeatureContext</span><span class="o">.</span><span class="n">USE_SPARSE</span> <span class="o">=</span> <span class="n">use_sparse</span></div>
+</div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Paul Landes
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../../_static/documentation_options.js?v=b8a3e558"></script>
+    <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+    </body>
+</html>

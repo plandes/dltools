@@ -1,0 +1,45 @@
+zensols.deeplearn.vectorize package
+===================================
+
+Submodules
+----------
+
+zensols.deeplearn.vectorize.domain module
+-----------------------------------------
+
+.. automodule:: zensols.deeplearn.vectorize.domain
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.vectorize.manager module
+------------------------------------------
+
+.. automodule:: zensols.deeplearn.vectorize.manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.vectorize.util module
+---------------------------------------
+
+.. automodule:: zensols.deeplearn.vectorize.util
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.vectorize.vectorizers module
+----------------------------------------------
+
+.. automodule:: zensols.deeplearn.vectorize.vectorizers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: zensols.deeplearn.vectorize
+   :members:
+   :undoc-members:
+   :show-inheritance:

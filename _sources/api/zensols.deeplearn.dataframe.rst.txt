@@ -1,0 +1,37 @@
+zensols.deeplearn.dataframe package
+===================================
+
+Submodules
+----------
+
+zensols.deeplearn.dataframe.batch module
+----------------------------------------
+
+.. automodule:: zensols.deeplearn.dataframe.batch
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.dataframe.util module
+---------------------------------------
+
+.. automodule:: zensols.deeplearn.dataframe.util
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.deeplearn.dataframe.vectorize module
+--------------------------------------------
+
+.. automodule:: zensols.deeplearn.dataframe.vectorize
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: zensols.deeplearn.dataframe
+   :members:
+   :undoc-members:
+   :show-inheritance:

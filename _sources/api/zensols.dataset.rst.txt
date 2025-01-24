@@ -1,0 +1,69 @@
+zensols.dataset package
+=======================
+
+Submodules
+----------
+
+zensols.dataset.dimreduce module
+--------------------------------
+
+.. automodule:: zensols.dataset.dimreduce
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.dataset.interface module
+--------------------------------
+
+.. automodule:: zensols.dataset.interface
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.dataset.leaveout module
+-------------------------------
+
+.. automodule:: zensols.dataset.leaveout
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.dataset.multilabel module
+---------------------------------
+
+.. automodule:: zensols.dataset.multilabel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.dataset.outlier module
+------------------------------
+
+.. automodule:: zensols.dataset.outlier
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.dataset.split module
+----------------------------
+
+.. automodule:: zensols.dataset.split
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.dataset.stash module
+----------------------------
+
+.. automodule:: zensols.dataset.stash
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: zensols.dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
